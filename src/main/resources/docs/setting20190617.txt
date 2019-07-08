@@ -1,0 +1,205 @@
+####### ROLES
+
+INSERT INTO ROLES
+VALUES('ROLE_USER', 'ROLE USER', now(), now());
+
+INSERT INTO ROLES
+VALUES('ROLE_SELLER', 'ROLE SELLER', now(), now());
+
+INSERT INTO ROLES
+VALUES('ROLE_ADMIN', 'ROLE ADMIN', now(), now());
+
+
+###### CODE
+
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR01' , '장바구니' , 1);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR02' , '입금대기' , 2);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR03' , '결제완료' , 3);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR04' , '배송준비' , 4);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR05' , '배송중' , 5);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR06' , '배송완료' , 6);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR07' , '구매완료' , 7);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR08' , '리뷰작성' , 8);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR09' , '취소' , 9);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR10' , '교환' , 10);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'O100' , 'Order유형코드' , 'OR11' , '환불' , 11);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'P100' , '결제유형코드' , 'CRDT' , '신용카드' , 1);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'P100' , '결제유형코드' , 'DPAY' , '간편결제' , 2);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'CZNBKR' , '국민은행' , 1);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'KOEXKR' , '하나은행' , 2);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'SHBKKR' , '신한은행' , 3);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'NACFKR' , '농협' , 4);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'HVBKKR' , '우리은행' , 5);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'IBKOKR' , 'IBK기업은행' , 6);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'KODBKR' , 'KDB산업은행' , 7);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'KWABKR' , '광주은행' , 8);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'DAEBKR' , '대구은행' , 9);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'PUSBKR' , '부산은행' , 10);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'KYNAKR' , '경남은행' , 11);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'SCBLKR' , 'SC제일은행' , 12);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'B100' , '은행코드' , 'CITIKR' , '한국시티은행' , 13);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '110' , '국민카드' , 1);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '310' , 'BC카드' , 2);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '410' , '신한(LG)카드' , 3);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '510' , '삼성카드' , 4);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '610' , '현대카드, 다이너스카드' , 5);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '710' , '롯데카드, 아메리칸 익스프레스카드' , 6);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '810' , '신한카드' , 7);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '915' , '한미카드' , 8);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '923' , '시티카드' , 9);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '916' , '하나카드' , 10);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '912' , '농협NH카드' , 11);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '913' , '우리카드' , 12);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '918' , '광주카드' , 13);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '920' , '전북카드' , 14);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '925' , '수협카드' , 15);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '2A0' , 'American Express Card' , 16);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '2Y0' , 'Master Card' , 17);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C100' , '카드회사코드' , '2J0' , 'JCB Card' , 18);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C200' , '통화코드' , 'USD' , '미국달러' , 1);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C200' , '통화코드' , 'EUR' , 'EU유로' , 2);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C200' , '통화코드' , 'CNY' , '중국위안' , 3);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C200' , '통화코드' , 'GBP' , '영국파운드' , 4);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C200' , '통화코드' , 'JPY' , '일본엔' , 5);
+INSERT INTO CODE ( ClassCode , ClassName , Code , CodeName , Orders ) VALUES ( 'C200' , '통화코드' , 'KRW' , '한국원' , 6);
+
+#### 상품분류코드
+
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100010' , '티셔츠');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100020' , '블라우스/셔츠');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100030' , '원피스/세트류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100040' , '바지/레깅스');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100050' , '스커트/치마');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100060' , '니트류/조끼');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100070' , '맨투맨/후드집업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100080' , '아우터');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100090' , '패션운동복');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100100' , '비키니/비치웨어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100110' , '빅사이즈 의류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100120' , '속옷/잠옷');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100100' , '여성패션' , '100100130' , '임부복');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200010' , '티셔츠');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200020' , '맨투맨/후드티');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200030' , '셔츠');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200040' , '바지/청바지');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200050' , '트레이닝복');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200060' , '후드집업/집업류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200070' , '스웨터');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200080' , '가디건');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200090' , '베스트/조끼');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200100' , '아우터');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200110' , '속옷/잠옷');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200120' , '빅사이즈 의류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100200' , '남성패션' , '100200130' , '패션 래쉬가드');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100300' , '베이비패션(0~3세)' , '100300010' , '베이비 여아');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100300' , '베이비패션(0~3세)' , '100300020' , '베이비 남아');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100300' , '베이비패션(0~3세)' , '100300030' , '베이비 남녀공용');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100400' , '여아패션(3세 이상)' , '100400010' , '여아 키즈 (3-8세)');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100400' , '여아패션(3세 이상)' , '100400020' , '여아 주니어 (9-17세)');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100500' , '남아패션(3세 이상)' , '100500010' , '남아 키즈 (3-8세)');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100500' , '남아패션(3세 이상)' , '100500020' , '남아 주니어 (9-17세)');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100600' , '스포츠 패션' , '100600010' , '여성스포츠의류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100600' , '스포츠 패션' , '100600020' , '남성스포츠의류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100600' , '스포츠 패션' , '100600030' , '유아스포츠의류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100600' , '스포츠 패션' , '100600040' , '스포츠신발');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100600' , '스포츠 패션' , '100600050' , '스포츠잡화');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700010' , '스니커즈/슬립온');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700020' , '운동화/런닝화');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700030' , '여성단화/플랫');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700040' , '여성하이힐');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700050' , '여성워커/부츠');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700060' , '여성샌들/쪼리');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700070' , '남성로퍼/웰트화');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700080' , '남성정장구두');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700090' , '남성워커/부츠');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700100' , '남성샌들/쪼리');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700110' , '슬리퍼/실내화');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700120' , '기능화');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100700' , '신발' , '100700130' , '깔창/신발끈');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800010' , '여성가방');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800020' , '남성가방');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800030' , '남녀캐주얼가방');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800040' , '여행가방/소품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800050' , '지갑/벨트');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800060' , '양말/스타킹');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800070' , '머플러/스카프/숄');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800080' , '모자');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800090' , '장갑/시즌잡화');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800100' , '넥타이/소품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800110' , '우산/양산/우비');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800120' , '아이웨어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100800' , '가방/잡화' , '100800130' , '시계');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900010' , '여성의류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900020' , '남성의류');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900030' , '속옷');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900040' , '신발');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900050' , '가방');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900060' , '지갑');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900070' , '시계/쥬얼리');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900080' , '벨트');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900090' , '모자');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900100' , '스카프/머플러');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900110' , '안경테/선글라스');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900120' , '넥타이');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '100' , '패션의류/잡화' , '100900' , '명품패션' , '100900130' , '기타패션잡화');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200100' , '명품화장품' , '200100010' , '스킨케어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200100' , '명품화장품' , '200100020' , '메이크업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200100' , '명품화장품' , '200100030' , '향수');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200100' , '명품화장품' , '200100040' , '헤어케어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200100' , '명품화장품' , '200100050' , '바디케어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200100' , '명품화장품' , '200100060' , '남성화장품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200100' , '명품화장품' , '200100070' , '뷰티소품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200200' , '스킨케어' , '200200010' , '기초화장품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200200' , '스킨케어' , '200200020' , '클렌징/필링');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200200' , '스킨케어' , '200200030' , '마스크/팩');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200200' , '스킨케어' , '200200040' , '선케어/태닝');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200300' , '메이크업' , '200300010' , '아이 메이크업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200300' , '메이크업' , '200300020' , '립 메이크업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200300' , '메이크업' , '200300030' , '베이스 메이크업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200300' , '메이크업' , '200300040' , '치크 메이크업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200300' , '메이크업' , '200300050' , '멀티메이크업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200300' , '메이크업' , '200300060' , '바디메이크업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200400' , '향수' , '200400010' , '여성향수');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200400' , '향수' , '200400020' , '남성향수');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200400' , '향수' , '200400030' , '드레스퍼퓸');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200500' , '남성화장품' , '200500010' , '남성스킨케어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200500' , '남성화장품' , '200500020' , '남성메이크업');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200500' , '남성화장품' , '200500030' , '남성화장품세트');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200500' , '남성화장품' , '200500040' , '남성 헤어케어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200500' , '남성화장품' , '200500050' , '남성 바디케어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200500' , '남성화장품' , '200500060' , '남성 쉐이빙 케어');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200600' , '네일' , '200600010' , '큐티클/영양');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200600' , '네일' , '200600020' , '일반네일');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200600' , '네일' , '200600030' , '젤네일');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200600' , '네일' , '200600040' , '네일케어도구');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200600' , '네일' , '200600050' , '네일아트소품/도구');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200600' , '네일' , '200600060' , '네일세트');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200700' , '뷰티소품' , '200700010' , '화장솜/면봉');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200700' , '뷰티소품' , '200700020' , '아이소품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200700' , '뷰티소품' , '200700030' , '페이스소품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200700' , '뷰티소품' , '200700040' , '클렌징소품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200700' , '뷰티소품' , '200700050' , '헤어소품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200700' , '뷰티소품' , '200700060' , '피부관리기');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200700' , '뷰티소품' , '200700070' , '용기/거울/기타소품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200800' , '헤어' , '200800010' , '샴푸');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200800' , '헤어' , '200800020' , '린스/컨디셔너');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200800' , '헤어' , '200800030' , '트리트먼트/팩');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200800' , '헤어' , '200800040' , '헤어에센스/오일');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200800' , '헤어' , '200800050' , '헤어스타일링');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200800' , '헤어' , '200800060' , '헤어세트');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200800' , '헤어' , '200800070' , '염색/파마');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200900' , '바디' , '200900010' , '샤워/입욕용품');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200900' , '바디' , '200900020' , '바디로션/크림');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200900' , '바디' , '200900030' , '핸드/풋/데오');
+INSERT INTO CATEGORIES ( LargeCategoryCode , LargeCategoryName , MidCategoryCode , MidCategoryName , SmallCategoryCode , SmallCategoryName ) VALUES ( '200' , '뷰티' , '200900' , '바디' , '200900040' , '제모/슬리밍/청결제');
+
+
+
+#### USERS (시험용) 
+
+INSERT INTO USERS(USERID, PASSWORD, ENABLED, EMAIL, PHONE, CREATEDATE, UPDATEDATE)
+VALUES('admin', '1004', 1, 'admin@naver.com', '01011112222', now(), now());
+
+
+
+COMMIT;

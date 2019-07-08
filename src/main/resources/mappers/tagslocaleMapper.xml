@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.TagsLocaleDao">
+	<insert id="insertTagsLocale" parameterType="vo.TagsLocaleVo">
+		INSERT INTO TAGSLOCALE(TAGSNAMEEN, TAGSNAMEES, TAGSNAMEZH, TAGSNAMEHI, TAGSNAMEJA, TAGSNAMERU, TAGSNAMEPT, TAGSNAMEKO)
+		VALUES (#{tagsNameEn},#{tagsNameEs},#{tagsNameZh},#{tagsNameHi},#{tagsNameJa},#{tagsNameRu},#{tagsNamePt},#{tagsNameKo})
+	</insert>
+	
+	<select id="idCheck" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS CNT 
+		FROM TAGSLOCALE
+		<if test="column != null"> 
+			WHERE ${column} = #{search}
+		</if>
+	</select>
+	
+	<select id="getTagsLocale" parameterType="hashMap" resultType="vo.TagsLocaleVo">
+		SELECT TAGSID, TAGSNAMEEN, TAGSNAMEES, TAGSNAMEZH, TAGSNAMEHI, TAGSNAMEJA, TAGSNAMERU, TAGSNAMEPT, TAGSNAMEKO 
+		FROM TAGSLOCALE
+		<if test="column != null">
+			WHERE ${column} LIKE '%' || #{search} || '%'
+		</if>
+	</select>
+
+	<insert id="insertProductTags" parameterType="BigInteger">
+		INSERT INTO PRODUCTTAGS(TAGSID, PRODUCTID)
+		VALUES(#{tagsId}, (SELECT MAX(PRODUCTID) FROM PRODUCTS))
+	</insert>
+	
+	<insert id="insertPhotoTags" parameterType="vo.PhotosVo">
+		INSERT INTO PHOTOTAGS
+		VALUES (#{photoId}, #{tagsId})	
+	</insert>
+	
+	<select id="getTagsId" parameterType="hashMap" resultType="BigInteger">
+		SELECT TAGSID
+		FROM TAGSLOCALE
+		WHERE ${column} = #{search}
+	</select>
+	
+	<select id="getTagRank" resultType="vo.TagRankVo">
+		SELECT T.TAGSNAME${value} AS TAG , COUNT(P.TAGSID) AS COUNT 
+		FROM TAGSLOCALE T JOIN PHOTOTAGS P
+		ON T.TAGSID = P.TAGSID
+		GROUP BY T.TAGSNAME${value}
+		ORDER BY COUNT DESC
+	</select>
+	
+	<insert id="insertTagsPriceHistory" parameterType="hashMap">
+		INSERT INTO TAGSPRICEHISTORY
+		SELECT #{baseDate}, TAGSID,  #{currencyCode}, @RANK:=@RANK+1 AS RANK, COUNT*10000 AS PRICE
+		FROM (
+		SELECT T.TAGSID , COUNT(P.TAGSID) AS COUNT
+		FROM TAGSLOCALE T JOIN PHOTOTAGS P
+		ON T.TAGSID = P.TAGSID 
+		GROUP BY T.TAGSID
+		ORDER BY COUNT DESC
+		) A, (SELECT @RANK:=0) R
+	</insert>
+	
+	<insert id="insertTagsPriceFx" parameterType="hashMap">
+		INSERT INTO TAGSPRICEHISTORY
+		SELECT BASEDATE, TAGSID, #{currencyCode}, RANK, FORMAT(PRICE/#{fxRate}, 2) 
+		FROM TAGSPRICEHISTORY
+		WHERE BASEDATE = #{baseDate}
+		AND CURRENCYCODE='KRW';
+	</insert>
+
+
+	<select id="getTagsTable" parameterType="hashMap" resultType="vo.TagsTableVo">
+		<![CDATA[
+			SELECT A.RANK, B.RANK as PREVIOUS , (B.RANK - A.RANK) AS DIFFER,  L.TAGSNAME${language} AS TAGSNAME, A.PRICE
+			FROM
+			(
+				SELECT RANK, TAGSID, PRICE 
+				FROM TAGSPRICEHISTORY
+				WHERE BASEDATE = (SELECT MAX(DISTINCT BASEDATE) FROM TAGSPRICEHISTORY)
+				AND CURRENCYCODE = #{currencyCode}
+			) A JOIN (
+				SELECT RANK, TAGSID, PRICE 
+				FROM TAGSPRICEHISTORY
+				WHERE BASEDATE = (SELECT MAX(DISTINCT BASEDATE) FROM TAGSPRICEHISTORY WHERE BASEDATE < (SELECT MAX(DISTINCT BASEDATE) FROM TAGSPRICEHISTORY))
+				AND CURRENCYCODE = #{currencyCode}
+			) B ON A.TAGSID = B.TAGSID
+			     JOIN TAGSLOCALE L
+			ON A.TAGSID = L.TAGSID
+			ORDER BY A.RANK
+		]]>	
+	</select>
+
+<!-- 	
+	<select id="getTagsTable" parameterType="hashMap" resultType="vo.TagsTableVo">
+		SELECT A.RANK, B.RANK as PREVIOUS , (B.RANK - A.RANK) AS DIFFER,  L.TAGSNAME${language} AS TAGSNAME, A.PRICE
+		FROM
+		(
+			SELECT RANK, TAGSID, PRICE 
+			FROM TAGSPRICEHISTORY
+			WHERE BASEDATE = #{baseDate}
+			AND CURRENCYCODE = #{currencyCode}
+		) A JOIN (
+			SELECT RANK, TAGSID, PRICE 
+			FROM TAGSPRICEHISTORY
+			WHERE BASEDATE = #{previousDate}
+			AND CURRENCYCODE = #{currencyCode}
+		) B ON A.TAGSID = B.TAGSID
+		    JOIN TAGSLOCALE L
+		ON A.TAGSID = L.TAGSID
+		ORDER BY A.RANK
+	</select>
+ -->	
+	
+</mapper>

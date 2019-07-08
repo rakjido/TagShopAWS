@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.empMapper">
+	<insert id="insertEmp">
+		INSERT INTO EMP(EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)
+		VALUES(#{empno}, #{ename}, #{job}, #{mgr}, #{hiredate}, #{sal}, #{comm}, #{deptno})
+	</insert>
+	
+	<select id="getEmpByEmpNo" resultType="vo.EmpVo">
+		SELECT * FROM EMP WHERE EMPNO = #{empno}
+	</select>
+	
+	<select id="getEmpList" resultType="vo.EmpVo">
+		SELECT EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO FROM EMP
+	</select>
+	
+	<update id="updateEmp">
+		UPDATE EMP
+		  SET ENAME=#{ename},
+		      JOB = #{job}, 
+		      MGR = #{mgr},
+		      SAL = #{sal},
+		      COMM = #{comm},
+		      DEPTNO = #{deptno}
+		WHERE EMPNO = #{empno}
+	</update>
+	
+	<delete id="deleteEmp">
+		DELETE FROM EMP WHERE EMPNO = #{EMPNO}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

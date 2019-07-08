@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.PhotosDao">
+
+
+<select id="getAllPhotos" resultType="vo.PhotosVo">
+
+	SELECT * FROM PHOTO WHERE USERID = #{userid} order by PHOTOID desc
+
+</select>
+
+<select id="getLikeCount" resultType="Integer">
+	select IFNULL(sum(l.LikeYn),0) as likecount
+	from photo p join likes l
+	on p.photoid = l.photoid
+	and p.photoid = #{photoid}
+</select>
+
+<select id="getCommentCount" resultType="Integer">
+	select count(photoid) as commentcount 
+	from comments 
+	where photoid= #{photoid}
+</select>
+
+<select id="getFollowerCount" resultType="Integer">
+	select count(followerid) as count 
+	from follower 
+	where usersuserid = #{userid}
+</select>
+
+<select id="getFollowingCount" resultType="Integer">
+	select count(FollowingId) as count 
+	from following 
+	where UsersUserid = #{userid}
+</select>
+
+<select id="getPhotoLikes" resultType="vo.PhotosVo">
+	SELECT P.PHOTOID, P.FILENAME, P.DESCRIPTION, P.REFPHOTOID, P.REFPRODUCTID, P.CREATEDATE, P.UPDATEDATE, L.USERSUSERID, L.LIKEYN, L.BUYYN 
+	FROM PHOTO P JOIN LIKES L 
+	ON P.PHOTOID = L.PHOTOID 
+	WHERE USERSUSERID = #{userid} AND LIKEYN = 1
+	ORDER BY PHOTOID DESC
+</select>
+
+<select id="getPhoto" resultType="vo.PhotosVo">
+	SELECT PHOTOID, FILENAME, DESCRIPTION, REFPHOTOID, REFPRODUCTID, CREATEDATE, 
+			DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, UPDATEDATE, USERID 
+	FROM PHOTO 
+	WHERE PHOTOID = #{photoid}
+</select>
+
+<select id="getAllComments" resultType="vo.CommentsVo">
+	SELECT COMMENTSID, COMMENTS, BUYYN, CREATEDATE, UPDATEDATE, PHOTOID, USERSUSERID 
+	FROM COMMENTS 
+	WHERE PHOTOID = #{photoid}
+	ORDER BY COMMENTSID DESC
+</select>
+
+<select id="getAllCommentsJoin" resultType="vo.CommentsjoinVo">
+	SELECT C.COMMENTSID, C.COMMENTS, C.BUYYN, C.CREATEDATE, DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, 
+			C.UPDATEDATE, C.PHOTOID, C.USERSUSERID, P.PHOTONAME 
+	FROM COMMENTS C JOIN PROFILE P ON C.USERSUSERID = P.USERID 
+	WHERE C.PHOTOID = #{photoid}
+</select>
+
+<select id="getCommentsJoin" parameterType="HashMap" resultType="vo.CommentsjoinVo">
+	SELECT C.COMMENTSID, C.COMMENTS, C.BUYYN, C.CREATEDATE, DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, 
+			C.UPDATEDATE, C.PHOTOID, C.USERSUSERID, P.PHOTONAME 
+	FROM COMMENTS C JOIN PROFILE P ON C.USERID = P.USERID 
+	WHERE C.PHOTOID = #{photoid} AND C.USERSUSERID = #{userid}
+</select>
+
+<select id="getFollowing" parameterType="HashMap" resultType="vo.FollowingVo">
+	SELECT * FROM FOLLOWING 
+	WHERE FOLLOWINGID = #{followingid} AND USERSUSERID = #{usersuserid}
+</select>
+
+<select id="getReposts" resultType="vo.RepostsVo">
+	SELECT PHOTOID, USERSUSERID, BUYYN 
+	FROM REPOSTS 
+	WHERE USERSUSERID = #{userid}
+</select>
+
+<select id="getAllFeedPhotos" resultType="vo.CommentsPhotoIdjoinVo">
+    SELECT *, DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF
+    FROM PHOTO
+    WHERE USERID IN (
+       SELECT FOLLOWINGID
+       FROM FOLLOWING
+       WHERE USERSUSERID= #{userid}
+    )
+    ORDER BY CREATEDATE DESC;
+</select>
+
+<select id="getFeedLikeCount" resultType="vo.FeedLikesVo">
+    SELECT L.PHOTOID, SUM(LIKEYN) AS CNT
+    FROM PHOTO P JOIN LIKES L
+    ON P.PHOTOID = L.PHOTOID
+    WHERE P.USERID IN (
+       SELECT FOLLOWINGID
+       FROM FOLLOWING
+       WHERE USERSUSERID = #{userid}
+    )
+    GROUP BY P.PHOTOID
+    ORDER BY P.CREATEDATE DESC;
+</select>
+
+<insert id="insertLikes" parameterType="vo.LikesVo">
+	INSERT INTO LIKES (PHOTOID, USERSUSERID, LIKEYN, BUYYN) 
+	VALUES (#{photoId},#{usersUserId},#{likeYn},#{buyYn})
+</insert>
+
+<insert id="insertComments" parameterType="vo.CommentsVo">
+	INSERT INTO COMMENTS (COMMENTS, BUYYN, CREATEDATE, UPDATEDATE, PHOTOID, USERSUSERID) 
+	VALUES (#{comments},#{buyYn}, NOW(), NOW(), #{photoId}, #{usersUserid})
+</insert>
+
+<insert id="insertPhotos" parameterType="vo.PhotosVo">
+	INSERT INTO photo (FILENAME, DESCRIPTION, CREATEDATE, UPDATEDATE, USERID) 
+	VALUES (#{fileName}, #{descripTion}, NOW(), NOW(), #{userId})
+</insert>
+
+<insert id="insertFollow" parameterType="vo.FollowingVo">
+	INSERT INTO FOLLOWING(FOLLOWINGID, USERSUSERID) 
+	VALUES(#{FollowingId}, #{UsersUserid});
+</insert>
+
+<insert id="insertReposts" parameterType="HashMap">
+	INSERT INTO REPOSTS
+	VALUES (#{photoid}, #{userid}, #{buyyn});
+</insert>
+
+<insert id="insertRepostsPhotos" parameterType="HashMap">
+	INSERT INTO PHOTO(FILENAME, DESCRIPTION, REFPHOTOID, CREATEDATE, UPDATEDATE, USERID)
+	SELECT FILENAME, #{reposts}, PHOTOID AS REFPHOTOID, NOW(), NOW(), #{userid} AS USERD
+	FROM PHOTO
+	WHERE PHOTOID=#{photoid};
+</insert>
+
+<select id="getLikeCheck" parameterType="HashMap" resultType="vo.LikesVo">
+	SELECT PHOTOID, USERSUSERID, LIKEYN, BUYYN 
+	FROM LIKES 
+	WHERE PHOTOID = #{photoid} AND USERSUSERID = #{userid}
+</select>
+
+<update id="getLikeCheckOk" parameterType="HashMap">
+	UPDATE LIKES
+	SET LIKEYN = #{likeyn}
+	WHERE PHOTOID = #{photoid} AND USERSUSERID = #{userid}
+</update>
+
+<delete id="deleteFollow" parameterType="vo.FollowingVo">
+	DELETE FROM FOLLOWING 
+	WHERE FOLLOWINGID = #{FollowingId} AND USERSUSERID = #{UsersUserid};
+</delete>
+
+<update id="udatePhotoProfile" parameterType="HashMap">	
+	UPDATE PROFILE
+		SET  PHOTONAME = #{fileName}
+	WHERE USERID  = #{userid}
+</update>
+
+</mapper>

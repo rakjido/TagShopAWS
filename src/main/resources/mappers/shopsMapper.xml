@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ShopsDao">
+	<insert id="sellerRegister" parameterType="vo.ShopsVo">
+		INSERT INTO shops
+		(shopid, corporateName, corporateRegisterNumber,
+		brandName,phone,bankAccount,bankCode,createDate,updateDate, enabled,
+		userid)
+		VALUES (#{shopid},
+		#{corporateName},#{corporateRegisterNumber},#{brandName},#{phone},#{bankAccount},#{bankCode},NOW(),
+		NOW(), true, #{userid})
+	</insert>
+
+	<insert id="insertCategories"
+		parameterType="vo.SelectedCategoriesVo">
+		INSERT INTO SelectedCategories (SHOPID,
+		MIDCATEGORYCODE)
+		VALUES (#{shopid}, #{midCategoryCode})
+	</insert>
+
+	<insert id="productsRegister" parameterType="vo.ProductsVo">
+		INSERT INTO Products
+		(title, description, price, photoFile, smallCategoryCode, CreateDate,
+		UpdateDate, shopid)
+		VALUES
+		(#{title},#{description},#{price},#{photoFile},#{smallCategoryCode},NOW(),
+		NOW(),#{shopid})
+	</insert>
+
+	<insert id="productItemRegister">
+		<selectKey order="BEFORE" keyProperty="productid"
+			resultType="BigInteger">
+			SELECT MAX(productid) FROM Products
+		</selectKey>
+		INSERT INTO ProductItem (productid, productName, unitPrice)
+		VALUES
+		(#{productid},#{productName},#{unitPrice})
+	</insert>
+
+	<insert id="optionsSize">
+		<selectKey order="BEFORE" keyProperty="productItemid"
+			resultType="BigInteger">
+			SELECT MAX(productItemid) FROM ProductItem
+		</selectKey>
+		INSERT INTO Options (productItemid, optionType, OptionCode)
+		VALUES
+		(#{productItemid},'SIZE',#{optionCode})
+	</insert>
+
+	<insert id="optionsColor">
+		<selectKey order="BEFORE" keyProperty="productItemid"
+			resultType="BigInteger">
+			SELECT MAX(productItemid) FROM ProductItem
+		</selectKey>
+		INSERT INTO Options (productItemid, optionType, optionCode)
+		VALUES
+		(#{productItemid},'COLOR',#{optionCode2})
+	</insert>
+
+	<select id="productCategories" resultType="vo.ProductsVo">
+		SELECT
+		shopid,title,price,productid,photoFile FROM Products
+	</select>
+
+	<select id="productOrderBy" parameterType="HashMap"
+		resultType="vo.ProductsVo">
+		SELECT shopid,title,price,productid,photoFile, productid FROM Products
+		<if test="column.equals('productidDesc')">
+			order by productid desc
+		</if>
+		<if test="column.equals('priceDesc')">
+			order by price desc
+		</if>
+		<if test="column.equals('priceAsc')">
+			order by price asc
+		</if>
+
+	</select>
+
+	<select id="smallCategories" parameterType="HashMap"
+		resultType="vo.ProductsVo">
+		SELECT shopid,title,price,productid, productid,photoFile
+		FROM Products where smallCategoryCode = #{code}
+	</select>
+
+	<select id="productDetail" resultType="vo.ProductDetailVo">
+		SELECT P.shopid, I.ProductName, I.UnitPrice, I.ProductItemid,P.PhotoFile, P.DESCRIPTION
+		FROM Products P JOIN ProductItem I
+		ON P.productid = I.productid
+		WHERE I.productid = #{productid};
+	</select>
+	
+ 	<select id="getOptions" resultType="vo.OptionsVo">
+		SELECT O.OPTIONTYPE, O.OPTIONCODE
+		FROM OPTIONS O JOIN (SELECT I.PRODUCTITEMID
+							FROM Products P JOIN ProductItem I ON P.productid = I.productid
+							WHERE I.productid = #{productid}) PI ON O.PRODUCTITEMID = PI.PRODUCTITEMID;
+	</select>
+	
+	<select id="getOption" resultType="vo.OptionsVo">
+		SELECT OPTIONTYPE, OPTIONCODE FROM OPTIONS WHERE PRODUCTITEMID = #{productItemid}
+	</select>
+	
+	<delete id="deleteSelectedOption">
+		DELETE FROM SELECTEDOPTION WHERE BUYITEMSID = #{buyItemsId}
+	</delete>
+	
+	<delete id="deleteBuyItems">
+		DELETE FROM BUYITEMS WHERE BUYITEMSID = #{buyItemsId}
+	</delete>
+	
+	<select id="getCategoriesSort" resultType="vo.CategoriesSortVo">
+		SELECT * FROM CATEGORIES
+	</select>
+
+ 	<select id="getCategories" parameterType="HashMap" resultType="vo.CategoriesVo">
+ 		<if test="column.equals('LARGECATEGORYCODE')">
+			SELECT DISTINCT LARGECATEGORYCODE AS CATEGORYCODE, LARGECATEGORYNAME AS CATEGORYNAME
+			FROM CATEGORIES
+		</if>
+		<if test="column.equals('MIDCATEGORYCODE')">
+			SELECT DISTINCT MIDCATEGORYCODE AS CATEGORYCODE, MIDCATEGORYNAME AS CATEGORYNAME
+			FROM CATEGORIES
+			WHERE LARGECATEGORYCODE = #{categoryCode}
+		</if>
+		<if test="column.equals('SMALLCATEGORYCODE')">
+			SELECT DISTINCT SMALLCATEGORYCODE AS CATEGORYCODE, SMALLCATEGORYNAME AS CATEGORYNAME
+			FROM CATEGORIES
+			WHERE MIDCATEGORYCODE = #{categoryCode}
+		</if>
+ 	</select>
+ 	
+ 	<select id="getBankCode" resultType="vo.CodeVo">
+ 		SELECT CODE, CODENAME
+		FROM CODE
+		WHERE CLASSCODE='B100'
+		ORDER BY ORDERS
+ 	</select>
+ 	
+ 	<select id="getCategoryCode" resultType="vo.CategoriesVo">
+ 		SELECT DISTINCT MIDCATEGORYCODE AS CATEGORYCODE, MIDCATEGORYNAME AS CATEGORYNAME
+		FROM CATEGORIES
+ 	</select>
+ 	
+ 	<select id="getShopId" resultType="string">
+ 		SELECT SHOPID 
+ 		FROM SHOPS 
+ 		WHERE USERID= #{userid}
+ 	</select>
+ 	
+ 	<select id="getManagementList" parameterType="HashMap" resultType="vo.ManagementVo">
+	 	SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d %H:%i") AS DATETIMES , P.RECIPIENTNAME, B.USERID, B.DELIVERYFEE, P.POSTALCODE, 
+			  P.ADDRESS1 ||' '|| P.ADDRESS2 AS ADDRESS, B.USEDPOINT, B.PAYTYPECODE, BX.PRODUCTID, BX.PRODUCTNAME, BX.BUYITEMSID, 
+		      BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
+		FROM BASKETS B JOIN (
+							SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
+							FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
+											   JOIN BUYITEMS I ON P.PRODUCTITEMID = I.PRODUCTITEMID
+						) BX ON B.BASKETID = BX.BASKETID
+		               JOIN PROFILE P ON B.USERID = P.USERID
+		WHERE B.CREATEDATE BETWEEN #{fromDate} AND #{toDate}
+		AND BX.ORDERSTATUSCODE !='OR01'
+ 		<if test="orderStatusCode != null">
+			 AND BX.ORDERSTATUSCODE = #{orderStatusCode}
+		</if>
+ 	</select>
+ 	
+ 	<select id="checkname" resultType="Integer">
+		SELECT COUNT(*) AS CNT FROM SHOPS WHERE SHOPID = #{name}
+	</select>
+	
+	<select id = "getOrder" resultType="vo.OrdercodeVo">
+		SELECT I.ORDERSTATUSCODE, COUNT(ORDERSTATUSCODE) AS CNT
+		FROM BASKETS K JOIN BUYITEMS I
+		ON K.BASKETID = I.BASKETID
+		WHERE K.USERID = #{userid}
+		GROUP BY I.ORDERSTATUSCODE;
+	</select>
+	
+	<select id="getOrderList" resultType="vo.MyOrderVo">
+		SELECT Q.PRODUCTNAME, Q.BUYITEMSID, Q.ORDERSTATUSCODE, Q.QUANTITY, Q.UNITPRICE, Q.CREATEDATE, S.PHOTOFILE
+		FROM
+			(SELECT P.PRODUCTID, P.PRODUCTNAME, J.BUYITEMSID, J.ORDERSTATUSCODE, J.QUANTITY, J.UNITPRICE, J.CREATEDATE, J.USERID
+			 FROM PRODUCTITEM P JOIN 
+				(SELECT * 
+			 	 FROM
+			 		(SELECT I.BUYITEMSID, I.BASKETID, I.ORDERSTATUSCODE, I.PRODUCTITEMID, I.QUANTITY, I.UNITPRICE, B.CREATEDATE, B.Userid
+	 		  		 FROM BUYITEMS I JOIN BASKETS B
+	 		  		 ON I.BASKETID = B.BASKETID 
+	 		  		 WHERE I.ORDERSTATUSCODE NOT IN('OR01','OR02')
+			 		)AS OL
+				WHERE USERID=#{userid}) AS J
+			ON P.PRODUCTITEMID = J.PRODUCTITEMID) AS Q
+        JOIN PRODUCTS AS S
+        ON Q.PRODUCTID=S.PRODUCTID;
+	</select>
+ </mapper>

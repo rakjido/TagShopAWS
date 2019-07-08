@@ -1,0 +1,100 @@
+.big_tab ul{overflow: hidden; width: 100%;}
+        .big_tab ul li{width: 33.3%; box-sizing: border-box; float: left; list-style-type: none; border: 1px solid #ccc; text-align: center; line-height: 40px;}
+        .big_tab ul li.activeClass{font-weight: bold; font-size: 20px;}
+        .sm_select {display: none;}
+        .sm_select select {width:100%; height: 40px; }
+        
+        .buttoncolor {background-color : skyblue; height : 50px; min-width: 100px;} 
+
+		.modal-backdrop {
+		    position: fixed;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    z-index: 50;
+		    background-color: white;
+		} 
+        .fixed1 {
+            position:fixed;
+            top:86px;
+            z-index:1000;
+            background-color:white;
+            height:60px;
+            
+        }
+
+        .fixed2 {
+            position:fixed;
+            top:145px;
+            z-index:1000;
+            left:60%;
+            background-color:white;
+        }
+
+        .mybtn{
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #787878;
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+        
+        .filebox label { 
+        display: inline-block; 
+        padding: .5em .75em; 
+        color: #787878; 
+        font-weight: 600;
+        font-size: 14px; 
+        line-height: normal; 
+        vertical-align: middle; 
+        background-color: #fdfdfd; 
+        cursor: pointer; 
+        border: 1px solid #ebebeb; 
+        border-bottom-color: #e2e2e2; 
+        border-radius: .25em; 
+        margin-top: 27px;
+    	margin-left: 10px;
+    	} 
+        .filebox input[type="file"] { 
+        /* 파일 필드 숨기기 */ 
+        position: absolute; 
+        width: 1px; 
+        height: 1px; 
+        padding: 0; 
+        margin: -1px; 
+        overflow: hidden; 
+        clip:rect(0,0,0,0); 
+        border: 0; }
+
+.fullimg{
+        top:0; left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .pr-0{
+    	padding-right:0;
+    	padding-left:0;
+    }
+    
+
+.myselect {
+  width: 200px;
+  padding: .8em .5em;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #999;
+  border-radius: 0px;
+}
+
+myselect::-ms-expand {
+  /* for IE 11 */
+  display: none;
+}
+        

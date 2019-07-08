@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<!-- <package name="kr.or.bit" /> -->
+		<!-- <typeAlias type="vo.EmpVo" alias="empVo"/> -->
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mappers/usersMapper.xml"/>
+		<mapper resource="mappers/authoritiesMapper.xml"/>
+		<mapper resource="mappers/tagslocaleMapper.xml"/>
+		<mapper resource="mappers/buyMapper.xml"/>
+		<mapper resource="mappers/shopsMapper.xml"/>
+		<mapper resource="mappers/profileMapper.xml"/>
+		<mapper resource="mappers/photosMapper.xml"/>
+		<mapper resource="mappers/logsMapper.xml"/>
+	</mappers>
+</configuration>
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BuyDao">
+	<insert id="insertBuyitems" parameterType="hashMap" statementType="CALLABLE">
+		CALL CHECK_INSERT_BASKET(
+					  #{deliveryFee, mode=IN,jdbcType=DOUBLE} 
+					, #{usedPoint, mode=IN,jdbcType=DOUBLE} 
+					, #{userid, mode=IN,jdbcType=VARCHAR} 
+					, #{unitPrice, mode=IN,jdbcType=DOUBLE} 
+					, #{quantity, mode=IN,jdbcType=INTEGER}
+					, 'OR01' 
+					, #{productItemId, mode=IN,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<select id="getBuyitemsId" resultType="BigInteger">
+		SELECT I.BUYITEMSID FROM BASKETS B JOIN BUYITEMS I
+		ON B.BASKETID = I.BASKETID
+		WHERE B.USERID = #{userid}
+		AND I.ORDERSTATUSCODE = 'OR01'
+	</select>
+	
+	<insert id="insertSelectedOption" parameterType="vo.SelectedOptionVo">
+		INSERT INTO SELECTEDOPTION(OPTIONTYPE, OPTIONCODE, BUYITEMSID)
+		VALUES(#{optionType},#{optionCode}, #{buyItemsId})
+	</insert>
+
+	<select id="getBuyitems" resultType="vo.OrderedItemsVo">
+		SELECT PI.SHOPID, PI.PRODUCTID, PI.PRODUCTITEMID, I.BASKETID, I.BUYITEMSID, B.DELIVERYFEE, B.USEDPOINT, 
+		       PI.PRODUCTNAME, PI.PHOTOFILE, I.UNITPRICE, I.QUANTITY, (I.QUANTITY*I.UNITPRICE) AS TOTALPRICE 
+		FROM BUYITEMS I JOIN BASKETS B ON I.BASKETID = B.BASKETID
+						JOIN (
+							SELECT D.SHOPID, D.PRODUCTID, D.PHOTOFILE , P.PRODUCTITEMID, P.PRODUCTNAME
+							FROM PRODUCTS D JOIN PRODUCTITEM P 
+							ON D.PRODUCTID = P.PRODUCTID
+		                ) PI ON I.PRODUCTITEMID = PI.PRODUCTITEMID
+		WHERE B.USERID = #{userid}
+		AND I.ORDERSTATUSCODE='OR01'
+	</select>
+	
+	<select id="getOptions" parameterType="HashMap" resultType="vo.OrderedItemsOptionsVo">
+        SELECT I.BUYITEMSID, O.OPTIONTYPE, O.OPTIONCODE 
+		FROM BUYITEMS I JOIN BASKETS B ON I.BASKETID = B.BASKETID
+						JOIN SELECTEDOPTION O ON I.BUYITEMSID = O.BUYITEMSID
+		WHERE B.USERID = #{userid}
+        AND I.BUYITEMSID = #{buyitemsId}
+		AND I.ORDERSTATUSCODE='OR01'
+	</select>
+
+	<select id="getBankCode" resultType="vo.CodeVo">
+		SELECT CLASSCODE, CLASSNAME, CODE, CODENAME 
+		FROM CODE WHERE CLASSCODE='B100'
+		ORDER BY ORDERS
+	</select>
+	
+	<select id="getPayTypeCode" resultType="vo.CodeVo">
+		SELECT CLASSCODE, CLASSNAME, CODE, CODENAME 
+		FROM CODE WHERE CLASSCODE='P100'
+		ORDER BY ORDERS
+	</select>
+	
+	<update id="updateBakset" parameterType="HashMap">
+		UPDATE BASKETS
+		  SET DELIVERYFEE = #{deliveryFee} 
+		    , USEDPOINT = #{userdPoint} 
+		    , PAYTYPECODE = #{payTypeCode}
+		WHERE BASKETID = #{basketId}
+	</update>
+	
+	<update id="changeOrderStatus" parameterType="HashMap">
+		UPDATE BUYITEMS
+		  SET ORDERSTATUSCODE = #{orderStatusCode}
+		WHERE BASKETID = #{basketId}
+	</update>
+	
+</mapper>

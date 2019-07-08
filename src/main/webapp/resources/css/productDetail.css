@@ -1,0 +1,77 @@
+ .big_tab ul{overflow: hidden; width: 100%;}
+        .big_tab ul li{width: 33.3%; box-sizing: border-box; float: left; list-style-type: none; border: 1px solid #ccc; text-align: center; line-height: 40px;}
+        .big_tab ul li.activeClass{font-weight: bold; font-size: 20px;}
+        .sm_select {display: none;}
+        .sm_select select {width:100%; height: 40px; }
+        
+        .buttoncolor {background-color : skyblue; height : 50px; min-width: 100px;} 
+
+
+        .fixed1 {
+            position:fixed;
+            top:86px;
+            z-index:1000;
+            background-color:white;
+            height:60px;
+            
+        }
+
+        .fixed2 {
+            position:fixed;
+            top:145px;
+            z-index:1000;
+            left:60%;
+            background-color:white;
+        }
+        
+        .pzero{
+            padding:0px;
+        }
+        
+        .w40p{
+        	 width:40px;
+        }
+        
+        .plusbtnback{
+            background : url('/TagShop/resources/img/core-img/plus.png'); 
+            background-size:cover;
+        }
+        .minusbtnback{
+            background : url('/TagShop/resources/img/core-img/minus.png'); 
+            background-size:cover;
+        }
+        .textcenter{
+            text-align:center;
+        }
+        .mb1px{
+            margin-bottom:1px;
+        }
+        .nice-select{
+            -webkit-tap-highlight-color: transparent;
+    background-color: #fff;
+    border-radius: 5px;
+    border: solid 1px #e8e8e8;
+    box-sizing: border-box;
+    clear: both;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: normal;
+    height: 42px;
+    line-height: 40px;
+    outline: none;
+    padding-left: 18px;
+    padding-right: 30px;
+    position: relative;
+    text-align: left !important;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    width: 220px;
+}

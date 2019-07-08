@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ProfileDao">
+
+	<select id="getProfile" resultType="vo.ProfileVo">
+		SELECT USERID, INTRODUCTION, WEBSITE, PHOTONAME, RECIPIENTNAME, ADDRESS1, ADDRESS2, 
+		       POSTALCODE, COUNTRYCODE, DELIVERYMEMO, CARDCOMPANYCODE, CARDNUMBER, CARDPERIOD, 
+		       CVC, CARDPASSWORD, POINT, REPOSTNUMBER 
+		FROM PROFILE WHERE USERID = #{userid}
+	</select>
+	
+	<update id="updateProfile" parameterType="vo.ProfileVo">
+		UPDATE PROFILE
+			 SET  INTRODUCTION = #{introduction}
+			    , WEBSITE = #{website}
+			    , PHOTONAME #{photoName}
+			    , RECIPIENTNAME = #{recipientName}
+			    , ADDRESS1 = #{address1}
+			    , ADDRESS2 = #{address2}
+			    , POSTALCODE = #{postalCode}
+			    , COUNTRYCODE = #{countryCode}
+			    , DELIVERYMEMO =  #{deliveryMemo}
+			    , CARDCOMPANYCODE = #{cardCompanyCode}
+			    , CARDNUMBER = #{cardNumber}
+			    , CARDPERIOD = #{cardPeriod}
+			    , CVC = #{cvc}
+			    , CARDPASSWORD = #{cardPassword}
+			    , POINT = #{point}
+			    , REPOSTNUMBER = #{repostNumber}
+		WHERE USERID  = #{userid}
+	</update>
+	
+		<update id="updateSnsProfile" parameterType="vo.ProfileVo">
+		UPDATE PROFILE
+			 SET  INTRODUCTION = #{introduction}
+			    , WEBSITE = #{website}
+			    , PHOTONAME #{photoName}
+		WHERE USERID  = #{userid}
+	</update>
+	
+
+	<update id="updateShoppingInfo" parameterType="vo.ProfileVo">
+		UPDATE PROFILE
+			 SET  RECIPIENTNAME = #{recipientName}
+			    , ADDRESS1 = #{address1}
+			    , ADDRESS2 = #{address2}
+			    , POSTALCODE = #{postalCode}
+			    , COUNTRYCODE = #{countryCode}
+			    , DELIVERYMEMO =  #{deliveryMemo}
+			    , CARDCOMPANYCODE = #{cardCompanyCode}
+			    , CARDNUMBER = #{cardNumber}
+			    , CARDPERIOD = #{cardPeriod}
+			    , CVC = #{cvc}
+			    , CARDPASSWORD = #{cardPassword}
+			    , POINT = #{point}
+			    , REPOSTNUMBER = #{repostNumber}
+		WHERE USERID  = #{userid}
+	</update>
+	
+	
+	
+	<update id="deductRepostNo" parameterType="String">
+		UPDATE PROFILE
+			SET REPOSTNUMBER = FN_MINUS_REPOST_NO(#{userid})
+		WHERE USERID = #{userid};
+	</update>
+	
+</mapper>

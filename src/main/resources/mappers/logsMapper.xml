@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.LogsDao">
+	<insert id="insertLogs" parameterType="vo.LogsVo">
+		INSERT INTO LOGS(DATETIME, USERID, IPADDRESS, URI)
+		VALUES(NOW(), #{userid}, #{ipAddress}, #{uri})
+	</insert>
+	
+	
+</mapper>

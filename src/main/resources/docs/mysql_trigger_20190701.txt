@@ -1,0 +1,150 @@
+##############################################################
+# FUNCTION
+##############################################################
+
+# REPOST를 1씩 감소시키는 함수
+
+USE TAGSHOP;
+
+SET Global log_bin_trust_function_creators = 'ON';
+
+DELIMITER //
+DROP FUNCTION IF EXISTS FN_MINUS_REPOST_NO;
+CREATE FUNCTION FN_MINUS_REPOST_NO (USER_ID VARCHAR(50)) RETURNS INT(11)
+BEGIN
+	DECLARE result INT default 0;
+	SELECT CASE WHEN REPOSTNUMBER-1 <0 THEN 0 
+				ELSE REPOSTNUMBER-1 
+           END INTO result
+    FROM PROFILE WHERE USERID = USER_ID;
+    RETURN result;
+END //
+
+DELIMITER ;
+
+
+##############################################################
+# TRIGGER
+##############################################################
+
+# NEEDS SUPER PRIVILEGE LIKE ROOT
+# root 권한 필요
+
+
+USE TAGSHOP;
+
+# AUTHORITY INSERT TRIGGER
+DELIMITER //
+DROP TRIGGER IF EXISTS TRG_USR_INSERT_AUTH //
+CREATE TRIGGER TRG_USR_INSERT_AUTH
+AFTER INSERT ON USERS
+FOR EACH ROW
+BEGIN
+	INSERT INTO AUTHORITIES(USERID, EMAIL, AUTHORITY) VALUES(NEW.USERID, NEW.EMAIL,  'ROLE_USER');
+    INSERT INTO PROFILE(USERID, PHOTONAME, POINT, REPOSTNUMBER) VALUES(NEW.USERID, 'default.jpg', 0, 5);
+END//
+
+DELIMITER ;
+
+
+# FOLLWOING INSERT TRIGGER
+DELIMITER //
+DROP TRIGGER IF EXISTS TRG_FOLLOWING_INSERT_FOLLOWER //
+CREATE TRIGGER TRG_FOLLOWING_INSERT_FOLLOWER
+AFTER INSERT ON FOLLOWING
+FOR EACH ROW
+BEGIN
+	INSERT INTO FOLLOWER(FOLLOWERID, USERSUSERID) VALUES(NEW.USERSUSERID, NEW.FOLLOWINGID);
+END//
+
+DELIMITER ;
+
+# FOLLWOING DELETE TRIGGER
+DELIMITER //
+DROP TRIGGER IF EXISTS TRG_FOLLOWING_DELETE_FOLLOWER //
+CREATE TRIGGER TRG_FOLLOWING_DELETE_FOLLOWER
+AFTER DELETE ON FOLLOWING
+FOR EACH ROW
+BEGIN
+	DELETE 
+    FROM FOLLOWER 
+    WHERE FOLLOWERID = OLD.USERSUSERID
+    AND USERSUSERID = OLD.FOLLOWINGID;
+END//
+
+DELIMITER ;
+
+
+SHOW TRIGGERS;
+
+##############################################################
+# Procedure
+##############################################################
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS CHECK_INSERT_BASKET ;
+CREATE PROCEDURE CHECK_INSERT_BASKET (
+	  IN in_delivery_fee double
+    , IN in_used_point double
+    , IN in_userid varchar(50)
+    , IN in_unit_price double
+    , IN in_quantity double
+    , IN in_order_status_code varchar(10)
+    , IN in_product_item_id bigint
+)
+BEGIN
+	DECLARE cnt int(11);
+#    DECLARE basketid bigint;
+    
+    DECLARE exit handler for SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+	END;
+    START TRANSACTION;
+		SET cnt = (
+					SELECT COUNT(*) AS CNT FROM BASKETS B JOIN BUYITEMS I
+					ON B.BASKETID = I.BASKETID
+					WHERE B.USERID = in_userid
+					AND I.ORDERSTATUSCODE = 'OR01'
+		);
+		
+		IF cnt > 0 THEN
+			INSERT INTO BUYITEMS(UNITPRICE, QUANTITY, ORDERSTATUSCODE, BASKETID, PRODUCTITEMID)
+			VALUES(in_unit_price
+                 , in_quantity
+                 , in_order_status_code
+                 , (
+						SELECT MAX(B.BASKETID) AS BASKETID FROM BASKETS B JOIN BUYITEMS I
+						ON B.BASKETID = I.BASKETID
+						WHERE B.USERID = in_userid
+						AND I.ORDERSTATUSCODE = 'OR01'
+                 )
+                 , in_product_item_id);
+			
+		ELSEIF cnt = 0  THEN
+			INSERT INTO BASKETS(DELIVERYFEE, USEDPOINT, PAYTYPECODE, CREATEDATE, UPDATEDATE, USERID)
+			VALUES(in_delivery_fee, in_used_point,  'CRDT', NOW(), NOW(), in_userid);
+
+			INSERT INTO BUYITEMS(UNITPRICE, QUANTITY, ORDERSTATUSCODE, BASKETID, PRODUCTITEMID)
+			VALUES(in_unit_price
+                 , in_quantity
+                 , in_order_status_code
+                 , (
+						SELECT MAX(BASKETID) AS BASKETID FROM BASKETS
+						WHERE USERID=in_userid
+                 )
+                 , in_product_item_id);
+			
+		END IF;
+	COMMIT;
+    
+END//
+DELIMITER ;
+
+COMMIT;
+
+SHOW PROCEDURE STATUS;
+
+# TEST
+# CALL CHECK_INSERT_BASKET(2500, 0, 'ZOZO', 25000, 1, 'OR01',1);
+

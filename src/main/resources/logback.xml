@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                ▶  %-5level %d{yyyy-MM-dd HH:mm:ss} [%logger] @{%method:%line} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="consoleForLoginInterceptor" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                ▷ %-5level %d{yyyy-MM-dd HH:mm:ss} [%logger] @{%method:%line} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+   
+   
+    <!--
+    <property name="LOG_DIR" value="../logs/" /> 
+    -->
+    <property name="LOG_DIR" value="/Users/titan7/Downloads/" />
+    <property name="LOG_PATH_NAME" value="${LOG_DIR}/tagshop" />
+
+    <!-- FILE Appender -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        
+        <!-- 일자별로 로그파일 적용하기 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH_NAME}.%d{yyyyMMdd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>▶ %-5level %d{yyyy-MM-dd HH:mm:ss} [%logger] @{%method:%line} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+   <!--  
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>/Users/titan7/Downloads/instashop.%d{yyyymmdd}.log</file> 
+        <append>true</append>
+        <encoder>
+            <pattern>
+                ▶ %-5level %d{yyyy-MM-dd HH:mm:ss} [%logger] @{%method:%line} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+     -->
+    
+    
+    <logger name="org.springframework" level="info"/>
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+</configuration>
+ 
