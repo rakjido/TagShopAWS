@@ -95,7 +95,7 @@ public class ShopsRestController {
 	
 	@RequestMapping(value="/tagrank", method=RequestMethod.GET)
 	public List<TagRankVo> getTagRank(String country){
-		country = "KO";
+		//country = "KO";
 		return tagsLocaleService.getTagRank(country);
 	}
 	

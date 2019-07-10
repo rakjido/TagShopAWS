@@ -61,7 +61,7 @@
 	
 	<insert id="insertTagsPriceFx" parameterType="hashMap">
 		INSERT INTO TAGSPRICEHISTORY
-		SELECT BASEDATE, TAGSID, #{currencyCode}, RANK, FORMAT(PRICE/#{fxRate}, 2) 
+		SELECT BASEDATE, TAGSID, #{currencyCode}, RANK, ROUND(PRICE/#{fxRate}, 2) 
 		FROM TAGSPRICEHISTORY
 		WHERE BASEDATE = #{baseDate}
 		AND CURRENCYCODE='KRW';

@@ -154,6 +154,11 @@
 	WHERE FOLLOWINGID = #{FollowingId} AND USERSUSERID = #{UsersUserid};
 </delete>
 
+<delete id="deleteRepost" parameterType="HashMap">
+	DELETE FROM REPOSTS 
+	WHERE USERSUSERID = #{userid} AND PHOTOID = #{photoid};
+</delete>
+
 <update id="udatePhotoProfile" parameterType="HashMap">	
 	UPDATE PROFILE
 		SET  PHOTONAME = #{fileName}

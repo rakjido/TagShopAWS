@@ -20,10 +20,10 @@
 
 	<insert id="productsRegister" parameterType="vo.ProductsVo">
 		INSERT INTO Products
-		(title, description, price, photoFile, smallCategoryCode, CreateDate,
+		(title, description, price, photoFile, smallCategoryCode, mainColor, CreateDate,
 		UpdateDate, shopid)
 		VALUES
-		(#{title},#{description},#{price},#{photoFile},#{smallCategoryCode},NOW(),
+		(#{title},#{description},#{price},#{photoFile},#{smallCategoryCode}, #{mainColor}, NOW(),
 		NOW(),#{shopid})
 	</insert>
 
@@ -37,26 +37,16 @@
 		(#{productid},#{productName},#{unitPrice})
 	</insert>
 
-	<insert id="optionsSize">
+ 	<insert id="insertOptions">
 		<selectKey order="BEFORE" keyProperty="productItemid"
 			resultType="BigInteger">
 			SELECT MAX(productItemid) FROM ProductItem
 		</selectKey>
 		INSERT INTO Options (productItemid, optionType, OptionCode)
 		VALUES
-		(#{productItemid},'SIZE',#{optionCode})
+		(#{productItemid},#{optionType},#{optionCode})
 	</insert>
-
-	<insert id="optionsColor">
-		<selectKey order="BEFORE" keyProperty="productItemid"
-			resultType="BigInteger">
-			SELECT MAX(productItemid) FROM ProductItem
-		</selectKey>
-		INSERT INTO Options (productItemid, optionType, optionCode)
-		VALUES
-		(#{productItemid},'COLOR',#{optionCode2})
-	</insert>
-
+	
 	<select id="productCategories" resultType="vo.ProductsVo">
 		SELECT
 		shopid,title,price,productid,photoFile FROM Products
@@ -148,25 +138,25 @@
  		WHERE USERID= #{userid}
  	</select>
  	
- 	<select id="getManagementList" parameterType="HashMap" resultType="vo.ManagementVo">
-	 	SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d %H:%i") AS DATETIMES , P.RECIPIENTNAME, B.USERID, B.DELIVERYFEE, P.POSTALCODE, 
-			  P.ADDRESS1 ||' '|| P.ADDRESS2 AS ADDRESS, B.USEDPOINT, B.PAYTYPECODE, BX.PRODUCTID, BX.PRODUCTNAME, BX.BUYITEMSID, 
-		      BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
-		FROM BASKETS B JOIN (
-							SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
-							FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
-											   JOIN BUYITEMS I ON P.PRODUCTITEMID = I.PRODUCTITEMID
-						) BX ON B.BASKETID = BX.BASKETID
-		               JOIN PROFILE P ON B.USERID = P.USERID
-		WHERE B.CREATEDATE BETWEEN #{fromDate} AND #{toDate}
-		AND BX.ORDERSTATUSCODE !='OR01'
- 		<if test="orderStatusCode != null">
-			 AND BX.ORDERSTATUSCODE = #{orderStatusCode}
-		</if>
- 	</select>
- 	
- 	<select id="checkname" resultType="Integer">
-		SELECT COUNT(*) AS CNT FROM SHOPS WHERE SHOPID = #{name}
+<!--  	<select id="getManagementList" parameterType="HashMap" resultType="vo.ManagementVo">
+         SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d %H:%i") AS DATETIMES , P.RECIPIENTNAME, B.USERID, B.DELIVERYFEE, P.POSTALCODE,
+              P.ADDRESS1 ||' '|| P.ADDRESS2 AS ADDRESS, B.USEDPOINT, B.PAYTYPECODE, BX.PRODUCTID, BX.PRODUCTNAME, BX.BUYITEMSID,
+              BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
+        FROM BASKETS B JOIN (
+                            SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
+                            FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
+                                               JOIN BUYITEMS I ON P.PRODUCTITEMID = I.PRODUCTITEMID
+                        ) BX ON B.BASKETID = BX.BASKETID
+                       JOIN PROFILE P ON B.USERID = P.USERID
+        WHERE B.CREATEDATE BETWEEN #{fromDate} AND #{toDate}
+        AND BX.ORDERSTATUSCODE !='OR01'
+        <if test="orderStatusCode != null">
+             AND BX.ORDERSTATUSCODE = #{orderStatusCode}
+        </if>
+    </select> -->
+    
+    <select id="check_name" resultType="Integer">
+		SELECT COUNT(shopid) FROM shops WHERE shopid = #{name}
 	</select>
 	
 	<select id = "getOrder" resultType="vo.OrdercodeVo">
@@ -194,4 +184,24 @@
         JOIN PRODUCTS AS S
         ON Q.PRODUCTID=S.PRODUCTID;
 	</select>
+	
+	<select id="getManagementList" parameterType="HashMap" resultType="vo.ManagementVo">
+         SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d %H:%i") AS DATETIMES, B.USERID, B.DELIVERYFEE,
+			  BX.PRODUCTNAME,  BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
+        FROM BASKETS B JOIN (
+                            SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
+                            FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
+                                               JOIN BUYITEMS I ON P.PRODUCTITEMID = I.PRODUCTITEMID
+                        ) BX ON B.BASKETID = BX.BASKETID
+                       JOIN PROFILE P ON B.USERID = P.USERID
+        WHERE B.CREATEDATE BETWEEN #{fromDate} AND #{toDate}
+        AND BX.ORDERSTATUSCODE !='OR01'
+        <if test="orderStatusCode != null">
+             AND BX.ORDERSTATUSCODE = #{orderStatusCode}
+        </if>
+    </select>
+    
+    <select id="getSellerList" resultType="vo.ProductsVo">
+       SELECT * FROM PRODUCTS
+   </select>
  </mapper>

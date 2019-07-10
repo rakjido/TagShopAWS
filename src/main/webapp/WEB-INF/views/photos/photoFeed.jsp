@@ -115,7 +115,7 @@
                         <span class="fr66n"><button class="dCJp8">
                             <span class="Share" aria-label="게시물 공유"></span></button></span>
                         <span class="fr66nn"><button class="dCJp8">
-                            <span class="Repost" aria-label="저장"></span></button></span>
+                            <span class="${repostsclass[i] }" aria-label="저장"></span></button></span>
                       </div>
                   <!-- Content Post_interaction_icons -->
     
@@ -125,9 +125,10 @@
                    
                       <div class="likes-user-name">
                         <a href="#">
-                          	${Feedlikes[i].cnt}명
-                        </a>
-                        <span>이 좋아합니다</span>
+                          	<span>${feedlikecount[i]}</span>
+                          	명
+						</a>
+                      	  이 좋아합니다
                       </div>
                     </div>
                   </div>
@@ -182,7 +183,7 @@
                       </div>
                       <section class="sH9wk1">
                             <div class="RxpZH">
-                              <form class="X7cDz" method="POST"><textarea aria-label="댓글 달기..." placeholder="댓글 달기..." class="Ypffh1" autocomplete="off" autocorrect="off"></textarea><button class="_0mzm- sqdOP yWX7d        " disabled="" type="submit">게시</button></form>
+                              <form class="X7cDz" method="POST"><textarea aria-label="댓글 달기..." placeholder="댓글 달기..." id="comment" name="comment" class="Ypffh1" autocomplete="off" autocorrect="off"></textarea><button class="_0mzm- sqdOP yWX7d        " disabled="" type="submit">게시</button></form>
                             </div>
                           </section>
                   <!-- Content Post_content -->

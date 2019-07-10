@@ -4,7 +4,6 @@ package controller;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import service.BuyService;
 import service.ProfileService;
 import service.ShopsService;
+import service.UsersService;
 import vo.CodeVo;
 import vo.OptionListVo;
 import vo.OptionsVo;
@@ -33,6 +32,9 @@ public class UseridRestController {
 	
 	@Autowired
 	private ShopsService service;
+	
+	@Autowired
+	private UsersService userService;
 	
 	@Autowired
 	private BuyService buyService;
@@ -95,7 +97,7 @@ public class UseridRestController {
 	
 	
 	
-	@Transactional
+/*	@Transactional
 	@RequestMapping(value="/{userid}/baskets/{productItemid}", method=RequestMethod.POST)
 	public String addBuyitems(@PathVariable("userid") String userid, @PathVariable("productItemid") BigInteger productItemid 
 			,double unitPrice, int quantity, @ModelAttribute OptionListVo optionListVo) {
@@ -130,7 +132,7 @@ public class UseridRestController {
 			buyService.addSelectedOption(selectedOptionVo);
 		}
 		
-/*		for(int i = 0; i < optionListVo.getOptionList().size(); i++) {
+		for(int i = 0; i < optionListVo.getOptionList().size(); i++) {
 			String str = optionListVo.getOptionList().get(i).getOption();
 
 			String typeStr = str.substring(0,str.lastIndexOf(":")); //color
@@ -143,11 +145,11 @@ public class UseridRestController {
 			optionsVo.setOptionType(typeStr);
 			
 
-		}*/
+		}
 
 		
 		return "redirect:/";
-	}
+	}*/
 	
 	@Transactional
 	@RequestMapping(value="/{userid}/baskets/{buyItemsId}", method=RequestMethod.DELETE)
@@ -158,5 +160,10 @@ public class UseridRestController {
 		return "success";
 	}
 	
+
+	@RequestMapping(value="/users/check", method=RequestMethod.POST)
+	public int check(String userid) {
+		return userService.checkUsersId(userid);
+	}
 
 }

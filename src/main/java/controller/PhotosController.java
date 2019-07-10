@@ -98,7 +98,8 @@ public class PhotosController {
 	public String feed(@PathVariable("userid") String userid,  Model model) {
 
 		List<CommentsPhotoIdjoinVo> photos = photoservice.getAllFeedPhotos(userid);
-		List<FeedLikesVo> Feedlikes = photoservice.getFeedLikeCount(userid);
+		List<PhotosVo> timelinephoto = photoservice.getAllPhotos(userid);
+		List<Integer> feedlikecount = new ArrayList<Integer>();
 		
 		ProfileVo profile = new ProfileVo();
 		ProfileVo Myprofile = profileservice.getProfile(userid);
@@ -107,39 +108,41 @@ public class PhotosController {
 		
 		List<LikesVo> likecheck = new ArrayList<LikesVo>();
 		
-		List<String> photoList = new ArrayList<>();
-		List<List<CommentsjoinVo>> commentList = new ArrayList<>();
+		List<String> photoList = new ArrayList<String>();
+		List<List<CommentsjoinVo>> commentList = new ArrayList<List<CommentsjoinVo>>();
 		List<RepostsVo> reposts = photoservice.getReposts(userid);
-		
-		String repostsclass = null;
+		String temp = "";
+		List<String> repostsclass = new ArrayList<String>();
 		
 		for(int i =0; i < photos.size(); i ++) {
 			profile.setPhotoName(profileservice.getProfile(photos.get(i).getUserId()).getPhotoName());
 			photoList.add(profile.getPhotoName());
 			commentList.add(photoservice.getAllCommentsJoin(photos.get(i).getPhotoId().intValue()));
 			likecheck.add(photoservice.getLikeCheck(userid, photos.get(i).getPhotoId().intValue()));
-/*			for(int j=0; j < reposts.size(); j ++) {
-				System.out.println(String.valueOf(photos.get(i).getPhotoId()).equals(String.valueOf(reposts.get(i).getPhotoId())));
-				if(String.valueOf(photos.get(i).getPhotoId()).equals(String.valueOf(reposts.get(i).getPhotoId()))) {
-					repostsclass = "Repost-black";
+			feedlikecount.add(photoservice.getLikeCount(photos.get(i).getPhotoId().intValue()));
+			System.out.println(reposts.size());
+			for(int j=0; j < reposts.size(); j ++) {
+				if(String.valueOf(photos.get(i).getPhotoId()).equals(String.valueOf(reposts.get(j).getPhotoId()))) {
+					temp = "Repost-black";
 					break;
 				} else {
-					repostsclass = "Repost";
+					temp = "Repost";
 			}
 				
-			}*/
+			}
+			repostsclass.add(temp);
 		}
 		
-				
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("photos", photos);
 		model.addAttribute("anotherphotos", photoList);
-		model.addAttribute("Feedlikes", Feedlikes);
+		model.addAttribute("feedlikecount", feedlikecount);
 		model.addAttribute("profile", Myprofile);
 		model.addAttribute("follower", follower);
 		model.addAttribute("following", following);
 		model.addAttribute("likecheck", likecheck);
 		model.addAttribute("repostsclass", repostsclass);
+		model.addAttribute("timelinephoto", timelinephoto);
 		
 		
 		return "photos/photoFeed";
@@ -272,16 +275,16 @@ public class PhotosController {
 	/* 좋아요 선택, 해제 update ajax */
 	@ResponseBody
 	@RequestMapping(value = "/{userid}/likecheckok", method = RequestMethod.POST)
-	public String getLikeCheckTrue(String userid, int photoid, boolean likeyn) {
+	public int getLikeCheckTrue(String userid, int photoid, boolean likeyn) {
 		
 		System.out.println(userid + photoid + likeyn);
 		
 		int result = photoservice.getLikeCheckOk(userid, photoid, likeyn);
 		
 		if(result != 0) {
-			return "success";
+			return 1;
 		}else {
-			return "false";
+			return 0;
 		}
 		
 	}
@@ -290,12 +293,12 @@ public class PhotosController {
 	@RequestMapping(value = "/{userid}/", method = {RequestMethod.POST, RequestMethod.GET})
 	public String getTimelinePhotos(@PathVariable("userid") String userid, Model model) {
 		
-		List<PhotosVo> photos = photoservice.getAllPhotos(userid);
+		List<PhotosVo> timelinephoto = photoservice.getAllPhotos(userid);
 		ProfileVo profile = profileservice.getProfile(userid);
 		int follower = photoservice.getFollowerCount(userid);
 		int following = photoservice.getFollowingCount(userid);
 		
-		model.addAttribute("photos", photos);
+		model.addAttribute("timelinephoto", timelinephoto);
 		model.addAttribute("profile", profile);
 		model.addAttribute("follower", follower);
 		model.addAttribute("following", following);
@@ -310,6 +313,7 @@ public class PhotosController {
 	public String like(@PathVariable("userid") String userid, Model model) {
 		
 		List<PhotosVo> photoslike = photoservice.getPhotoLikes(userid);
+		List<PhotosVo> timelinephoto = photoservice.getAllPhotos(userid);
 		ProfileVo profile = profileservice.getProfile(userid);
 		int follower = photoservice.getFollowerCount(userid);
 		int following = photoservice.getFollowingCount(userid);
@@ -318,6 +322,7 @@ public class PhotosController {
 		model.addAttribute("profile", profile);
 		model.addAttribute("follower", follower);
 		model.addAttribute("following", following);
+		model.addAttribute("timelinephoto", timelinephoto);
 
 		return "photos/photoLike";
 	}
@@ -326,6 +331,8 @@ public class PhotosController {
 	@ResponseBody
 	@RequestMapping(value = "/{userid}/comments/{photouserid}/{photoid}", method = RequestMethod.POST)
 	public ProfileVo insertComment(@PathVariable("userid") String userid, @PathVariable("photoid") BigInteger photoid, @RequestParam("comment") String comment) {
+		
+
 		
 		commentsvo.setUsersUserid(userid);
 		commentsvo.setPhotoId(photoid);
@@ -450,6 +457,8 @@ public class PhotosController {
 		
 		model.addAttribute("photodetail", photodetail);
 		
+		
+		System.out.println(comments);
 		return "ajaxview/photoRepost";
 	}
 	
@@ -462,7 +471,24 @@ public class PhotosController {
 		return "success";
 	}
 	
-	
+	@RequestMapping(value = "/{userid}/repostsOk/{photouserid}/{photoid}", method = RequestMethod.POST)
+	public String deleteReposts(@PathVariable("photouserid") String photouserid, @PathVariable("userid") String userid, @PathVariable("photoid") int photoid, String timeline) {
+		
+		System.out.println("컨트롤러 탐");
+		
+		System.out.println(timeline);
+		System.out.println(photoid);
+		PhotosVo photosvo = new PhotosVo();
+		
+		if(timeline.equals("timeline")){
+			photosvo = photoservice.getPhoto(photoid);
+			photoservice.deleteRepost(userid, photosvo.getRefPhotoid().intValue());
+		} else {
+			photoservice.deleteRepost(userid, photoid);
+		}
+		
+		return "redirect:/{userid}/";
+	}
 
 
 }

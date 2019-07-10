@@ -888,10 +888,10 @@
   font-size: 15px;
 }
 
-.likes-user-name span {
+/* .likes-user-name span {
   float: left;
   font-size: 15px;
-}
+} */
 
 /* HomePage Content Post_content */
 
@@ -1233,3 +1233,20 @@ a:hover {
 }
 
 /* ##### Instagram Feed End ##### */
+
+
+/* ########### Test Css */
+
+#chat_box {
+    width: 800px;
+    min-width: 800px;
+    height: 500px;
+    min-height: 500px;
+    border: 1px solid black;
+}
+#msg {
+    width: 700px;
+}
+#msg_process {
+    width: 90px;
+}

@@ -31,7 +31,7 @@
 		
 		<p class="product-price">$${vo.unitPrice}</p>
 		<!-- Form -->
-		<form action="${pageContext.request.contextPath}/${sessionScope.userid}/baskets/${vo.productItemid}" class="cart-form clearfix" 
+		<form action="${pageContext.request.contextPath}/users/${sessionScope.userid}/baskets/${vo.productItemid}" class="cart-form clearfix" 
 			method="post" commandName="OptionListVo">
 
 		<!-- Select Box -->

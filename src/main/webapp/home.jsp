@@ -33,6 +33,28 @@
             $(document).ready(function(){
                 var socket = io("http://localhost:82");
                 
+                socket.on('connect', function() {
+					
+                	var name = prompt('반갑습니다.','')
+                	
+                	if(!name) {
+                		name = '익명';
+                	}
+                	socket.emit('newUser',name);
+                	
+         	
+                	socket.on('update', function(data) {
+						console.log(data.name)
+					})
+                
+                    //소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
+                    socket.on('update', function(data) {
+                        //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
+                        $('<div></div>').text(data.name + ' : ' + data.message).appendTo("#chat_box");
+                    });
+				})
+                    
+                	
                 //msg에서 키를 누를떄
                 $("#msg").keydown(function(key){
                     //해당하는 키가 엔터키(13) 일떄
@@ -45,16 +67,11 @@
                 //msg_process를 클릭할 때
                 $("#msg_process").click(function(){
                     //소켓에 send_msg라는 이벤트로 input에 #msg의 벨류를 담고 보내준다.
-                     socket.emit("send_msg", $("#msg").val());
+                     socket.emit("message", {type: 'message', message: $("#msg").val()});
                     //#msg에 벨류값을 비워준다.
                     $("#msg").val("");
                 });
-                
-                //소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
-                socket.on('send_msg', function(msg) {
-                    //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-                    $('<div></div>').text(msg).appendTo("#chat_box");
-                });
+
 
             });
         </script>

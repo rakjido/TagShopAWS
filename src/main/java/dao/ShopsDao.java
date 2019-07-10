@@ -29,9 +29,7 @@ public interface ShopsDao {
 	
 	public void productItemRegister(ProductItemVo productItemVo);
 	
-	public void optionsSize(OptionsVo optionsVo);
-	
-	public void optionsColor(OptionsVo optionsVo);
+	public void insertOptions(OptionsVo optionsVo);
 	
 	public ProductDetailVo productDetail(BigInteger productid);
 	
@@ -61,9 +59,11 @@ public interface ShopsDao {
 	
 	public List<ManagementVo> getManagementList(HashMap<String, String> map);
 	
-	public int checkname(String name);
+	public int check_name(String name);
 	
 	public List<OrdercodeVo> getOrder(String userid);
 	
 	public List<MyOrderVo> getOrderList(String userid);
+	
+	public List<ProductsVo> getSellerList() throws Exception;
 }

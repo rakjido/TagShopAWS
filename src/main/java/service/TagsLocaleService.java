@@ -99,7 +99,6 @@ public class TagsLocaleService {
 		return dao.getTagsId(map);
 	}
 	
-	
 	public List<TagRankVo> getTagRank(String country) {
 		TagsLocaleDao dao = sqlSession.getMapper(TagsLocaleDao.class);
 		return dao.getTagRank(country);

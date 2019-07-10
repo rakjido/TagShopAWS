@@ -48,7 +48,6 @@
             <img src="${pageContext.request.contextPath}/resources/img/bg-img/bg-8.jpg" alt="">
         </div>
         <div class="container">
-        ${list }
             <div class="row justify-content-center">
                 <div class="col-12">
                         <div class="order_status">

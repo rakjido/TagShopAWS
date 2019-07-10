@@ -15,6 +15,7 @@ import vo.CategoriesVo;
 import vo.CodeVo;
 import vo.ManagementVo;
 import vo.MyOrderVo;
+import vo.OptionListVo;
 import vo.OptionsVo;
 import vo.OrdercodeVo;
 import vo.ProductDetailVo;
@@ -28,7 +29,10 @@ public class ShopsService {
 
 	@Autowired
 	private SqlSession sqlSession;
-
+	
+	@Autowired
+	private OptionsVo optionsVo;
+	
 	public void sellerRegister(ShopsVo vo) {
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
 		
@@ -45,16 +49,35 @@ public class ShopsService {
 	}
 	
 	@Transactional
-	public void productsRegister(ProductsVo productsVo, ProductItemVo productItemVo, OptionsVo optionsVo) {
+	public void productsRegister(ProductsVo productsVo, ProductItemVo productItemVo, OptionListVo optionListVo) {
 		
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-		
-		
+
 		dao.productsRegister(productsVo);
 		dao.productItemRegister(productItemVo);
-		System.out.println(optionsVo.toString());
-		dao.optionsColor(optionsVo);
-		dao.optionsSize(optionsVo);
+		
+		
+		for(int i = 0; i < optionListVo.getOptionList().size(); i++) {
+			String str = optionListVo.getOptionList().get(i).getOption();
+			
+			String typeStr = str.substring(0,str.lastIndexOf(":")); //color
+//			String nameStr = str.substring(str.lastIndexOf(":")+2).substring(0,str.substring(str.lastIndexOf(":")+2).length()-1); //blue,red
+			String codeStr = str.substring(str.lastIndexOf(":")+2).replace("}", ""); //blue,red
+			
+			String[] nameArr = codeStr.split(",");
+			
+			for(int j = 0; j < nameArr.length; j++) {
+				
+				optionsVo.setOptionCode(nameArr[j]);
+				optionsVo.setOptionType(typeStr);
+				System.out.println("옵션넣기전 : " + optionsVo.getOptionCode());
+				dao.insertOptions(optionsVo);
+				System.out.println("옵션넣은후");
+			}
+			
+
+		}
+		
 	}
 	
 	public List<ProductsVo> productCategories(){
@@ -139,26 +162,27 @@ public class ShopsService {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("fromDate", fromDate);
 		map.put("toDate", toDate);
-		map.put("orderStatusCode", orderStatusCode);
+//		map.put("orderStatusCode", orderStatusCode);
 		return dao.getManagementList(map);
 	}
 	
 	public int shopidCheck(String name) {
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-		return dao.checkname(name);
+		return dao.check_name(name);
 	}
-
 	
-	public int selectUsername(String name) {
-		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-		return dao.checkname(name);
-	}
 	public List<OrdercodeVo> getOrder(String userid) {
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
 		return dao.getOrder(userid);
 	}
+	
 	public List<MyOrderVo> getOrderList(String userid){
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
 		return dao.getOrderList(userid);
 	}
+	
+	public List<ProductsVo> getSellerList() throws Exception {
+	       ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+	       return dao.getSellerList();
+	   }
 }

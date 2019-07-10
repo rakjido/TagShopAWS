@@ -65,4 +65,6 @@ public interface PhotosDao {
 	public List<CommentsPhotoIdjoinVo> getAllFeedPhotos(String userid);
 	
 	public List<FeedLikesVo> getFeedLikeCount(String userid);
+	
+	public void deleteRepost(HashMap<String, Object> map);
 }

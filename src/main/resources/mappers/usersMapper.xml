@@ -3,7 +3,7 @@
 <mapper namespace="dao.UsersDao">
 	<insert id="insertUsers" parameterType="vo.UsersVo">
 		INSERT INTO USERS (USERID, PASSWORD, ENABLED, EMAIL, PHONE, CREATEDATE, UPDATEDATE)
-		VALUES (#{userid}, #{password}, TRUE, #{email}, #{phone}, NOW(), NOW())
+		VALUES (#{userid}, #{password}, FALSE, #{email}, #{phone}, NOW(), NOW())
 	</insert>
 	
 	<select id="idCheck" resultType="int">
@@ -28,5 +28,17 @@
 			          UPDATEDATE = NOW() 
 		WHERE USERID  = #{userid}
 	</update>
+	
+	<update id="updateKey" parameterType="HashMap">
+        UPDATE USERS
+        SET EMAILKEY = #{emailkey}
+        WHERE USERID = #{userid}
+    </update>
+    
+    <update id = "alter_userKey" parameterType="HashMap">
+        UPDATE USERS
+        SET ENABLED = TRUE
+        WHERE USERID = #{userid} AND EMAILKEY = #{emailkey}
+    </update>
 	
 </mapper>

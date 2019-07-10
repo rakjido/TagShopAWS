@@ -32,7 +32,7 @@ public class FormatUtil {
 	}
 
 	public static String dateFormat(Date date) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 		String dateFormat = df.format(date);
 		return dateFormat;
 

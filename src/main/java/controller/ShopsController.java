@@ -32,6 +32,7 @@ import vo.CategoriesSortVo;
 import vo.CategoriesVo;
 import vo.CodeVo;
 import vo.MyOrderVo;
+import vo.OptionListVo;
 import vo.OptionsVo;
 import vo.OrdercodeVo;
 import vo.ProductDetailVo;
@@ -195,7 +196,7 @@ public class ShopsController {
 	
 	@RequestMapping(value = "/{shopid}/products/new", method = RequestMethod.POST)
 	public String productsReg(@PathVariable("shopid") String shopid,MultipartHttpServletRequest request,
-			ProductsVo productsVo, ProductItemVo productItemVo, OptionsVo optionsVo) throws IllegalStateException, IOException {
+			ProductsVo productsVo, ProductItemVo productItemVo, OptionListVo optionsVo) throws IllegalStateException, IOException {
 		logger.info("[POST] productsReg()");
 
 		//파일
@@ -376,41 +377,6 @@ public class ShopsController {
 	public String addTag(@RequestParam("tags") String tags) {
 		
 		tagsLocaleService.addMultiTags(tags); 
-//		// 해당언어(한국어, 영어등)로 해당 단어가 이미 존재하는지 검사
-//		
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		String origin = GoogleTranslation.detectLanguage(tags);
-//		String tagName = "TagsName" + origin;
-//
-//		map.put("column", tagName);
-//		map.put("search", tags);
-//
-//		if (tagsLocaleService.idCheck(map) == 0) {
-//			String[] languages = { "en", "es", "zh", "hi", "ja", "ru", "pt", "ko" };
-//			for (int i = 0; i < languages.length; i++) {
-//				//origin.equals(languages[i])는 NullPointerror가 발생할 가능성이 있음
-//				String out="";
-//				if(!languages[i].equals(origin)) {
-//					out = GoogleTranslation.autoDetectTranslate(tags, languages[i]);
-//				} else {
-//					out = tags;
-//				}
-//				switch(languages[i]) {
-//					case "en" : tagsLocaleVo.setTagsNameEn(out); break;
-//					case "es" : tagsLocaleVo.setTagsNameEs(out); break;
-//					case "zh" : tagsLocaleVo.setTagsNameZh(out); break;
-//					case "hi" : tagsLocaleVo.setTagsNameHi(out); break;
-//					case "ja" : tagsLocaleVo.setTagsNameJa(out); break;
-//					case "ru" : tagsLocaleVo.setTagsNameRu(out); break;
-//					case "pt" : tagsLocaleVo.setTagsNamePt(out); break;
-//					case "ko" : tagsLocaleVo.setTagsNameKo(out); break;
-//				}
-//			}
-//
-//		}
-//
-//		System.out.println(tagsLocaleVo);
-//		tagsLocaleService.addTags(tagsLocaleVo);
 		
 		return "redirect:/";
 	}
@@ -444,4 +410,5 @@ public class ShopsController {
 		// tagsLocaleService.randomInsertPhotoTag();
 		return "shops/tagRank";
 	}
+	
 }

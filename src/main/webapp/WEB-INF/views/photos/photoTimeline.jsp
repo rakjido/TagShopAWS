@@ -49,7 +49,7 @@
       <div class="photo-grid">
         <div class="container">
           <div class="row">
-          <c:forEach var="photos" items="${photos }">
+          <c:forEach var="photos" items="${timelinephoto }">
             <div class="col-xs-12 col-sm-4 grid photocount">
               <img src="${pageContext.request.contextPath}/uploads/${photos.fileName}" alt="${photos.photoId }" />
             </div>
@@ -66,11 +66,11 @@
       </div>
       </div>
       </div>
-      
+      	<!-- Noesjs Server js -->
       <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script src='https://tympanus.net/Development/ButtonComponentMorph/js/classie.js'></script>
     <script src='https://tympanus.net/Development/ButtonComponentMorph/js/modernizr.custom.js'></script>
-    
+	
         <script src="${pageContext.request.contextPath}/resources/js/instagram.js"></script>
 
 

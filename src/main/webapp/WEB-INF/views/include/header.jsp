@@ -35,10 +35,11 @@
 						    <li><a href="#">Shop</a>
                                 <ul class="dropdown">
                                     <li><a href="${pageContext.request.contextPath}/shops/categories">Shop</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/productList">개인판매자</a></li>
                                     <li><a href="${pageContext.request.contextPath}/${sessionScope.userid}/orders">주문</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/${sessionScope.userid}/myshop">나의 쇼핑</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/management/">판매관리</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/tags">태그의 세계</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/users/googleLogin">TEST</a></li>
                                 </ul>
                             </li>
  
@@ -90,7 +91,7 @@
 					<!-- ##### Mypage Button Start ##### -->
 					<div class="navigation-mypage-btn">
 						<ul class="navigation-user-menu">
-							<li><a href="#">나의 쇼핑</a></li>
+							<li><a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/myshop">나의 쇼핑</a></li>
 							<li><a href="${pageContext.request.contextPath}/shops/new">판매자 신청</a></li>
 							<sec:authorize access="isAnonymous()">
 								<li><a href="${pageContext.request.contextPath}/users/login">로그인</a></li>

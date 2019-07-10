@@ -18,6 +18,7 @@
 		<mapper resource="mappers/profileMapper.xml"/>
 		<mapper resource="mappers/photosMapper.xml"/>
 		<mapper resource="mappers/logsMapper.xml"/>
+		<mapper resource="mappers/performanceMapper.xml"/>
 	</mappers>
 </configuration>
 

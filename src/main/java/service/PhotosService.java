@@ -239,5 +239,18 @@ public class PhotosService {
 		return dao.getFeedLikeCount(userid);
 		
 	}
+	
+	public void deleteRepost(String userid, int photoid) {
+		
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		
+		HashMap<String, Object> repost = new HashMap<String, Object>();
+		
+		repost.put("userid", userid);
+		repost.put("photoid", photoid);
+		
+		dao.deleteRepost(repost);
+		
+	}
 
 }

@@ -28,4 +28,3 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="https://kit.fontawesome.com/3516ad21ac.js"></script>
-    

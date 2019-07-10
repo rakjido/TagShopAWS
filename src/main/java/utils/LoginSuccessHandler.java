@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 import dao.ShopsDao;
 
@@ -30,6 +31,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		String username="";
 		String shopid ="";
+		String logincheck = "success";
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
@@ -43,6 +45,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("userid", username);
+		session.setAttribute("logincheck", logincheck);
 		if(shopid !="") {
 			session.setAttribute("shopid", shopid);
 		}

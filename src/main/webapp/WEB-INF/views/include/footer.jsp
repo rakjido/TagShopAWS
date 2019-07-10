@@ -94,6 +94,9 @@
     <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 	
 	<script src="${pageContext.request.contextPath}/resources/js/basketsAjax.js"></script>
+	
+	<%-- <script src="${pageContext.request.contextPath}/resources/js/nodejs_server.js"></script> --%>
+
 </body>
 
 </html>

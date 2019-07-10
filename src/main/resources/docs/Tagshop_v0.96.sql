@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `tagshop`.`Users` (
   `Enabled` TINYINT NULL,
   `Email` VARCHAR(50) NOT NULL,
   `Phone` VARCHAR(20) NULL,
+  `EmailKey` VARCHAR(50) NULL,
   `CreateDate` DATE NULL,
   `UpdateDate` DATE NULL,
   PRIMARY KEY (`Userid`),
@@ -70,7 +71,7 @@ COLLATE = utf8_bin;
 DROP TABLE IF EXISTS `tagshop`.`Products` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`Products` (
-  `ProductId` BIGINT NOT NULL DEFAULT AUTO_INCREMENT,
+  `ProductId` BIGINT AUTO_INCREMENT,
   `Title` VARCHAR(200) NULL,
   `Description` LONGTEXT NULL,
   `Price` DOUBLE NULL,
@@ -127,11 +128,13 @@ COLLATE = utf8_bin;
 DROP TABLE IF EXISTS `tagshop`.`Photo` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`Photo` (
-  `PhotoId` BIGINT NOT NULL DEFAULT AUTO_INCREMENT,
+  `PhotoId` BIGINT AUTO_INCREMENT,
   `FileName` VARCHAR(50) NULL,
   `Description` VARCHAR(500) NULL,
   `RefPhotoId` BIGINT NULL,
   `RefProductId` BIGINT NULL,
+  `RefShopid` VARCHAR(50) NULL,
+  `RefLink` VARCHAR(100) NULL,
   `CreateDate` DATE NULL,
   `UpdateDate` DATE NULL,
   `Userid` VARCHAR(50) NOT NULL,
@@ -221,7 +224,7 @@ COLLATE = utf8_bin;
 DROP TABLE IF EXISTS `tagshop`.`Comments` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`Comments` (
-  `CommentsId` BIGINT NOT NULL DEFAULT AUTO_INCREMENT,
+  `CommentsId` BIGINT AUTO_INCREMENT,
   `Comments` VARCHAR(200) NULL,
   `BuyYn` TINYINT NULL,
   `CreateDate` DATE NULL,
@@ -252,7 +255,7 @@ COLLATE = utf8_bin;
 DROP TABLE IF EXISTS `tagshop`.`TagsLocale` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`TagsLocale` (
-  `TagsId` BIGINT NOT NULL DEFAULT AUTO_INCREMENT,
+  `TagsId` BIGINT AUTO_INCREMENT,
   `TagsNameEn` VARCHAR(100) NULL,
   `TagsNameEs` VARCHAR(100) NULL,
   `TagsNameZh` VARCHAR(100) NULL,
@@ -321,7 +324,7 @@ COLLATE = utf8_bin;
 DROP TABLE IF EXISTS `tagshop`.`Baskets` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`Baskets` (
-  `BasketId` BIGINT NOT NULL DEFAULT AUTO_INCREMENT,
+  `BasketId` BIGINT AUTO_INCREMENT,
   `DeliveryFee` DOUBLE NULL,
   `UsedPoint` DOUBLE NULL,
   `PayTypeCode` VARCHAR(10) NULL,
@@ -366,7 +369,7 @@ COLLATE = utf8_bin;
 DROP TABLE IF EXISTS `tagshop`.`BuyItems` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`BuyItems` (
-  `BuyItemsId` BIGINT NOT NULL DEFAULT AUTO_INCREMENT,
+  `BuyItemsId` BIGINT AUTO_INCREMENT,
   `UnitPrice` DOUBLE NULL,
   `Quantity` INT NULL,
   `OrderStatusCode` VARCHAR(10) NULL,
@@ -394,7 +397,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tagshop`.`Options` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`Options` (
-  `OptionId` BIGINT NOT NULL DEFAULT AUTO_INCREMENT,
+  `OptionId` BIGINT AUTO_INCREMENT,
   `OptionType` VARCHAR(50) NULL,
   `OptionCode` VARCHAR(50) NULL,
   `ProductItemId` INT NOT NULL,
@@ -414,7 +417,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tagshop`.`SelectedOption` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`SelectedOption` (
-  `OptionId` BIGINT NOT NULL DEFAULT AUTO_INCREMENT,
+  `OptionId` BIGINT AUTO_INCREMENT,
   `OptionType` VARCHAR(5) NULL,
   `OptionCode` VARCHAR(50) NULL,
   `BuyItemsId` BIGINT NOT NULL,
@@ -586,6 +589,18 @@ CREATE TABLE IF NOT EXISTS `tagshop`.`Logs` (
   `Uri` VARCHAR(100) NULL)
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `tagshop`.`Performance` (
+  `BaseDate` VARCHAR(8) NOT NULL,
+  `Users` INT NULL,
+  `Signup` INT NULL,
+  `PhotoViews` INT NULL,
+  `PrdtPhoto` INT NULL,
+  `BuyPhoto` INT NULL,
+  `BuyShop` INT NULL,
+  `Rebuy` INT NULL,
+  `Sales` INT NULL,
+  PRIMARY KEY (`BaseDate`))
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

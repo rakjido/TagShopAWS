@@ -77,7 +77,7 @@
 										<div class="C4VMK">
 											<div class="profile-name-sub">
 												<a class="profile-a" title=""
-													href="${pageContext.request.contextPath}/${comment.usersUserid}/">${comment.usersUserid}</a>
+													href="${pageContext.request.contextPath}/${comment.usersUserId}/">${comment.usersUserId}</a>
 												<span class="RPhNB">${comment.comments}</span>
 												<div class="Igw0E">
 													<div class="PIoXz">
@@ -121,7 +121,7 @@
 						</button></span> <span class="fr66n"><button class="dCJp8">
 							<span class="Share" aria-label="게시물 공유"></span>
 						</button></span> <span class="fr66nn"><button class="dCJp8">
-							<span class="Repost" aria-label="저장"></span>
+							<span class="Repost-black" aria-label="저장"></span>
 						</button></span>
 				</div>
 				

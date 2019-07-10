@@ -57,11 +57,6 @@
           </div>
         </div>
 
-      
-      <div class="load-more">
-        <span>Load More</span>
-      </div>
-      
       </div>
       </div>
       </div>

@@ -8,16 +8,16 @@ import lombok.Data;
 @Data
 public class ManagementVo {
 	String dateTimes;
-	String recipientName;
+//	String recipientName;
 	String userid;
 	double deliveryFee;
-	String postalCode;
-	String address;
-	double usedPoint;
-	String payTypeCode;
-	String productId;
+//	String postalCode;
+//	String address;
+//	double usedPoint;
+//	String payTypeCode;
+//	String productId;
 	String productName;
-	String buyItemsId;
+//	String buyItemsId;
 	double unitPrice;
 	int quantity;
 	String orderStatusCode;

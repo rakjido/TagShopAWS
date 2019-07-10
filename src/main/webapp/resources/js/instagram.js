@@ -45,14 +45,7 @@ $(function() {
 		
 		$('html').on('mouseleave', '.photocount', function() {
 			$(this).removeClass('hover');
-		  $('.overlay').detach();
-		});
-		
-		
-		$('.load-more').on('click', function() {
-		  var latestThree = $('.photo-grid .grid').slice(-3);
-		
-		  latestThree.clone().appendTo('.photo-grid .container .row')
+		  $('.overlay').remove();
 		});
 		
 		/* Photo Popup Detail */
@@ -113,7 +106,25 @@ $(function() {
 	
 
 				
+			$("html").on("propertychange change keyup paste",'.YpffhR', function() {
 				
+				if($.trim($(this).val()) == ""){
+					$('.sqdOPR').attr('disabled', true);
+				}else {
+				    $('.sqdOPR').attr('disabled', false);
+				}
+			
+			});	
+			
+			$("html").on("propertychange change keyup paste",'.Ypffh1', function() {
+				console.log($.trim($(this).val()));
+				if($.trim($(this).val()) == ""){
+					$(this).closest('.RxpZH').find('.sqdOP').attr('disabled', true);
+				}else {
+					$(this).closest('.RxpZH').find('.sqdOP').attr('disabled', false);
+				}
+			
+			});	
 
 			
 			
@@ -196,8 +207,6 @@ $(function() {
 			$(document).on('click', function(e){
 				if($('.lightbox-sub').is(e.target)){
 					$('.lightbox-sub').remove();
-					$('.Repost-black').addClass('Repost');
-					$('.Repost-black').removeClass('Repost-black');
 				}
 			});
 			
@@ -421,8 +430,61 @@ $(function() {
 			}
 			
 			
+			/* feed 댓글 비동기 */
 			
-		
+				$(document).on('click','.sqdOP', function(e) {
+				
+				e.preventDefault();
+				var photoid = $(this).closest('.sH9wk1').closest('.post-interaction').closest('.post').find('.post-image img').attr('alt');
+				var location = $('#url-import').attr('href').split('/');
+				var photouserid = window.location.pathname.split('/');
+				const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+				var comment = $(this).closest('.sH9wk1').find('#comment').val();
+				var temp = $(this).closest('.sH9wk1').closest('.post-interaction');
+				var commentappend = "";
+				$.ajax({
+					url: ctx+"/"+ location[2] +"/comments/"+ photouserid[2] +"/"+ photoid,
+					type: "POST",
+					data: {comment: comment},
+					dataType: "JSON",
+					success : function(data) {
+						console.log(data);
+						commentappend += '<li class="gElp99 " role="menuitem">' +
+                        '<div class="P9YgZ">' +
+                        '<div class="C7I1f ">' +
+                            '<div class="C4VMK">' +
+                                '<h3 class="_6lAjh"><a class="FPmhX" title="'+location[2]+'" href="'+ ctx +'/'+ location[2] +'/">'+location[2]+'</a></h3>' +
+								'<span> '+comment+'</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</li>';
+						
+						$(temp).find('.post-content').append(commentappend);
+						
+						$(temp).find('.Ypffh1').val('');
+						
+						$(temp).find('.sqdOP').attr('disabled', true);
+						
+						$(temp).find('.Ypffh1').focus();
+						
+					},
+					beforeSend : function() {
+						
+						$('.save-bar').show();
+					},
+					complete : function() {
+			
+						$('.save-bar').hide();
+					}
+				});
+				
+			});
+			
+			
+			
+			/* 댓글 비동기 */
+			
 			$(document).on('click','.sqdOP', function(e) {
 				
 				e.preventDefault();
@@ -432,6 +494,7 @@ $(function() {
 				const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 				var comment = $('#comment').val();
 				var commentappend = "";
+				var today = getRecentDate();
 				$.ajax({
 					url: ctx+"/"+ location[2] +"/comments/"+ photouserid +"/"+ photoid,
 					type: "POST",
@@ -467,7 +530,7 @@ $(function() {
 						
 						$('.sqdOP').attr('disabled', true);
 						
-						$( ".Ypffh" ).focus();
+						$(this).closest('.post-interaction').closest('.post').find('.Ypffh1').focus();
 						
 					},
 					beforeSend : function() {
@@ -491,14 +554,13 @@ $(function() {
 				var photouserid = window.location.pathname.split('/');
 				const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 				var repost = $('#repost').val();
-				console.log(repost);
 				$.ajax({
 					url: ctx+"/"+ location[2] +"/reposts/"+ photouserid +"/"+ photoid,
 					type: "POST",
 					data: {repost: repost},
 					success : function(data) {
 						
-						$('.lightbox-sub').remove();
+						window.location.reload();
 						
 					},
 					beforeSend : function() {
@@ -519,84 +581,214 @@ $(function() {
 				var photoid = $('.popup-all-sub img').attr('alt');
 				var likeclass = $('span', this).attr('class');
 				
-				console.log(likeclass);
+				var feedphotoid = $(this).closest('.post-interaction').closest('.post').find('.post-image img').attr('alt');
+				
+				var likecount = parseInt($(this).closest('.post-interaction').find('.likes-display span').text());
+				
 				var useridyou = window.location.pathname.split('/');
 				var location = $('#url-import').attr('href').split('/');
-
+				
+				
+				/* 리포스트 */
 				if(likeclass == 'Repost'){
-
 					const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 					var src = $('.popup-all-sub img').attr('src');
-					var photoid = $('.popup-all-sub img').attr('alt');
 					var location = $('#url-import').attr('href').split('/');
 					var photouserid = window.location.pathname.split('/');
-					var url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+photoid;
 					var profileimg = $('.profile-photo-link img').attr('src');
-
-					console.log(url);
+					var url = "";
+					var photoid = $('.popup-all-sub img').attr('alt');
 					
-					$.ajax({
-						url: url,
-						type: "GET",
-						dataType: "html",
-						success : function(data) {
-							console.log(data);
-							
-							$('#instafeed').append(data);
-							
-							$('.lightbox').remove();
-							
-							$('.Repost').addClass('Repost-black');
-							$('.Repost').removeClass('Repost');
-							
-
-						$('.load-more').on('click', function() {
-							  var latestThree = $('.photo-grid .grid').slice(-3);
-		
-							  latestThree.clone().appendTo('.photo-grid .container .row')
-							});
+					
+					if(useridyou[3] == 'feeds' && location[2] == useridyou[2]){
 						
+						url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+feedphotoid;
 						
-						$('.lightbox-sub i').on('click', function() {
-						  $('.lightbox-sub').remove();
-						  $('.Repost-black').addClass('Repost');
-						$('.Repost-black').removeClass('Repost-black');
-						});
-						
-						$(".Ypffh").on("propertychange change keyup paste", function() {
-							
-							if($.trim($(this).val()) == ""){
-								$('.sqdOP').attr('disabled', true);
-							}else {
-							    $('.sqdOP').attr('disabled', false);
+						$.ajax({
+							url: url,
+							type: "GET",
+							dataType: "html",
+							success : function(data) {
+								
+								$('#instafeed').append(data);
+								
+								$('.lightbox').remove();
+								
+								
+								$('.load-more').on('click', function() {
+									var latestThree = $('.photo-grid .grid').slice(-3);
+									
+									latestThree.clone().appendTo('.photo-grid .container .row')
+								});
+								
+								
+								$('.lightbox-sub i').on('click', function() {
+									$('.lightbox-sub').remove();
+									$('.Repost-black').addClass('Repost');
+									$('.Repost-black').removeClass('Repost-black');
+								});
+								
+								$(".Ypffh").on("propertychange change keyup paste", function() {
+									
+									if($.trim($(this).val()) == ""){
+										$('.sqdOP').attr('disabled', true);
+									}else {
+										$('.sqdOP').attr('disabled', false);
+									}
+									
+								});
+								
 							}
-
 						});
-							
-						}
-					});
+						
+					}else if(location[2] != useridyou[2]){
+						
+						url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+photoid;
+						
+						$.ajax({
+							url: url,
+							type: "GET",
+							dataType: "html",
+							success : function(data) {
+								
+								$('#instafeed').append(data);
+								
+								$('.lightbox').remove();
+								
+								
+								$('.load-more').on('click', function() {
+									var latestThree = $('.photo-grid .grid').slice(-3);
+									
+									latestThree.clone().appendTo('.photo-grid .container .row')
+								});
+								
+								
+								$('.lightbox-sub i').on('click', function() {
+									$('.lightbox-sub').remove();
+									$('.Repost-black').addClass('Repost');
+									$('.Repost-black').removeClass('Repost-black');
+								});
+								
+								$(".Ypffh").on("propertychange change keyup paste", function() {
+									
+									if($.trim($(this).val()) == ""){
+										$('.sqdOP').attr('disabled', true);
+									}else {
+										$('.sqdOP').attr('disabled', false);
+									}
+									
+								});
+								
+							}
+						});
+					}
+						
+						
+						
+
 					
+				}else if(likeclass == 'Repost-black'){
+					
+					const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+					var src = $('.popup-all-sub img').attr('src');
+					var location = $('#url-import').attr('href').split('/');
+					var photouserid = window.location.pathname.split('/');
+					var profileimg = $('.profile-photo-link img').attr('src');
+					var url = "";
+					var photoid = $('.popup-all-sub img').attr('alt');
+					
+					if(location[2] == photouserid[2] && useridyou[3] != 'feeds'){
+					
+						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+photoid;
+						
+						console.log("같음");
+						
+						$.ajax({
+							url: url,
+							type: "POST",
+							data: {timeline: "timeline"},
+							success : function(data) {
+								
+								$('.Repost-black').addClass('Repost');
+								$('.Repost-black').removeClass('Repost-black');
+							}
+						});
+						
+					}else if(useridyou[3] == 'feeds'){
+						
+						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+feedphotoid;
+						
+						$.ajax({
+							url: url,
+							type: "POST",
+							data: {timeline: "feed"},
+							success : function(data) {
+								
+								window.location.reload();
+
+							}
+						});
+						
+					}else{
+						
+						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+photoid;
+						
+						$.ajax({
+							url: url,
+							type: "POST",
+							data: {timeline: "feed"},
+							success : function(data) {
+								
+								$('.Repost-black').addClass('Repost');
+								$('.Repost-black').removeClass('Repost-black');
+								
+							}
+						});
+						
+					}
+						
 
 					
 				}else if(likeclass == 'Comment'){
 					
 					$( ".Ypffh" ).focus();
+					$(this).closest('.post-interaction').closest('.post').find('.Ypffh1').focus();
 					
-				}else if(likeclass == 'Heart' && useridyou[3] == 'likes' || likeclass == 'Heart' && location[2] != useridyou[2]){
-						
-						$('span', this).addClass('Heart-black');
-						$('span', this).removeClass('Heart');
-						
-						likecheckok(location[2], photoid, true);
+				}else if(likeclass == 'Heart' && useridyou[3] == 'likes' || likeclass == 'Heart' && location[2] != useridyou[2] || likeclass == 'Heart' && useridyou[3] == 'feeds'){
+						if(likeclass == 'Heart' && useridyou[3] == 'feeds'){
+							
+							$('span', this).addClass('Heart-black');
+							$('span', this).removeClass('Heart');
+							
+							$(this).closest('.post-interaction').find('.likes-display span').text(likecount+1);
+							
+							likecheckok(location[2], feedphotoid, true);
+							
+						}else{
+							
+							$('span', this).addClass('Heart-black');
+							$('span', this).removeClass('Heart');
+							
+							likecheckok(location[2], photoid, true);
+						}
 						
 					
 				
-				}else if (likeclass == 'Heart-black' && useridyou[3] == 'likes' || likeclass == 'Heart-black' && location[2] != useridyou[2]) {
-						
-						$('span', this).addClass('Heart');
-						$('span', this).removeClass('Heart-black');
-						
-						likecheckok(location[2], photoid, false);
+				}else if (likeclass == 'Heart-black' && useridyou[3] == 'likes' || likeclass == 'Heart-black' && location[2] != useridyou[2] || likeclass == 'Heart-black' && useridyou[3] == 'feeds') {
+						if(likeclass == 'Heart-black' && useridyou[3] == 'feeds'){
+							$('span', this).addClass('Heart');
+							$('span', this).removeClass('Heart-black');
+							
+							$(this).closest('.post-interaction').find('.likes-display span').text(likecount-1);
+							
+							likecheckok(location[2], feedphotoid, false);
+						}else{
+							
+							$('span', this).addClass('Heart');
+							$('span', this).removeClass('Heart-black');
+							
+							likecheckok(location[2], photoid, false);
+						}
 				}
 
 			});
@@ -683,11 +875,6 @@ $(function() {
 								$('.lightbox i').on("click", function(e){
 								    $('.lightbox').remove(); 
 							});
-							$('.load-more').on('click', function() {
-								  var latestThree = $('.photo-grid .grid').slice(-3);
-			
-								  latestThree.clone().appendTo('.photo-grid .container .row')
-								});
 								
 							},
 							beforeSend : function() {
@@ -738,7 +925,8 @@ $(function() {
 					type: "POST",
 					data: {userid: userid, photoid: photoid, likeyn: likeyn},
 					success : function(data) {
-						console.log(data);
+						
+						
 					}
 				})
 			}

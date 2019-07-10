@@ -22,7 +22,6 @@
 		</div>
 	</section>
 	<!-- ##### Welcome Area End ##### -->
-
 	<!-- ##### Top Catagory Area Start ##### -->
 	<div class="top_catagory_area section-padding-80 clearfix">
 		<div class="container">
@@ -34,9 +33,13 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/bg-2.jpg);">
 						<div class="catagory-content">
 							<a href="#">Clothing</a>
+
 						</div>
 					</div>
 				</div>
+				
+
+				
 				<!-- Single Catagory -->
 				<div class="col-12 col-sm-6 col-md-4">
 					<div
@@ -91,7 +94,7 @@
 						<li data-category="frameworks">#빈티지</li>
 						<li data-category="software">#놈코어</li>
 						<li data-category="workflow">#모던</li>
-
+							
 					</ul>
 				</div>
 			</div>

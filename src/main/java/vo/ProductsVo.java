@@ -15,9 +15,9 @@ public class ProductsVo {
 	private String title;
 	private String description;
 	private double price;
-	
 	private String photoFile;
 	private String smallCategoryCode;
+	private String mainColor;
 	private Date createDate;
 	private Date UpdateDate;
 	private String shopid;
