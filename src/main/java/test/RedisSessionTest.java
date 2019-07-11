@@ -1,10 +1,17 @@
 package test;
 
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-public class RedisTest {
+public class RedisSessionTest {
+
 	public static void main(String[] args) {
 		
 		String IP = "localhost";
@@ -19,7 +26,7 @@ public class RedisTest {
 		Jedis jedis = pool.getResource();
 		
 		jedis.set("NAME", "YUNJIN");
-		
+	
 		System.out.println(jedis.get("NAME"));
 		
 		

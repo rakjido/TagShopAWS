@@ -49,6 +49,8 @@
 	<tx:annotation-driven/>
 	
 	<!-- Redis -->
+	
+
 <!-- 	
 	 <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig"
           p:maxIdle="300" p:maxWaitMillis="1000" p:testOnBorrow="true">
