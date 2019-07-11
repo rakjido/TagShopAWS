@@ -27,13 +27,13 @@ import service.AuthoritiesService;
 import service.BuyService;
 import service.ShopsService;
 import service.TagsLocaleService;
+import utils.VisionUtil;
 import vo.AuthoritiesVo;
 import vo.CategoriesSortVo;
 import vo.CategoriesVo;
 import vo.CodeVo;
 import vo.MyOrderVo;
 import vo.OptionListVo;
-import vo.OptionsVo;
 import vo.OrdercodeVo;
 import vo.ProductDetailVo;
 import vo.ProductItemVo;
@@ -214,6 +214,13 @@ public class ShopsController {
 		    if(mf.getSize() != 0) {	    	
 		    	mf.transferTo(new File(uploadPath+"/"+fileName));	 
 		    	productsVo.setPhotoFile(fileName);
+		    	try {
+					String color = VisionUtil.detectDominantColor(uploadPath+"/"+fileName);
+					System.out.println("color : " + color.toUpperCase());
+					productsVo.setMainColor(color.toUpperCase());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 		    }   
 		}
 		
