@@ -16,6 +16,8 @@ public class PhotosVo {
 	private String descripTion;
 	private BigInteger refPhotoid;
 	private BigInteger refProductid;
+	private String refShopid;
+	private String refLink;
 	private Date createDate;
 	private String dateDiff;
 	private Date updateDate;

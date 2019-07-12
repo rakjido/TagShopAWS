@@ -603,6 +603,26 @@ CREATE TABLE IF NOT EXISTS `tagshop`.`Coordinates` (
 ENGINE = InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_bin;
 
 
+
+-- -----------------------------------------------------
+-- Table `tagshop`.`Weights`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tagshop`.`Weights` ;
+
+CREATE TABLE IF NOT EXISTS `tagshop`.`Weights` (
+  `WeightsId` BIGINT NOT NULL AUTO_INCREMENT,
+  `BaseDate` VARCHAR(8) NOT NULL,
+  `wLinks` DOUBLE NULL DEFAULT 0.0,
+  `wBuyLinks` DOUBLE NULL DEFAULT 0.0,
+  `wComments` DOUBLE NULL DEFAULT 0.0,
+  `wBuyCmts` DOUBLE NULL DEFAULT 0.0,
+  `wRepost` DOUBLE NULL DEFAULT 0.0,
+  `wFollowing` DOUBLE NULL DEFAULT 0.0,
+  PRIMARY KEY (`WeightsId`, `BaseDate`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

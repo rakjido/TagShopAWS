@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UsersDao">
 	<insert id="insertUsers" parameterType="vo.UsersVo">
-		INSERT INTO USERS (USERID, PASSWORD, ENABLED, EMAIL, PHONE, CREATEDATE, UPDATEDATE)
-		VALUES (#{userid}, #{password}, FALSE, #{email}, #{phone}, NOW(), NOW())
-	</insert>
+        INSERT INTO USERS (USERID, PASSWORD, ENABLED, EMAIL, PHONE, CREATEDATE, UPDATEDATE)
+        VALUES (#{userid}, #{password}, FALSE, #{email}, #{phone}, NOW(), NOW())
+    </insert>
 	
 	<select id="idCheck" resultType="int">
 		SELECT COUNT(*) AS CNT FROM USERS WHERE USERID = #{userid}
@@ -36,9 +36,9 @@
     </update>
     
     <update id = "alter_userKey" parameterType="HashMap">
-        UPDATE USERS
-        SET ENABLED = TRUE
-        WHERE USERID = #{userid} AND EMAILKEY = #{emailkey}
-    </update>
+       UPDATE USERS
+       SET ENABLED = TRUE
+       WHERE USERID = #{userid} AND EMAILKEY = #{emailkey}
+   </update>
 	
 </mapper>

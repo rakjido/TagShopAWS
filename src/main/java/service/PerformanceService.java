@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import dao.PerformanceDao;
 import vo.PerformanceVo;
+import vo.RankingVo;
+import vo.ViewParamsVo;
+import vo.WeightsVo;
 
 @Service
 public class PerformanceService {
@@ -29,4 +32,25 @@ public class PerformanceService {
 		map.put("toDate", toDate);
 		return dao.getPerformance(map);
 	}
+	
+	public void insertViewParams() {
+		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
+		dao.insertViewParams();
+	}
+	
+	public List<ViewParamsVo> getNormalizedParams(String baseDate) {
+		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
+		return dao.getNormalizedParams(baseDate);
+	}
+	
+	public List<RankingVo> getRanking(WeightsVo vo) {
+		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
+		return dao.getRanking(vo);
+	}
+
+	public void insertWeights(WeightsVo vo) {
+		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
+		dao.insertWeights(vo);
+	}
+
 }

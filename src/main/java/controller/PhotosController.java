@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import net.sf.json.JSONArray;
 import service.PhotosService;
 import service.ProfileService;
+import service.ShopsService;
 import service.UsersService;
 import vo.CommentsPhotoIdjoinVo;
 import vo.CommentsVo;
@@ -31,7 +35,9 @@ import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
+import vo.PhotoRegisterVo;
 import vo.PhotosVo;
+import vo.ProductsVo;
 import vo.ProfileVo;
 import vo.RepostsVo;
 import vo.UsersVo;
@@ -76,7 +82,11 @@ public class PhotosController {
 	@Autowired
 	private FeedLikesVo feelikesvo;
 	
+	@Autowired
+	private RedisTemplate<String, String> redisTemplate;
 	
+	@Autowired
+	private ShopsService shopsService;
 	/*
      * @method name : feed
      *
@@ -157,7 +167,7 @@ public class PhotosController {
 	
 	/* 사진올리기 */
 	@RequestMapping(value = "/{userid}/photos", method = RequestMethod.POST)
-	public String photoUpload(@PathVariable("userid") String userid, PhotosVo photosvo, MultipartHttpServletRequest request) throws UnsupportedEncodingException {
+	public String photoUpload(@PathVariable("userid") String userid, PhotosVo photosvo, PhotoRegisterVo photoRegisterVo,MultipartHttpServletRequest request) throws UnsupportedEncodingException {
 		
 		MultipartFile mf = request.getFile("file");
 		if(mf != null) {
@@ -182,11 +192,22 @@ public class PhotosController {
 		    	photosvo.setUserId(userid);
 		    }   
 		}
-		
-			System.out.println(photosvo);
+		if(photoRegisterVo.getAx1() != "Ax1") {
+			String[] arrayA = photoRegisterVo.getARefLink().split("/");
+			String[] arrayB = photoRegisterVo.getBRefLink().split("/");
+			System.out.println(photoRegisterVo.getAx1());
+			photoRegisterVo.setARefProductId(BigInteger.valueOf(Integer.parseInt(arrayA[7])));
+			photoRegisterVo.setBRefProductId(BigInteger.valueOf(Integer.parseInt(arrayB[7])));
+			
+			photoRegisterVo.setARefShopid(arrayA[5]);
+			photoRegisterVo.setBRefShopid(arrayB[5]);
+			
 			int result = photoservice.insertPhotos(photosvo);
-		
-		
+			photoservice.insertCoordinates(photoRegisterVo);
+			
+		} else {
+			int result = photoservice.insertPhotos(photosvo);
+		} 
 		return "redirect:/{userid}/";
 	}
 	
@@ -202,6 +223,18 @@ public class PhotosController {
 		Map<String,Object> photodetail = new HashMap<String,Object>();
 		List<RepostsVo> reposts = photoservice.getReposts(userid);
 		
+		
+		HashMap<String,BigInteger> productMap = new HashMap<String, BigInteger>();
+		PhotoRegisterVo coordinates = photoservice.getCoordinates(photoid);
+		
+		productMap.put("productid1", coordinates.getARefProductId());
+		productMap.put("productid2", coordinates.getBRefProductId());
+		
+		coordinates.setYAvg(Integer.parseInt(coordinates.getAy1())+(Integer.parseInt(coordinates.getAy2())-Integer.parseInt(coordinates.getAy1()))/2);
+		coordinates.setXAvg(Integer.parseInt(coordinates.getAx1())+(Integer.parseInt(coordinates.getAx2())-Integer.parseInt(coordinates.getAx1()))/2);
+		coordinates.setYBvg(Integer.parseInt(coordinates.getBy1())+(Integer.parseInt(coordinates.getBy2())-Integer.parseInt(coordinates.getBy1()))/2);
+		coordinates.setXBvg(Integer.parseInt(coordinates.getBx1())+(Integer.parseInt(coordinates.getBx2())-Integer.parseInt(coordinates.getBx1()))/2);
+		List<ProductsVo> productList = shopsService.getPhotoProduct(productMap);
 		String repostsclass = null;
 		
 		if(userid.equals(photouserid)){
@@ -235,8 +268,12 @@ public class PhotosController {
 		photodetail.put("reposts", reposts);
 		photodetail.put("repostsclass", repostsclass);
 		
+		JSONArray jsonArray = new JSONArray();
 		
+		model.addAttribute("productList", jsonArray.fromObject(productList));
 		model.addAttribute("photodetail", photodetail);
+		model.addAttribute("coordinates", coordinates);
+
 		
 		return "ajaxview/photoDetail";
 	}
@@ -291,7 +328,24 @@ public class PhotosController {
 	
 	/* 타임라인 페이지 */
 	@RequestMapping(value = "/{userid}/", method = {RequestMethod.POST, RequestMethod.GET})
-	public String getTimelinePhotos(@PathVariable("userid") String userid, Model model) {
+	public String getTimelinePhotos(@PathVariable("userid") String userid,Model model) {
+		
+		String value = redisTemplate.opsForValue().get(userid);
+		Set<String> keys = redisTemplate.keys("*");
+		
+		for (String key : keys) {
+			System.out.println(key);
+			//redisTemplate.delete(key);
+		}
+		
+		String connectcheck = "";
+		if(value != null) {
+			System.out.println("널 아님" + value);
+			connectcheck = "connecting";
+		}else {
+			System.out.println("널 임" + value);
+			connectcheck = "nonconnect";
+		}
 		
 		List<PhotosVo> timelinephoto = photoservice.getAllPhotos(userid);
 		ProfileVo profile = profileservice.getProfile(userid);
@@ -302,6 +356,7 @@ public class PhotosController {
 		model.addAttribute("profile", profile);
 		model.addAttribute("follower", follower);
 		model.addAttribute("following", following);
+		model.addAttribute("connectcheck", connectcheck);
 		
 
 		return "photos/photoTimeline";
@@ -489,6 +544,14 @@ public class PhotosController {
 		
 		return "redirect:/{userid}/";
 	}
-
+	
+	@RequestMapping(value = "/{userid}/chats/{photouserid}", method = RequestMethod.GET)
+	public String getChat() {
+		
+		
+		return "ajaxview/PhotoChat";
+	}
+	
+	
 
 }

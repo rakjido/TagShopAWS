@@ -97,4 +97,24 @@ myselect::-ms-expand {
   /* for IE 11 */
   display: none;
 }
-        
+
+#preview{
+            z-index: 9999;
+            position:absolute;
+            border:3px solid #ccc; 
+            background:#ffffff;
+            padding:1px;
+            display:none;
+            color:#fff;
+        }
+ 
+
+#preview2{
+            z-index: 9999;
+            position:absolute;
+            border:3px solid #ccc; 
+            background:#ffffff;
+            padding:1px;
+            display:none;
+            color:#fff;
+        }

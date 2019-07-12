@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modify.css">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
     
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
@@ -34,13 +36,7 @@
 				})
 			});
 			
-		});
 		
-		
-		
-		
-		
-		$(function() {
 			 /* 아이디 정규식 (숫자,영어 3-15글자) */
 			$("#signup-input_text_instaid").on("propertychange change keyup paste", function() {
 	           console.log($('#signup-input_text_instaid').val());
@@ -114,10 +110,6 @@
 			 
 		})
 
-		
-		
-		
-		
 	</script>
     
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -141,7 +133,6 @@
               <div class="icon-btn">
                 <button type="button" class="signup-icon-btn-google">
                     <i class="mdi mdi-google signup-icon-text icon-color-google"></i>
-                    
                 </button>
               </div>
               <div class="icon-btn">
@@ -221,6 +212,8 @@
 	            <div style='position:absolute'>
 	              <span id='phone' style='font-size:14px'></span>
 	            </div>
+	            <!-- 자동가입 방지 시작-->
+	            <div class="g-recaptcha recaptcha-sub" data-sitekey="6LeNoKgUAAAAAN-RzLgagTZZYfcaVOcY_8ThYYD3"></div>
 	            
 	            <p id="has-account">이미 아이디가 있으신가요?<a class="signup-signin-text" href="${pageContext.request.contextPath}/users/login">로그인</a></p>
 	            <div class="signup-btn">
@@ -228,13 +221,13 @@
 	                  <div class="v-btn__content">회원가입</div>
 	                </button>
 	            </div>
-            
             </form>
-            
           </div>
         </div>
       </div>
     </div>
+    <script src="${pageContext.request.contextPath}/resources/js/Googlerecapcha.js"></script>
     <!-- ##### sign-in, sign-up End #####-->
     
     <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+    

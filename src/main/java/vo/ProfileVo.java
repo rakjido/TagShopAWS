@@ -17,11 +17,6 @@ public class ProfileVo {
 	private String postalCode;
 	private String countryCode;
 	private String deliveryMemo;
-	private String cardCompanyCode;
-	private String cardNumber;
-	private String cardPeriod;
-	private String cvc;
-	private String cardPassword;
 	private int point;
 	private int repostNumber;
 }

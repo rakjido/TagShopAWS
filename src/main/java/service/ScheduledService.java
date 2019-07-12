@@ -1,6 +1,8 @@
 package service;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -9,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import utils.DateUtil;
 import utils.FormatUtil;
+import vo.RankingVo;
+import vo.ViewParamsVo;
+import vo.WeightsVo;
 
 @Service
 public class ScheduledService {
@@ -18,6 +23,12 @@ public class ScheduledService {
 	
 	@Autowired
 	private TagsLocaleService tagsLocaleService;
+	
+	@Autowired
+	private ViewParamsVo viewParamsVo;
+	
+	@Autowired
+	private WeightsVo weightsVo;
 	
    // 매일 새벽 1시 전날의 매출등 performance 집계 	
 	@Scheduled(cron= "0 0 01 * * *")
@@ -43,37 +54,37 @@ public class ScheduledService {
 		tagsLocaleService.insertTagsPriceFx(baseDate, "BRL", 310);
 	}
 
-	// 매월말 검색순위 weight 조정 
-//	@Scheduled(cron= "0 0 23 28-31 * ?")
-//	public void test5() {
-//		final Calendar cal = Calendar.getInstance();
-//		if(cal.get(Calendar.DATE) == cal.getActualMaximum(Calendar.DATE)) {
+	// 매월말   
+	@Scheduled(cron= "0 0 23 28-31 * ?")
+	public void getParams() {
+		final Calendar cal = Calendar.getInstance();
+		if(cal.get(Calendar.DATE) == cal.getActualMaximum(Calendar.DATE)) {
+		
+		//검색순위 parameter계산
+		performanceService.insertViewParams();
+		
+		//#일종의 정규화 : 변수의 최대값이 1이 되도록 조정  
+		String baseDate = "20190710";
+		List<ViewParamsVo> voList=performanceService.getNormalizedParams(baseDate);
+		for (ViewParamsVo vo : voList) {
+			System.out.println(vo.toString());
+		}
+		
+		// ranking 구하기
+		weightsVo.setBaseDate("20190710");
+		weightsVo.setWLikes(1.0);
+		weightsVo.setWBuyLikes(2.0);
+		weightsVo.setWComments(1.0);
+		weightsVo.setWBuyCmts(2.0);
+		weightsVo.setWRepost(2.0);
+		List<RankingVo> rankingVoList = performanceService.getRanking(weightsVo);
+		for (RankingVo rankingVo : rankingVoList) {
+			System.out.println(rankingVo.toString());
+		}
+		
 
-//	CREATE OR REPLACE VIEW  VIEW_PARAMS AS
-//	SELECT P.PHOTOID, SUM(L.LIKEYN) AS LIKES, SUM(IFNULL(L.BUYYN,0)) AS BUYLIKES, COUNT(C.COMMENTSID) AS COMMENTS, SUM(IFNULL(L.BUYYN,0)) AS BUYCMTS,  COUNT(R.PHOTOID) AS REPOST, SUM(IFNULL(R.BUYYN,0)) AS BUYREPOST, F.FOLLOWING
-//	FROM PHOTO P LEFT JOIN LIKES L  ON P.PHOTOID = L.PHOTOID
-//								 LEFT JOIN COMMENTS C ON P.PHOTOID = C.PHOTOID
-//	                             LEFT JOIN REPOSTS R ON P.PHOTOID = R.PHOTOID
-//	                             LEFT JOIN (
-//										SELECT FOLLOWINGID, COUNT(USERSUSERID) AS FOLLOWING
-//										FROM FOLLOWING
-//										GROUP BY FOLLOWINGID
-//	                             ) F ON P.USERID = F.FOLLOWINGID
-//	GROUP BY P.PHOTOID
-//	;
-	
-//	#일종의 정규화 : 변수의 최대값이 1이 되도록 조정  
-//
-//	SELECT LIKES/MAXLIKES AS LIKES, BUYLIKES/MAXBUYLIKES AS BUYLIKES, COMMENTS/MAXCOMMENTS AS COMMENTS, BUYCMTS/MAXBUYCMTS AS BUYCMTS, REPOST/MAXREPOST AS REPOST, FOLLOWING/MAXFOLLWING AS FOLLOWING
-//	FROM VIEW_PARAMS A JOIN
-//	 ( 	
-//		SELECT MAX(LIKES) AS MAXLIKES, MAX(BUYLIKES) AS MAXBUYLIKES, MAX(COMMENTS) AS MAXCOMMENTS, MAX(BUYCMTS) AS MAXBUYCMTS, MAX(REPOST) AS MAXREPOST, MAX(BUYREPOST) AS MAXBUYREPOST, MAX(FOLLOWING) AS MAXFOLLOWING
-//	    FROM VIEW_PARAMS
-//	) B ;
-	   
 
-
-	//		}
-//	}
+			}
+	}
 
 }

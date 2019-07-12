@@ -1,10 +1,12 @@
 package controller;
 
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import service.BuyService;
 import service.ProfileService;
 import service.ShopsService;
 import service.UsersService;
+import utils.VerifyRecaptcha;
 import vo.CodeVo;
 import vo.OptionListVo;
 import vo.OptionsVo;
@@ -165,5 +168,22 @@ public class UseridRestController {
 	public int check(String userid) {
 		return userService.checkUsersId(userid);
 	}
+	
+	
+	// Google ReCapcha
+    @RequestMapping(value = "/users/VerifyRecaptcha", method = RequestMethod.POST)
+    public int VerifyRecaptcha(HttpServletRequest request) {
+        VerifyRecaptcha.setSecretKey("6LeNoKgUAAAAAHE6-GzKInsXCj2P5Y7g3smNsOn-");
+        String gRecaptchaResponse = request.getParameter("recaptcha");
+        System.out.println(gRecaptchaResponse);
+        try {
+            if(VerifyRecaptcha.verify(gRecaptchaResponse))
+                return 0;
+            else return 1;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
 }

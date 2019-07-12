@@ -204,4 +204,9 @@
     <select id="getSellerList" resultType="vo.ProductsVo">
        SELECT * FROM PRODUCTS
    </select>
+   
+   <select id="getPhotoProduct" parameterType="HashMap" resultType="vo.ProductsVo">
+   		select title, price, photoFile from products where productid in (#{productid1},#{productid2});
+   </select>
+   
  </mapper>

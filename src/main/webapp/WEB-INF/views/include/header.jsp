@@ -39,7 +39,6 @@
                                     <li><a href="${pageContext.request.contextPath}/${sessionScope.userid}/orders">주문</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/management/">판매관리</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/tags">태그의 세계</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/users/googleLogin">TEST</a></li>
                                 </ul>
                             </li>
  
@@ -54,7 +53,7 @@
 							
 							<li><a href="#">Admin</a>
                                 <ul class="dropdown">
-                                    <li><a href="#">대시보드</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/admin/index">대시보드</a></li>
                                 </ul>
                             </li>
 

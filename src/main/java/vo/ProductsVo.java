@@ -21,6 +21,4 @@ public class ProductsVo {
 	private Date createDate;
 	private Date UpdateDate;
 	private String shopid;
-
-	
 }
