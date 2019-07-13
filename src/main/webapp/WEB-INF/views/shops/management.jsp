@@ -65,18 +65,32 @@
                             </div>
 
                             <table id="example" class="table table-striped table-bordered" style="width:100%">
-									<thead>
-							             <tr>
-							                 <th>DATETIMES</th>
-							                 <th>USERID</th>
-							                 <th>DELIVERYFEE</th>
-							                 <th>PRODUCTNAME</th>
-							                 <th>UNITPRICE</th>
-							                 <th>QUANTITY</th>
-							                 <th>ORDERSTATUSCODE</th>
-							             </tr>
-							         </thead>
-                            </table>
+                                    <thead>
+                                        <tr>
+                                            <th>판매자</th>
+                                            <th>상품명</th>
+                                            <th>가격</th>
+                                            <th>수량</th>
+                                            <th>상태 코드</th>
+                                            <th>배송비</th>
+                                            <th>날짜</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="jqBody">
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>판매자</th>
+                                            <th>상품명</th>
+                                            <th>가격</th>
+                                            <th>수량</th>
+                                            <th>상태 코드</th>
+                                            <th>배송비</th>
+                                            <th>날짜</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                         </div>
                     </div>
                 </div>
@@ -98,7 +112,7 @@
 		
 	    $( function() {
 	    	var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-/* 	    	$('#example').DataTable(); */
+	    	$('#example').DataTable();
 		    $("#fromDatepicker").datepicker({dateFormat: 'yy-mm-dd'});
 		    $("#toDatepicker").datepicker({dateFormat: 'yy-mm-dd'});
 		    
@@ -106,7 +120,7 @@
 		   
 		    
 		    
-/* 		    $('#fromDatepicker , #toDatepicker, #statusCode').change(function(){
+		    $('#fromDatepicker , #toDatepicker, #statusCode').change(function(){
 		    	 console.log("안녕");
 		    	 var data = {"fromDate" : $('#fromDatepicker').val(), "toDate" : $('#toDatepicker').val(),"orderStatusCode" : $('#orderStatusCode').val() };
 			   	 
@@ -133,62 +147,8 @@
 										
 					}
 				});
-		    }); */
-		    //#orderStatusCode, #fromDatepicker , 
-		    $('#toDatepicker').change(function(){
-		    	/* var data1 = {"fromDate" : $('#fromDatepicker').val(), "toDate" : $('#toDatepicker').val(),"orderStatusCode" : $('#orderStatusCode').val() }; */
-		    	/* $('#example').empty(); */
-/* 		    	$('#example').dataTable({
-                serverSide: true,
-                ajax : {
-                    "url":curl,
-                    "type":"POST",
-                     "dataType": "JSON"
-                },
-                columns : [
-                    {data: "DATETIMES"},
-                    {data: "USERID"},
-                    {data: "DELIVERYFEE"},
-                    {data: "PRODUCTNAME"},
-                    {data: "UNITPRICE"},
-                    {data: "QUANTITY"},
-                    {data: "ORDERSTATUSCODE"}
-                ]
-            }); */
-		    	
-		    	 $('#example').dataTable({
-		                pageLength: 3,
-		                bPaginate: true,
-		                bLengthChange: true,
-		                lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
-		                bAutoWidth: false,
-		                processing: true,
-		                ordering: true,
-		                serverSide: false,
-		                searching: true,
-		                ajax : {
-		                    "url":curl,
-		                    "type":"POST",
-		                    "data": function (d) {
-		                        d.userStatCd = "NR";
-		                    }
-		                },
-		                columns : [
-		                	{data: "dateTimes"},
-		                    {data: "userid"},
-		                    {data: "deliveryFee"},
-		                    {data: "productName"},
-		                    {data: "unitPrice"},
-		                    {data: "quantity"},
-		                    {data: "orderStatusCode"}
-		                ]
-		 
-		            });
-    	});
+		    });
 		    
-		    
-		   
-		    
-	   });
+	    } );
 	
 	</script>

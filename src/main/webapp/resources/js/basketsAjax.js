@@ -64,7 +64,7 @@ function basketList(curl, userid){
 						'<a href="'+ ctx + '/shops/'+ item.shopId + '/products/'+ item.productId + '">' +
 						'<h6>'+item.productName+'</h6></a>'+
 						'<p class="size">'+item.options[0].optionType+': '+ item.options[0].optionCode + '</p>' +
-						/*'<p class="color">'+item.options[1].optionType+': '+ item.options[1].optionCode + '</p>'+*/
+						'<p class="color">'+item.options[1].optionType+': '+ item.options[1].optionCode + '</p>'+
 						'<p class="price">$'+ item.unitPrice + '</p></div><div></div>';
 			});
 			

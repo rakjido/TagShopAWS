@@ -66,6 +66,4 @@ public interface ShopsDao {
 	public List<MyOrderVo> getOrderList(String userid);
 	
 	public List<ProductsVo> getSellerList() throws Exception;
-	
-	public List<ProductsVo> getPhotoProduct(HashMap<String, BigInteger> map);
 }

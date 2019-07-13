@@ -1,30 +1,29 @@
-
-
 $(document).ready(function(){
 	
-                var socket = io("http://192.168.0.112:82");
+
+                var socket = io("http://localhost:82");
                 var location = $('#url-import').attr('href').split('/');
     			var photouserid = window.location.pathname.split('/');
-    			
-    			if(location[2] != ""){
-    				
-    				socket.on('connect', function() {
-    					
-    					
-    					
-    					var userids = {
-    							myid: location[2]
-    					};
-    					
-    					socket.emit('userids',userids);
-    					
-    					console.log(socket.id);
-    					console.log(userids);
-    					
-    					
-    					
-    				});
-    			}
+                socket.on('connect', function() {
+                	
+                	
+                	
+                	var userids = {
+                			myid: location[2]
+                	};
+					
+                	socket.emit('userids',userids);
+                	
+                	console.log(socket.id);
+                	console.log(userids);
+         	
+                
+                    //소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
+                    socket.on('update', function(data) {
+                        //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
+                        $('<div></div>').text(data.name + ' : ' + data.message).appendTo("#chat_box");
+                    });
+				})
                     
                 	
                 //msg에서 키를 누를떄
@@ -36,90 +35,13 @@ $(document).ready(function(){
                     }
                 });
                 
-
-                
-                
-                
-                $('.sqdOPaC').on('click',function() {
-                	const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-					var location = $('#url-import').attr('href').split('/');
-					var photouserid = window.location.pathname.split('/');
-					var url = ctx+"/" + location[2]+"/chats/"+photouserid[2];
-						$.ajax({
-							url: url,
-							type: "GET",
-							dataType: "html",
-							success : function(data) {
-								
-								$('#instafeed').append(data);
-								
-								
-								
-								$('.lightbox-sub i').on('click', function() {
-									$('.lightbox-sub').remove();
-									$('.Repost-black').addClass('Repost');
-									$('.Repost-black').removeClass('Repost-black');
-								});
-								
-				                socket.on('response', function(input) {
-				                	
-				                	console.log("응답 -> : " + JSON.stringify(input));
-				                	
-				                	var text = "";
-				                	
-				                	text += '<div class="message">'+
-				      		      '<div class="avatar">'+
-				  		        '<img src="http://cdn-img.instyle.com/sites/default/files/styles/320x384/public/images/2017/03/030716-tom-hiddleston-taylor-swift.jpg?itok=d75yZj67" alt=""></div>'+
-				  		      '<div class="text-frame">'+
-				  		        ''+input.sender+''
-				  		      '</div>'+
-				  		      '<div class="time">10:10</div>'+
-				  		    '</div>';
-				                	
-				                	console.log("텍스트" + text);
-				                	
-				                	$('.chat-section').append(text);
-				                });
-								
-								
-								socket.on('message', function(message) {
-									console.log('수신 -> ' + JSON.stringify(message));
-									
-									var text = "";
-				                	
-				                	text += '<div class="my-msg">' +
-				                	'<div class="my-text-frame">' +
-				                	''+message.sender+'' +
-				                	'</div>' +
-				                	'<div class="my-time">10:10</div>' +
-				                	'</div>';
-				                	
-				                	console.log("텍스트" + text);
-				                	
-				                	$('.chat-section').append(text);
-								});
-				                //msg_process를 클릭할 때
-				                $('.send-btn').on('click', function() {
-				                	
-				                	var message = {
-				                			sender: $("#chattext").val(),
-				                			recepient: photouserid[2],
-				                			command:'chat',
-				                			type:'text'
-				                	};
-									
-				                    //소켓에 send_msg라는 이벤트로 input에 #msg의 벨류를 담고 보내준다.
-				                	console.log('클릭');
-				                     socket.emit('message', message);
-				                     
-				                    //#msg에 벨류값을 비워준다.
-				                    $("#chattext").val("");
-				                });
-								
-							}
-						});
-                	
+                //msg_process를 클릭할 때
+                $("#msg_process").click(function(){
+                    //소켓에 send_msg라는 이벤트로 input에 #msg의 벨류를 담고 보내준다.
+                     socket.emit("message", {type: 'message', message: $("#msg").val()});
+                    //#msg에 벨류값을 비워준다.
+                    $("#msg").val("");
                 });
-                
+
 
             });

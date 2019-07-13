@@ -5,19 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,9 +60,6 @@ public class UsersController {
 	@Autowired
 	private UserMailSendService mailsender;
 	
-	@Autowired
-	private RedisTemplate<String, String> redisTemplate;
-	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		logger.debug("[GET] login()");
@@ -113,7 +102,6 @@ public class UsersController {
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public String signupok(UsersVo vo, HttpServletRequest request) {
 		logger.info("[POST] signup()");
-		
 		
 		vo.setPassword(this.bCryptPasswordEncoder.encode(vo.getPassword()));
 		service.addUsers(vo);
@@ -194,90 +182,10 @@ public class UsersController {
 
 			return "users/regSuccess";
 		}
-
 		
-		@RequestMapping(value = "/login_success", method = RequestMethod.GET)
-		public String login_Success(HttpServletRequest request, HttpServletResponse response) {
-				HttpSession session = request.getSession();
-				System.out.println(">>>>> has : " + session.getAttribute("userid")); // key 존재
-				String userid = (String)session.getAttribute("userid");
-				redisTemplate.opsForValue().set(userid, userid); // 20초 만료
-				String value = redisTemplate.opsForValue().get(userid);
-				System.out.println(">>>>> redis value : " + value);
-				
-				return "redirect:/";
+		@RequestMapping(value="/googleLogin", method = RequestMethod.GET)
+		public String googleLogin() {
+			return "users/googleLogin";
 		}
-		
-		//김동현이가 만든 페이스북 로그인 *********삭제될지도모름**********
-		
-		@RequestMapping(value = "/facebookSignin.do")
-        public String getfacebookSigninCode(HttpSession session) {
-            logger.debug("facebookSignin");
-
-            String facebookUrl = "https://www.facebook.com/v3.3/dialog/oauth?"+
-                    "client_id="+"694347417654617"+
-                    "&redirect_uri=http://localhost:8090/tagshop/users/facebookAccessToken.do"+
-                    "&scope=public_profile,email";
-                    
-                            
-            return "redirect:" + facebookUrl;
-        
-        }
-        
-        //Facebook 토큰으로 요청
-        @RequestMapping(value = "/facebookAccessToken.do")
-        public String getFacebookSignIn(String code, HttpSession session, String state) throws Exception {
-            logger.debug("facebookAccessToken / code : "+code);
-            
-            String accessToken = requestFaceBooktAccesToken(session, code);
-            facebookUserDataLoadAndSave(accessToken, session);
-            
-            return "redirect:/";
-        }
-        
-        //Facebook 토큰으로 요청한 값 받아와서 리턴
-        private String requestFaceBooktAccesToken(HttpSession session, String code) throws Exception {
-            String facebookUrl = "https://graph.facebook.com/v3.3/oauth/access_token?"+
-                                 "client_id="+"694347417654617"+
-                                 "&redirect_uri="+"http://localhost:8090/tagshop/users/facebookAccessToken.do"+
-                                 "&client_secret="+"e7c980c946ccaaf63948de8116d86e2e"+
-                                 "&code="+code;
-            
-            HttpClient client = HttpClientBuilder.create().build();
-            HttpGet getRequest = new HttpGet(facebookUrl);
-            String rawJsonString = client.execute(getRequest, new BasicResponseHandler());
-            logger.debug("facebookAccessToken / raw json : "+rawJsonString);
-            
-            JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(rawJsonString);
-            String faceBookAccessToken = (String) jsonObject.get("access_token");
-            logger.debug("facebookAccessToken / accessToken : "+faceBookAccessToken);
-            
-            session.setAttribute("faceBookAccessToken", faceBookAccessToken);
-            
-            return faceBookAccessToken;
-        }
-        
-        //Facebook Json으로 저장 / Facebook에 요청할 데이터
-        private void facebookUserDataLoadAndSave(String accessToken, HttpSession session) throws Exception {
-            String facebookUrl = "https://graph.facebook.com/me?"+
-                                    "access_token="+accessToken+
-                                    "&fields=id,name,email";
-            
-            System.out.println("@@@@@@확인용@@@@@@" + facebookUrl);
-            
-            HttpClient client = HttpClientBuilder.create().build();
-            HttpGet getRequest = new HttpGet(facebookUrl);
-            String rawJsonString = client.execute(getRequest, new BasicResponseHandler());
-            logger.debug("facebookAccessToken / rawJson! : "+rawJsonString);
-
-            JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(rawJsonString);
-            
-            logger.debug("facebookUserDataLoadAndSave / raw json : "+jsonObject);
-            System.out.println("@@@@@@@@@@@제이슨입니당@@@@@@@@@@@" + jsonObject);
-            
-//            HashMap<String, Object> userData = new HashMap<String, Object>();
-        }
 
 }

@@ -1,8 +1,6 @@
 package controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,25 +81,21 @@ public class ShopsRestController {
 		return service.shopidCheck(name);
 	}
 	
-	@RequestMapping(value="/management", method=RequestMethod.POST)
-	public Object getMangementList(String fromDate, String toDate, String orderStatusCode){
+	@RequestMapping(value="/management", method=RequestMethod.GET)
+	public List<ManagementVo> getMangementList(String fromDate, String toDate, String orderStatusCode){
 		
 		System.out.println(fromDate + " / " + toDate + " / " + orderStatusCode);
 		
 		fromDate = "2000-01-01";
 		toDate = "2020-12-31";
 		orderStatusCode = "";
-		
-		Map<String, Object> mp = new HashMap<String, Object>();
-		mp.put("data", service.getManagementList(fromDate, toDate, orderStatusCode));
-		System.out.println(mp);
-		return mp;
+		return service.getManagementList(fromDate, toDate, orderStatusCode);
 	}
 	
 	
 	@RequestMapping(value="/tagrank", method=RequestMethod.GET)
 	public List<TagRankVo> getTagRank(String country){
-		country = "KO";
+		//country = "KO";
 		return tagsLocaleService.getTagRank(country);
 	}
 	
@@ -110,7 +104,5 @@ public class ShopsRestController {
 		language = "KO";
 		return tagsLocaleService.getTagsTable(language);
 	}
-	
-	
 
 }

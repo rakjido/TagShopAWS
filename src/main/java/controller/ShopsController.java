@@ -3,8 +3,6 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -34,7 +32,6 @@ import vo.AuthoritiesVo;
 import vo.CategoriesSortVo;
 import vo.CategoriesVo;
 import vo.CodeVo;
-import vo.ManagementVo;
 import vo.MyOrderVo;
 import vo.OptionListVo;
 import vo.OrdercodeVo;
@@ -256,11 +253,6 @@ public class ShopsController {
 		ProductDetailVo vo = service.productDetail(productid);
 		vo.setOptions(service.getOptions(productid));
 				model.addAttribute("vo", vo);
-
-
-		JSONArray jsonArray = new JSONArray();
-				
-	    model.addAttribute("options", jsonArray.fromObject(vo.getOptions()));
 		return "shops/productDetail";
 	}
 	 
@@ -291,15 +283,11 @@ public class ShopsController {
 		map.put("column", "LARGECATEGORYCODE");
 		
 		List<CategoriesVo> largeCategories = service.getCategories(map);
-
+		System.out.println(largeCategories.toString());
+		System.out.println(largeCategories.get(1).getCategoryCode());
 		model.addAttribute("list", list);
 		model.addAttribute("categories",categories);
 		model.addAttribute("largeCategoryCode",largeCategories);
-		
-		
-		JSONArray jsonArray = new JSONArray();
-		
-		model.addAttribute("categoryList", jsonArray.fromObject(categories));
 		return "shops/productCategories";
 	}
 	
@@ -396,60 +384,14 @@ public class ShopsController {
 	public String addTag(@RequestParam("tags") String tags) {
 		
 		tagsLocaleService.addMultiTags(tags); 
-//		// 해당언어(한국어, 영어등)로 해당 단어가 이미 존재하는지 검사
-//		
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		String origin = GoogleTranslation.detectLanguage(tags);
-//		String tagName = "TagsName" + origin;
-//
-//		map.put("column", tagName);
-//		map.put("search", tags);
-//
-//		if (tagsLocaleService.idCheck(map) == 0) {
-//			String[] languages = { "en", "es", "zh", "hi", "ja", "ru", "pt", "ko" };
-//			for (int i = 0; i < languages.length; i++) {
-//				//origin.equals(languages[i])는 NullPointerror가 발생할 가능성이 있음
-//				String out="";
-//				if(!languages[i].equals(origin)) {
-//					out = GoogleTranslation.autoDetectTranslate(tags, languages[i]);
-//				} else {
-//					out = tags;
-//				}
-//				switch(languages[i]) {
-//					case "en" : tagsLocaleVo.setTagsNameEn(out); break;
-//					case "es" : tagsLocaleVo.setTagsNameEs(out); break;
-//					case "zh" : tagsLocaleVo.setTagsNameZh(out); break;
-//					case "hi" : tagsLocaleVo.setTagsNameHi(out); break;
-//					case "ja" : tagsLocaleVo.setTagsNameJa(out); break;
-//					case "ru" : tagsLocaleVo.setTagsNameRu(out); break;
-//					case "pt" : tagsLocaleVo.setTagsNamePt(out); break;
-//					case "ko" : tagsLocaleVo.setTagsNameKo(out); break;
-//				}
-//			}
-//
-//		}
-//
-//		System.out.println(tagsLocaleVo);
-//		tagsLocaleService.addTags(tagsLocaleVo);
 		
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/{shopid}/management", method=RequestMethod.GET)
-    public String shopManagement(Model model) {
-		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
-		Date time = new Date();
-		String time1 = format1.format(time);
-		System.out.println(time1);
-		
-		String orderStatusCode = "TOTL";
-		List<ManagementVo> managementVo = service.getManagementList(time1, time1, "");
-		System.out.println(managementVo);
-		model.addAttribute("managementVo",managementVo);
-		
-        return "shops/management";
-    }
+	public String shopManagement() {
+		return "shops/management";
+	}
 	
 	/*
 	 * 나의 쇼핑 페이지 이동
@@ -476,32 +418,4 @@ public class ShopsController {
 		return "shops/tagRank";
 	}
 	
-	/*
-     * @method name : sellerList
-     *
-     * @date : 2019.06.25
-     *
-     * @author : 김동현
-     *
-     * @description : 개별 Shop홈페이지 해당 샵의 제품목록을 출력
-     *
-     * @parameters : Model model
-     *
-     * @return : String
-     *
-     * @example 
-     */
-	
-	@RequestMapping(value="/{shopid}/productList", method=RequestMethod.GET)
-	public String sellerList(Model model, HttpSession session) {
-		logger.info("[GET] getSellerList()");
-		try {
-			List<ProductsVo> ProductsList = service.getSellerList();
-			model.addAttribute("productsList", ProductsList);
-			session.setAttribute("shopid", "value");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "shops/sellerHome";
-	}
 }

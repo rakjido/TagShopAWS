@@ -1,6 +1,5 @@
 package dao;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
-import vo.PhotoRegisterVo;
 
 public interface PhotosDao {
 	
@@ -69,8 +67,4 @@ public interface PhotosDao {
 	public List<FeedLikesVo> getFeedLikeCount(String userid);
 	
 	public void deleteRepost(HashMap<String, Object> map);
-	
-	public void insertCoordinates(PhotoRegisterVo photoRegisterVo);
-	
-	public PhotoRegisterVo getCoordinates(BigInteger photoId);
 }

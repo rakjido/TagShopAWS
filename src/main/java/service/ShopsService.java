@@ -182,12 +182,7 @@ public class ShopsService {
 	}
 	
 	public List<ProductsVo> getSellerList() throws Exception {
-       ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-       return dao.getSellerList();
-	}
-	
-	public List<ProductsVo> getPhotoProduct(HashMap<String, BigInteger> map){
-		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-	    return dao.getPhotoProduct(map);
-	}
+	       ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+	       return dao.getSellerList();
+	   }
 }

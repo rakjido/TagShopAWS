@@ -165,20 +165,4 @@
 	WHERE USERID  = #{userid}
 </update>
 
-<insert id="insertCoordinates" parameterType="vo.PhotoRegisterVo">
-	<selectKey order="BEFORE" keyProperty="photoId"
-			resultType="BigInteger">
-			SELECT MAX(PHOTOID) FROM PHOTO
-	</selectKey>
-	
-	INSERT INTO COORDINATES (PHOTOID, AX1, AX2, AY1, AY2, BX1, BX2, BY1, BY2, AREFPRODUCTID, AREFSHOPID, AREFLINK, BREFPRODUCTID, BREFSHOPID, BREFLINK) 
-	VALUES (#{photoId},#{Ax1}, #{Ax2}, #{Ay1}, #{Ay2}, #{Bx1}, #{Bx2}, #{By1}, #{By2}, #{ARefProductId}, #{ARefShopid}, #{ARefLink}, #{BRefProductId}, #{BRefShopid}, #{BRefLink})
-</insert>
-
-<select id="getCoordinates" resultType="vo.PhotoRegisterVo" parameterType="BigInteger">
-	SELECT *
-	FROM COORDINATES 
-	WHERE PHOTOID = #{photoId}
-</select>
-
 </mapper>

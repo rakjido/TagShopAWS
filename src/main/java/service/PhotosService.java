@@ -16,7 +16,6 @@ import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
-import vo.PhotoRegisterVo;
 import vo.PhotosVo;
 import vo.RepostsVo;
 
@@ -252,17 +251,6 @@ public class PhotosService {
 		
 		dao.deleteRepost(repost);
 		
-	}
-	
-	public void insertCoordinates(PhotoRegisterVo photoRegisterVo) {
-		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
-		dao.insertCoordinates(photoRegisterVo);
-	}
-	
-	public PhotoRegisterVo getCoordinates(int photoid){
-		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
-		BigInteger photoNum = BigInteger.valueOf(photoid);
-		return dao.getCoordinates(photoNum);
 	}
 
 }

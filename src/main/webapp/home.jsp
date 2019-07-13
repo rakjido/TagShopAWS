@@ -35,9 +35,24 @@
                 
                 socket.on('connect', function() {
 					
-                	var userid = ${sessionScope.userid};
+                	var name = prompt('반갑습니다.','')
                 	
-				});
+                	if(!name) {
+                		name = '익명';
+                	}
+                	socket.emit('newUser',name);
+                	
+         	
+                	socket.on('update', function(data) {
+						console.log(data.name)
+					})
+                
+                    //소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
+                    socket.on('update', function(data) {
+                        //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
+                        $('<div></div>').text(data.name + ' : ' + data.message).appendTo("#chat_box");
+                    });
+				})
                     
                 	
                 //msg에서 키를 누를떄

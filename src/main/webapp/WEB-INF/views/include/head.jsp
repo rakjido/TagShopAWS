@@ -25,7 +25,6 @@
 <!-- Core Style CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/core-style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/instagram.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<script src="http://192.168.0.112:82/socket.io/socket.io.js"></script>
+<script src="https://kit.fontawesome.com/3516ad21ac.js"></script>

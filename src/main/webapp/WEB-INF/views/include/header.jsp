@@ -46,7 +46,7 @@
 								<ul class="dropdown">
                                     <li><a href="${pageContext.request.contextPath}/shops/new">판매자 신청</a></li>
                                     <li><a href="#">판매자 수정</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/shops/test/products/new">제품등록</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/products/new">제품등록</a></li>
                                     <li><a href="#">제품수정</a></li>
 								</ul></li>
 
