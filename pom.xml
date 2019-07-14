@@ -118,7 +118,19 @@
 		    <artifactId>spring-security-taglibs</artifactId>
 		    <version>4.2.1.RELEASE</version>
 		</dependency>
+		
+		<!-- Google ReCapcha for JSON -->
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.1.2</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.1</version>
+        </dependency>
 
 		<!-- AspectJ -->
 		<dependency>
@@ -217,6 +229,37 @@
              <artifactId>scribejava-core</artifactId>
              <version>5.6.0</version>
        </dependency>
+       
+       <!--*************************Facebook 로그인*************김동현****************-->
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+        
+	    <!-- 구글 JSON  -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+	
+		<!-- HttpClient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+		<!-- facebook login end -->
+		
+		<!-- 구글 리캡챠 -->
+		<dependency>
+			<groupId>net.tanesha.recaptcha4j</groupId>
+			<artifactId>recaptcha4j</artifactId>
+			<version>0.0.7</version>
+		</dependency>
+		
+		<!--*************************Facebook 로그인************김동현*****************-->
        	
 		<!-- Logging -->
 		<dependency>

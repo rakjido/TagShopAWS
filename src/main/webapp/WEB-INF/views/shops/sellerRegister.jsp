@@ -49,13 +49,13 @@
                                         <label for="sales_apply_license1">사업자 등록번호 </label>
                                     </div>
                                     <input type="text" class="form-control" id="sales_apply_license1" value="" required
-                                        placeholder="123" name="corporateRegisterNumber1">
+                                        placeholder="123" name="regNum1">
                                     <span class="sales-form-divider">-</span>
                                     <input type="text" class="form-control" id="sales_apply_license2" value="" required
-                                        placeholder="45" name="corporateRegisterNumber2">
+                                        placeholder="45" name="regNum2">
                                     <span class="sales-form-divider">-</span>
                                     <input type="text" class="form-control" id="sales_apply_license3" value="" required
-                                        placeholder="67890" name="corporateRegisterNumber3">
+                                        placeholder="67890" name="regNum3">
                                 </div>
                                 <div><span id=company_number> </span></div>
                             </div>

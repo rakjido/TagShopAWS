@@ -4,8 +4,7 @@
 
 	<select id="getProfile" resultType="vo.ProfileVo">
 		SELECT USERID, INTRODUCTION, WEBSITE, PHOTONAME, RECIPIENTNAME, ADDRESS1, ADDRESS2, 
-		       POSTALCODE, COUNTRYCODE, DELIVERYMEMO, CARDCOMPANYCODE, CARDNUMBER, CARDPERIOD, 
-		       CVC, CARDPASSWORD, POINT, REPOSTNUMBER 
+		       POSTALCODE, COUNTRYCODE, DELIVERYMEMO, POINT, REPOSTNUMBER 
 		FROM PROFILE WHERE USERID = #{userid}
 	</select>
 	
@@ -20,22 +19,16 @@
 			    , POSTALCODE = #{postalCode}
 			    , COUNTRYCODE = #{countryCode}
 			    , DELIVERYMEMO =  #{deliveryMemo}
-			    , CARDCOMPANYCODE = #{cardCompanyCode}
-			    , CARDNUMBER = #{cardNumber}
-			    , CARDPERIOD = #{cardPeriod}
-			    , CVC = #{cvc}
-			    , CARDPASSWORD = #{cardPassword}
 			    , POINT = #{point}
 			    , REPOSTNUMBER = #{repostNumber}
 		WHERE USERID  = #{userid}
 	</update>
-	
-		<update id="updateSnsProfile" parameterType="vo.ProfileVo">
+
+	<update id="updateSnsProfile" parameterType="vo.ProfileVo">
 		UPDATE PROFILE
-			 SET  INTRODUCTION = #{introduction}
-			    , WEBSITE = #{website}
-			    , PHOTONAME #{photoName}
-		WHERE USERID  = #{userid}
+			SET INTRODUCTION = #{introduction}
+			, WEBSITE = #{website}
+		WHERE USERID = #{userid}
 	</update>
 	
 
@@ -47,11 +40,6 @@
 			    , POSTALCODE = #{postalCode}
 			    , COUNTRYCODE = #{countryCode}
 			    , DELIVERYMEMO =  #{deliveryMemo}
-			    , CARDCOMPANYCODE = #{cardCompanyCode}
-			    , CARDNUMBER = #{cardNumber}
-			    , CARDPERIOD = #{cardPeriod}
-			    , CVC = #{cvc}
-			    , CARDPASSWORD = #{cardPassword}
 			    , POINT = #{point}
 			    , REPOSTNUMBER = #{repostNumber}
 		WHERE USERID  = #{userid}

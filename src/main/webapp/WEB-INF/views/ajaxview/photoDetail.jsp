@@ -6,13 +6,24 @@
     <c:set var="detail" value="${photodetail }" />
 	<div class="lightbox visible-box">
 		<article class="popup-all">
-	
 			<div class="col-lg-8 pa-1">
 				<div class="popup-all-sub">
 					<img
 						src="${pageContext.request.contextPath}/uploads/${detail.photos.fileName}"
-						alt="${detail.photos.photoId }">
-	
+						alt="${detail.photos.photoId }" usemap="#MapMapMap" class="fullimg">
+					
+					<map name="MapMapMap">
+					
+					<div style="position: absolute; top: ${coordinates.YAvg}px; left:${coordinates.XAvg}px;"><a href="${coordinates.ARefLink}"><img src="${pageContext.request.contextPath}/uploads/point.png" id="plusImg"></img></a></div>
+					<area shape="rect" coords="${coordinates.ax1},${coordinates.ay1},${coordinates.ax2},${coordinates.ax1}" href="http://kr.yahoo.com/" onFocus="blur()">
+					
+					<div style="position: absolute; top: ${coordinates.YBvg}px; left:${coordinates.XBvg}px;"><a href="${coordinates.BRefLink}"><img src="${pageContext.request.contextPath}/uploads/point.png" id="plusImg2"></img></a></div>
+					<area shape="rect" coords="${coordinates.bx1},${coordinates.by1},${coordinates.bx2},${coordinates.bx1}" href="http://kr.yahoo.com/" onFocus="blur()">
+					</map>
+					<div>
+					
+					</div>
+
 				</div>
 			</div>
 			<div class="col-lg-4 pa-1">
@@ -141,3 +152,64 @@
 			<i class="fa fa-times"></i>
 		</article>
 	</div>
+<script>
+
+$(function(){
+	var tagStr = '';
+	var productList =  JSON.parse('${productList}');
+	var xOffset = 10;
+    var yOffset = 30;
+
+    $(document).on("mouseover","#plusImg",function(e){ //마우스 오버시
+    	productList =  JSON.parse('${productList}');
+    	
+    	tagStr = '<div id="preview">' + 
+				    '<div style="flex:0 0 100%; width:300px; height:300px">'+
+				    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[0].photoFile +'"class="fullimg"/></div>' +				
+				    '<h6  style="text-align:center">'+ productList[0].title +'</h6></div>';
+		console.log(tagStr);
+		
+    	$("body").append(tagStr);                    
+        $("#preview")
+            .css("top",(e.pageY - xOffset - 50) + "px")
+            .css("left",(e.pageX + yOffset) + "px")
+            .fadeIn("fast"); //미리보기 화면 설정 셋팅
+    });
+    
+    $(document).on("mousemove","#plusImg",function(e){ //마우스 이동시
+        $("#preview")
+            .css("top",(e.pageY - xOffset - 50) + "px")
+            .css("left",(e.pageX + yOffset) + "px");
+    });
+     
+    $(document).on("mouseout","#plusImg",function(){ //마우스 아웃시
+        $("#preview").remove();
+    });
+    
+$(document).on("mouseover","#plusImg2",function(e){ //마우스 오버시
+	productList =  JSON.parse('${productList}');
+	
+	tagStr = '<div id="preview2">' + 
+    '<div style="flex:0 0 100%; width:300px; height:300px">'+
+    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[1].PhotoFile +'"class="fullimg"/></div>' +				
+    '<h6  style="text-align:center">'+ productList[1].title +'</h6></div>';
+        
+        $("body").append(tagStr); //보여줄 이미지를 선언                       
+        $("#preview2")
+            .css("top",(e.pageY - xOffset - 50) + "px")
+            .css("left",(e.pageX + yOffset) + "px")
+            .fadeIn("fast"); //미리보기 화면 설정 셋팅
+    });
+    
+    $(document).on("mousemove","#plusImg2",function(e){ //마우스 이동시
+        $("#preview2")
+            .css("top",(e.pageY - xOffset - 50) + "px")
+            .css("left",(e.pageX + yOffset) + "px");
+    });
+     
+    $(document).on("mouseout","#plusImg2",function(){ //마우스 아웃시
+        $("#preview2").remove();
+    });
+    
+});
+</script>

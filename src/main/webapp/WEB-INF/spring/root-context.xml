@@ -45,12 +45,43 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>	
 	
+	
+	
+	
+	
+	
+	
+	
+	    <!--*******************김동현******************** Facebook 소셜 로그인 연결 설정 *******************김동현********************-->
+   <bean id="connectionFactoryDong"
+       class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+<!--         <constructor-arg value="Client ID" /> -->
+<!--         <constructor-arg value="Secret Code" /> -->
+       <constructor-arg value="694347417654617" />
+       <constructor-arg value="e7c980c946ccaaf63948de8116d86e2e" />
+   </bean>
+
+   <bean id="oAuth2Parameters"
+       class="org.springframework.social.oauth2.OAuth2Parameters">
+       <property name="scope" value="email" />
+       <property name="redirectUri" value="https://http://localhost:8090/tagshop/" />
+   </bean>
+    <!-- *******************김동현********************Facebook 소셜 로그인 연결 설정 End*******************김동현******************** -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- @Transactional annotation 사용을 위한 설정 -->
 	<tx:annotation-driven/>
 	
 	<!-- Redis -->
-	
-
 <!-- 	
 	 <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig"
           p:maxIdle="300" p:maxWaitMillis="1000" p:testOnBorrow="true">
@@ -63,5 +94,17 @@
           p:usePool="true"
           p:database="1"
           p:timeout="3000"/>
- -->	
+ -->
+	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
+        <property name="hostName" value="192.168.0.112" />
+        <property name="port" value="6379"/>
+        <!-- <property name="password" value="redis_pw"/> -->
+    </bean>
+
+<bean id="RedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate" >
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+    
+
+
 </beans>

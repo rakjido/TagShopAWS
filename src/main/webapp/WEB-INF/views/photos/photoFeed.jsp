@@ -48,6 +48,8 @@
         <div class="inner-content clearfix">
        
           <!-- Content Post1 -->
+        <c:if test="anotherphotos.size()>0"> <!-- 20190714 예외처리 추가  -->
+          
           <div class="post-container">
              <%-- <c:forEach var="anotherphotos" items="${anotherphotos}" varStatus="status"> --%>
              <c:forEach var="i" begin="0" end="${anotherphotos.size()-1}" varStatus="status">
@@ -195,7 +197,9 @@
            		 </div>
             
             <!-- Content Post1 -->
-    
+            
+         </c:if>  <!-- 20190714 예외처리 추가  -->
+    <!-- ============================================================ -->
     
           <!-- Content Sidebar -->
           <div class="sidebar">

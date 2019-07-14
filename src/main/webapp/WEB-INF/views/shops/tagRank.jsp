@@ -33,7 +33,7 @@
             <!-- Related Blog Post -->
             <div class="related-blog-post">
                 <!-- Single Related Blog Post -->
-                <div class="single-related-blog-post" data-id="ko">
+                <div class="single-related-blog-post" id="ko">
                     <img src="${pageContext.request.contextPath}/resources/img/bg-img/rp1.jpg" alt="">
                     <a href="#">
                         <h5>한국어</h5>
@@ -87,88 +87,117 @@
     		
     		var curl = ctx + "/shops" +"/tagrank";
     		
-    		var param = {"country" : "KO"} 
-	   	 $.ajax({
-				type : "GET",
-				data : param,
-				url : curl,
-				success : function(data) {
-					
-					console.log(data);
-				    // Themes begin
-				    am4core.useTheme(am4themes_dataviz);
-				    am4core.useTheme(am4themes_animated);
-				    // Themes end
-				    
-				    var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
-				    chart.fontFamily = "Courier New";
-				    var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
-				    series.randomness = 0.1;
-				    series.rotationThreshold = 0.5;
-				   
-				    series.data = data;
-				    
-				    
-				    series.dataFields.word = "tag";
-				    series.dataFields.value = "count";
-				    
-				    series.heatRules.push({
-				        "target": series.labels.template,
-				        "property": "fill",
-				        "min": am4core.color("#0000CC"),
-				        "max": am4core.color("#CC00CC"),
-				        "dataField": "value"
-				    });
+    		var param = {"country" : "KO"}
+    		
+    		$.getTagCloud = function (param) {
+    		   	 $.ajax({
+    					type : "GET",
+    					data : param,
+    					url : curl,
+    					success : function(data) {
+    						
+    						console.log(data);
+    					    // Themes begin
+    					    am4core.useTheme(am4themes_dataviz);
+    					    am4core.useTheme(am4themes_animated);
+    					    // Themes end
+    					    
+    					    var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+    					    chart.fontFamily = "Courier New";
+    					    var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+    					    series.randomness = 0.1;
+    					    series.rotationThreshold = 0.5;
+    					   
+    					    series.data = data;
+    					    
+    					    
+    					    series.dataFields.word = "tag";
+    					    series.dataFields.value = "count";
+    					    
+    					    series.heatRules.push({
+    					        "target": series.labels.template,
+    					        "property": "fill",
+    					        "min": am4core.color("#0000CC"),
+    					        "max": am4core.color("#CC00CC"),
+    					        "dataField": "value"
+    					    });
 
-				    
-				    series.labels.template.url = "https://stackoverflow.com/questions/tagged/{word}";
-				    series.labels.template.urlTarget = "_blank";
-				    series.labels.template.tooltipText = "{word}: {value}";
-				    
-				    var hoverState = series.labels.template.states.create("hover");
-				    hoverState.properties.fill = am4core.color("#FF0000");
-				    
-				    var subtitle = chart.titles.create();
-				    subtitle.text = "";
-				    
-				    var title = chart.titles.create();
-				    title.text = "Tag Check";
-				    title.fontSize = 30;
-				    title.fontWeight = "800";
+    					    
+    					    series.labels.template.url = "https://stackoverflow.com/questions/tagged/{word}";
+    					    series.labels.template.urlTarget = "_blank";
+    					    series.labels.template.tooltipText = "{word}: {value}";
+    					    
+    					    var hoverState = series.labels.template.states.create("hover");
+    					    hoverState.properties.fill = am4core.color("#FF0000");
+    					    
+    					    var subtitle = chart.titles.create();
+    					    subtitle.text = "";
+    					    
+    					    var title = chart.titles.create();
+    					    title.text = "Tag Check";
+    					    title.fontSize = 30;
+    					    title.fontWeight = "800";
 
-				} //success : function(data) {
-		}); // $.ajax({
+    					} //success : function(data) {
+    			}); // $.ajax({
 
-		var curl2 = ctx + "/shops" +"/tagtable";
-	   	$.ajax({
-				type : "GET",
-				data : param,
-				url : curl2,
-				success : function(tabledata) {
-					
-					console.log(tabledata);
-					
-					var jsonTable="<tr><th>순위</th><th>전주순위</th><th>전주대비</th><th>태그</th><th>태그가격</th></tr>";
-					
-					$.each(tabledata,function(index, item){
-                        jsonTable += '<tr><td>' + item.rank +'</td>' +
-									'<td>' + item.previous +'</td>' +
-									'<td>' + item.differ +'</td>' +
-									'<td>' + item.tagsName +'</td>' +
-									'<td>' + item.price +'</td></tr>';
-                        
-                        
-					});
-					$('#tagTable').append(jsonTable);
+    		}
+ 		   		
+    		$.getTagTable = function (param) {
+    			var curl2 = ctx + "/shops" +"/tagtable";
+    		   	$.ajax({
+    					type : "GET",
+    					data : param,
+    					url : curl2,
+    					success : function(tabledata) {
+    						$('#tagTable *').remove();
+    						console.log(tabledata);
+    						
+    						var jsonTable="<tr><th>순위</th><th>전주순위</th><th>전주대비</th><th>태그</th><th>태그가격</th></tr>";
+    						
+    						$.each(tabledata,function(index, item){
+    	                        jsonTable += '<tr><td>' + item.rank +'</td>' +
+    										'<td>' + item.previous +'</td>' +
+    										'<td>' + item.differ +'</td>' +
+    										'<td>' + item.tagsName +'</td>' +
+    										'<td>' + item.price +'</td></tr>';
+    	                        
+    	                        
+    						});
+    						$('#tagTable').append(jsonTable);
 
-				} //success : function(data) {
-		}); // $.ajax({
-			
-			
-    		$("#ko, #en").click(function(){
-    			alert(this);
+    					} //success : function(data) {
+    			}); // $.ajax({
+
+    		}
+    			
+
+		$.getTagCloud(param);
+		$.getTagTable(param);
+
+    		$("#ko").click(function(){
+    			var param = {"country" : "KO"}
+    			$.getTagCloud(param);
+    			$.getTagTable(param);
     		});		
     		
-			
+    		$("#en").click(function(){
+    			var param = {"country" : "EN"}
+    			$.getTagCloud(param);
+    			$.getTagTable(param);
+    		});		
+
+    		$("#zh").click(function(){
+    			var param = {"country" : "ZH"}
+    			$.getTagCloud(param);
+    			$.getTagTable(param);
+    		});		
+    		
+    		$("#ja").click(function(){
+    			var param = {"country" : "JA"}
+    			$.getTagCloud(param);
+    			$.getTagTable(param);
+    		});		
+
     }); // end am4core.ready()
     </script>

@@ -54,42 +54,42 @@
                         <script>
                         </script>
                                 <div class="step" data-state="0">
-                                    <div class="title">입금대기</div>
+                                    <div class="myshop-title">입금대기</div>
                                     <div class="count">
                                        <b id='OR02'>0</b>
                                     </div>
                                 </div>
                                 <div class="image_arrow"></div>
                                 <div class="step" data-state="1">
-                                    <div class="title">결제완료</div>
+                                    <div class="myshop-title">결제완료</div>
                                     <div class="count">
                                        <b id="OR03">0</b>
                                     </div>
                                 </div>
                                 <div class="image_arrow"></div>
                                 <div class="step" data-state="2">
-                                    <div class="title">배송준비</div>
+                                    <div class="myshop-title">배송준비</div>
                                     <div class="count">
                                         <b id="OR04">0</b>
                                     </div>
                                 </div>
                                 <div class="image_arrow"></div>
                                 <div class="step" data-state="3">
-                                    <div class="title three">배송중</div>
+                                    <div class="myshop-title">배송중</div>
                                     <div class="count">
                                         <b id="OR05">0</b>
                                     </div>
                                 </div>
                                 <div class="image_arrow"></div>
                                 <div class="step" data-state="4">
-                                    <div class="title">배송완료</div>
+                                    <div class="myshop-title">배송완료</div>
                                     <div class="count">
                                         <b id="OR06">0</b>
                                     </div>
                                 </div>
                                 <div class="image_arrow"></div>
                                 <div class="step" data-state="6">
-                                    <div class="title">리뷰작성</div>
+                                    <div class="myshop-title">리뷰작성</div>
                                     <div class="count">
                                         <b id="OR08">0</b>
                                     </div>

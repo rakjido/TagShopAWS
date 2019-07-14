@@ -12,7 +12,8 @@
                   <div class="row">
                     <div class="col-xs-12 col-sm-3 profile-photo">
                       <div class="img-wrapper">
-                        <img src="${pageContext.request.contextPath}/uploads/${profile.photoName}" alt="profileimg" />
+                       <!-- <img src="${pageContext.request.contextPath}/uploads/${profile.photoName}" alt="profileimg" /> --> 
+                       <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploads/${profile.photoName}" alt="profileimg" />
                       </div>
                     </div>
                     <div class="col-xs-12 col-sm-9">
@@ -36,6 +37,16 @@
                     
                         <a class="thEYr " href="${pageContext.request.contextPath}/${sessionScope.userid }/photos/edit"><button class="sqdOPaa" type="button">프로필 편집</button></a>
                         <button class="sqdOPa" type="button">업로드</button>
+                        <c:choose>
+                        	<c:when test="${connectcheck eq 'connecting' }">
+                        	<button class="sqdOPaC" type="button">접속 중..</button>
+                        	</c:when>
+                        	<c:otherwise>
+                        	<button class="sqdOPaCO" type="button">비접속</button>
+                        	</c:otherwise>
+                        </c:choose>
+
+
                       </div>
                       <div class="user-stats">
                         <div>

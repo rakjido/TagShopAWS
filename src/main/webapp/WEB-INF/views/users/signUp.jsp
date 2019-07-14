@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modify.css">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
     
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
@@ -34,21 +36,13 @@
 				})
 			});
 			
-		});
 		
-		
-		
-		
-		
-		$(function() {
 			 /* 아이디 정규식 (숫자,영어 3-15글자) */
 			$("#signup-input_text_instaid").on("propertychange change keyup paste", function() {
 	           console.log($('#signup-input_text_instaid').val());
 				var pattern = /^[0-9a-zA-Z]{3,15}$/;
 				if(pattern.test($('#signup-input_text_instaid').val())){
-					console.log("아이디 정규식 O");
 				}else{
-					console.log("아이디 정규식 X");
 				}
 	       });
 			 
@@ -57,7 +51,6 @@
 				console.log($("#signup-input_text_pwd1").val());
 			 	var pattern = /^[A-Za-z0-9]{4,20}$/;
 			 	if(pattern.test($("#signup-input_text_pwd1").val())){
-			 		console.log("비밀번호 정규식 O");
 			 		$("#password_first").css("color", "#0064FF");
 			 		$("#password_first").text("비밀번호를 한번 더 입력해주세요");
 			 	}else{
@@ -86,11 +79,9 @@
 	           console.log($('#signup-input_text_email').val());
 				var pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+$/;
 				if(pattern.test($('#signup-input_text_email').val())){
-					console.log("이메일 정규식 O");
 					$("#email").css("color", "#0064FF");
 					$("#email").text("올바른 형식입니다.");
 				}else{
-					console.log("이메일 정규식 X");
 					$("#email").css("color", "#ff0000");
 					$("#email").text("이메일 형식에 맞게 입력주세요.");
 				}
@@ -101,11 +92,9 @@
 	           console.log($('#signup-input_text_phone').val());
 				var pattern = /^\d{11}$/;
 				if(pattern.test($('#signup-input_text_phone').val())){
-					console.log("휴대전화 정규식 O");
 					$("#phone").css("color", "#0064FF");
 					$("#phone").text("올바른 형식입니다.");
 				}else{
-					console.log("휴대전화 정규식 X");
 					$("#phone").css("color", "#ff0000");
 					$("#phone").text("숫자만 입력해주세요.")
 				}
@@ -114,10 +103,6 @@
 			 
 		})
 
-		
-		
-		
-		
 	</script>
     
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -141,7 +126,6 @@
               <div class="icon-btn">
                 <button type="button" class="signup-icon-btn-google">
                     <i class="mdi mdi-google signup-icon-text icon-color-google"></i>
-                    
                 </button>
               </div>
               <div class="icon-btn">
@@ -154,7 +138,7 @@
           </div>
     
           <div class="signup_details-sub clearfix">
-          	<form action="" method="POST">
+          	<form id="signup" action="" method="POST">
           
 	            <div class="signup_input_text_all">
 	              <div class="signup-img">
@@ -221,6 +205,8 @@
 	            <div style='position:absolute'>
 	              <span id='phone' style='font-size:14px'></span>
 	            </div>
+	            <!-- 자동가입 방지 시작-->
+	            <div class="g-recaptcha recaptcha-sub" data-sitekey="6LeNoKgUAAAAAN-RzLgagTZZYfcaVOcY_8ThYYD3"></div>
 	            
 	            <p id="has-account">이미 아이디가 있으신가요?<a class="signup-signin-text" href="${pageContext.request.contextPath}/users/login">로그인</a></p>
 	            <div class="signup-btn">
@@ -228,13 +214,13 @@
 	                  <div class="v-btn__content">회원가입</div>
 	                </button>
 	            </div>
-            
             </form>
-            
           </div>
         </div>
       </div>
     </div>
+    <script src="${pageContext.request.contextPath}/resources/js/Googlerecapcha.js"></script>
     <!-- ##### sign-in, sign-up End #####-->
     
     <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+    
