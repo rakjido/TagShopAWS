@@ -166,36 +166,6 @@
                             </div>
                             <!-- ############################## -->
                             <hr>
-                            <!-- 
-                            <div class="row">
-                                <div class="col-12 mb-3">
-                                    <c:set var="bankList" value="${sessionScope.bankList}" ></c:set>
-										<select id="cardCompanyCode" name="cardCompanyCode" class="form-control">
-											<option value="">카드회사를 선택하세요</option>
-											<c:forEach var="i" begin="0" end="${bankList.size()-1 }">
-												<option value="${bankList[i].code }">${bankList[i].codeName }</option>
-											</c:forEach>	
-										</select>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="name">카드번호 <span>*</span></label>
-                                    <input type="text" class="form-control" name="cardNumber" id="cardNumber" value="${sessionScope.profileVo.cardNumber}" required>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="name">유효기간 MONTH/YEAR <span>*</span></label>
-                                    <input type="text" class="form-control" name="cardPeriod" id="cardPeriod" value="${sessionScope.profileVo.cardPeriod}" required>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="name">CVC <span>*</span></label>
-                                    <input type="text" class="form-control" name="cvc" id="cvc" value="${sessionScope.profileVo.cvc}" required>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="name">카드 비밀번호 앞 2자리 <span>*</span></label>
-                                    <input type="password" class="form-control" name="cardPassword" id="cardPassword" value="${sessionScope.profileVo.cardPassword}" required>
-                                </div>
-                                
-                            </div>
-                             -->
                             <!-- ############################## -->
                             <input type="hidden" name="introduction" id="introduction" value="${sessionScope.profileVo.introduction}">
                             <input type="hidden" name="website" id="website" value="${sessionScope.profileVo.website}">

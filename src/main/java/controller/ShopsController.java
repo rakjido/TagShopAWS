@@ -9,8 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +23,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import net.sf.json.JSONArray;
 import service.AuthoritiesService;
 import service.BuyService;
 import service.ShopsService;
 import service.TagsLocaleService;
+import utils.RandomValueUtil;
 import utils.VisionUtil;
 import vo.AuthoritiesVo;
 import vo.CategoriesSortVo;
@@ -37,13 +43,11 @@ import vo.CodeVo;
 import vo.ManagementVo;
 import vo.MyOrderVo;
 import vo.OptionListVo;
-import vo.OptionsVo;
 import vo.OrdercodeVo;
 import vo.ProductDetailVo;
 import vo.ProductItemVo;
 import vo.ProductsVo;
 import vo.SelectedCategoriesVo;
-import vo.SelectedOptionVo;
 import vo.ShopsVo;
 import vo.TagsLocaleVo;
 
@@ -71,7 +75,7 @@ public class ShopsController {
 	@Autowired
 	private TagsLocaleVo tagsLocaleVo;
 	
-	private SelectedOptionVo selectedOptionVo;
+
 	
 	/*
      * @method name : sellerRegister
@@ -121,26 +125,21 @@ public class ShopsController {
 			@RequestParam("regNum2") int regNum2,
 			@RequestParam("regNum3") int regNum3)*/
 	
+	@ResponseBody
 	@Transactional
 	@RequestMapping(value="/new", method = RequestMethod.POST)
-	public String sellerRegister(ShopsVo shopsVo, HttpSession session,
-			@RequestParam("regNum1") int regNum1,
-			@RequestParam("regNum2") int regNum2,
-			@RequestParam("regNum3") int regNum3,
-			@RequestParam("midCategoryCode") String midCategoryCode) {
+	public String sellerRegister(ShopsVo shopsVo, HttpSession session, @RequestParam("midCategoryCode") String midCategoryCode) {
 		
 		
 		logger.info("[POST] sellerRegister()");
 		
 		SelectedCategoriesVo scVo = new SelectedCategoriesVo();
 		
-		String coporateNum = "" + regNum1 + regNum2 + regNum3;
 		
 		authVo.setUserid((String)session.getAttribute("userid"));
 		authVo.setAuthority("ROLE_SELLER");
 		
 		shopsVo.setUserid((String)session.getAttribute("userid"));	
-		shopsVo.setCorporateRegisterNumber(coporateNum);
 		scVo.setShopid(shopsVo.getShopid());
 		scVo.setMidCategoryCode(midCategoryCode);
 		System.out.println(scVo);
@@ -149,7 +148,7 @@ public class ShopsController {
 		service.sellerRegister(shopsVo);
 		service.insertCategories(scVo);
 		
-		return "redirect:/users/logout";
+		return "success";
 	}
 	
 	/*
@@ -321,39 +320,39 @@ public class ShopsController {
      * @example 
      */
 	
-	@Transactional
-	@RequestMapping(value="/{userid}/baskets/{productItemid}", method=RequestMethod.POST)
-	public String addBuyitems(@PathVariable("userid") String userid, @PathVariable("productItemid") BigInteger productItemid 
-			) {
-//		,double unitPrice, int quantity, @RequestBody OptionsVo optionVo
-		HashMap<String, Object> map = new HashMap<String, Object>();
-
-		System.out.println("구매추가전 ");
-		map.put("deliveryFee", 2500);
-		map.put("usedPoint", 0);
-		map.put("userid", userid);
-		map.put("unitPrice", 3000);
-		map.put("quantity", 2);
-		map.put("productItemId", productItemid);
-		
-		buyService.addBuyitems(map);
-		System.out.println("구매추가후");
-		
-		List<BigInteger> list = buyService.getBuyitemsId(userid);
-		List<OptionsVo> optionList = service.getOption(productItemid);
-		
-		System.out.println(list.toString());
-		System.out.println(optionList.toString());
-		
-		for (int i = 0; i < optionList.size()-1; i++) {
-			selectedOptionVo.setBuyItemsId(list.get(list.size()-1));
-			selectedOptionVo.setOptionCode(optionList.get(i).getOptionCode());
-			selectedOptionVo.setOptionType(optionList.get(i).getOptionType());
-			buyService.addSelectedOption(selectedOptionVo);
-		}
-
-		return "redirect:/";
-	}
+//	@Transactional
+//	@RequestMapping(value="/{userid}/baskets/{productItemid}", method=RequestMethod.POST)
+//	public String addBuyitems(@PathVariable("userid") String userid, @PathVariable("productItemid") BigInteger productItemid 
+//			) {
+////		,double unitPrice, int quantity, @RequestBody OptionsVo optionVo
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//
+//		System.out.println("구매추가전 ");
+//		map.put("deliveryFee", 2500);
+//		map.put("usedPoint", 0);
+//		map.put("userid", userid);
+//		map.put("unitPrice", 3000);
+//		map.put("quantity", 2);
+//		map.put("productItemId", productItemid);
+//		
+//		buyService.addBuyitems(map);
+//		System.out.println("구매추가후");
+//		
+//		List<BigInteger> list = buyService.getBuyitemsId(userid);
+//		List<OptionsVo> optionList = service.getOption(productItemid);
+//		
+//		System.out.println(list.toString());
+//		System.out.println(optionList.toString());
+//		
+//		for (int i = 0; i < optionList.size()-1; i++) {
+//			selectedOptionVo.setBuyItemsId(list.get(list.size()-1));
+//			selectedOptionVo.setOptionCode(optionList.get(i).getOptionCode());
+//			selectedOptionVo.setOptionType(optionList.get(i).getOptionType());
+//			buyService.addSelectedOption(selectedOptionVo);
+//		}
+//
+//		return "redirect:/";
+//	}
 	
 	
 	
@@ -471,4 +470,48 @@ public class ShopsController {
 		}
 		return "shops/sellerHome";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/sendsms", method=RequestMethod.POST)
+	  public String sendSms(HttpServletRequest request, @RequestParam("phonenum")String phonenum) throws Exception {
+
+	    String api_key = "NCSCMCA8CMEQZXB8";
+	    String api_secret = "7POX2FCN4NK5HDSJZB0KQW65MKSWL9BA";
+	    Message coolsms = new Message(api_key, api_secret);
+	    
+	    String smsKey = RandomValueUtil.getSmsKey();
+	    String smsconntent = "TagShop# 판매자 등록 인증번호 [" + smsKey + "]";
+
+	    HashMap<String, String> set = new HashMap<String, String>();
+	    set.put("to", phonenum); // 수신번호
+	    set.put("from", "01028015067"); // 발신번호
+	    set.put("text", smsconntent); // 문자내용
+	    set.put("type", "SMS"); // 문자 타입
+
+	    
+	    try {
+			
+	    	JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+	    	System.out.println(result.toString());
+		} catch (CoolsmsException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getCode());
+		}
+
+
+
+	    return smsKey;
+	  }
+	
 }

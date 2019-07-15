@@ -149,7 +149,7 @@
 					</div>
 				</section>
 			</div>
-			<i class="fa fa-times"></i>
+			<i id="exit-button" class="fa fa-times"></i>
 		</article>
 	</div>
 <script>

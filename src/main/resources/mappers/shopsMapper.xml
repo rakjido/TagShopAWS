@@ -138,23 +138,6 @@
  		WHERE USERID= #{userid}
  	</select>
  	
-<!--  	<select id="getManagementList" parameterType="HashMap" resultType="vo.ManagementVo">
-         SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d %H:%i") AS DATETIMES , P.RECIPIENTNAME, B.USERID, B.DELIVERYFEE, P.POSTALCODE,
-              P.ADDRESS1 ||' '|| P.ADDRESS2 AS ADDRESS, B.USEDPOINT, B.PAYTYPECODE, BX.PRODUCTID, BX.PRODUCTNAME, BX.BUYITEMSID,
-              BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
-        FROM BASKETS B JOIN (
-                            SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
-                            FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
-                                               JOIN BUYITEMS I ON P.PRODUCTITEMID = I.PRODUCTITEMID
-                        ) BX ON B.BASKETID = BX.BASKETID
-                       JOIN PROFILE P ON B.USERID = P.USERID
-        WHERE B.CREATEDATE BETWEEN #{fromDate} AND #{toDate}
-        AND BX.ORDERSTATUSCODE !='OR01'
-        <if test="orderStatusCode != null">
-             AND BX.ORDERSTATUSCODE = #{orderStatusCode}
-        </if>
-    </select> -->
-    
     <select id="check_name" resultType="Integer">
 		SELECT COUNT(shopid) FROM shops WHERE shopid = #{name}
 	</select>
@@ -184,10 +167,29 @@
         JOIN PRODUCTS AS S
         ON Q.PRODUCTID=S.PRODUCTID;
 	</select>
-	
-	<select id="getManagementList" parameterType="HashMap" resultType="vo.ManagementVo">
+
+	<select id="getManagementList" parameterType="hashMap" resultType="vo.ManagementVo">
          SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d %H:%i") AS DATETIMES, B.USERID, B.DELIVERYFEE,
-			  BX.PRODUCTNAME,  BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
+			    BX.PRODUCTNAME,  BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
+         FROM BASKETS B JOIN (
+                            SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
+                            FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
+                                               JOIN BUYITEMS I ON P.PRODUCTITEMID = I.PRODUCTITEMID
+                            WHERE D.SHOPID = #{shopid}
+                        ) BX ON B.BASKETID = BX.BASKETID
+                        JOIN PROFILE P ON B.USERID = P.USERID
+         WHERE B.CREATEDATE BETWEEN #{fromDate} AND #{toDate}
+         AND BX.ORDERSTATUSCODE !='OR01'
+         <if test="orderStatusCode != 'TOTL'">
+             AND BX.ORDERSTATUSCODE = #{orderStatusCode}
+        </if>
+    </select>
+
+<!-- 
+  	<select id="getManagementList" parameterType="HashMap" resultType="vo.ManagementVo">
+         SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d %H:%i") AS DATETIMES , P.RECIPIENTNAME, B.USERID, B.DELIVERYFEE, P.POSTALCODE,
+              P.ADDRESS1 ||' '|| P.ADDRESS2 AS ADDRESS, B.USEDPOINT, B.PAYTYPECODE, BX.PRODUCTID, BX.PRODUCTNAME, BX.BUYITEMSID,
+              BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
         FROM BASKETS B JOIN (
                             SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
                             FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
@@ -200,7 +202,9 @@
              AND BX.ORDERSTATUSCODE = #{orderStatusCode}
         </if>
     </select>
-    
+ -->
+  
+     
     <select id="getSellerList" resultType="vo.ProductsVo">
        SELECT * FROM PRODUCTS
    </select>

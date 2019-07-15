@@ -14,7 +14,7 @@ $(function() {
 		
 		
 		
-		$('html').off().on('mouseenter', '.photocount', function() {
+		$('.photocount').off().on('mouseenter', function() {
 			
 
 			$(this).addClass("hover");
@@ -43,9 +43,9 @@ $(function() {
 
 		});
 		
-		$('html').on('mouseleave', '.photocount', function() {
+		$('.photocount').on('mouseleave', function() {
+			$('.overlay').remove();
 			$(this).removeClass('hover');
-		  $('.overlay').remove();
 		});
 		
 		/* Photo Popup Detail */
@@ -67,14 +67,17 @@ $(function() {
 					
 					$('#instafeed').append(data);
 
-				$('.load-more').on('click', function() {
-					  var latestThree = $('.photo-grid .grid').slice(-3);
-
-					  latestThree.clone().appendTo('.photo-grid .container .row')
+					$('.photo-grid .grid').slice(0, 6).show(); // 최초 10개 선택
+					$(".load-more").click(function(e) { // Load More를 위한 클릭 이벤트e
+						e.preventDefault();
+						$(".photo-grid .grid:hidden").slice(0, 3).show(); // 숨김 설정된 다음 10개를 선택하여 표시
+						if ($(".photo-grid .grid:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+							alert("더 이상 항목이 없습니다"); // 더 이상 로드할 항목이 없는 경우 경고
+						}
 					});
 				
 				
-				$('.lightbox i').on('click', function() {
+				$('#exit-button').on('click', function() {
 				  $('.lightbox').remove();
 				});
 				
@@ -139,7 +142,7 @@ $(function() {
 						
 						$('#instafeed').append(data);
 						
-						$('.lightbox i').on('click', function() {
+						$('#exit-button').on('click', function() {
 						  $('.lightbox').remove();
 						});
 						
@@ -188,7 +191,7 @@ $(function() {
 			});
 			
 			
-			$('.lightbox i').on('click', function() {
+			$('#exit-button').on('click', function() {
 			  $('.lightbox').remove();
 			});
 			
@@ -615,10 +618,13 @@ $(function() {
 								$('.lightbox').remove();
 								
 								
-								$('.load-more').on('click', function() {
-									var latestThree = $('.photo-grid .grid').slice(-3);
-									
-									latestThree.clone().appendTo('.photo-grid .container .row')
+								$('.photo-grid .grid').slice(0, 6).show(); // 최초 10개 선택
+								$(".load-more").click(function(e) { // Load More를 위한 클릭 이벤트e
+									e.preventDefault();
+									$(".photo-grid .grid:hidden").slice(0, 3).show(); // 숨김 설정된 다음 10개를 선택하여 표시
+									if ($(".photo-grid .grid:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+										alert("더 이상 항목이 없습니다"); // 더 이상 로드할 항목이 없는 경우 경고
+									}
 								});
 								
 								
@@ -656,10 +662,13 @@ $(function() {
 								$('.lightbox').remove();
 								
 								
-								$('.load-more').on('click', function() {
-									var latestThree = $('.photo-grid .grid').slice(-3);
-									
-									latestThree.clone().appendTo('.photo-grid .container .row')
+								$('.photo-grid .grid').slice(0, 6).show(); // 최초 10개 선택
+								$(".load-more").click(function(e) { // Load More를 위한 클릭 이벤트e
+									e.preventDefault();
+									$(".photo-grid .grid:hidden").slice(0, 3).show(); // 숨김 설정된 다음 10개를 선택하여 표시
+									if ($(".photo-grid .grid:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+										alert("더 이상 항목이 없습니다"); // 더 이상 로드할 항목이 없는 경우 경고
+									}
 								});
 								
 								
@@ -843,6 +852,50 @@ $(function() {
 								
 								$('#instafeed').html(timelines);
 								
+								console.log($('.photo-grid .grid').length);
+								$('.photo-grid .grid').slice(0, 6).show(); // 최초 10개 선택
+								$(".load-more").click(function(e) { // Load More를 위한 클릭 이벤트e
+									e.preventDefault();
+									$(".photo-grid .grid:hidden").slice(0, 3).show(); // 숨김 설정된 다음 10개를 선택하여 표시
+									if ($(".photo-grid .grid:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+										alert("더 이상 항목이 없습니다"); // 더 이상 로드할 항목이 없는 경우 경고
+									}
+								});
+								
+								$('.photocount').on('mouseenter', function() {
+									
+
+									$(this).addClass("hover");
+									var photoid = $('img', this).attr('alt');
+									
+									var url = "photos/"+ photoid +"/likes";
+									var count ="";
+									
+									$.ajax({
+										url: url,
+										type: "POST",
+										dataType: "json",
+										success : function(data) {
+											count += '<div class="overlay shows">' +
+							                '<div class="likes">' +
+							                  '<i class="fa fa-heart">' +
+							                  '</i> ' + data.likecount + '' +
+							                '</div>' +
+							                '<div class="comments">' +
+							                  '<i class="fa fa-comment"></i> ' + data.commentcount +'' +
+							                '</div>' +
+							              '</div>';
+											$('.hover').append(count);
+										}
+									});
+
+								});
+								
+								$('.photocount').on('mouseleave', function() {
+									$(this).removeClass('hover');
+								  $('.overlay').remove();
+								});
+								
 							},
 							beforeSend : function() {
 								
@@ -872,7 +925,7 @@ $(function() {
 								
 								$('#instafeed').html(e);
 								
-								$('.lightbox i').on("click", function(e){
+								$('#exit-button').on("click", function(e){
 								    $('.lightbox').remove(); 
 							});
 								

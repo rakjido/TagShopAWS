@@ -12,7 +12,7 @@
 
 	<!-- ##### Welcome Area Start ##### -->
 	<section class="welcome_area bg-img background-overlay"
-		style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/01.jpg);">
+		style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/mainphoto.jpg);">
 		<div class="container h-100">
 			<div class="row h-100 align-items-center">
 				<div class="col-12">

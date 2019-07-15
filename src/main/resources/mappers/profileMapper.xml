@@ -23,12 +23,13 @@
 			    , REPOSTNUMBER = #{repostNumber}
 		WHERE USERID  = #{userid}
 	</update>
-
-	<update id="updateSnsProfile" parameterType="vo.ProfileVo">
+	
+		<update id="updateSnsProfile" parameterType="vo.ProfileVo">
 		UPDATE PROFILE
-			SET INTRODUCTION = #{introduction}
-			, WEBSITE = #{website}
-		WHERE USERID = #{userid}
+			 SET  INTRODUCTION = #{introduction}
+			    , WEBSITE = #{website}
+			    , PHOTONAME #{photoName}
+		WHERE USERID  = #{userid}
 	</update>
 	
 
