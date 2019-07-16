@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import vo.CategoriesSortVo;
 import vo.CategoriesVo;
 import vo.CodeVo;
-import vo.LogsVo;
 import vo.ManagementVo;
 import vo.MyOrderVo;
 import vo.OptionsVo;
@@ -58,7 +57,7 @@ public interface ShopsDao {
 	
 	public String getShopId(String userid);
 	
-	public List<ManagementVo> getManagementList(HashMap<String, Object> map);
+	public List<ManagementVo> getManagementList(HashMap<String, String> map);
 	
 	public int check_name(String name);
 	

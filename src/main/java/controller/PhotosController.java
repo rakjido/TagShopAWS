@@ -339,23 +339,23 @@ public class PhotosController {
 	/* 타임라인 페이지 */
 	@RequestMapping(value = "/{userid}/", method = {RequestMethod.POST, RequestMethod.GET})
 	public String getTimelinePhotos(@PathVariable("userid") String userid,Model model) {
-		
-		String value = redisTemplate.opsForValue().get(userid);
-		Set<String> keys = redisTemplate.keys("*");
-		
-		for (String key : keys) {
-			System.out.println(key);
-			//redisTemplate.delete(key);
-		}
-		
-		String connectcheck = "";
-		if(value != null) {
-			System.out.println("널 아님" + value);
-			connectcheck = "connecting";
-		}else {
-			System.out.println("널 임" + value);
-			connectcheck = "nonconnect";
-		}
+//		
+//		String value = redisTemplate.opsForValue().get(userid);
+//		Set<String> keys = redisTemplate.keys("*");
+//		
+//		for (String key : keys) {
+//			System.out.println(key);
+//			//redisTemplate.delete(key);
+//		}
+//		
+//		String connectcheck = "";
+//		if(value != null) {
+//			System.out.println("널 아님" + value);
+//			connectcheck = "connecting";
+//		}else {
+//			System.out.println("널 임" + value);
+//			connectcheck = "nonconnect";
+//		}
 		
 		List<PhotosVo> timelinephoto = photoservice.getAllPhotos(userid);
 		ProfileVo profile = profileservice.getProfile(userid);
@@ -366,7 +366,7 @@ public class PhotosController {
 		model.addAttribute("profile", profile);
 		model.addAttribute("follower", follower);
 		model.addAttribute("following", following);
-		model.addAttribute("connectcheck", connectcheck);
+//		model.addAttribute("connectcheck", connectcheck);
 		
 
 		return "photos/photoTimeline";
@@ -559,16 +559,9 @@ public class PhotosController {
 		return "redirect:/{userid}/";
 	}
 	
-	@RequestMapping(value = "/{userid}/chats", method = RequestMethod.GET)
-	public String getChat(@RequestParam("photouserid")String photouserid, Model model) {
+	@RequestMapping(value = "/{userid}/chats/{photouserid}", method = RequestMethod.GET)
+	public String getChat() {
 		
-		System.out.println(photouserid);
-		
-		ProfileVo profilevo = profileservice.getProfile(photouserid);
-		
-		System.out.println(profilevo);
-		
-		model.addAttribute("profilevo", profilevo);
 		
 		return "ajaxview/PhotoChat";
 	}

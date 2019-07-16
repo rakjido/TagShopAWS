@@ -25,12 +25,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8">
-				<div>
-					<h2>Sales management</h2>
-				</div>
-
-				<div class="regular-page-content-wrapper section-padding-80">
-					<div class="regular-page-text">
+                    <div class="regular-page-content-wrapper section-padding-80">
+                        <div class="regular-page-text">
+                            <h2>Marketing management</h2>
                             <div class="select-box d-flex mt-30 mb-30">
                                 <div class="col-3">
                                     <select name="select" id="orderStatusCode" class="w100">
@@ -97,27 +94,69 @@
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-<script>
+	<script>
 		
 	    $( function() {
 	    	var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 /* 	    	$('#example').DataTable(); */
 		    $("#fromDatepicker").datepicker({dateFormat: 'yy-mm-dd'});
-		    $("#fromDatepicker").datepicker("setDate", -365);
-		    
 		    $("#toDatepicker").datepicker({dateFormat: 'yy-mm-dd'});
-		    $("#toDatepicker").datepicker("setDate", "-0d");
 		    
 		    var curl = ctx + "/shops" +"/management";
 		   
 		    
-		    $.getSalesTable = function (){
-			    var param = {"fromDate" : $('#fromDatepicker').val(),
-	    				 "toDate"   : $('#toDatepicker').val(),
-	    				 "shopid"   : "${sessionScope.shopid}",
-	    				 "orderStatusCode" : $('#orderStatusCode').val()};
-			    
-		    	 	$('#example').dataTable({
+		    
+/* 		    $('#fromDatepicker , #toDatepicker, #statusCode').change(function(){
+		    	 console.log("안녕");
+		    	 var data = {"fromDate" : $('#fromDatepicker').val(), "toDate" : $('#toDatepicker').val(),"orderStatusCode" : $('#orderStatusCode').val() };
+			   	 
+		    	 console.log(data);	
+		    	 $.ajax({
+					type : "GET",
+					data : data,
+					url : curl,
+					success : function(data) {
+						var jsonTable="";
+						console.log(data);
+						
+						$.each(data,function(index, item){
+                            jsonTable += '<tr><td>' + item.userid +'</td>' +
+										'<td>' + item.productName +'</td>' +
+										'<td>' + item.unitPrice +'</td>' +
+										'<td>' + item.quantity +'</td>' +
+										'<td>' + item.orderStatusCode +'</td>' +
+										'<td>' + item.deliveryFee +'</td>' +
+										'<td>' + item.dateTimes +'</td></tr>';
+                            $('#jqBody').append(jsonTable);
+                            
+						});
+										
+					}
+				});
+		    }); */
+		    //#orderStatusCode, #fromDatepicker , 
+		    $('#toDatepicker').change(function(){
+		    	/* var data1 = {"fromDate" : $('#fromDatepicker').val(), "toDate" : $('#toDatepicker').val(),"orderStatusCode" : $('#orderStatusCode').val() }; */
+		    	/* $('#example').empty(); */
+/* 		    	$('#example').dataTable({
+                serverSide: true,
+                ajax : {
+                    "url":curl,
+                    "type":"POST",
+                     "dataType": "JSON"
+                },
+                columns : [
+                    {data: "DATETIMES"},
+                    {data: "USERID"},
+                    {data: "DELIVERYFEE"},
+                    {data: "PRODUCTNAME"},
+                    {data: "UNITPRICE"},
+                    {data: "QUANTITY"},
+                    {data: "ORDERSTATUSCODE"}
+                ]
+            }); */
+		    	
+		    	 $('#example').dataTable({
 		                pageLength: 3,
 		                bPaginate: true,
 		                bLengthChange: true,
@@ -130,7 +169,9 @@
 		                ajax : {
 		                    "url":curl,
 		                    "type":"POST",
-		                    "data": param
+		                    "data": function (d) {
+		                        d.userStatCd = "NR";
+		                    }
 		                },
 		                columns : [
 		                	{data: "dateTimes"},
@@ -142,14 +183,11 @@
 		                    {data: "orderStatusCode"}
 		                ]
 		 
-		       });
-		    }
+		            });
+    	});
 		    
-		    $.getSalesTable();
 		    
-		    $('#fromDatepicker , #toDatepicker, #orderStatusCode').change(function(){
-		    		$.getSalesTable();
-    			});
+		   
 		    
 	   });
 	

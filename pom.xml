@@ -216,20 +216,26 @@
 		    <artifactId>spring-social-google</artifactId>
 		    <version>1.0.0.RELEASE</version>
 		</dependency>
+			
+		<!-- 네이버 로그인 할 때 필요함 -->
+        <dependency>
+             <groupId>com.github.scribejava</groupId>
+             <artifactId>scribejava-apis</artifactId>
+             <version>5.6.0</version>
+       </dependency>
+
+       <dependency>
+             <groupId>com.github.scribejava</groupId>
+             <artifactId>scribejava-core</artifactId>
+             <version>5.6.0</version>
+       </dependency>
        
-       <!--*************************Facebook 로그인*************김동현,이노진****************-->
+       <!--*************************Facebook 로그인*************김동현****************-->
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-facebook</artifactId>
             <version>2.0.3.RELEASE</version>
         </dependency>
-
-		<!-- naver -->
-		<dependency>
-			<groupId>com.github.scribejava</groupId>
-			<artifactId>scribejava-core</artifactId>
-			<version>2.8.1</version>
-		</dependency>
         
 	    <!-- 구글 JSON  -->
 		<dependency>
