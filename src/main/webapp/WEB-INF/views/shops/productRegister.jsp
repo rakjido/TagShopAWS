@@ -40,8 +40,8 @@
 		<h2>물품 등록</h2>
 		<!-- onsubmit="postForm()"  -->
 		<form
-			action="${pageContext.request.contextPath}/shops/test/products/new"
-			method="post" onsubmit="postForm()" enctype="multipart/form-data" commandName="OptionListVo">
+            action="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/products/new"
+            method="post" onsubmit="postForm()" enctype="multipart/form-data" commandName="OptionListVo">
 			<div class="row">
 				<div class="col-12 mb-3">
 					<label for="company">제목</label> <input type="text"
