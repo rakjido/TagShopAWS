@@ -69,10 +69,15 @@
 		) SL ON US.BASEDATE = SL.BASEDATE
 	</insert>
 	
-	<select id="getPerformance" parameterType="hashMap" resultType="vo.PerformanceVo">
+	<select id="getPerformance" resultType="vo.PerformanceVo">
 		SELECT BASEDATE, USERS, SIGNUP, PHOTOVIEWS, PRDTPHOTO, BUYPHOTO, BUYSHOP, REBUY, SALES 
 		FROM PERFORMANCE
-		WHERE BASEDATE BETWEEN #{fromDate} AND #{toDate}
+<!-- 		WHERE BASEDATE BETWEEN #{fromDate} AND #{toDate} -->
+	</select>
+	
+	<select id="getPerformanceCount" resultType="int">
+		SELECT count(*) 
+		FROM PERFORMANCE
 	</select>		
 	
 	<insert id="insertViewParams">

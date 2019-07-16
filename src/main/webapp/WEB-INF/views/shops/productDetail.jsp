@@ -21,7 +21,7 @@
 
 			<img
 				src="${pageContext.request.contextPath}/uploads/${vo.photoFile}"
-				alt="" class="wh100">
+				alt="" class="wh100 mt50 ml50">
 
 	</div>
 	<!-- Single Product Description -->
@@ -47,7 +47,6 @@
 			<div id="goods_list">
 					<table align='' cellspacing='0' cellpadding='0'>
 						<tr>
-							<td>&nbsp;&nbsp;&nbsp;</td>
 							<td>
 								<div class="col-10 pzero">
 									<div class="row">
@@ -77,7 +76,7 @@
 		<div class="cart-fav-box d-flex align-items-center">
 			<!-- Cart -->
 			<button type="submit" name="addtocart" value="5"
-				class="btn essence-btn mr-30 buttoncolor mt-30">장바구니</button>
+				class="btn mr-30 buttoncolor mt-30 EasWx">장바구니</button>
 		</div>
 		</form>
 	</div>
@@ -92,10 +91,10 @@
 
 
 
-	<div class="col-7">
+	<div class="col-7 pl50 EeqsX">
 			${vo.description}
 	</div>
-	<div class="col-4" id="fixed2">
+	<div class="col-4 EqeeW" id="fixed2">
 		<div class="order-details-confirmation">
 
 			<div class="cart-page-heading">
@@ -135,9 +134,11 @@
 			if (height > 950) {
 				$('#fixed1').addClass('fixed1');
 				$('#fixed2').addClass('fixed2');
+				$('#fixed2').removeClass('EqeeW');
 			} else {
 				$('#fixed1').removeClass('fixed1');
 				$('#fixed2').removeClass('fixed2');
+				$('#fixed2').addClass('EqeeW');
 			}
 		});
 		

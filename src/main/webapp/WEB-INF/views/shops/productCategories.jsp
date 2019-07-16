@@ -13,6 +13,7 @@
 	
 	<!-- 본문 시작 -->
 	<!-- ##### Shop Grid Area Start ##### -->
+	<div class="top_catagory_area section-padding-80 clearfix insta-background">
     <section class="shop_grid_area section-padding-80">
         <div class="container">
             <div class="row">
@@ -177,6 +178,7 @@
             </div>
         </div>
     </section>
+    </div>
     <!-- ##### Shop Grid Area End ##### -->
 	<!-- 본문 끝 -->
 	

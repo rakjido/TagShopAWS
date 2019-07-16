@@ -12,8 +12,7 @@
                   <div class="row">
                     <div class="col-xs-12 col-sm-3 profile-photo">
                       <div class="img-wrapper">
-                       <!-- <img src="${pageContext.request.contextPath}/uploads/${profile.photoName}" alt="profileimg" /> --> 
-                       <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploads/${profile.photoName}" alt="profileimg" />
+                        <img src="${pageContext.request.contextPath}/uploads/${profile.photoName}" alt="profileimg" />
                       </div>
                     </div>
                     <div class="col-xs-12 col-sm-9">

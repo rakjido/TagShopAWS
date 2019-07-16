@@ -6,6 +6,7 @@
 </head>
 
 <body>
+
 	<!-- ##### Header Area Start ##### -->
 	<header class="header_area">
 		<div
@@ -14,7 +15,7 @@
 			<nav class="classy-navbar" id="essenceNav">
 				<!-- Logo -->
 				<a class="nav-brand" href="${pageContext.request.contextPath}/"><img
-					src="${pageContext.request.contextPath}/resources/img/core-img/태그샵14.png" alt=""></a>
+					src="${pageContext.request.contextPath}/resources/img/core-img/tagshop8.png" alt=""></a>
 				<!-- Navbar Toggler -->
 				<div class="classy-navbar-toggler">
 					<span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -35,25 +36,25 @@
 						    <li><a href="#">Shop</a>
                                 <ul class="dropdown">
                                     <li><a href="${pageContext.request.contextPath}/shops/categories">Shop</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/productList">개인판매자</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/${sessionScope.userid}/orders">주문</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/management/">판매관리</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/shops/tags">태그의 세계</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/productList">Brand</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/${sessionScope.userid}/orders">Order</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/shops/tags">Tag Trend</a></li>
                                 </ul>
                             </li>
  
 							<li><a href="#">Seller</a>
 								<ul class="dropdown">
-                                    <li><a href="${pageContext.request.contextPath}/shops/new">판매자 신청</a></li>
-                                    <li><a href="#">판매자 수정</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/products/new">제품등록</a></li>
-                                    <li><a href="#">제품수정</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/shops/new">Register</a></li>
+                                    <li><a href="#">Modify</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/products/new">Product Register</a></li>
+                                    <li><a href="#">Product Modify</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/management/">Sales Management</a></li>
 								</ul></li>
 
 							
 							<li><a href="#">Admin</a>
                                 <ul class="dropdown">
-                                    <li><a href="${pageContext.request.contextPath}/admin/index">대시보드</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/admin/index">Dashboard</a></li>
                                 </ul>
                             </li>
 
@@ -77,9 +78,6 @@
 					</form>
 				</div>
 				<!-- Favourite Area -->
-				<div class="favourite-area">
-					<a href="#"><img src="${pageContext.request.contextPath}/resources/img/core-img/heart.svg" alt=""></a>
-				</div>
 				<!-- User Login Info -->
 				<div class="user-login-info-open">
 					<input type="checkbox" id="user-login-info-open"
@@ -106,7 +104,7 @@
 				<!-- Cart Area -->
 				<div class="cart-area">
 					<a href="#" onclick="getBasketsList('${sessionScope.userid}'); return false;"  id="essenceCartBtn"><img src="${pageContext.request.contextPath}/resources/img/core-img/bag.svg"
-						alt=""> <span>3</span></a>
+						alt=""></a>
 				</div>
 			</div>
 		</div>

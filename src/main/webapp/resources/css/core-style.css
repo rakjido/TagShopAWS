@@ -321,7 +321,7 @@ img {
 
 /* ScrollUp */
 #scrollUp {
-  background-color: #ff084e;
+  background-color: #205551;
   border-radius: 0;
   bottom: 60px;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
@@ -349,12 +349,12 @@ img {
   text-transform: uppercase;
   font-size: 12px;
   line-height: 50px;
-  background-color: #0315ff;
+  background-color: #205551;
   letter-spacing: 1.5px;
   font-weight: 600; }
   .essence-btn:hover, .essence-btn:focus {
-    color: #ffffff;
-    background-color: #dc0345; }
+    color: white;
+    background-color: #2c7671; }
 
 /* Essence Button */
 .phonecheck-btn {
@@ -1250,10 +1250,15 @@ img {
         color: #dc0345 !important; }
 
 /* :: 11.0 Footer Area CSS */
+
+.footer_info {
+	color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+}
 .footer_area {
   position: relative;
   z-index: 1;
-  background-color: #252525;
+  background-color: #00010e;
   padding: 70px 0 60px; }
   .footer_area .single_widget_area .footer_menu ul {
     display: -webkit-box;
@@ -2236,7 +2241,7 @@ input:checked ~ .navigation-mypage-btn {
 .sales_apply_category_check{
   /* max-width: 800px; */
   width: 100%;
-  margin-left: -12px;
+  margin-left: -37px;
 }
 
 .sales_apply_category_check__categories {

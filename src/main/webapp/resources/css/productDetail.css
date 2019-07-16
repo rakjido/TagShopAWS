@@ -4,10 +4,33 @@
         .sm_select {display: none;}
         .sm_select select {width:100%; height: 40px; }
         
-        .buttoncolor {background-color : skyblue; height : 50px; min-width: 100px;} 
-
+        .buttoncolor {background-color : rgb(52, 152, 219); height : 50px; min-width: 100px;} 
+        
+        .EasWx {
+		  display: inline-block;
+		  min-width: 120px;
+		  height: 50px;
+		  color: #ffffff;
+		  border: none;
+		  border-radius: 0;
+		  padding: 0 40px;
+		  text-transform: uppercase;
+		  font-size: 12px;
+		  line-height: 50px;
+		  background-color: rgb(52, 152, 219);
+		  letter-spacing: 1.5px;
+		  font-weight: 600; }
+		  .EasWx:hover, .EasWx:focus {
+		    color: white;
+		    background-color: rgb(41, 128, 185); }
+        }
+        
+        .EeqsX {
+	    margin-left: 20px;
+	    }
 
         .fixed1 {
+        	margin-left: 20px;
             position:fixed;
             top:86px;
             z-index:1000;
@@ -15,15 +38,17 @@
             height:60px;
             
         }
-
+        .EqeeW {
+        margin-left: 55px;
+        
+        }
         .fixed2 {
             position:fixed;
             top:145px;
             z-index:1000;
-            left:60%;
+            left:63%;
             background-color:white;
         }
-        
         .pzero{
             padding:0px;
         }

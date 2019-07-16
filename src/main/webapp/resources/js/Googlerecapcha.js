@@ -8,6 +8,7 @@ $(function() {
 		var location = window.location.href.split('/');
 		var url = "http://"+location[2]+"/"+location[3];
 		
+		
 		var formData = $('#signup').serialize();
 		
 		console.log(formData);

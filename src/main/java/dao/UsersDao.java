@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import vo.UsersVo;
 
@@ -19,4 +20,6 @@ public interface UsersDao {
 	public void updateKey(HashMap<String, Object> map);
 	
 	public int alter_userKey(HashMap<String, Object> map);
+	
+	public List<UsersVo> getEnabledUsers();
 }

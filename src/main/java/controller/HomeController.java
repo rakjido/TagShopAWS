@@ -51,6 +51,9 @@ public class HomeController {
 	@Autowired
 	private SelectedOptionVo selectedOptionVo;
 	
+	@Autowired
+	private ProfileVo profileVo;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -101,13 +104,31 @@ public class HomeController {
 			                 , @RequestParam("usedPoint") double usedPoint
 			                 , @RequestParam("deliveryFee") double deliveryFee
 			                 , @RequestParam("basketId") BigInteger basketId
+			                 , @RequestParam("recipientName") String recipientName
+			                 , @RequestParam("address1") String address1
+			                 , @RequestParam("address2") String address2
+			                 , @RequestParam("postalCode") String postalCode
+			                 , @RequestParam("deliveryMemo") String deliveryMemo
+			                 , @RequestParam("point") double point
+			                 , @RequestParam("repostNumber") double repostNumber
 			                 , HttpSession session) {
 		
 		System.out.println(usedPoint);
 		System.out.println(deliveryFee);
 		System.out.println(basketId);
+		
+		profileVo.setUserid(userid);
+		profileVo.setRecipientName(recipientName);
+		profileVo.setAddress1(address1);
+		profileVo.setAddress2(address2);
+		profileVo.setPostalCode(postalCode);
+		profileVo.setDeliveryMemo(deliveryMemo);
+		profileVo.setPoint((int)point);
+		profileVo.setRepostNumber((int)repostNumber);
+		
 		buyService.updateBakset(basketId, deliveryFee, usedPoint);
 		buyService.changeOrderStatus(basketId, "OR03");
+		profileService.updateShoppingInfo(profileVo);
 		
 		return "redirect:/";
 	}

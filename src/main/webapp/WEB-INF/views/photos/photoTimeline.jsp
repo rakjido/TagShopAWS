@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
     <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loadingbar.css"> --%>
+
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 	
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -44,23 +45,23 @@
 
 	<!-- ##### Ajax Loading Bar End ##### -->
         
-        
+
 
       <div class="photo-grid">
         <div class="container">
           <div class="row">
           <c:forEach var="photos" items="${timelinephoto }">
-            <div class="col-xs-12 col-sm-4 grid photocount">
+            <div id="photo-hidden" class="col-xs-12 col-sm-4 grid photocount">
               <img src="${pageContext.request.contextPath}/uploads/${photos.fileName}" alt="${photos.photoId }" />
             </div>
             </c:forEach>
           </div>
         </div>
-
+            <script src="${pageContext.request.contextPath}/resources/js/timelineload.js"></script>
       
-	<!--<div class="load-more">
+	<div class="load-more">
         <span>Load More</span>
-      </div> -->
+      </div> 
       
       </div>
       </div>

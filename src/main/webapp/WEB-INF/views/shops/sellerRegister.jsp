@@ -7,6 +7,7 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	
 	<!-- ##### Breadcumb Area Start ##### -->
+	<div class="top_catagory_area section-padding-80 clearfix insta-background">
     <div class="breadcumb_area bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
@@ -24,13 +25,13 @@
     <div class="sales_apply section-padding-80">
         <div class="container">
             <div class="row">
+                    <form id="seller-register" method="post">
                 <div class="sales_apply_details mt-50 clearfix">
     
                     <div class="cart-page-heading mb-30">
                         <h5>판매자 정보</h5>
                     </div>
     
-                    <form action="${pageContext.request.contextPath}/shops/new" method="post">
                         <div class="row">
                             <div class="col-7">
                                 <div class="sales_infor">
@@ -75,21 +76,14 @@
                             <div class="col-7">
                                 <div class="sales_infor">
                                     <div class="col-4">
-                                        <label for="sales_apply_phone1">전화번호 </label>
+                                        <label for="sales_apply_phone">전화번호 </label>
                                     </div>
-                                    <input type="text" class="form-control" id="sales_apply_phone1" name="phone1" value="" required
-                                        placeholder="010" >
-                                    <span class="sales-form-divider">-</span>
-                                    <input type="text" class="form-control" id="sales_apply_phone2" name="phone2" value="" required
-                                        placeholder="1234">
-                                    <span class="sales-form-divider">-</span>
-                                    <input type="text" class="form-control" id="sales_apply_phone3" name="phone3" value="" required
-                                        placeholder="5678">
+                                    <input type="tel" class="form-control" id="sales_apply_phone" name="phone" value="" maxlength="11" placeholder="'-'없이 입력 해주세요">
                                 </div>
                                 <div><span id=phone_number> </span></div>
                             </div>
                             <div class="col-4">
-                                <button type="submit" name="phonecheck" value="5" class="btn phonecheck-btn">인증</button>
+                                <button type="button" id="phonecheck" name="phonecheck" value="5" class="btn phonecheck-btn">인증</button>
                             </div>
 
 
@@ -98,7 +92,7 @@
                                     <div class="col-4">
                                         <label for="sales_apply_phonecheck">인증번호 </label>
                                     </div>
-                                    <input type="text" class="form-control" id="sales_apply_phonecheck" value="" required>
+                                    <input type="text" class="form-control" id="sales_apply_phonecheck" value="" maxlength="6" required disabled>
                                 </div>
                                 <div><span id=certification_number> </span></div>
                             </div>
@@ -185,187 +179,15 @@
                         <div class="col-12 mt-5" style="text-align:center">
                             <button type="submit" name="phonecheck" value="5" class="btn phonecheck-btn">등록</button>
                         </div>
-                    </form>
+                    
                 </div>
+                    </form>
             </div>
         </div>
     </div>
+</div>
     <!-- ##### Checkout Area End ##### -->
     
     <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-    
-    <script>
-	$(document).ready(function(){
-		var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-		/* 판매자 닉네임 비동기 */
-		$("#sales_apply_myhomeurl").on("propertychange change keyup paste",function(){
-			var pattern = /^[0-9가-힣a-zA-Z]{2,15}$/;
-
-			 console.log($('#sales_apply_myhomeurl').val());
-				var pattern = /^[0-9가-힣a-zA-Z]{2,15}$/;
-				if(pattern.test($('#sales_apply_myhomeurl').val())){
-					console.log("판매자 닉네임 정규식 O");
-				}else{
-					console.log("판매자 닉네임 정규식 X");
-				}
-				
-			$.ajax({
-				url: ctx +"/shops/check_name",
-				data:{name:$("#sales_apply_myhomeurl").val()},
-				type:"POST",
-				success:function(data){
-					console.log(data);
-					if(data == 0 && pattern.test($('#sales_apply_myhomeurl').val())){
-						$("#check_name").css("color", "#0064FF");
-						$("#check_name").text("사용 가능합니다.");
-						
-					}
-					else if(data==1){
-						$("#check_name").css("color", "#ff0000");
-						$("#check_name").text("중복된 닉네임입니다.");
-					}
-					else{
-						$("#check_name").css("color", "#ff0000");
-						$("#check_name").text("숫자,한글,영어 2-15글자로 입력해주세요.");
-					}
-				}
-			})
-		})
-	})
-	
-	
-	
-	
-	$(function() {
-		 /* 회사 이름 정규식 (숫자,한글,영어,(,) 2-20글자)*/
-		$("#sales_apply_compnay").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_compnay').val());
-			var pattern = /^[()0-9가-힣a-zA-Z]{2,20}$/;
-			if(pattern.test($('#sales_apply_compnay').val())){
-				console.log("회사이름 정규식 O");
-				$("#company_name").css("color", "#0064FF");
-				$("#company_name").text("사용 가능합니다.");
-			}else{
-				console.log("회사이름 정규식 X");
-				$("#company_name").css("color", "#ff0000");
-				$("#company_name").text("숫자, 한글, 영어, 특수문자 ( , ) 2-20글자로 입력해주세요.");
-			}
-        });
-		 
-		/* 사업자번호 정규식 ex.123-12-12345 */
-		$("#sales_apply_license1").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_license1').val());
-			var pattern = /^[0-9]{3}$/;
-			if(pattern.test($('#sales_apply_license1').val())){
-				console.log("사업자번호1 정규식 O");
-			}else{
-				console.log("사업자번호1 정규식 X");
-			}
-        });
-		$("#sales_apply_license2").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_license2').val());
-			var pattern = /^[0-9]{2}$/;
-			if(pattern.test($('#sales_apply_license2').val())){
-				console.log("사업자번호2 정규식 O");
-			}else{
-				console.log("사업자번호2 정규식 X");
-			}
-        });
-		$("#sales_apply_license3").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_license3').val());
-			var pattern = /^[0-9]{5}$/;
-			if(pattern.test($('#sales_apply_license3').val())){
-				console.log("사업자번호3 정규식 O");
-			}else{
-				console.log("사업자번호3 정규식 X");
-			}
-        });
-		
-		/* 판매자 닉네임 정규식(숫자,한글,영어 2-15글자) */
-		$("#sales_apply_myhomeurl").on("propertychange change keyup paste", function() {
-           /*  console.log($('#sales_apply_myhomeurl').val());
-			var pattern = /^[0-9가-힣a-zA-Z]{2,15}$/;
-			if(pattern.test($('#sales_apply_myhomeurl').val())){
-				console.log("판매자 닉네임 정규식 O");
-			}else{
-				console.log("판매자 닉네임 정규식 X");
-			} */
-        });
-		
-		/* 휴대전화 정규식 (ex.010-1234-1234) */
-		$("#sales_apply_phone1").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_phone1').val());
-			var pattern = /^\d{3}$/;
-			if(pattern.test($('#sales_apply_phone1').val())){
-				console.log("휴대전화1 정규식 O");
-			}else{
-				console.log("휴대전화1 정규식 X");
-			}
-        });
-		$("#sales_apply_phone2").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_phone2').val());
-			var pattern = /^\d{4}$/;
-			if(pattern.test($('#sales_apply_phone2').val())){
-				console.log("휴대전화2 정규식 O");
-			}else{
-				console.log("휴대전화2 정규식 X");
-			}
-        });
-		$("#sales_apply_phone3").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_phone3').val());
-			var pattern = /^\d{3}$/;
-			if(pattern.test($('#sales_apply_phone3').val())){
-				console.log("휴대전화3 정규식 O");
-			}else{
-				console.log("휴대전화3 정규식 X");
-			}
-        });
-		
-		/* 인증번호 정규식 (ex.123456) */
-		$("#sales_apply_phonecheck").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_phonecheck').val());
-			var pattern = /^\d{6}$/;
-			if(pattern.test($('#sales_apply_phonecheck').val())){
-				console.log("인증번호 정규식 O");
-			}else{
-				console.log("인증번호 정규식 X");
-			}
-        });
-		
-		
-		/* 계좌번호 정규식(숫자 11-14글자) */
-		$("#sales_apply_bankaccount").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_bankaccount').val());
-			var pattern = /^\d{11,14}$/;
-			if(pattern.test($('#sales_apply_bankaccount').val())){
-				console.log("계좌번호 정규식 O");
-				$("#account_number").css("color", "#0064FF");
-				$("#account_number").text("사용 가능합니다.");
-			}else{
-				console.log("계좌번호 정규식 X");
-				$("#account_number").css("color", "#ff0000");
-				$("#account_number").text("숫자 11-14글자로 입력해주세요.");
-			}
-        });
-		
-		/* 브랜드 이름 정규식(숫자, 한글, 영어 2-15자리) */
-		$("#sales_apply_brand").on("propertychange change keyup paste", function() {
-            console.log($('#sales_apply_brand').val());
-			var pattern = /^[0-9가-힣a-zA-Z]{2,15}$/;
-			if(pattern.test($('#sales_apply_brand').val())){
-				console.log("브랜드 이름 정규식 O");
-				$("#brand_name").css("color", "#0064FF");
-				$("#brand_name").text("사용 가능합니다.");
-			}else{
-				console.log("브랜드 이름 정규식 X");
-				$("#brand_name").css("color", "#ff0000");
-				$("#brand_name").text("숫자, 한글, 영어 2-15글자로 입력해주세요.");
-			}
-        });
-		
-		
-	})
-	
-	
-	</script>
+    <script src="${pageContext.request.contextPath}/resources/js/seller-register.js"></script>
     

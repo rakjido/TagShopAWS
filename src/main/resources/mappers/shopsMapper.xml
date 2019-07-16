@@ -185,18 +185,19 @@
         ON Q.PRODUCTID=S.PRODUCTID;
 	</select>
 	
-	<select id="getManagementList" parameterType="HashMap" resultType="vo.ManagementVo">
+	<select id="getManagementList" parameterType="hashMap" resultType="vo.ManagementVo">
          SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d %H:%i") AS DATETIMES, B.USERID, B.DELIVERYFEE,
-			  BX.PRODUCTNAME,  BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
-        FROM BASKETS B JOIN (
+			    BX.PRODUCTNAME,  BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
+         FROM BASKETS B JOIN (
                             SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
                             FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
                                                JOIN BUYITEMS I ON P.PRODUCTITEMID = I.PRODUCTITEMID
+                            WHERE D.SHOPID = #{shopid}
                         ) BX ON B.BASKETID = BX.BASKETID
-                       JOIN PROFILE P ON B.USERID = P.USERID
-        WHERE B.CREATEDATE BETWEEN #{fromDate} AND #{toDate}
-        AND BX.ORDERSTATUSCODE !='OR01'
-        <if test="orderStatusCode != null">
+                        JOIN PROFILE P ON B.USERID = P.USERID
+         WHERE B.CREATEDATE BETWEEN #{fromDate} AND #{toDate}
+         AND BX.ORDERSTATUSCODE !='OR01'
+         <if test="orderStatusCode != 'TOTL'">
              AND BX.ORDERSTATUSCODE = #{orderStatusCode}
         </if>
     </select>

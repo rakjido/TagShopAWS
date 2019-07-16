@@ -49,14 +49,18 @@
         <div class="container">
           <div class="row">
           <c:forEach var="photos" items="${photos }">
-            <div class="col-xs-12 col-sm-4 grid photocount">
+            <div id="photo-hidden" class="col-xs-12 col-sm-4 grid photocount">
               <img src="${pageContext.request.contextPath}/uploads/${photos.fileName}" alt="${photos.photoId }" />
             </div>
             </c:forEach>
           </div>
         </div>
+		<script src="${pageContext.request.contextPath}/resources/js/timelineload.js"></script>
+				<div class="load-more">
+					<span>Load More</span>
+				</div>
 
-      </div>
+	  </div>
       </div>
       </div>
       </div>

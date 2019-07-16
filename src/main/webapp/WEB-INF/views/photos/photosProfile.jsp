@@ -48,30 +48,24 @@
                     <div class="profile-usermenu">
                         <ul class="nav">
                             <li class="active">
-                                <a href="profile.html">
+                                <a href="#">
                                     <i class="glyphicon glyphicon-home"></i>
                                     	프로필 수정 </a>
                             </li>
-                            <li>
+                            <li class="select-profile">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-user"></i>
-                                    Account Settings </a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank">
-                                    <i class="glyphicon glyphicon-ok"></i>
-                                    Tasks </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="glyphicon glyphicon-flag"></i>
-                                    Help </a>
+                                    	비밀번호 변경 </a>
                             </li>
                         </ul>
                     </div>
 
                 </div>
             </div>
+            
+            
+            
+            
             <div class="col-md-9">
                 <div class="profile-content">
                     <div class="row">
@@ -122,6 +116,10 @@
                     </form>
                 </div>
             </div>
+            
+            
+            
+            
         </div>
     </div>
 	</div>

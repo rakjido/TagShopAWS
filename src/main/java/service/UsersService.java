@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +45,12 @@ public class UsersService {
 		UsersDao dao = sqlSession.getMapper(UsersDao.class);
 		dao.updateUsers(dto);
 	}
+	
+	public List<UsersVo> getEnabledUsers() {
+        UsersDao dao = sqlSession.getMapper(UsersDao.class);
+        List<UsersVo> list = dao.getEnabledUsers();
+        
+        return list;
+    }
 
 }

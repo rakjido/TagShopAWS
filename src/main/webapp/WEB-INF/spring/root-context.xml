@@ -96,7 +96,7 @@
           p:timeout="3000"/>
  -->
 	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
-        <property name="hostName" value="192.168.0.112" />
+        <property name="hostName" value="127.0.0.1" />
         <property name="port" value="6379"/>
         <!-- <property name="password" value="redis_pw"/> -->
     </bean>

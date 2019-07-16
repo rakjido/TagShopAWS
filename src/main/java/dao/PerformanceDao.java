@@ -12,7 +12,7 @@ import vo.WeightsVo;
 public interface PerformanceDao {
 	public void insertPerformance(Date baseDate);
 	
-	public List<PerformanceVo> getPerformance(HashMap<String, Date> map);
+	public List<PerformanceVo> getPerformance();
 	
 	public void insertViewParams();
 	
@@ -21,4 +21,6 @@ public interface PerformanceDao {
 	public List<RankingVo> getRanking(WeightsVo vo);
 
 	public void insertWeights(WeightsVo vo);
+	
+	public int getPerformanceCount();
 }

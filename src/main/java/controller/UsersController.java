@@ -15,6 +15,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +31,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
 import service.AuthoritiesService;
 import service.BuyService;
 import service.ShopsService;
 import service.UserMailSendService;
 import service.UsersService;
+import utils.NaverLoginBO;
+import utils.RandomValueUtil;
 import utils.VerifyRecaptcha;
 import vo.AuthoritiesVo;
 import vo.OptionListVo;
@@ -74,9 +80,22 @@ public class UsersController {
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
 	
+	@Autowired
+	private NaverLoginBO naverLoginBO;
+	
+	private String apiResult;
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
+	public String login(Model model, HttpSession session) {
 		logger.debug("[GET] login()");
+		
+		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
+		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+		System.out.println("네이버:" + naverAuthUrl);
+		//네이버
+		model.addAttribute("url", naverAuthUrl);
 
 		return "users/signIn";
 	}
@@ -121,6 +140,9 @@ public class UsersController {
         VerifyRecaptcha.setSecretKey("6LeNoKgUAAAAAHE6-GzKInsXCj2P5Y7g3smNsOn-");
         String gRecaptchaResponse = recaptcha;
         System.out.println(gRecaptchaResponse);
+        
+        this.bCryptPasswordEncoder.encode("dakhweakhaw");
+        
         try {
             if(VerifyRecaptcha.verify(gRecaptchaResponse)){
             	
@@ -207,7 +229,7 @@ public class UsersController {
 	// e-mail 인증 컨트롤러
 		@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
 		public String key_alterConfirm(@RequestParam("user_id") String user_id, @RequestParam("user_key") String key) {
-			logger.info("[GET] key_alterConfirm");
+
 			mailsender.alter_userKey_service(user_id, key); // mailsender의 경우 @Autowired
 
 			return "users/regSuccess";
@@ -216,12 +238,13 @@ public class UsersController {
 		
 		@RequestMapping(value = "/login_success", method = RequestMethod.GET)
 		public String login_Success(HttpServletRequest request, HttpServletResponse response) {
-//				HttpSession session = request.getSession();
-//				System.out.println(">>>>> has : " + session.getAttribute("userid")); // key 존재
-//				String userid = (String)session.getAttribute("userid");
-//				redisTemplate.opsForValue().set(userid, userid); // 20초 만료
-//				String value = redisTemplate.opsForValue().get(userid);
-//				System.out.println(">>>>> redis value : " + value);
+/*				HttpSession session = request.getSession();
+				System.out.println(">>>>> has : " + session.getAttribute("userid")); // key 존재
+				String userid = (String)session.getAttribute("userid");
+				redisTemplate.opsForValue().set(userid, userid); // 20초 만료
+				String value = redisTemplate.opsForValue().get(userid);
+				System.out.println(">>>>> redis value : " + value);*/
+				
 				
 				return "redirect:/";
 		}
@@ -297,5 +320,45 @@ public class UsersController {
             
 //            HashMap<String, Object> userData = new HashMap<String, Object>();
         }
-
+        
+    	//네이버 로그인 성공시 callback호출 메소드
+    	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
+    	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+    		
+    		System.out.println("여기는 callback");
+    		OAuth2AccessToken oauthToken;
+    		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+    		//1. 로그인 사용자 정보를 읽어온다.
+    		apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
+    		/** apiResult json 구조
+    {"resultcode":"00",
+    "message":"success",
+    "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"shinn0608@naver.com","name":"\uc2e0\ubc94\ud638"}}
+    		 **/
+    		//2. String형식인 apiResult를 json형태로 바꿈
+    		JSONParser parser = new JSONParser();
+    		Object obj = parser.parse(apiResult);
+    		JSONObject jsonObj = (JSONObject) obj;
+    		//3. 데이터 파싱
+    		//Top레벨 단계 _response 파싱
+    		JSONObject response_obj = (JSONObject)jsonObj.get("response");
+    		//response의 nickname값 파싱
+    		String nickname = (String)response_obj.get("nickname");
+    		String id = (String)response_obj.get("id");
+    		String email = (String)response_obj.get("email");
+    		System.out.println(nickname);
+    		System.out.println(id);
+    		System.out.println(email);
+    		
+    		UsersVo usersvo = new UsersVo();
+    		
+    		usersvo.setUserid(id);
+    		usersvo.setPassword(this.bCryptPasswordEncoder.encode(RandomValueUtil.getSmsKey()));
+    		usersvo.setEnabled(true);
+    		
+    		//4.파싱 닉네임 세션으로 저장
+    		session.setAttribute("userid",id); //세션 생성
+    		//model.addAttribute("result", apiResult);
+    		return "redirect:/login_success";
+    	}
 }

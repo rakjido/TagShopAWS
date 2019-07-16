@@ -34,9 +34,11 @@
                 </button>
               </div> -->
               <div class="icon-btn">
-                <button type="button" class="signin-icon-btn-google">
-                    <i class="mdi mdi-google signin-icon-text icon-color-google"></i>
+              <a href="${url }">
+                <button type="button" class="signin-icon-btn-naver">
+                    <i class="mdi mdi-alpha-n-box signin-icon-text icon-color-naver"></i>
                 </button>
+                </a>
               </div>
               <div class="icon-btn">
                 <button type="button" class="signin-icon-btn-instagram">

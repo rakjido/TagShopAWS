@@ -9,7 +9,7 @@ import lombok.Data;
 public class PerformanceVo {
 	String baseDate;
 	int users;
-	int singup;
+	int signup;
 	int photoViews;
 	int prdtPhoto;
 	int buyPhoto;

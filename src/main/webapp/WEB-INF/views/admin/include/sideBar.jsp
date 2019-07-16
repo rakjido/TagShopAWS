@@ -14,11 +14,11 @@
 		<!-- menu profile quick info -->
 		<div class="profile clearfix">
 			<div class="profile_pic">
-				<img src="images/img.jpg" alt="..." class="img-circle profile_img">
+				<img src="${pageContext.request.contextPath}/uploads/admin.png" alt="..." class="img-circle profile_img">
 			</div>
 			<div class="profile_info">
 				<span>Welcome,</span>
-				<h2>John Doe</h2>
+				<h2>Admin!</h2>
 			</div>
 		</div>
 		<!-- /menu profile quick info -->
@@ -30,14 +30,30 @@
 			<div class="menu_section">
 				<h3>General</h3>
 				<ul class="nav side-menu">
-					<li><a><i class="fa fa-home"></i> Home <span
+					<li><a href="${pageContext.request.contextPath}/admin/index"><i class="fa fa-home"></i> Home</a></li>
+					<li><a><i class="fa fa-bar-chart-o"></i> Chart <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="index.html">Dashboard</a></li>
-							<li><a href="index2.html">Dashboard2</a></li>
-							<li><a href="index3.html">Dashboard3</a></li>
-						</ul></li>
-
+							<li><a href="${pageContext.request.contextPath}/admin/chart/buyChart">Purchase Chart</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/chart/users">Users Chart</a></li>
+						</ul>
+						
+					</li>
+					
+					<li><a><i class="fa fa-laptop"></i> Users <span
+							class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="${pageContext.request.contextPath}/admin/users">User List</a></li>
+						</ul>
+					</li>
+					
+					<li><a><i class="fa fa-laptop"></i> Products <span
+							class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="${pageContext.request.contextPath}/admin/products">Product List</a></li>
+						</ul>
+					</li>
+					
 				</ul>
 			</div>
 

@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import service.ShopsService;
 import service.TagsLocaleService;
+import utils.DateUtil;
 import vo.ManagementVo;
 import vo.PhotoTagsVo;
 import vo.ProductsVo;
@@ -84,16 +86,16 @@ public class ShopsRestController {
 	}
 	
 	@RequestMapping(value="/management", method=RequestMethod.POST)
-	public Object getMangementList(String fromDate, String toDate, String orderStatusCode){
+	public Object getMangementList(String fromDate, String toDate, String shopid, String orderStatusCode){
 		
-		System.out.println(fromDate + " / " + toDate + " / " + orderStatusCode);
+		System.out.println(fromDate + " / " + toDate + " / " + shopid + " / " +orderStatusCode);
 		
-		fromDate = "2000-01-01";
-		toDate = "2020-12-31";
-		orderStatusCode = "";
+		Date frDate = DateUtil.date(fromDate.replace("-", ""));
+		Date tDate = DateUtil.date(toDate.replace("-", ""));
 		
 		Map<String, Object> mp = new HashMap<String, Object>();
-		mp.put("data", service.getManagementList(fromDate, toDate, orderStatusCode));
+		
+		mp.put("data", service.getManagementList(frDate, tDate, shopid, orderStatusCode));
 		System.out.println(mp);
 		return mp;
 	}

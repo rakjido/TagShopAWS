@@ -18,13 +18,15 @@
 		SELECT USERID, PASSWORD, ENABLED, EMAIL, PHONE, CREATEDATE, UPDATEDATE 
 		FROM USERS WHERE USERID = #{userid}
 	</select>
-
+	
 	<update id="updateUsers" parameterType="vo.UsersVo">
 		UPDATE USERS
-			SET EMAIL = #{email},
-			PHONE = #{phone},
-			UPDATEDATE = NOW()
-		WHERE USERID = #{userid}
+			 SET  PASSWORD = #{password}, 
+			          ENABLED = #{enabled}, 
+			          EMAIL = #{email}, 
+			          PHONE = #{phone}, 
+			          UPDATEDATE = NOW() 
+		WHERE USERID  = #{userid}
 	</update>
 	
 	<update id="updateKey" parameterType="HashMap">
@@ -38,5 +40,10 @@
        SET ENABLED = TRUE
        WHERE USERID = #{userid} AND EMAILKEY = #{emailkey}
    </update>
+   
+   <select id="getEnabledUsers" resultType="vo.UsersVo">
+        SELECT USERID, PASSWORD, ENABLED, EMAIL, PHONE, CREATEDATE, UPDATEDATE 
+        FROM USERS WHERE ENABLED = 1
+    </select>
 	
 </mapper>

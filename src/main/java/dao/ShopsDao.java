@@ -57,7 +57,7 @@ public interface ShopsDao {
 	
 	public String getShopId(String userid);
 	
-	public List<ManagementVo> getManagementList(HashMap<String, String> map);
+	public List<ManagementVo> getManagementList(HashMap<String, Object> map);
 	
 	public int check_name(String name);
 	

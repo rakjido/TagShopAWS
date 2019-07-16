@@ -25,12 +25,12 @@ public class PerformanceService {
 		dao.insertPerformance(baseDate);
 	}
 	
-	public List<PerformanceVo> getPerformance(Date fromDate, Date toDate){
+	public List<PerformanceVo> getPerformance(){
 		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
-		HashMap<String, Date> map = new HashMap<String, Date>();
-		map.put("fromDate", fromDate);
-		map.put("toDate", toDate);
-		return dao.getPerformance(map);
+//		HashMap<String, Date> map = new HashMap<String, Date>();
+//		map.put("fromDate", fromDate);
+//		map.put("toDate", toDate);
+		return dao.getPerformance();
 	}
 	
 	public void insertViewParams() {
@@ -52,5 +52,9 @@ public class PerformanceService {
 		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
 		dao.insertWeights(vo);
 	}
-
+	
+	public int getPerformanceCount() {
+		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
+		return dao.getPerformanceCount();
+	}
 }

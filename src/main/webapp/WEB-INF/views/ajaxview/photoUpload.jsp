@@ -22,16 +22,16 @@
 
 				<section class="sH9wk  _JgwE ">
 				
-				<form action="photos" enctype="Multipart/form-data" method="POST">
-				<div class="row">
-					<div class="filebox" style="align:right" id="wirteForm">
-						<label for="file">이미지</label> <input type="file" name="file" id="file">
-					</div>
-					
-					<div class="col-12 mb-3">
-						<label for="descripTion">글내용</label>
-						<textarea name="descripTion" form="wirteForm" cols="40" rows="10" autofocus required wrap="hard"></textarea>
-					</div>
+				<form action="photos" enctype="Multipart/form-data" method="POST" id="uploadForm">
+                <div class="row">
+                    <div class="filebox" style="align:right" id="wirteForm">
+                        <label for="file">이미지</label> <input type="file" name="file" id="file">
+                    </div>
+                    
+                    <div class="col-12 mb-3">
+                        <label for="descripTion">글내용</label>
+                        <textarea name="descripTion" form="uploadForm" cols="40" rows="10" autofocus required wrap="hard"></textarea>
+                    </div>
 					
 					
 					<!-- http://192.168.1.22:8090/tagshop/shops/test/products/45
@@ -66,8 +66,8 @@
 	</div>
 
 	
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.imgareaselect.pack.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
 	var regNum = 0;
 		$(function(){

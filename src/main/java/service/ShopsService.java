@@ -1,6 +1,7 @@
 package service;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,9 +36,6 @@ public class ShopsService {
 	
 	public void sellerRegister(ShopsVo vo) {
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-		
-		String phone = vo.getPhone1() + "-" + vo.getPhone2() + "-" + vo.getPhone3();
-		vo.setPhone(phone);
 		
 		dao.sellerRegister(vo);
 	}
@@ -157,12 +155,13 @@ public class ShopsService {
 		return dao.getShopId(userid);
 	}
 	
-	public List<ManagementVo> getManagementList(String fromDate, String toDate, String orderStatusCode){
+	public List<ManagementVo> getManagementList(Date fromDate, Date toDate, String shopid, String orderStatusCode){
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fromDate", fromDate);
 		map.put("toDate", toDate);
-//		map.put("orderStatusCode", orderStatusCode);
+		map.put("shopid", shopid);
+		map.put("orderStatusCode", orderStatusCode);
 		return dao.getManagementList(map);
 	}
 	

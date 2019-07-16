@@ -7,10 +7,13 @@
 	<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loadingbar.css"> --%>
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
-	
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	
-	<!-- 본문 시작 -->
+
+<%@ include file="/WEB-INF/views/include/header.jsp"%>
+
+
+
+
+<!-- 본문 시작 -->
 	
 	<!-- ##### Instagram Start ##### -->
 
@@ -48,7 +51,17 @@
         <div class="inner-content clearfix">
        
           <!-- Content Post1 -->
-        <c:if test="anotherphotos.size()>0"> <!-- 20190714 예외처리 추가  -->
+        <c:if test="${anotherphotos.size()<= 0}">
+                  <div class="feed-container">
+                      <div class="feed-post">
+						</div>
+						<div>
+						<span>친구는 이야기를 만드는 중 일꺼야....</span>
+						</div>
+					</div>
+				</c:if>  
+          
+        <c:if test="${anotherphotos.size()> 0}"> <!-- 20190714 예외처리 추가  -->
           
           <div class="post-container">
              <%-- <c:forEach var="anotherphotos" items="${anotherphotos}" varStatus="status"> --%>
