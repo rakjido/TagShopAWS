@@ -52,6 +52,7 @@
 		shopid,title,price,productid,photoFile FROM Products
 	</select>
 
+
 	<select id="productOrderBy" parameterType="HashMap"
 		resultType="vo.ProductsVo">
 		SELECT shopid,title,price,productid,photoFile, productid FROM Products
@@ -64,7 +65,22 @@
 		<if test="column.equals('priceAsc')">
 			order by price asc
 		</if>
+		<if test="column.equals('mainColor')">
+			order by price asc
+		</if>
 
+	</select>
+
+	<select id="productBetweenPrices" parameterType="HashMap" resultType="vo.ProductsVo">
+		SELECT SHOPID, TITLE, PRICE, PRODUCTID, PHOTOFILE, PRODUCTID
+		FROM PRODUCTS
+		WHERE PRICE BETWEEN #{fromPrice} AND #{toPrice}
+	</select>
+
+	<select id="productByColor" parameterType="String" resultType="vo.ProductsVo">
+		SELECT SHOPID, TITLE, PRICE, PRODUCTID, PHOTOFILE, PRODUCTID
+		FROM PRODUCTS
+		WHERE MAINCOLOR = #{color};
 	</select>
 
 	<select id="smallCategories" parameterType="HashMap"

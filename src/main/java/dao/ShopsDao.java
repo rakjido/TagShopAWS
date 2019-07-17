@@ -41,6 +41,10 @@ public interface ShopsDao {
 	
 	public List<ProductsVo> productOrderBy(HashMap<String, String> map);
 	
+	public List<ProductsVo> productBetweenPrices(HashMap<String, Object> map);
+	
+	public List<ProductsVo> productByColor(String color);
+	
 	public List<ProductsVo> smallCategories(HashMap<String, String> map);
 	
 	public void deleteSelectedOption(BigInteger buyItemsId);

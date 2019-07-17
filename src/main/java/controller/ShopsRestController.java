@@ -36,7 +36,7 @@ public class ShopsRestController {
 		return service.productOrderBy(sort);
 	}
 	
-	@RequestMapping(value="/categories/{code}", method=RequestMethod.GET)
+	@RequestMapping(value="/categories/sub/{code}", method=RequestMethod.GET)
 	public List<ProductsVo> byCategories(@PathVariable("code") String code) throws Exception {
 		return service.smallCategories(code);
 	}
@@ -44,6 +44,16 @@ public class ShopsRestController {
 	@RequestMapping(value="/categories/list/{code}", method=RequestMethod.GET)
 	public List<ProductsVo> getCategories(@PathVariable("code") String code) throws Exception {
 		return null;
+	}
+	
+	@RequestMapping(value="/categories/price/{fromPrice}/{toPrice}", method=RequestMethod.GET)
+	public List<ProductsVo> byPrices(@PathVariable("fromPrice") double fromPrice, @PathVariable("toPrice") double toPrice) throws Exception {
+		return service.productBetweenPrices(fromPrice, toPrice);
+	}
+	
+	@RequestMapping(value="/categories/color/{colors}", method=RequestMethod.GET)
+	public List<ProductsVo> byColors(@PathVariable("colors") String colors) throws Exception {
+		return service.productByColor(colors);
 	}
 	
 //	@Transactional

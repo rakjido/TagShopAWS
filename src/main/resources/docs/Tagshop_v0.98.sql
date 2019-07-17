@@ -326,7 +326,7 @@ ENGINE = InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_bin;
 DROP TABLE IF EXISTS `tagshop`.`ProductItem` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`ProductItem` (
-  `ProductItemId` BIGINT NOT NULL,
+  `ProductItemId` BIGINT NOT NULL AUTO_INCREMENT,
   `ProductName` VARCHAR(100) NULL,
   `UnitPrice` DOUBLE NULL,
   `ProductId` BIGINT NOT NULL,

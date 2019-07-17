@@ -95,6 +95,20 @@ public class ShopsService {
 		return list;
 	};
 	
+	public List<ProductsVo> productBetweenPrices(double fromPrice, double toPrice){
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("fromPrice", fromPrice);
+		map.put("toPrice", toPrice);
+		
+		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+		return dao.productBetweenPrices(map);
+	}
+	
+	public List<ProductsVo> productByColor(String color){
+		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+		return dao.productByColor(color);
+	}
+	
 	public List<ProductsVo> smallCategories(String code){
 		
 		HashMap<String,String> map = new HashMap<String,String>();

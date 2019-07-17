@@ -19,10 +19,11 @@
 }*/
 
 function smallcode(code){
-	var curl = "categories/" + code;
+	var curl = "categories/sub/" + code;
 
 	ajaxfn(curl);
 }
+
 
 function ajaxfn(curl){
 	$.ajax({

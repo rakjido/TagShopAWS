@@ -63,12 +63,12 @@
 
                             <div class="widget-desc">
                                 <div class="slider-range">
-                                    <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
+                                    <div data-min="0" data-max="500000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
                                         <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" id="fromPrice" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" id="toPrice" tabindex="0"></span>
                                     </div>
-                                    <div class="range-price">Range: $49.00 - $360.00</div>
+                                    <div class="range-price" id="priceRange">Range: 0원 - 500,000원</div>
                                 </div>
                             </div>
                         </div>
@@ -79,16 +79,16 @@
                             <p class="widget-title2 mb-30">Color</p>
                             <div class="widget-desc">
                                 <ul class="d-flex">
-                                    <li><a href="#" class="color1"></a></li>
-                                    <li><a href="#" class="color2"></a></li>
-                                    <li><a href="#" style="background-color : #000000"></a></li>
-                                    <li><a href="#" style="background-color : #0000FF"></a></li>
-                                    <li><a href="#" style="background-color : #FF0000"></a></li>
-                                    <li><a href="#" style="background-color : #FFFF00"></a></li>
-                                    <li><a href="#" style="background-color : #FFC0CB"></a></li>
-                                    <li><a href="#" style="background-color : #A52A2A"></a></li>
-                                    <li><a href="#" style="background-color : #008000"></a></li>
-                                    <li><a href="#" style="background-color : #800080"></a></li>
+                                    <li><a href="#" onclick="sameColor('WHITE'); return false;" style="background-color : #FFFFFF"></a></li>
+                                    <li><a href="#" onclick="sameColor('GRAY'); return false;" style="background-color : #808080"></a></li>
+                                    <li><a href="#" onclick="sameColor('BLACK'); return false;" style="background-color : #000000"></a></li>
+                                    <li><a href="#" onclick="sameColor('BLUE'); return false;" style="background-color : #0000FF"></a></li>
+                                    <li><a href="#" onclick="sameColor('RED'); return false;" style="background-color : #FF0000"></a></li>
+                                    <li><a href="#" onclick="sameColor('YELLOW'); return false;" style="background-color : #FFFF00"></a></li>
+                                    <li><a href="#" onclick="sameColor('PINK'); return false;" style="background-color : #FFC0CB"></a></li>
+                                    <li><a href="#" onclick="sameColor('BROWN'); return false;" style="background-color : #A52A2A"></a></li>
+                                    <li><a href="#" onclick="sameColor('GREEN'); return false;" style="background-color : #008000"></a></li>
+                                    <li><a href="#" onclick="sameColor('PURPLE'); return false;" style="background-color : #800080"></a></li>
                                     
                                 </ul>
                             </div>
@@ -187,7 +187,14 @@
     <!-- js파일 ! -->
 	<script src="${pageContext.request.contextPath}/resources/js/ajaxcategories.js"></script>
     
+     
     <script>
+    
+	 	function sameColor(color){
+	 		var curl = "categories/color/" + color;
+	 		ajaxfn(curl);
+		}
+
 		var codeList =  JSON.parse('${categoryList}');
 		console.log(codeList);
 
@@ -204,6 +211,11 @@
 				 $('#midCategory2').empty();
 				 $('#midCategory2').append(printCategory(200));
 			 });
+			 
+			 $('#toPrice').ondrag(function(){
+				 alert("Price Range");
+			 });
+			 
 		 });
 		 
 		 function printCategory(num){
