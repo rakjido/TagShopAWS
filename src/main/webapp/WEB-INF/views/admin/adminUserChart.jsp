@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Dashboard</title>
 
 <%@ include file="/WEB-INF/views/admin/include/head.jsp"%>
 <style>
@@ -41,7 +41,7 @@
                   <div class="icon" style="top:40px;"><i class="fa fa-caret-square-o-right"></i></div>
                   <div class="count" id= "percentageSignUp">123</div>
                   <h3>Sign ups</h3>
-                  <p>Week over week growth.</p>
+                  <p>Weekly</p>
                 </div>
               </div>
 
@@ -50,7 +50,7 @@
                   <div class="icon" style="top:40px;"><i class="fa fa-caret-square-o-right"></i></div>
                   <div class="count" id= "percentagePhotoViews"></div>
                   <h3>Photo Views</h3>
-                  <p>Week over week growth.</p>
+                  <p>Weekly</p>
                 </div>
               </div>
               
@@ -59,7 +59,7 @@
                   <div class="icon"  style="top:40px;"><i class="fa fa-comments-o"></i></div>
                   <div class="count" id= "percentageUsers"></div>
                   <h3>Users</h3>
-                  <p>Week over week growth.</p>
+                  <p>Weekly</p>
                 </div>
               </div>
               
@@ -68,7 +68,7 @@
                   <div class="icon"  style="top:40px;"><i class="fa fa-comments-o"></i></div>
                   <div class="count" id= "percentageUsers2"></div>
                   <h3>Users</h3>
-                  <p>Month over Month growth.</p>
+                  <p>Weekly</p>
                 </div>
               </div>
             </div>
@@ -133,6 +133,12 @@
 </html>
 
 <script>
+
+function numberFormat(number) {
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return number.toString().replace(regexp, ',');
+}
+
 var pNum = ${pNum};
 var performanceJson = JSON.parse('${pList}');
 var dateList = JSON.parse('${dateList2}');
@@ -165,7 +171,7 @@ var percentageUsers2 = performanceJson[pNum-1].users - performanceJson[pNum-31].
 $('#percentageUsers').html(percentageUsers);
 $('#percentageUsers2').html(percentageUsers2);
 $('#totalSignUp').html(totalSignUp + "명");
-$('#totalViews').html(totalViews + "건");
+$('#totalViews').html(numberFormat(totalViews) + "건");
 $('#totalUsers').html(performanceJson[pNum-1].users + "명");
 
 for(var i = pNum-14; pNum-7 > i; i++) {

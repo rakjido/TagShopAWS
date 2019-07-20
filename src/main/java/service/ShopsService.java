@@ -203,4 +203,12 @@ public class ShopsService {
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
 	    return dao.getPhotoProduct(map);
 	}
+	
+	public void updateOrderStatusCode(String orderStatusCode, BigInteger buyItemsId) {
+		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("orderStatusCode", orderStatusCode);
+		map.put("buyItemsId", buyItemsId);
+		dao.updateOrderStatusCode(map);
+	}
 }

@@ -119,8 +119,15 @@
 		 ORDER BY RANKING DESC	
 	</select>
 	
-	<select id="insertWeights" parameterType="vo.WeightsVo">
+	<insert id="insertWeights" parameterType="vo.WeightsVo">
 		INSERT INTO WEIGHTS(BASEDATE, WLINKS, WBUYLINKS, WCOMMENTS, WBUYCMTS, WREPOST, WFOLLOWING)
 		VALUES(#{baseDate}, #{wLikes}, #{wBuyLikes}, #{wComments}, #{wBuyCmts}, #{wRepost}, #{wFollowing})
+	</insert>
+	
+	<select id="getWeights" resultType="vo.WeightsVo">
+	     SELECT WEIGHTSID, BASEDATE, WLINKS, WBUYLINKS, WCOMMENTS, WBUYCMTS, WREPOST, WFOLLOWING
+         FROM WEIGHTS
+         WHERE BASEDATE = (SELECT MAX(BASEDATE) FROM WEIGHTS)
+         AND WEIGHTSID = #{weightsId};
 	</select>
 </mapper>

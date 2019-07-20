@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,7 @@ import net.sf.json.JSONArray;
 import service.PhotosService;
 import service.ProfileService;
 import service.ShopsService;
+import service.TagsLocaleService;
 import service.UsersService;
 import utils.CheckUtil;
 import vo.CommentsPhotoIdjoinVo;
@@ -89,6 +89,9 @@ public class PhotosController {
 	
 	@Autowired
 	private ShopsService shopsService;
+	
+	@Autowired
+	private TagsLocaleService tagsLocaleService;
 	/*
      * @method name : feed
      *
@@ -169,7 +172,10 @@ public class PhotosController {
 	
 	/* 사진올리기 */
 	@RequestMapping(value = "/{userid}/photos", method = RequestMethod.POST)
-	public String photoUpload(@PathVariable("userid") String userid, PhotosVo photosvo, PhotoRegisterVo photoRegisterVo,MultipartHttpServletRequest request) throws UnsupportedEncodingException {
+	public String photoUpload(@PathVariable("userid") String userid, PhotosVo photosvo, PhotoRegisterVo photoRegisterVo,MultipartHttpServletRequest request,
+			@RequestParam(value="tagText1", defaultValue="") String tagText1,
+			@RequestParam(value="tagText2", defaultValue="") String tagText2,
+			@RequestParam(value="tagText3", defaultValue="") String tagText3) throws UnsupportedEncodingException {
 		
 		MultipartFile mf = request.getFile("file");
 		System.out.println("photosvo " + photosvo);
@@ -196,23 +202,49 @@ public class PhotosController {
 		    	photosvo.setUserId(userid);
 		    }   
 		}
+		
+		if(photoRegisterVo.getARefLink() == null) {
+			photoRegisterVo.setARefLink("http://192.168.1.22:8090/tagshop/shops/test/products/45");
+		}
+		
+		if(photoRegisterVo.getBRefLink() == null) {
+			photoRegisterVo.setBRefLink("http://192.168.1.22:8090/tagshop/shops/test/products/45");
+		}
+		
 		if(!("Ax1").equals(photoRegisterVo.getAx1())) { // 20190714 수정  https://m.blog.naver.com/tmondev/220791552394
-			System.out.println(photoRegisterVo.getAx1());
 			String[] arrayA = photoRegisterVo.getARefLink().split("/");
-			String[] arrayB = photoRegisterVo.getBRefLink().split("/");
-			System.out.println(photoRegisterVo.getAx1());
 			photoRegisterVo.setARefProductId(BigInteger.valueOf(Integer.parseInt(arrayA[7])));
-			photoRegisterVo.setBRefProductId(BigInteger.valueOf(Integer.parseInt(arrayB[7])));
-			
 			photoRegisterVo.setARefShopid(arrayA[5]);
+			
+			String[] arrayB = photoRegisterVo.getBRefLink().split("/");
+			photoRegisterVo.setBRefProductId(BigInteger.valueOf(Integer.parseInt(arrayB[7])));
 			photoRegisterVo.setBRefShopid(arrayB[5]);
 			
 			int result = photoservice.insertPhotos(photosvo);
 			photoservice.insertCoordinates(photoRegisterVo);
-			
 		} else {
 			int result = photoservice.insertPhotos(photosvo);
-		} 
+		}
+		
+		
+		
+		if(tagText1 != null && !(tagText1.equals(""))) {
+			System.out.println("text1 : " + tagText1);
+			HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText1);
+			tagsLocaleService.addPhotoTags(tagsLocaleService.getTagsId(map));
+		}
+		
+		if(tagText2  != null && !(tagText2.equals(""))) {
+			HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText2);
+			tagsLocaleService.addPhotoTags(tagsLocaleService.getTagsId(map));
+		}
+		
+		if(tagText3  != null && !(tagText3.equals(""))) {
+			HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText3);
+			tagsLocaleService.addPhotoTags(tagsLocaleService.getTagsId(map));
+		}
+		
+		
 		return "redirect:/{userid}/";
 	}
 	
@@ -263,13 +295,17 @@ public class PhotosController {
 					}
 				}
 			}
-
+			
+			
+			
 			System.out.println(repostsclass);
 			photodetail.put("repostsclass", repostsclass);
 
 			model.addAttribute("productList", jsonArray.fromObject(productList));
 			model.addAttribute("coordinates", coordinates);
-
+			
+			
+			
 		} //if(CheckUtil.isEmpty(coordinates)) { 
 		
 		

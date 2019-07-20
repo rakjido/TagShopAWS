@@ -18,7 +18,7 @@ public interface TagsLocaleDao {
 	
 	public void insertProductTags(BigInteger tagsId);
 	
-	public void insertPhotoTags(PhotoTagsVo vo);
+	public void insertPhotoTags(BigInteger tagsId);
 	
 	public BigInteger getTagsId(HashMap<String, String> map);
 	

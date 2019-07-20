@@ -7,6 +7,7 @@
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
+	
 		$(document).ready(function() {
 			var list = new Map();
 				<c:forEach var="test" items="${vo }">
@@ -28,6 +29,8 @@
 					
 				});
 			}
+			
+
 		});
 	</script>
 	
@@ -66,6 +69,7 @@
                                        <b id="OR03">0</b>
                                     </div>
                                 </div>
+                           <!-- 
                                 <div class="image_arrow"></div>
                                 <div class="step" data-state="2">
                                     <div class="myshop-title">배송준비</div>
@@ -73,6 +77,7 @@
                                         <b id="OR04">0</b>
                                     </div>
                                 </div>
+                           
                                 <div class="image_arrow"></div>
                                 <div class="step" data-state="3">
                                     <div class="myshop-title">배송중</div>
@@ -80,6 +85,7 @@
                                         <b id="OR05">0</b>
                                     </div>
                                 </div>
+                           -->
                                 <div class="image_arrow"></div>
                                 <div class="step" data-state="4">
                                     <div class="myshop-title">배송완료</div>
@@ -88,12 +94,27 @@
                                     </div>
                                 </div>
                                 <div class="image_arrow"></div>
-                                <div class="step" data-state="6">
-                                    <div class="myshop-title">리뷰작성</div>
+                                <div class="step" data-state="5">
+                                    <div class="myshop-title">구매완료</div>
                                     <div class="count">
-                                        <b id="OR08">0</b>
+                                        <b id="OR07">0</b>
+                                    </div>
+                                </div>                               
+                                <div class="image_arrow"></div>
+                                <div class="step" data-state="6">
+                                    <div class="myshop-title">교환</div>
+                                    <div class="count">
+                                        <b id="OR10">0</b>
                                     </div>
                                 </div>
+                                <div class="image_arrow"></div>
+                                <div class="step" data-state="7">
+                                    <div class="myshop-title">환불</div>
+                                    <div class="count">
+                                        <b id="OR11">0</b>
+                                    </div>
+                                </div>
+                                
                             </div>
                 </div>
                 <div class="col-12 ">
@@ -104,63 +125,81 @@
                         <div class="row">
                                 <table class="table">
                                         <tr>
-                                            <th class="ftd">날짜/주문번호</th>
+                                            <th class="ftd1">날짜/주문번호</th>
                                             <th class="ftd2">품목</th>
-                                            <th class="ftd">상품금액/수량</th>
-                                            <th class="ftd3">주문상태</th>
-                                            <th class="ftd3">확인</th>
+                                            <th class="ftd3">상품금액</th>
+										   <th class="ftd4">수량</th>
+                                            <th class="ftd5">주문상태</th>
+                                            <th class="ftd6">확인</th>
                                         </tr>
                                         
                                         
                                         <c:forEach var="i" items="${list }">
                                         	<tr>
                                             <td>
-                                                <h5>
+                                                <h6>
                                                 <fmt:formatDate var="date" value="${i.createdate}" pattern="yyyy-MM-dd"/>
 													${date}
-												</h5>
+												</h6>
                                                 <h6>${i.buyitemsid }</h6>
                                             </td>
                                             <td>
                                                 <div class="row">
                                                     <div class="col-3 colbg">
-                                                            <img src="${pageContext.request.contextPath}/resources/img/sample-img/sample22.jpg" class="fullimg">
+                                                            <img src="${pageContext.request.contextPath}/uploads/${i.photofile}">
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-6 productname-size">
                                                         ${i.productname }
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>${i.unitprice }/${i.quantity }</td> 
+                                            <fmt:formatNumber value="${i.unitprice }" type="number" var="price"/>
+                                            <td><div class="col-2 productname-size">${price}</div></td>
+                                            <td><div class="col-2 productname-size">${i.quantity}</div></td> 
                                             
                                             <c:choose>
        											<c:when test="${i.orderstatuscode == 'OR03'}">
-           											<td>결제완료</td>
+           											<td><div class="productname-size">결제완료</div></td>
        											</c:when>
        											<c:when test="${i.orderstatuscode == 'OR04'}">
-           											<td>배송준비</td>
+           											<td><div class="productname-size">배송준비</div></td>
        											</c:when>
        											<c:when test="${i.orderstatuscode == 'OR05'}">
-           											<td>배송중</td>
+           											<td><div class="productname-size">배송중</div></td>
        											</c:when>
        											<c:when test="${i.orderstatuscode == 'OR06'}">
-           											<td>배송완료</td>
+           											<td><div class="productname-size">배송완료</div></td>
        											</c:when>
+       											<c:when test="${i.orderstatuscode == 'OR07'}">
+           											<td><div class="productname-size">구매완료</div></td>
+       											</c:when>
+       											<c:when test="${i.orderstatuscode == 'OR08'}">
+           											<td><div class="productname-size">리뷰작성</div></td>
+       											</c:when>
+       											<c:when test="${i.orderstatuscode == 'OR09'}">
+           											<td><div class="productname-size">취소</div></td>
+       											</c:when>
+       											<c:when test="${i.orderstatuscode == 'OR10'}">
+           											<td><div class="productname-size">교환</div></td>
+       											</c:when>
+       											<c:when test="${i.orderstatuscode == 'OR11'}">
+           											<td><div class="productname-size">환불</div></td>
+       											</c:when>
+       											
    											</c:choose>
 
-
-                                            
-       											<c:if test="${i.orderstatuscode == 'OR06'}">
-           											<td>
-                                                		<button class="mybtn2">교환</button>
-                                                		<button class="mybtn2">반품</button>
-                                                		<button class="mybtn2">확정</button>
-                                            		</td>
-       											</c:if>
-   											
-
-                                            
-                                        	</tr>	
+											<c:if test="${i.orderstatuscode == 'OR06'}">
+												<td>
+													<button class="mybtn2"
+														onclick="location.href='${pageContext.request.contextPath}/shops/${sessionScope.userid}/myshop/changeorder/OR10/${i.buyitemsid }'">교환</button>
+													<button class="mybtn2"
+														onclick="location.href='${pageContext.request.contextPath}/shops/${sessionScope.userid}/myshop/changeorder/OR11/${i.buyitemsid }'">환불</button>
+													<button class="mybtn2"
+														onclick="location.href='${pageContext.request.contextPath}/shops/${sessionScope.userid}/myshop/changeorder/OR07/${i.buyitemsid }'">구매확정</button>
+			
+												</td>
+											</c:if>
+							</tr>	
                                         </c:forEach>
                                         </table> 
                             </div>

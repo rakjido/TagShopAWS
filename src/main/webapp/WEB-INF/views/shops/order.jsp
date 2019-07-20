@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>
 	<!-- css 넣으세요 -->
@@ -8,8 +9,17 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	
 	<script type="text/javascript">
+	
+			function numberFormat(number) {
+				var regexp = /\B(?=(\d{3})+(?!\d))/g;
+				return number.toString().replace(regexp, ',');
+			}
+
+	
  			function check(box){
 				if(box.checked == true) {
 					document.getElementById('usedPoint').value = ${sessionScope.profileVo.point};
@@ -17,7 +27,7 @@
 					
 					var final_price = Number(document.getElementById('total_sum').value) + Number(document.getElementById('delivery_fee').value) -  Number(document.getElementById('usedPoint').value);
 					var final_point = Number(document.getElementById('total_sum').value)*0.001;
-					document.getElementById('final_price').innerHTML = final_price + " 원";
+					document.getElementById('final_price').innerHTML = numberFormat(final_price) + " 원";
 					document.getElementById('point').value = final_point;
 				} else {
 					document.getElementById('usedPoint').value = 0;
@@ -26,7 +36,7 @@
 					
 					var final_price = Number(document.getElementById('total_sum').value) + Number(document.getElementById('delivery_fee').value) -  Number(document.getElementById('usedPoint').value);
 					var final_point = Number(document.getElementById('total_sum').value)*0.001 + Number(document.getElementById('point').value);
-					document.getElementById('final_price').innerHTML = final_price + " 원";
+					document.getElementById('final_price').innerHTML = numberFormat(final_price) + " 원";
 					document.getElementById('point').value = final_point;
 				}
 			}	
@@ -56,11 +66,47 @@
 		        }).open();
 		    }
 
+		    $('#payment').click(function() {
+	
+		        var payAmount = $('#amount').val();
+		        alert(payAmount);
+
+
+		        var IMP = window.IMP;
+		        IMP.init('iamport'); //  가맹점 식별코드 
+
+		        IMP.request_pay({
+		            pg : 'inicis', // version 1.1.0부터 지원.
+		            pay_method : 'card',
+		            merchant_uid : 'merchant_' + new Date().getTime(),
+		            name : '주문명:결제테스트',
+		            amount : payAmount,
+//		            buyer_email : 'iamport@siot.do',
+		            buyer_name : '구매자이름',
+		            buyer_tel : '010-1234-5678',
+//		            buyer_addr : '서울특별시 강남구 삼성동',
+//		            buyer_postcode : '123-456',
+		            m_redirect_url : 'https://localhost:8080/instashop/test/complete'
+		        }, function(rsp) {
+		            if ( rsp.success ) {
+		                var msg = '결제가 완료되었습니다.';
+		                msg += '고유ID : ' + rsp.imp_uid;
+		                msg += '상점 거래ID : ' + rsp.merchant_uid;
+		                msg += '결제 금액 : ' + rsp.paid_amount;
+		                msg += '카드 승인번호 : ' + rsp.apply_num;
+		            } else {
+		                var msg = '결제에 실패하였습니다.';
+		                msg += '에러내용 : ' + rsp.error_msg;
+		            }
+		            alert(msg);
+		        });
+		    });
+
 	</script>
 	
 	
     <!-- ##### Breadcumb Area Start ##### -->
-    <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
+    <div class="breadcumb_area bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb2.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -73,57 +119,63 @@
     </div>
     <!-- ##### Breadcumb Area End ##### -->
 
+      <c:set var="Itemlist" value="${sessionScope.itemList}"></c:set>
+ 	
     <!-- ##### Product List Start #####-->
-
+<c:if test="${Itemlist.size()>0}">
+  	
+    <c:set var="TotalSum" value="0"></c:set>
+   
     <div class="container">
         <div class="row item">
-        <c:set var="Itemlist" value="${sessionScope.itemList}"></c:set>
-        <c:set var="TotalSum" value="0"></c:set>
-        <c:forEach var="i" begin="0" end="${Itemlist.size()-1}">
-            <div class="checkout-all">
-                <div class="col-md-2">
-                    <div class="item-image">
-                        <!-- <img src="https://cdn1.sanmar.com/imglib/catl/2017/f8/881657_white_model_front_072017.jpg"> -->
-                        <img src="${pageContext.request.contextPath}/uploads/${Itemlist[i].photoFile}">
-                        
-                    </div>
-                </div>
-                <div class="col-md-10 col-xs-12 col-sm-12">
-                    <div class="checkout-detail">
-                        <a href="#product-detail-page">
-                            <h3>
-                                
-                                <span class="title"> ${Itemlist[i].productName}</span>
-                            </h3>
-                        </a>
-                        <hr>
-                        
-                        <table>
-                            <tr class="line-item">
-                            	<c:set var="OptionList" value="${Itemlist[i].options}"></c:set>
-                            	<c:forEach var="j" begin="0" end="${OptionList.size()-1}">
-	                                <td class="size editable form-inline">
-	                                    	${OptionList[j].optionType} :
-	                                    <label>${OptionList[j].optionCode}</label>
-	                                </td>
-	                            </c:forEach>
-	                                <td class="quantity">
-	                                	
-	                                    <label>${Itemlist[i].quantity} 개</label>
-	                                </td>
-	                                <td class="total">
-	                                    <label>${Itemlist[i].totalPrice} 원</label>
-	                                </td>
-                                	<c:set var="TotalSum" value="${TotalSum + Itemlist[i].totalPrice}"></c:set>
-									
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-		</c:forEach>
+  	        <c:forEach var="i" begin="0" end="${Itemlist.size()-1}">
+	            <div class="checkout-all">
+	                <div class="col-md-2">
+	                    <div class="item-image">
+	                        <!-- <img src="https://cdn1.sanmar.com/imglib/catl/2017/f8/881657_white_model_front_072017.jpg"> -->
+	                        <img src="${pageContext.request.contextPath}/uploads/${Itemlist[i].photoFile}">
+	                        
+	                    </div>
+	                </div>
+	                <div class="col-md-10 col-xs-12 col-sm-12">
+	                    <div class="checkout-detail">
+	                        <a href="#product-detail-page">
+	                            <h3>
+	                                
+	                                <span class="title"> ${Itemlist[i].productName}</span>
+	                            </h3>
+	                        </a>
+	                        <hr>
+	                        
+	                        <table>
+	                            <tr class="line-item">
+	                            	<c:set var="OptionList" value="${Itemlist[i].options}"></c:set>
+	                            	<c:forEach var="j" begin="0" end="${OptionList.size()-1}">
+		                                <td class="size editable form-inline">
+		                                    	${OptionList[j].optionType} :
+		                                    <label>${OptionList[j].optionCode}</label>
+		                                </td>
+		                            </c:forEach>
+		                                <td class="quantity">
+		                                	
+		                                    <label>${Itemlist[i].quantity} 개</label>
+		                                </td>
+		                                <td class="total">
+		                                		<fmt:formatNumber value="${Itemlist[i].totalPrice}" type="number" var="price"/>
+		                                    <label>${price} 원</label>
+		                                </td>
+	                                	<c:set var="TotalSum" value="${TotalSum + Itemlist[i].totalPrice}"></c:set>
+										
+	                            </tr>
+	                        </table>
+	                    </div>
+	                </div>
+	            </div>
+			</c:forEach>
         </div>
     </div>
+</c:if> 	
+
 	
     <!-- ##### Product List End #####-->
     
@@ -170,8 +222,7 @@
                             <input type="hidden" name="introduction" id="introduction" value="${sessionScope.profileVo.introduction}">
                             <input type="hidden" name="website" id="website" value="${sessionScope.profileVo.website}">
                             <input type="hidden" name="photoName" id="photoName" value="${sessionScope.profileVo.photoName}">
-                            포인트
-                            <input type="text" name="point" id="point" value="${sessionScope.profileVo.point+TotalSum*0.001}">
+                            <input type="hidden" name="point" id="point" value="${sessionScope.profileVo.point+TotalSum*0.001}">
                             <input type="hidden" name="repostNumber" id="repostNumber" value="${sessionScope.profileVo.repostNumber}">
                             
  							<input type="hidden" value="${TotalSum}" id="total_sum">
@@ -230,69 +281,71 @@
                         </div>
 
                         <ul class="order-details-form mb-4">
-                            <li><span>총 상품 금액</span> <span>${TotalSum} 원</span></li>
-                            <li><span>배송비</span> <span>${Itemlist[0].deliveryFee} 원</span></li>
+                        		<fmt:formatNumber value="${TotalSum}" type="number" var="totalSum"/>
+                            <li><span>총 상품 금액</span> <span>${totalSum} 원</span></li>
+                            <fmt:formatNumber value="${Itemlist[0].deliveryFee}" type="number" var="deliveryFee"/>
+                            <li><span>배송비</span> <span>${deliveryFee} 원</span></li>
                             <li><span>포인트 사용</span> <span id="span_point">0원</span></li>
                             <c:set var="FinalSettle" value="${TotalSum + Itemlist[0].deliveryFee}"></c:set>
-                            <li><span>총 결제 금액</span> <span id="final_price">${FinalSettle} 원</span></li>
+                            <fmt:formatNumber value="${FinalSettle}" type="number" var="finalSettle"/>
+                            <li><span>총 결제 금액</span> <span id="final_price">${finalSettle} 원</span></li>
                             
                         </ul>
-						
-                        <div id="accordion" role="tablist" class="mb-4">
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingOne">
-                                    <h6 class="mb-0">
-                                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-circle-o mr-3"></i>Paypal</a>
-                                    </h6>
-                                </div>
-
-                                <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingTwo">
-                                    <h6 class="mb-0">
-                                        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-circle-o mr-3"></i>cash on delievery</a>
-                                    </h6>
-                                </div>
-                                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quis in veritatis officia inventore, tempore provident dignissimos.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingThree">
-                                    <h6 class="mb-0">
-                                        <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><i class="fa fa-circle-o mr-3"></i>credit card</a>
-                                    </h6>
-                                </div>
-                                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse quo sint repudiandae suscipit ab soluta delectus voluptate, vero vitae</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingFour">
-                                    <h6 class="mb-0">
-                                        <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour"><i class="fa fa-circle-o mr-3"></i>direct bank transfer</a>
-                                    </h6>
-                                </div>
-                                <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est cum autem eveniet saepe fugit, impedit magni.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                         <div class="col-6">
-                             <input type="submit" class="btn zipcode-btn" value="결제"></button>
-                         </div>
+						<!-- 
+	                        <div id="accordion" role="tablist" class="mb-4">
+	                            <div class="card">
+	                                <div class="card-header" role="tab" id="headingOne">
+	                                    <h6 class="mb-0">
+	                                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-circle-o mr-3"></i>Paypal</a>
+	                                    </h6>
+	                                </div>
+	
+	                                <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+	                                    <div class="card-body">
+	                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="card">
+	                                <div class="card-header" role="tab" id="headingTwo">
+	                                    <h6 class="mb-0">
+	                                        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-circle-o mr-3"></i>cash on delievery</a>
+	                                    </h6>
+	                                </div>
+	                                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+	                                    <div class="card-body">
+	                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quis in veritatis officia inventore, tempore provident dignissimos.</p>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="card">
+	                                <div class="card-header" role="tab" id="headingThree">
+	                                    <h6 class="mb-0">
+	                                        <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><i class="fa fa-circle-o mr-3"></i>credit card</a>
+	                                    </h6>
+	                                </div>
+	                                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+	                                    <div class="card-body">
+	                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse quo sint repudiandae suscipit ab soluta delectus voluptate, vero vitae</p>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="card">
+	                                <div class="card-header" role="tab" id="headingFour">
+	                                    <h6 class="mb-0">
+	                                        <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour"><i class="fa fa-circle-o mr-3"></i>direct bank transfer</a>
+	                                    </h6>
+	                                </div>
+	                                <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+	                                </div>
+	                            </div>
+	                        </div>
+                         -->
+                         <c:if test="${Itemlist.size()>0}">
+	                         <div class="col-6">
+	                             <input type="submit" class="btn zipcode-btn" id="payment" value="결제"></button>
+	                         </div>
+                         </c:if>
                     </div>
                 </div>
             </div>

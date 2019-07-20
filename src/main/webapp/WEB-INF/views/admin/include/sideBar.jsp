@@ -14,7 +14,7 @@
 		<!-- menu profile quick info -->
 		<div class="profile clearfix">
 			<div class="profile_pic">
-				<img src="${pageContext.request.contextPath}/uploads/admin.png" alt="..." class="img-circle profile_img">
+				<img src="${pageContext.request.contextPath}/resources/img/core-img/admin.png" alt="..." class="img-circle profile_img">
 			</div>
 			<div class="profile_info">
 				<span>Welcome,</span>

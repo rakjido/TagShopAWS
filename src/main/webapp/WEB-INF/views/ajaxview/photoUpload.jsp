@@ -12,7 +12,7 @@
 	
 			<div class="col-lg-8 pa-1">
 				<div class="popup-all-sub">
-					<img src="${pageContext.request.contextPath}/resources/img/core-img/defaultImage.png"
+					<img src="${pageContext.request.contextPath}/resources/img/core-img/productdefault.jpg"
 						alt="" id="previewImage" class="fullimg">
 	
 				</div>
@@ -24,37 +24,69 @@
 				
 				<form action="photos" enctype="Multipart/form-data" method="POST" id="uploadForm">
                 <div class="row">
-                    <div class="filebox" style="align:right" id="wirteForm">
-                        <label for="file">이미지</label> <input type="file" name="file" id="file">
-                    </div>
-                    
+                	<div class="col-7 liH100">
+                		사진을 추가해주세요
+                	</div>
+                	
+                    <div class="col-3">
+                		<div class="filebox" style="align:right" id="wirteForm">
+                        	<label for="file">이미지</label> <input class="check" type="file" name="file" id="file">
+                    	</div>
+                	</div>
+
                     <div class="col-12 mb-3">
                         <label for="descripTion">글내용</label>
-                        <textarea name="descripTion" form="uploadForm" cols="40" rows="10" autofocus required wrap="hard"></textarea>
+                        <textarea class="check"name="descripTion" form="uploadForm" cols="40" rows="7" autofocus required wrap="hard"></textarea>
                     </div>
 					
 					
 					<!-- http://192.168.1.22:8090/tagshop/shops/test/products/45
 					http://192.168.1.22/tagshop/shops/test/products/49 -->
 					<div class="col-12 mb-3" id="productDiv">
-
+						
+						<div class="col-12 mb-3">
+							<label for="ARefLink">상품 페이지</label> <input type="text"
+						    class="form-control check" id="ARefLink" name="ARefLink" value="noLink" hidden></div>
+						<div class="col-12 mb-3">
+							<input type="text"
+					        class="form-control check" id="BRefLink" name="BRefLink" value="noLink" hidden></div>    
 					</div>
 					
 					
 				    <div class="col-12 mb-3" align="right">
 	                    <input hidden name="Ax1" value="Ax1" />
 					    <input hidden name="Ay1" value="Ay1" />
-					    <input hidden name="Ax2" value="Ay2" />
+					    <input hidden name="Ax2" value="Ax2" />
 					    <input hidden name="Ay2" value="Ay2" />
-					    <input hidden name="Bx1" value="By1" />
-					    <input hidden name="By1" value="By1" />
-					    <input hidden name="Bx2" value="By2" />
-					    <input hidden name="By2" value="By2" />
+					    <input hidden name="Bx1" value="1231" />
+					    <input hidden name="By1" value="1232" />
+					    <input hidden name="Bx2" value="1233" />
+					    <input hidden name="By2" value="1234" />
+					</div>
+					
+					<div class="col-12 mb-3">
+						<div class="row">
+						<div class="col-9">
+							<input type="text" class="form-control" id="insertTag" placeholder="#태그">
+						</div>
+						<div class="col-3 addTag">
+							<img src="${pageContext.request.contextPath}/uploads/addtag.png" id="addTag">
+						</div>
+						</div>
+					</div>
+					
+					<div class="col-12 mb-3">
+						<div class="col-12">
+							<div class="row" id="tagArea">
+								
+							</div>
+						</div>
 					</div>
 					
 					<div class="col-12 mb-3" align="right" id="axisDiv">
-					<input type="submit" value="글쓰기" class="btn essence-btn buttoncolor mybtn"
-                            style="height:40px; background-color: #e2e2e2; padding:0 30px; line-height:0" id=""/>
+					<input type="submit" value="글쓰기" class="btn essence-btn"
+                            style="height:40px; padding:0 30px; line-height:0" id="write" disabled/>
+                    
 					</div>
 				</div>
 				</form>
@@ -71,7 +103,8 @@
 	<script>
 	var regNum = 0;
 		$(function(){
-			  
+			var tagNum = 1;
+			var checkNum = 0;
 	          $("#file").change(function(e) {
 	    			event.preventDefault();
 	    			var file = e.target.files[0];
@@ -87,7 +120,7 @@
 	          
 	          $('#previewImage').imgAreaSelect({
 	              onSelectEnd: function (img, selection) {
-	            	  
+
 	            	  if(regNum == 1){
 
 		                  $('input[name="Bx1"]').val(parseInt(selection.x1));
@@ -96,13 +129,15 @@
 		                  $('input[name="By2"]').val(parseInt(selection.y2));
 		                  
 		                  
-		                	  var tagStr = '<div class="col-12 mb-3">' +
-								'<label for="company">상품 페이지</label> <input type="text"' +
-						        'class="form-control" id="company" name="ARefLink" value=""></div>';
-								 console.log(tagStr);
-								 $('#productDiv').append(tagStr); 
+		                	  /* var tagStr = '<div class="col-12 mb-3">' +
+								'<label for="ARefLink">상품 페이지</label> <input type="text"' +
+						        'class="form-control check3" id="ARefLink" name="ARefLink" value=""></div>'; */
+								 //$('#productDiv').append(tagStr);
+								 $('#BRefLink').attr('hidden', false);
+								 $('#BRefLink').val('');
 								 regNum++;
-								 console.log(regNum);
+								 
+
 						
 		               }
 	            	  
@@ -118,14 +153,13 @@
 	                  $('input[name="Ay2"]').val(parseInt(selection.y2));
 	                  console.log( $('input[name="Ay2"]').val());
 	                  
-	                	  var tagStr = '<div class="col-12 mb-3">' +
-							'<label for="company">상품 페이지</label> <input type="text"' +
-					        'class="form-control" id="company" name="BRefLink" value=""></div>';
-							 console.log(tagStr);
-							 $('#productDiv').append(tagStr); 
-							 regNum++;
-							 console.log(regNum);
-					
+	                	  /* var tagStr = '<div class="col-12 mb-3">' +
+							'<label for="BRefLink">상품 페이지</label> <input type="text"' +
+					        'class="form-control check3" id="BRefLink" name="BRefLink" value=""></div>'; */
+							 //$('#productDiv').append(tagStr);
+							 $('#ARefLink').attr('hidden', false);
+							 $('#ARefLink').val('');
+							 regNum++;			
 	                  }
 	            	  
 
@@ -133,5 +167,33 @@
 	              }
 	          });
 	          
+	          $('#addTag').click(function(){
+	        	  var tagstr = document.getElementById("insertTag").value;
+	        	  
+	        	  
+	        	  if(tagNum != 4){  	  
+	            	  var tag = '<input type="text" name="tagText' + tagNum +'" class="form-control mr-3" id="tagText' + tagNum +'" value="'+ tagstr +'" style="border:none; font-size:0.9rem; font-weight: bold; width:25%" readonly>';
+	            	  $('#tagArea').append(tag);
+	            	  tagNum++;
+	            	  console.log(tagNum);
+	        	  }
+	        	  
+	          });
+	          
+	          var inputValue = $('.check');
+	          var companyNum = 0;
+	          
+	          $('.check').change(function(){
+	        	  $('#write').attr('disabled', true);
+	             		companyNum=0;
+	             		inputValue.each(function(index){
+	                 		if($(this).val() != ''){
+	                 			++companyNum;
+	                 		} 		
+	                 	});
+	             if(companyNum == 4){
+	            	 $('#write').attr('disabled', false);
+	             }
+	          });
 		});
 	</script>

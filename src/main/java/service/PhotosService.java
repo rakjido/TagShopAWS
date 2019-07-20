@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dao.PhotosDao;
+import utils.TranslationUtil;
 import vo.CommentsPhotoIdjoinVo;
 import vo.CommentsVo;
 import vo.CommentsjoinVo;
@@ -18,6 +19,7 @@ import vo.FollowingVo;
 import vo.LikesVo;
 import vo.PhotoRegisterVo;
 import vo.PhotosVo;
+import vo.RankingVo;
 import vo.RepostsVo;
 
 @Service
@@ -265,4 +267,50 @@ public class PhotosService {
 		return dao.getCoordinates(photoNum);
 	}
 
+	public List<String> searchUserid(String keyword){
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		return dao.searchUserid(keyword);
+	}
+
+	public List<BigInteger> searchTagName(String keyword) {
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		String language = "";
+		language = TranslationUtil.detectLanguage(keyword);
+		System.out.println(language);
+		if(language == "") {
+			language = "KO";	
+		}
+		map.put("language", language);
+		map.put("keyword", keyword);
+		return dao.searchPhotoTags(map);
+	}
+
+	public List<BigInteger> searchPhotoTags(String keyword) {
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		String language = "";
+		language = TranslationUtil.detectLanguage(keyword);
+		System.out.println(language);
+		if(language == "") {
+			language = "KO";	
+		}
+		map.put("language", language);
+		map.put("keyword", keyword);
+		return dao.searchPhotoTags(map);
+	}
+	
+	public List<RankingVo> searchPhotoTagsbyRanking(String keyword) {
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		String language = "";
+		language = TranslationUtil.detectLanguage(keyword);
+		System.out.println(language);
+		if(language == "") {
+			language = "KO";	
+		}
+		map.put("language", language);
+		map.put("keyword", keyword);
+		return dao.searchPhotoTagsbyRanking(map);		
+	}
 }

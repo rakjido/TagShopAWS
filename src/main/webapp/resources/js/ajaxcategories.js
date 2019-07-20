@@ -24,6 +24,10 @@ function smallcode(code){
 	ajaxfn(curl);
 }
 
+function numberFormat(number) {
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return number.toString().replace(regexp, ',');
+}
 
 function ajaxfn(curl){
 	$.ajax({
@@ -46,9 +50,9 @@ function ajaxfn(curl){
 		                        '<span>' + item.shopid + '</span>' +
 		                        '<a href="single-product-details.html"><h6>' +
 		                        item.title +
-		                        '</h6></a><p class="product-price">$'+
-		                        item.price + 
-		                        '</p><div class="hover-content"><div class="add-to-cart-btn">'+
+		                        '</h6></a><p class="product-price">'+
+		                        numberFormat(item.price) + 
+		                        '원</p><div class="hover-content"><div class="add-to-cart-btn">'+
 		                        '<a href="'+ctx+'/shops/'+item.shopid+'/products/'+ item.productid+'" class="btn essence-btn">상세 보기</a>' +
 		                            '</div></div></div></div></div>';
 			});

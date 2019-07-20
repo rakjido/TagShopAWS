@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>
 	
@@ -21,40 +21,32 @@
                     <div class="shop_sidebar_area">
 
                         <!-- ##### Single Widget ##### -->
-                        <div class="widget catagory mb-50">
-                            <!-- Widget Title -->
-                            <h6 class="widget-title mb-30">Catagories</h6>
+						<div class="widget catagory mb-50">
+							<!-- Widget Title -->
+							<h6 class="widget-title mb-30">Catagories</h6>
 
-                            <!--  Catagories  -->
-                            <div class="catagories-menu">
-                                   <ul class="nav__list">
-								      <li>
-								        <input id="group-1" value="100" type="checkbox" hidden />
-								        <label for="group-1" id="largeCategory1"><span class="fa fa-angle-right"></span>패션의류/잡화</label>
-								        <ul class="group-list" id="midCategory1">
-								        
-										      
-										      
-								        </ul>
-								       </li>
-								       
-								       <li>
-								        <input id="group-2" value="200" type="checkbox" hidden />
-								        <label for="group-2" id="largeCategory2"><span class="fa fa-angle-right"></span>뷰티</label>
-								        <ul class="group-list" id="midCategory2">
-								        
-										      
-										      
-								        </ul>
-								       </li>
-								       
-								    </ul> 
-								
+							<!--  Catagories  -->
+							<div class="catagories-menu">
+								<ul class="nav__list">
+									<li><input id="group-1" value="100" type="checkbox" hidden />
+										<label for="group-1" id="largeCategory1"><span
+											class="fa fa-angle-right"></span>패션의류/잡화</label>
+										<ul class="group-list" id="midCategory1">
+										</ul></li>
 
-                            </div>
-                        </div>
+									<li><input id="group-2" value="200" type="checkbox" hidden />
+										<label for="group-2" id="largeCategory2"><span
+											class="fa fa-angle-right"></span>뷰티</label>
+										<ul class="group-list" id="midCategory2">
+										</ul></li>
 
-                        <!-- ##### Single Widget ##### -->
+								</ul>
+
+
+							</div>
+						</div>
+
+						<!-- ##### Single Widget ##### -->
                         <div class="widget price mb-50">
                             <!-- Widget Title -->
                             <h6 class="widget-title mb-30">Filter by</h6>
@@ -63,12 +55,12 @@
 
                             <div class="widget-desc">
                                 <div class="slider-range">
-                                    <div data-min="0" data-max="500000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
+                                    <div data-min="0" data-max="500000" data-unit="&#8361" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="500000" data-label-result="Price:">
                                         <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" id="fromPrice" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" id="toPrice" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     </div>
-                                    <div class="range-price" id="priceRange">Range: 0원 - 500,000원</div>
+                                    <div class="range-price" id="priceRange">Price: &#8361;0 - &#8361;500000</div>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +148,8 @@
                                         <a href="single-product-details.html">
                                             <h6>${list[i].title}</h6>
                                         </a>
-                                        <p class="product-price">$${list[i].price}</p>
+                                        <fmt:formatNumber value="${list[i].price}" type="number" var="price"/>
+                                        <p class="product-price">${price} 원</p>
 
                                         <!-- Hover Content -->
                                         <div class="hover-content">
@@ -194,6 +187,22 @@
 	 		var curl = "categories/color/" + color;
 	 		ajaxfn(curl);
 		}
+	 	
+	 	function betweenPrice(fromPrice, toPrice){
+	 		var curl = "categories/price/" + fromPrice + "/" + toPrice;
+	 		ajaxfn(curl);
+		}
+	 	
+	 	
+	 	$( ".slider-range" ).on( "slidechange", function() {
+	        //console.log("변경중");
+	        var priceArray = $('#priceRange').text().split('-');
+	        //alert($('#priceRange').text());
+	        var fromPrice = Number(priceArray[0].split('₩')[1]);
+	        var toPrice = Number(priceArray[1].replace('₩',''));
+	        betweenPrice(fromPrice, toPrice)
+	        
+	    });
 
 		var codeList =  JSON.parse('${categoryList}');
 		console.log(codeList);
@@ -212,9 +221,6 @@
 				 $('#midCategory2').append(printCategory(200));
 			 });
 			 
-			 $('#toPrice').ondrag(function(){
-				 alert("Price Range");
-			 });
 			 
 		 });
 		 

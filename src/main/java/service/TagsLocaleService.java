@@ -45,9 +45,9 @@ public class TagsLocaleService {
 		dao.insertProductTags(tagsId);
 	}
 	
-	public void addPhotoTags(PhotoTagsVo vo) {
+	public void addPhotoTags(BigInteger tagsId) {
 		TagsLocaleDao dao = sqlSession.getMapper(TagsLocaleDao.class);
-		dao.insertPhotoTags(vo);
+		dao.insertPhotoTags(tagsId);
 	}
 	
 	public HashMap<String, String> addMultiTags(String tags) {
@@ -142,7 +142,7 @@ public class TagsLocaleService {
 		
 	}
 	
-	public void randomInsertPhotoTag() {
+/*	public void randomInsertPhotoTag() {
 		int size = 100;
 		int[] tagsId = new int[size];
 		int[] photoId = new int[size];
@@ -157,5 +157,5 @@ public class TagsLocaleService {
 			dao.insertPhotoTags(vo);
 		}
 
-	}
+	}*/
 }

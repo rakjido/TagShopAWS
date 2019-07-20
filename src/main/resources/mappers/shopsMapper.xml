@@ -198,7 +198,8 @@
 				WHERE USERID=#{userid}) AS J
 			ON P.PRODUCTITEMID = J.PRODUCTITEMID) AS Q
         JOIN PRODUCTS AS S
-        ON Q.PRODUCTID=S.PRODUCTID;
+        ON Q.PRODUCTID=S.PRODUCTID
+        ORDER BY Q.CREATEDATE DESC
 	</select>
 	
 	<select id="getManagementList" parameterType="hashMap" resultType="vo.ManagementVo">
@@ -225,5 +226,11 @@
    <select id="getPhotoProduct" parameterType="HashMap" resultType="vo.ProductsVo">
    		select title, price, photoFile from products where productid in (#{productid1},#{productid2});
    </select>
+   
+   <update id="updateOrderStatusCode" parameterType="HashMap">
+		UPDATE BUYITEMS
+		SET ORDERSTATUSCODE = #{orderStatusCode}
+		WHERE BUYITEMSID = #{buyItemsId}
+   </update>
    
  </mapper>

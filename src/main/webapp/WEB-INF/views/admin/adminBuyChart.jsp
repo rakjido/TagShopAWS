@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Dashboard</title>
 
 <%@ include file="/WEB-INF/views/admin/include/head.jsp"%>
 <style>
@@ -53,21 +53,21 @@
 
                       <div class="tiles">
                         <div class="col-md-4 tile">
-                          <span>Total Rebuy</span>
+                          <span>Total Repurchase</span>
                           <h2 id="totalRebuy"></h2>
                           <span class="sparkline11 graph" style="height: 160px;">
                                <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                           </span>
                         </div>
                         <div class="col-md-4 tile">
-                          <span>Total BuyPhoto</span>
+                          <span>Total Purchase Via Photo</span>
                           <h2 id="totalBuyPhoto"></h2>
                           <span class="sparkline22 graph" style="height: 160px;">
                                 <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                           </span>
                         </div>
                         <div class="col-md-4 tile">
-                          <span>Total BuyShop</span>
+                          <span>Total Purchase Via Photo</span>
                           <h2 id="totalBuyShop"></h2>
                           <span class="sparkline11 graph" style="height: 160px;">
                                  <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
@@ -230,7 +230,7 @@ Highcharts.chart('container1', {
 	    type: 'column'
 	  },
 	  title: {
-	    text: 'prdtPhoto Percentage'
+	    text: 'Product Views Via Photos Percentage'
 	  },
 	  subtitle: {
 	    text: ''
@@ -240,7 +240,7 @@ Highcharts.chart('container1', {
 	  },
 	  yAxis: {
 	    title: {
-	      text: 'prdtPhoto percent(%)'
+	      text: 'Product Views Via Photos percent(%)'
 	    }
 
 	  },
@@ -302,7 +302,7 @@ Highcharts.chart('container2', {
 	    zoomType: 'xy'
 	  },
 	  title: {
-	    text: 'photoViews and sales'
+	    text: 'Photo Views and Sales'
 	  },
 	  subtitle: {
 	    text: 'correlation'
@@ -319,14 +319,14 @@ Highcharts.chart('container2', {
 	      }
 	    },
 	    title: {
-	      text: 'salse',
+	      text: 'Sales',
 	      style: {
 	        color: Highcharts.getOptions().colors[1]
 	      }
 	    }
 	  }, { // Secondary yAxis
 	    title: {
-	      text: 'photoView',
+	      text: 'Photo Views',
 	      style: {
 	        color: Highcharts.getOptions().colors[0]
 	      }
@@ -352,7 +352,7 @@ Highcharts.chart('container2', {
 	    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255,255,255,0.25)'
 	  },
 	  series: [{
-	    name: 'photoView',
+	    name: 'photo views',
 	    type: 'column',
 	    yAxis: 1,
 	    data: [performanceJson[pNum-5].photoViews, performanceJson[pNum-4].photoViews, performanceJson[pNum-3].photoViews, performanceJson[pNum-2].photoViews, performanceJson[pNum-1].photoViews],
@@ -361,7 +361,7 @@ Highcharts.chart('container2', {
 	    }
 
 	  }, {
-	    name: 'salse',
+	    name: 'sales',
 	    type: 'spline',
 	    data: [performanceJson[pNum-5].sales, performanceJson[pNum-4].sales, performanceJson[pNum-3].sales, performanceJson[pNum-2].sales, performanceJson[pNum-1].sales],
 	    tooltip: {

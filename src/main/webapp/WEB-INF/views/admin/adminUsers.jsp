@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Dashboard</title>
 
 <%@ include file="/WEB-INF/views/admin/include/head.jsp"%>
 
@@ -43,12 +43,12 @@
 
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Buy Photo</span>
+              <span class="count_top"><i class="fa fa-user"></i> Purchase via Photo</span>
               <div class="count" id="buyPhoto"></div>
 
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Buy Shop</span>
+              <span class="count_top"><i class="fa fa-user"></i> Purchase via Shop</span>
               <div class="count" id="buyShop"></div>
 
             </div>

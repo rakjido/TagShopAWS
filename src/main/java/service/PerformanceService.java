@@ -1,5 +1,6 @@
 package service;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,11 @@ public class PerformanceService {
 	public void insertWeights(WeightsVo vo) {
 		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
 		dao.insertWeights(vo);
+	}
+	
+	public List<WeightsVo> getWeights(BigInteger weightsId) {
+		PerformanceDao dao = sqlsession.getMapper(PerformanceDao.class);
+		return dao.getWeights(weightsId);		
 	}
 	
 	public int getPerformanceCount() {

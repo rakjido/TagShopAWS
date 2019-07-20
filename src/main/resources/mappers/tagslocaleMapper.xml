@@ -29,8 +29,8 @@
 	</insert>
 	
 	<insert id="insertPhotoTags" parameterType="vo.PhotosVo">
-		INSERT INTO PHOTOTAGS
-		VALUES (#{photoId}, #{tagsId})	
+		INSERT INTO PHOTOTAGS(TAGSID, PHOTOID)
+		VALUES (#{tagsId}, (SELECT MAX(PHOTOID) FROM PHOTO))	
 	</insert>
 	
 	<select id="getTagsId" parameterType="hashMap" resultType="BigInteger">

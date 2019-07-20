@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Dashboard</title>
 
 <%@ include file="/WEB-INF/views/admin/include/head.jsp"%>
 
@@ -53,12 +55,12 @@
 
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Buy Photo</span>
+              <span class="count_top"><i class="fa fa-user"></i> Purchase via Photo</span>
               <div class="count" id="buyPhoto"></div>
 
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Buy Shop</span>
+              <span class="count_top"><i class="fa fa-user"></i> Purchase via Shop</span>
               <div class="count" id="buyShop"></div>
 
             </div>
@@ -133,6 +135,12 @@
 
 
 <script>
+
+function numberFormat(number) {
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return number.toString().replace(regexp, ',');
+}
+
 var pNum = ${pNum};
 var dateList = JSON.parse('${dateList2}');
 var performanceJson = JSON.parse('${pList}');

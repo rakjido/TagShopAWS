@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 
@@ -28,8 +29,8 @@
 	<div class="single_product_desc clearfix">
 		<span>${vo.shopid}</span>
 		<h2>${vo.productName}</h2>
-		
-		<p class="product-price">$${vo.unitPrice}</p>
+		<fmt:formatNumber value="${vo.unitPrice}" type="number" var="price"/>
+		<p class="product-price">${price} 원 </p>
 		<!-- Form -->
 		<form action="${pageContext.request.contextPath}/users/${sessionScope.userid}/baskets/${vo.productItemid}" class="cart-form clearfix" 
 			method="post" commandName="OptionListVo">
@@ -51,18 +52,17 @@
 								<div class="col-10 pzero">
 									<div class="row">
 										<div class="col-6 pzero">
-											<input type="text" class="form-control" name="quantity"
+											<input type="text" class="form-control" name="quantity" id="quantity"
 												value="1">
 										</div>
 										<div class="pzero w40p">
 											<input type="button" class="form-control plusbtnback"
-												id="company">
+												id="minus" value="-">
 										</div>
 										<div class="pzero w40p" style="color: white">
 											<input type="button" class="form-control minusbtnback"
-												id="company">
+												id="plus" value="+">
 										</div>
-
 									</div>
 								</div>
 							</td>
@@ -127,7 +127,20 @@
 
 <!-- js파일 ! -->
 <script>
+	
+
 	$(document).ready(function() {
+		
+		$('#plus').click(function(){
+			var qty = Number($('#quantity').val())+1;
+			$('#quantity').val(qty);
+		})
+
+		$('#minus').click(function(){
+			var qty = Math.max(Number($('#quantity').val())-1,1);
+			$('#quantity').val(qty);
+		})
+
 		
 		$(window).scroll(function() {
 			var height = $(document).scrollTop(); //실시간으로 스크롤의 높이를 측정

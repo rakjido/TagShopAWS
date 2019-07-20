@@ -18,15 +18,13 @@
 		SELECT USERID, PASSWORD, ENABLED, EMAIL, PHONE, CREATEDATE, UPDATEDATE 
 		FROM USERS WHERE USERID = #{userid}
 	</select>
-	
+
 	<update id="updateUsers" parameterType="vo.UsersVo">
 		UPDATE USERS
-			 SET  PASSWORD = #{password}, 
-			          ENABLED = #{enabled}, 
-			          EMAIL = #{email}, 
-			          PHONE = #{phone}, 
-			          UPDATEDATE = NOW() 
-		WHERE USERID  = #{userid}
+			SET EMAIL = #{email},
+			PHONE = #{phone},
+			UPDATEDATE = NOW()
+		WHERE USERID = #{userid}
 	</update>
 	
 	<update id="updateKey" parameterType="HashMap">

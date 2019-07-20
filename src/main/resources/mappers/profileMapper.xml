@@ -23,16 +23,14 @@
 			    , REPOSTNUMBER = #{repostNumber}
 		WHERE USERID  = #{userid}
 	</update>
-	
-		<update id="updateSnsProfile" parameterType="vo.ProfileVo">
+
+	<update id="updateSnsProfile" parameterType="vo.ProfileVo">
 		UPDATE PROFILE
-			 SET  INTRODUCTION = #{introduction}
-			    , WEBSITE = #{website}
-			    , PHOTONAME #{photoName}
-		WHERE USERID  = #{userid}
+			SET INTRODUCTION = #{introduction}
+			, WEBSITE = #{website}
+		WHERE USERID = #{userid}
 	</update>
 	
-
 	<update id="updateShoppingInfo" parameterType="vo.ProfileVo">
 		UPDATE PROFILE
 			 SET  RECIPIENTNAME = #{recipientName}
@@ -46,12 +44,10 @@
 		WHERE USERID  = #{userid}
 	</update>
 	
-	
-	
 	<update id="deductRepostNo" parameterType="String">
 		UPDATE PROFILE
 			SET REPOSTNUMBER = FN_MINUS_REPOST_NO(#{userid})
-		WHERE USERID = #{userid};
+		WHERE USERID = #{userid}
 	</update>
 	
 </mapper>

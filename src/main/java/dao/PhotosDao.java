@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import vo.PhotosVo;
+import vo.RankingVo;
 import vo.RepostsVo;
 import vo.CommentsPhotoIdjoinVo;
 import vo.CommentsVo;
@@ -73,4 +74,13 @@ public interface PhotosDao {
 	public void insertCoordinates(PhotoRegisterVo photoRegisterVo);
 	
 	public PhotoRegisterVo getCoordinates(BigInteger photoId);
+	
+	public List<String> searchUserid(String keyword);
+	
+	public List<String> searchTagName(HashMap<String, String> map);
+	
+	public List<BigInteger> searchPhotoTags(HashMap<String, String> map);
+	
+	public List<RankingVo> searchPhotoTagsbyRanking(HashMap<String, String> map);
+	
 }

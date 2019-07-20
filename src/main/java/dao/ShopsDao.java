@@ -72,4 +72,7 @@ public interface ShopsDao {
 	public List<ProductsVo> getSellerList() throws Exception;
 	
 	public List<ProductsVo> getPhotoProduct(HashMap<String, BigInteger> map);
+	
+	public void updateOrderStatusCode(HashMap<String, Object> map);
+	
 }
