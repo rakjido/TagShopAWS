@@ -44,7 +44,7 @@
         
         .filebox label { 
         display: inline-block; 
-        padding: .5em .75em; 
+        padding: .75em .75em; 
         color: #787878; 
         font-weight: 600;
         font-size: 14px; 
@@ -57,6 +57,8 @@
         border-radius: .25em; 
         margin-top: 27px;
     	margin-left: 10px;
+    	width : 100px;
+    	text-align: center;
     	} 
         .filebox input[type="file"] { 
         /* 파일 필드 숨기기 */ 

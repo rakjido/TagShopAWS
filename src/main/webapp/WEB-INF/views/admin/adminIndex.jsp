@@ -71,7 +71,7 @@
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Joined Number <small>Weekly progress</small></h2>
+                    <h2>Joined Number <small>Monthly progress</small></h2>
 
                     <div class="clearfix"></div>
                   </div>
@@ -84,7 +84,7 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                       <div>
                         <div class="x_title">
-                          <h2>Weekly Information</h2>
+                          <h2>Monthly Information</h2>
                           <ul class="nav navbar-right panel_toolbox">
 
                           </ul>
@@ -165,27 +165,48 @@ am4core.ready(function() {
 
 	// Add data
 	chart.data = [{
-	  "date": dateList[pNum-1],
-	  "price": performanceJson[pNum-1].signup
-	}, {
-	  "date": dateList[pNum-2],
-	  "price": performanceJson[pNum-2].signup
-	}, {
-	  "date": dateList[pNum-3],
-	  "price": performanceJson[pNum-3].signup
-	}, {
-	  "date": dateList[pNum-4],
-	  "price": performanceJson[pNum-4].signup
-	}, {
-	  "date": dateList[pNum-5],
-	  "price": performanceJson[pNum-5].signup
-	}, {
-	  "date": dateList[pNum-6],
-	  "price": performanceJson[pNum-6].signup
-	}, {
-	  "date": dateList[pNum-7],
-	  "price": performanceJson[pNum-7].signup
-	}];
+      "date": dateList[pNum-1],
+      "price": performanceJson[pNum-1].signup
+    }, {
+      "date": dateList[pNum-2],
+      "price": performanceJson[pNum-2].signup
+    }, {
+      "date": dateList[pNum-3],
+      "price": performanceJson[pNum-3].signup
+    }, {
+      "date": dateList[pNum-4],
+      "price": performanceJson[pNum-4].signup
+    }, {
+      "date": dateList[pNum-5],
+      "price": performanceJson[pNum-5].signup
+    }, {
+      "date": dateList[pNum-6],
+      "price": performanceJson[pNum-6].signup
+    }, {
+      "date": dateList[pNum-7],
+      "price": performanceJson[pNum-7].signup
+    }, {
+      "date": dateList[pNum-8],
+      "price": performanceJson[pNum-8].signup
+    }, {
+      "date": dateList[pNum-9],
+      "price": performanceJson[pNum-9].signup
+    }, {
+      "date": dateList[pNum-10],
+      "price": performanceJson[pNum-10].signup
+    }, {
+      "date": dateList[pNum-11],
+      "price": performanceJson[pNum-11].signup
+    }, {
+      "date": dateList[pNum-12],
+      "price": performanceJson[pNum-12].signup
+    }, {
+      "date": dateList[pNum-13],
+      "price": performanceJson[pNum-13].signup
+    }, {
+      "date": dateList[pNum-14],
+      "price": performanceJson[pNum-14].signup
+    }];
 
 	// Create axes
 	var dateAxis = chart.xAxes.push(new am4charts.DateAxis());

@@ -47,11 +47,22 @@
 		(#{productItemid},#{optionType},#{optionCode})
 	</insert>
 	
+	<select id="selectPOIManagementList" resultType="vo.ManagementVo">
+        SELECT DATE_FORMAT(CREATEDATE, "%Y-%m-%d") AS DATETIMES, B.USERID, B.DELIVERYFEE,
+              BX.PRODUCTNAME,  BX.UNITPRICE, BX.QUANTITY, BX.ORDERSTATUSCODE
+       FROM BASKETS B JOIN (
+                           SELECT I.BASKETID, P.PRODUCTID, P.PRODUCTNAME, P.PRODUCTITEMID, I.BUYITEMSID, I.UNITPRICE, I.QUANTITY, I.ORDERSTATUSCODE
+                           FROM PRODUCTITEM P JOIN PRODUCTS D ON P.PRODUCTID = D.PRODUCTID
+                                              JOIN BUYITEMS I ON P.PRODUCTITEMID = I.PRODUCTITEMID
+                       ) BX ON B.BASKETID = BX.BASKETID
+                      JOIN PROFILE P ON B.USERID = P.USERID
+                      ORDER BY DATETIMES DESC
+	</select>
+	
 	<select id="productCategories" resultType="vo.ProductsVo">
 		SELECT
 		shopid,title,price,productid,photoFile FROM Products
 	</select>
-
 
 	<select id="productOrderBy" parameterType="HashMap"
 		resultType="vo.ProductsVo">
@@ -65,12 +76,9 @@
 		<if test="column.equals('priceAsc')">
 			order by price asc
 		</if>
-		<if test="column.equals('mainColor')">
-			order by price asc
-		</if>
 
 	</select>
-
+	
 	<select id="productBetweenPrices" parameterType="HashMap" resultType="vo.ProductsVo">
 		SELECT SHOPID, TITLE, PRICE, PRODUCTID, PHOTOFILE, PRODUCTID
 		FROM PRODUCTS
@@ -198,8 +206,7 @@
 				WHERE USERID=#{userid}) AS J
 			ON P.PRODUCTITEMID = J.PRODUCTITEMID) AS Q
         JOIN PRODUCTS AS S
-        ON Q.PRODUCTID=S.PRODUCTID
-        ORDER BY Q.CREATEDATE DESC
+        ON Q.PRODUCTID=S.PRODUCTID;
 	</select>
 	
 	<select id="getManagementList" parameterType="hashMap" resultType="vo.ManagementVo">
@@ -226,6 +233,23 @@
    <select id="getPhotoProduct" parameterType="HashMap" resultType="vo.ProductsVo">
    		select title, price, photoFile from products where productid in (#{productid1},#{productid2});
    </select>
+       
+       <select id="getShopinfo" resultType="vo.ShopsVo">
+   		SELECT s.*, sc.MidCategoryCode 
+   		FROM shops s join selectedcategories sc 
+   		on s.ShopId=sc.ShopId where userid=#{userid};
+   </select>
+   
+   <update id="shopModify">
+   		UPDATE SHOPS
+   		SET SHOPID=#{param1.shopid}, USERID=#{param1.userid}, CORPORATEREGISTERNUMBER=#{param1.corporateRegisterNumber}, BRANDNAME=#{param1.brandName}, PHONE=#{param1.phone}, BANKCODE=#{param1.bankCode}, BANKACCOUNT=#{param1.bankAccount}, UPDATEDATE=#{param1.UpdateDate}
+   		WHERE SHOPID=#{param2};
+   </update>
+   
+   <update id="shopModify2" parameterType="vo.SelectedCategoriesVo">
+   		UPDATE SELECTEDCATEGORIES
+   		SET SHOPID=#{param1.shopid}, MIDCATEGORYCODE=#{param1.midCategoryCode} WHERE SHOPID=#{param2};
+   </update>
    
    <update id="updateOrderStatusCode" parameterType="HashMap">
 		UPDATE BUYITEMS

@@ -36,6 +36,29 @@
 				})
 			});
 			
+			/* 이메일 비동기 */
+			$('#signup-input_text_email').on("propertychange change keyup paste", function(){
+				var pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+$/;
+				$.ajax({
+					url: "emailcheck",
+				    data: { email : $('#signup-input_text_email').val()},
+				    type: "POST",
+				    success : function(data){
+				    	if(data==0 && pattern.test($('#signup-input_text_email').val())){
+				    		$("#email").css("color", "#0064FF");
+				    		$('#email').text("사용가능 합니다.");
+				    	}
+				    	else if(data==1){
+				    		$("#email").css("color", "#ff0000");
+				    		$('#email').text("중복된 email 입니다.");
+				    	}
+				    	else{
+				    		$("#email").css("color", "#ff0000");
+				    		$('#email').text("이메일 형식에 맞게 입력해주세요");
+				    	}
+				    }
+				})
+			});
 		
 			 /* 아이디 정규식 (숫자,영어 3-15글자) */
 			$("#signup-input_text_instaid").on("propertychange change keyup paste", function() {
@@ -79,11 +102,7 @@
 	           console.log($('#signup-input_text_email').val());
 				var pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+$/;
 				if(pattern.test($('#signup-input_text_email').val())){
-					$("#email").css("color", "#0064FF");
-					$("#email").text("올바른 형식입니다.");
 				}else{
-					$("#email").css("color", "#ff0000");
-					$("#email").text("이메일 형식에 맞게 입력주세요.");
 				}
 	       });
 			 
@@ -96,10 +115,11 @@
 					$("#phone").text("올바른 형식입니다.");
 				}else{
 					$("#phone").css("color", "#ff0000");
-					$("#phone").text("숫자만 입력해주세요.")
+					$("#phone").text("숫자만 입력해주세요.");
 				}
 	       }); 
 			 
+			
 			 
 		})
 
@@ -223,4 +243,3 @@
     <!-- ##### sign-in, sign-up End #####-->
     
     <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-    

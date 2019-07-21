@@ -14,12 +14,15 @@ import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
 import vo.PhotoRegisterVo;
+import vo.PhotoTagsJoinVo;
 
 public interface PhotosDao {
 	
 //	public void insertPhotos(PhotosVo dto);
 	
 	public List<PhotosVo> getAllPhotos(String userid);
+	
+	public List<PhotosVo> getAllLimitPhotos(HashMap<String, Object> map);
 	
 //	public void updatePhotos(PhotosVo dto);
 	
@@ -44,6 +47,8 @@ public interface PhotosDao {
 	public PhotosVo getPhoto(int photoid);
 	
 	public List<PhotosVo> getPhotoLikes(String userid);
+	
+	public List<PhotosVo> getLimitPhotoLikes(HashMap<String, Object> map);
 	
 	public int insertLikes(LikesVo likes);
 	
@@ -75,12 +80,17 @@ public interface PhotosDao {
 	
 	public PhotoRegisterVo getCoordinates(BigInteger photoId);
 	
+	public void deletePhoto(HashMap<String, Object> map);
+	
+	public int commentCount(int photoid);
+	
+	public List<PhotoTagsJoinVo> getPhotoTags(int photoid);
+	
 	public List<String> searchUserid(String keyword);
-	
-	public List<String> searchTagName(HashMap<String, String> map);
-	
-	public List<BigInteger> searchPhotoTags(HashMap<String, String> map);
-	
-	public List<RankingVo> searchPhotoTagsbyRanking(HashMap<String, String> map);
-	
+    
+    public List<String> searchTagName(HashMap<String, String> map);
+    
+    public List<BigInteger> searchPhotoTags(HashMap<String, String> map);
+    
+    public List<RankingVo> searchPhotoTagsbyRanking(HashMap<String, String> map);
 }

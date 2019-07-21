@@ -14,11 +14,16 @@
 					
 					<map name="MapMapMap">
 					
+					<c:if test="${coordinates.ax1 ne null}">
 					<div style="position: absolute; top: ${coordinates.YAvg}px; left:${coordinates.XAvg}px;"><a href="${coordinates.ARefLink}"><img src="${pageContext.request.contextPath}/uploads/point.png" id="plusImg"></img></a></div>
 					<area shape="rect" coords="${coordinates.ax1},${coordinates.ay1},${coordinates.ax2},${coordinates.ax1}" href="http://kr.yahoo.com/" onFocus="blur()">
+					</c:if>
 					
+					<c:if test="${coordinates.bx1 ne '1231'}">
 					<div style="position: absolute; top: ${coordinates.YBvg}px; left:${coordinates.XBvg}px;"><a href="${coordinates.BRefLink}"><img src="${pageContext.request.contextPath}/uploads/point.png" id="plusImg2"></img></a></div>
 					<area shape="rect" coords="${coordinates.bx1},${coordinates.by1},${coordinates.bx2},${coordinates.bx1}" href="http://kr.yahoo.com/" onFocus="blur()">
+					</c:if>
+					
 					</map>
 					<div>
 					
@@ -40,8 +45,18 @@
 					</div>
 					<div class="bY2yH">
 						<span class="RPhNB">•</span>
-						<button class="oW_lN type=">팔로우</button>
-						<i class="fas fa-eraser"></i>
+						<c:if test="${sessionScope.userid ne detail.profile.userid && detail.followcheck eq null}">
+							<button class="oW_lN">팔로우</button>
+						</c:if>
+						<c:if test="${sessionScope.userid ne detail.profile.userid && detail.followcheck ne null}">
+							<button class="oW_lN">팔로잉</button>
+						</c:if>
+						
+						<c:choose>
+						<c:when test="${sessionScope.userid eq detail.profile.userid && detail.likecheck.likeYn eq 'false'}">
+							<i class="fas fa-eraser" id="deletebtn"></i>
+							</c:when>
+						</c:choose>
 					</div>
 				</header>
 				<div class="popup-all-right">
@@ -63,10 +78,36 @@
 												<a class="profile-a" title=""
 													href="${pageContext.request.contextPath}/${detail.profile.userid}/">${detail.profile.userid}</a>
 												<span class="RPhNB">${detail.photos.descripTion }</span>
+												<div class="Igw0ET">
+													<div class="PIoXzT">
+													<c:forEach var="tags" items="${detail.phototag }">
+												<a class="profile-t" title="" href="${pageContext.request.contextPath}/${tags.tagsNameKo}/">#${tags.tagsNameKo}</a>
+												</c:forEach>
+												</div>
+												</div>
 												<div class="Igw0E">
 													<div class="PIoXz">
-														<time class="FH9sR" datetime="${detail.photos.createDate}"
-															title="${detail.photos.createDate}">${detail.photos.dateDiff}일</time>
+															<time class="FH9sR" datetime="${detail.photos.createDate}"
+															title="${detail.photos.createDate}">
+																
+																
+																<c:choose>
+																	<c:when test="${detail.photos.dateDiff eq 0}">
+																		<c:choose>
+																			<c:when test="${detail.time eq 0}">
+																				${detail.minute }분 전
+																			</c:when>
+																			<c:otherwise>
+																				${detail.time }시간 전		
+																			</c:otherwise>
+																		</c:choose>
+																	</c:when>
+																	
+																	<c:otherwise>
+																		${detail.photos.dateDiff}일전
+																	</c:otherwise>
+																</c:choose>
+															</time>
 													</div>
 												</div>
 											</div>
@@ -92,8 +133,27 @@
 												<span class="RPhNB">${comment.comments}</span>
 												<div class="Igw0E">
 													<div class="PIoXz">
-														<time class="FH9sR" datetime="${comment.createDate}"
-															title="${comment.createDate}">${comment.dateDiff}일</time>
+															<time class="FH9sR" datetime="${detail.photos.createDate}"
+															title="${detail.photos.createDate}">
+																
+																
+																<c:choose>
+																	<c:when test="${detail.photos.dateDiff eq 0}">
+																		<c:choose>
+																			<c:when test="${detail.time eq 0}">
+																				${detail.minute }분 전
+																			</c:when>
+																			<c:otherwise>
+																				${detail.time }시간 전		
+																			</c:otherwise>
+																		</c:choose>
+																	</c:when>
+																	
+																	<c:otherwise>
+																		${detail.photos.dateDiff}일전
+																	</c:otherwise>
+																</c:choose>
+															</time>
 													</div>
 												</div>
 											</div>
@@ -110,6 +170,7 @@
 						<button class="dCJp8">
 						
 							<c:if test="${detail.likecheck.likeYn == null}">
+							<script src="${pageContext.request.contextPath}/resources/js/instagram_check.js"></script>
 								<span class="Heart" aria-label="false"> </span>
 								<script>
 									var userid = "${sessionScope.userid}";
@@ -134,16 +195,42 @@
 						</button>
 						</span>
 				</div>
+				
+				
+				
 				<div class="NnvRN">
-					<time class="Nzb55" datetime="2019-06-21T04:23:09.000Z"
-						title="2019년 6월 21일">2일 전 </time>
+						
+																					<time class="Nzb55" datetime="${detail.photos.createDate}"
+															title="${detail.photos.createDate}">
+																
+																
+																<c:choose>
+																	<c:when test="${detail.photos.dateDiff eq 0}">
+																		<c:choose>
+																			<c:when test="${detail.time eq 0}">
+																				${detail.minute }분 전
+																			</c:when>
+																			<c:otherwise>
+																				${detail.time }시간 전		
+																			</c:otherwise>
+																		</c:choose>
+																	</c:when>
+																	
+																	<c:otherwise>
+																		${detail.photos.dateDiff}일전
+																	</c:otherwise>
+																</c:choose>
+															</time>
 				</div>
+				
+				
+				
 				<section class="sH9wk  _JgwE ">
 					<div class="RxpZH">
 						<form class="X7cDz" action="" method="POST">
 							<textarea aria-label="댓글 달기..." placeholder="댓글 달기..."
 								class="Ypffh" id="comment" name="comment" autocomplete="off" autocorrect="off"></textarea>
-							<button class="_0mzm- sqdOP yWX7d" disabled
+							<button class="_0mzm- sqdOP" disabled
 								type="submit">게시</button>
 						</form>
 					</div>
@@ -151,16 +238,21 @@
 			</div>
 			<i id="exit-button" class="fa fa-times"></i>
 		</article>
-	</div>
-<script>
+
+<script type="text/javascript">
 
 $(function(){
+	
+	if('${productList}' != ""){
 	var tagStr = '';
 	var productList =  JSON.parse('${productList}');
 	var xOffset = 10;
     var yOffset = 30;
 
     $(document).on("mouseover","#plusImg",function(e){ //마우스 오버시
+    	
+    	console.log(productList);
+    	
     	productList =  JSON.parse('${productList}');
     	
     	tagStr = '<div id="preview">' + 
@@ -211,5 +303,15 @@ $(document).on("mouseover","#plusImg2",function(e){ //마우스 오버시
         $("#preview2").remove();
     });
     
+    
+	}
+    $('#deletebtn').click(function(){
+        location.href="${pageContext.request.contextPath}/${detail.profile.userid}/photos/${detail.photos.photoId }/delete";
+    });
 });
 </script>
+	
+
+		
+	</div>
+		

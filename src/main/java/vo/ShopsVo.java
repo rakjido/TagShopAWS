@@ -25,6 +25,6 @@ public class ShopsVo {
 	
 	private String userid;
 	
-	
+	private String midcategorycode;
 	
 }

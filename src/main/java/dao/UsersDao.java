@@ -3,6 +3,8 @@ package dao;
 import java.util.HashMap;
 import java.util.List;
 
+import vo.RecommendVo;
+import vo.SnsUserVo;
 import vo.UsersVo;
 
 public interface UsersDao {
@@ -22,4 +24,13 @@ public interface UsersDao {
 	public int alter_userKey(HashMap<String, Object> map);
 	
 	public List<UsersVo> getEnabledUsers();
+	
+	public List<RecommendVo> recommend(String userid);
+	
+	public void updateUsersPassword(HashMap<String, Object> map);
+	
+	public int emailCheck(String email);
+	
+	public void insertSNS(SnsUserVo sns);
+
 }

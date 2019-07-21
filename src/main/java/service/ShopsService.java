@@ -93,7 +93,7 @@ public class ShopsService {
 		List<ProductsVo> list = dao.productOrderBy(map);
 		System.out.println(list);
 		return list;
-	};
+	}
 	
 	public List<ProductsVo> productBetweenPrices(double fromPrice, double toPrice){
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -202,6 +202,30 @@ public class ShopsService {
 	public List<ProductsVo> getPhotoProduct(HashMap<String, BigInteger> map){
 		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
 	    return dao.getPhotoProduct(map);
+	}
+	
+	public ShopsVo getShopinfo(String userid) {
+		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+		return dao.getShopinfo(userid);
+	}
+	
+	public void shopmodify(ShopsVo svo, String userid) {
+		System.out.println("svo : " + svo + " / / / / / " + userid);
+		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+		dao.shopModify(svo, userid);
+		System.out.println("modify1 완료");
+	}
+	
+	public void shopmodify2(SelectedCategoriesVo scvo, String shopid) {
+		System.out.println("svo : " + scvo + " / / / / / " + shopid);
+		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+		dao.shopModify2(scvo, shopid);
+		System.out.println("modify2 완료");
+	}
+	
+	public List<ManagementVo> selectPOIManagementList(){
+		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+		return dao.selectPOIManagementList();
 	}
 	
 	public void updateOrderStatusCode(String orderStatusCode, BigInteger buyItemsId) {

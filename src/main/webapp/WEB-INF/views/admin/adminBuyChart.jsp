@@ -212,13 +212,13 @@ Highcharts.chart('container', {
     },
     series: [{
         name: 'BuyPhoto',
-        data: [performanceJson[pNum-5].buyPhoto, performanceJson[pNum-4].buyPhoto, performanceJson[pNum-3].buyPhoto, performanceJson[pNum-2].buyPhoto, performanceJson[pNum-1].buyPhoto]
+        data: [performanceJson[pNum-14].buyPhoto,performanceJson[pNum-13].buyPhoto,performanceJson[pNum-12].buyPhoto,performanceJson[pNum-11].buyPhoto,performanceJson[pNum-10].buyPhoto,performanceJson[pNum-9].buyPhoto,performanceJson[pNum-8].buyPhoto,performanceJson[pNum-7].buyPhoto,performanceJson[pNum-6].buyPhoto,performanceJson[pNum-5].buyPhoto, performanceJson[pNum-4].buyPhoto, performanceJson[pNum-3].buyPhoto, performanceJson[pNum-2].buyPhoto, performanceJson[pNum-1].buyPhoto]
     }, {
         name: 'BuyShop',
-        data: [performanceJson[pNum-5].buyShop, performanceJson[pNum-4].buyShop, performanceJson[pNum-3].buyShop, performanceJson[pNum-2].buyShop, performanceJson[pNum-1].buyShop]
+        data: [performanceJson[pNum-14].buyShop, performanceJson[pNum-13].buyShop, performanceJson[pNum-12].buyShop, performanceJson[pNum-11].buyShop,performanceJson[pNum-10].buyShop, performanceJson[pNum-9].buyShop, performanceJson[pNum-8].buyShop, performanceJson[pNum-7].buyShop, performanceJson[pNum-6].buyShop,performanceJson[pNum-5].buyShop, performanceJson[pNum-4].buyShop, performanceJson[pNum-3].buyShop, performanceJson[pNum-2].buyShop, performanceJson[pNum-1].buyShop]
     }, {
         name: 'Rebuy',
-        data: [performanceJson[pNum-5].rebuy, performanceJson[pNum-4].rebuy, performanceJson[pNum-3].rebuy, performanceJson[pNum-2].rebuy, performanceJson[pNum-1].rebuy]
+        data: [performanceJson[pNum-14].rebuy, performanceJson[pNum-13].rebuy, performanceJson[pNum-12].rebuy, performanceJson[pNum-11].rebuy, performanceJson[pNum-10].rebuy,performanceJson[pNum-9].rebuy, performanceJson[pNum-8].rebuy, performanceJson[pNum-7].rebuy, performanceJson[pNum-6].rebuy, performanceJson[pNum-5].rebuy,performanceJson[pNum-4].rebuy, performanceJson[pNum-3].rebuy, performanceJson[pNum-2].rebuy, performanceJson[pNum-1].rebuy]
     }]
 });
 

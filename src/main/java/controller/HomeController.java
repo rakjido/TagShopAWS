@@ -84,7 +84,6 @@ public class HomeController {
 		List<CodeVo> bankList = buyService.getBankCode();
 		List<CodeVo> payTypeList = buyService.getPayTypeCode();
 		
-		System.out.println(itemList.size());
 //		model.addAttribute("itemList", itemList);
 //		model.addAttribute("profileVo", profileVo);
 //		model.addAttribute("bankList", bankList);

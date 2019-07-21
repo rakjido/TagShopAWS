@@ -73,6 +73,13 @@ public interface ShopsDao {
 	
 	public List<ProductsVo> getPhotoProduct(HashMap<String, BigInteger> map);
 	
-	public void updateOrderStatusCode(HashMap<String, Object> map);
+	public ShopsVo getShopinfo(String userid);
 	
+	public void shopModify(ShopsVo svo, String userid2);
+	
+	public void shopModify2(SelectedCategoriesVo selectedcategories, String shopid2);
+	
+	public List<ManagementVo> selectPOIManagementList();
+	
+	public void updateOrderStatusCode(HashMap<String, Object> map);
 }

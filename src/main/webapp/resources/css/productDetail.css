@@ -58,11 +58,11 @@
         }
         
         .plusbtnback{
-            background : url('/TagShop/resources/img/core-img/plus.png'); 
+            background : url('/tagshop/uploads/plus.png'); 
             background-size:cover;
         }
         .minusbtnback{
-            background : url('/TagShop/resources/img/core-img/minus.png'); 
+            background : url('/tagshop/uploads/minus.png'); 
             background-size:cover;
         }
         .textcenter{

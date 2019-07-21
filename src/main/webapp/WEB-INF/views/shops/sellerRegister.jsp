@@ -6,8 +6,9 @@
 	
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	
+	
 	<!-- ##### Breadcumb Area Start ##### -->
-	<div class="top_catagory_area section-padding-80 clearfix insta-background">
+	<div class="top_catagory_area section-padding-80 clearfix">
     <div class="breadcumb_area bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">

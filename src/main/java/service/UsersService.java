@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.UsersDao;
+import vo.RecommendVo;
+import vo.SnsUserVo;
 import vo.UsersVo;
 
 @Service
@@ -52,5 +55,34 @@ public class UsersService {
         
         return list;
     }
+	
+	public List<RecommendVo> recommend(String userid) {
+		UsersDao dao = sqlSession.getMapper(UsersDao.class);
+		List<RecommendVo> recommend = dao.recommend(userid);
+		return recommend;
+	}
+	
+	public void updateUsersPassword(String userid, String password) {
+		UsersDao dao = sqlSession.getMapper(UsersDao.class);
+		
+		HashMap<String, Object> editpassword = new HashMap<String, Object>();
+		
+		editpassword.put("userid", userid);
+		editpassword.put("password", password);
+		
+		dao.updateUsersPassword(editpassword);
+	}
+	
+	public void addSNS(SnsUserVo sns) {
+		UsersDao dao = sqlSession.getMapper(UsersDao.class);
+		dao.insertSNS(sns);
+	}
+	
+	public int emailCheck(String email) {
+		int emailCheck = 0;
+		UsersDao dao = sqlSession.getMapper(UsersDao.class);
+		emailCheck = dao.emailCheck(email);
+		return emailCheck;
+	}
 
 }

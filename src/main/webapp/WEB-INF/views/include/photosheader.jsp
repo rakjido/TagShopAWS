@@ -22,7 +22,7 @@
                         </c:if>
                         
                         <c:if test="${profile.userid != sessionScope.userid }">
-                        <script src="${pageContext.request.contextPath}/resources/js/instagram.js"></script>
+                        <script src="${pageContext.request.contextPath}/resources/js/instagram_check.js"></script>
                         <script>
 							var followingid = "${profile.userid}";
 							var usersuserid = "${sessionScope.userid}";
@@ -30,20 +30,23 @@
 						</script>
 						<button class="sqdOPaB" type="button"></button>
                         </c:if>
-
                         
-
-                    
-                        <a class="thEYr " href="${pageContext.request.contextPath}/${sessionScope.userid }/photos/edit"><button class="sqdOPaa" type="button">프로필 편집</button></a>
-                        <button class="sqdOPa" type="button">업로드</button>
                         <c:choose>
                         	<c:when test="${connectcheck eq 'connecting' }">
-                        	<button class="sqdOPaC" type="button">접속 중..</button>
+                        	<button class="sqdOPaC" type="button"><i class="fas fa-comment"></i></button>
                         	</c:when>
                         	<c:otherwise>
-                        	<button class="sqdOPaCO" type="button">비접속</button>
+                        	<button class="sqdOPaC" type="button"><i class="fas fa-comment"></i></button>
+                        	<button class="sqdOPaCO" type="button"><i class="fas fa-comment-slash"></i></button>
                         	</c:otherwise>
                         </c:choose>
+                        
+                        <c:if test="${sessionScope.userid eq profile.userid}">
+                        <a class="thEYr " href="${pageContext.request.contextPath}/${sessionScope.userid }/photos/edit">
+                        <button class="sqdOPaa" type="button"><i class="fas fa-user-cog"></i></button></a>
+                        <button class="sqdOPa" type="button"><i class="fas fa-camera"></i></button>
+                        </c:if>
+
 
 
                       </div>

@@ -26,13 +26,13 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8">
 				<div>
-					<h2>Sales management</h2>
+				<h2>Sales management</h2>
+<%-- 				<c:url value='/shops/${sessionScope.userid}/management/pdfDown'/> --%>
 				</div>
-
-				<div class="regular-page-content-wrapper section-padding-80">
+				<div class="regular-page-content-wrapper section-padding-5">
 					<div class="regular-page-text">
                             <div class="select-box d-flex mt-30 mb-30">
-                                <div class="col-3">
+                                <div class="col-2 p-0 pr-4">
                                     <select name="select" id="orderStatusCode" class="w100">
                                         <option value="TOTL">전체</option>
 										<option value="OR02">입금대기</option>
@@ -47,26 +47,40 @@
 										<option value="OR11">환불</option>
                                     </select>
                                 </div>
-                                <div class="col-3 mr0 pl0">
-                                    <input type="text" class="form-control mr0" id="fromDatepicker" value="">
+                                <div>
+                                    <input type="text" class="inputbox" id="fromDatepicker" value="">
                                 </div>
-                                <div class="col-1 mr0 pl0">
-                                	
-                                    <img src="${pageContext.request.contextPath}/resources/img/sample-img/calendar.png" alt="">
+                                <div>
+                                    <img class="w50" src="${pageContext.request.contextPath}/resources/img/sample-img/calendar.png" alt="">
                                 </div>
 
-                                <div class="col-1 mr0 pl0 pr0" align="center">
+                                <div class="wave" align="center">
                                     ~
                                 </div>
 
-                                <div class="col-3 mr0 pl0">
-                                    <input type="text" class="form-control mr0" id="toDatepicker" value="">
+                                <div>
+                                    <input type="text" class="inputbox" id="toDatepicker" value="">
                                 </div>
-                                <div class="col-1 mr0 pl0">
-                                    <img src="${pageContext.request.contextPath}/resources/img/sample-img/calendar.png" alt="">
+                                <div>
+                                    <img class="w50" src="${pageContext.request.contextPath}/resources/img/sample-img/calendar.png" alt="">
                                 </div>
-                            </div>
-
+                                
+                                <div class="leftmargin2">
+                                    <a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/management/pdfDown">
+                                    <img class="pdfdownload" src="${pageContext.request.contextPath}/resources/img/sample-img/pdf.png" alt="">
+                                    </a>
+                                </div>
+                                
+                                <div class="leftmargin">
+                                <a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/management/excelDown">
+                                    <img class="exceldownload" src="${pageContext.request.contextPath}/resources/img/sample-img/excel.png" alt="">
+                                </a>
+                                </div>
+                           
+							
+	                            </div>
+                            
+                            
                             <table id="example" class="table table-striped table-bordered" style="width:100%">
 									<thead>
 							             <tr>

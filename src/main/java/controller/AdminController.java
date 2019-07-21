@@ -35,10 +35,12 @@ public class AdminController {
 		List<String> dateList = new ArrayList<String>();
 		int pNum = pService.getPerformanceCount();
 		System.out.println(pList);
+		DateUtil du = new DateUtil();
+		FormatUtil fu = new FormatUtil();
 		
 		for(int i = 0; pList.size() > i; i ++) {
-			Date date = DateUtil.date(pList.get(i).getBaseDate());
-			String dateStr = FormatUtil.dateFormat2(date);
+			Date date = du.date(pList.get(i).getBaseDate());
+			String dateStr = fu.dateFormat2(date);
 
 			dateList.add(dateStr);
 		}
@@ -60,9 +62,12 @@ public class AdminController {
 		List<String> dateList = new ArrayList<String>();
 		int pNum = pService.getPerformanceCount();
 
+		DateUtil du = new DateUtil();
+		FormatUtil fu = new FormatUtil();
+		
 		for(int i = 0; pList.size() > i; i ++) {
-			Date date = DateUtil.date(pList.get(i).getBaseDate());
-			String dateStr = FormatUtil.dateFormat2(date);
+			Date date = du.date(pList.get(i).getBaseDate());
+			String dateStr = fu.dateFormat2(date);
 
 			dateList.add(dateStr);
 		}

@@ -18,6 +18,7 @@ import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
 import vo.PhotoRegisterVo;
+import vo.PhotoTagsJoinVo;
 import vo.PhotosVo;
 import vo.RankingVo;
 import vo.RepostsVo;
@@ -266,51 +267,88 @@ public class PhotosService {
 		BigInteger photoNum = BigInteger.valueOf(photoid);
 		return dao.getCoordinates(photoNum);
 	}
-
-	public List<String> searchUserid(String keyword){
+	
+	public void deletePhoto(String userid, int photoid) {
 		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
-		return dao.searchUserid(keyword);
-	}
-
-	public List<BigInteger> searchTagName(String keyword) {
-		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
-		HashMap<String, String> map = new HashMap<String, String>();
-		String language = "";
-		language = TranslationUtil.detectLanguage(keyword);
-		System.out.println(language);
-		if(language == "") {
-			language = "KO";	
-		}
-		map.put("language", language);
-		map.put("keyword", keyword);
-		return dao.searchPhotoTags(map);
-	}
-
-	public List<BigInteger> searchPhotoTags(String keyword) {
-		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
-		HashMap<String, String> map = new HashMap<String, String>();
-		String language = "";
-		language = TranslationUtil.detectLanguage(keyword);
-		System.out.println(language);
-		if(language == "") {
-			language = "KO";	
-		}
-		map.put("language", language);
-		map.put("keyword", keyword);
-		return dao.searchPhotoTags(map);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("photoid", photoid);
+		dao.deletePhoto(map);
 	}
 	
-	public List<RankingVo> searchPhotoTagsbyRanking(String keyword) {
+	public int commentCount(int photoid) {
 		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
-		HashMap<String, String> map = new HashMap<String, String>();
-		String language = "";
-		language = TranslationUtil.detectLanguage(keyword);
-		System.out.println(language);
-		if(language == "") {
-			language = "KO";	
-		}
-		map.put("language", language);
-		map.put("keyword", keyword);
-		return dao.searchPhotoTagsbyRanking(map);		
+		return dao.commentCount(photoid);
 	}
+	
+	public List<PhotosVo> getAllLimitPhotos(String userid, int limit){
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("limit", limit);
+		return dao.getAllLimitPhotos(map);
+	}
+	
+	public List<PhotosVo> getLimitPhotoLikes(String userid, int limit){
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("limit", limit);
+		return dao.getLimitPhotoLikes(map);
+	}
+	
+	public List<PhotoTagsJoinVo> getPhotoTags(int photoid){
+		
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		
+		return dao.getPhotoTags(photoid);
+		
+	}
+	
+	public List<String> searchUserid(String keyword){
+        PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+        return dao.searchUserid(keyword);
+    }
+    
+    public List<String> searchTagName(String keyword) {
+        PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+        HashMap<String, String> map = new HashMap<String, String>();
+        String language = "";
+        language = TranslationUtil.detectLanguage(keyword);
+        System.out.println(language);
+        if(language == "") {
+            language = "KO";  
+        }
+        map.put("language", language);
+        map.put("keyword", keyword);
+        return dao.searchTagName(map);
+    }
+    
+    public List<BigInteger> searchPhotoTags(String keyword) {
+        PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+        HashMap<String, String> map = new HashMap<String, String>();
+        String language = "";
+        language = TranslationUtil.detectLanguage(keyword);
+        System.out.println(language);
+        if(language == "") {
+            language = "KO";  
+        }
+        map.put("language", language);
+        map.put("keyword", keyword);
+        return dao.searchPhotoTags(map);
+    }
+    
+    public List<RankingVo> searchPhotoTagsbyRanking(String keyword) {
+        PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+        HashMap<String, String> map = new HashMap<String, String>();
+        String language = "";
+        language = TranslationUtil.detectLanguage(keyword);
+        System.out.println(language);
+        if(language == "") {
+            language = "KO";  
+        }
+        map.put("language", language);
+        map.put("keyword", keyword);
+        return dao.searchPhotoTagsbyRanking(map);       
+    }
 }

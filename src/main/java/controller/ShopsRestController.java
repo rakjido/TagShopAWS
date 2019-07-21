@@ -1,6 +1,5 @@
 package controller;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import service.ShopsService;
@@ -38,7 +36,7 @@ public class ShopsRestController {
 		return service.productOrderBy(sort);
 	}
 	
-	@RequestMapping(value="/categories/sub/{code}", method=RequestMethod.GET)
+	@RequestMapping(value="/categories/{code}", method=RequestMethod.GET)
 	public List<ProductsVo> byCategories(@PathVariable("code") String code) throws Exception {
 		return service.smallCategories(code);
 	}
@@ -125,4 +123,5 @@ public class ShopsRestController {
 	}
 	
 	
+
 }

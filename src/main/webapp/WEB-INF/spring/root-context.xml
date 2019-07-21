@@ -45,6 +45,11 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>	
 	
+	<!-- Error 핸들링 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="error/error"/>	
+	</bean>
+	
 	
 	
 	

@@ -7,7 +7,8 @@
 	<!-- css 넣으세요 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/instagram.css">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loadingbar.css"> --%>
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loadingbar.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chat.css">
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 	
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -49,27 +50,34 @@
         <div class="container">
           <div class="row">
           <c:forEach var="photos" items="${photos }">
-            <div id="photo-hidden" class="col-xs-12 col-sm-4 grid photocount">
+            <div id="photo" class="col-xs-12 col-sm-4 grid photocount">
               <img src="${pageContext.request.contextPath}/uploads/${photos.fileName}" alt="${photos.photoId }" />
             </div>
             </c:forEach>
           </div>
         </div>
-		<script src="${pageContext.request.contextPath}/resources/js/timelineload.js"></script>
-				<div class="load-more">
-					<span>Load More</span>
-				</div>
 
 	  </div>
       </div>
       </div>
+     <!--  <div class="loader-wrapper d-flex justify-content-center align-items-center">     
+<div class="loader"><div class="line-spin-fade-loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+</div> -->
+<div class="svg-wrap">
+  <svg version="1.1" id="Loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       viewBox="-2.5 -2.5 49 49">
+    <circle class="path_circle" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="22" cy="22" r="22"/>
+  </svg>
+</div>
       </div>
+
+      
       
       <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script src='https://tympanus.net/Development/ButtonComponentMorph/js/classie.js'></script>
     <script src='https://tympanus.net/Development/ButtonComponentMorph/js/modernizr.custom.js'></script>
     
-        <script src="${pageContext.request.contextPath}/resources/js/instagram.js"></script>
+        
 
 
     <!-- ##### Instagram End ##### -->
@@ -79,3 +87,5 @@
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 	<!-- js파일 ! -->
+	<script src="${pageContext.request.contextPath}/resources/js/instagram.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/photo_scroll.js"></script>

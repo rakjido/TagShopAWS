@@ -196,34 +196,63 @@ am4core.ready(function() {
 
 	// Add data
 	chart.data = [{
-	  "date": dateList[pNum-7],
-	  "market1": performanceJson[pNum-7].signup,
-	  "sales1": performanceJson[pNum-7].users
-	}, {
-	  "date": dateList[pNum-6],
-	  "market1": performanceJson[pNum-6].signup,
-	  "sales1": performanceJson[pNum-6].users
-	}, {
-	  "date": dateList[pNum-5],
-	  "market1": performanceJson[pNum-5].signup,
-	  "sales1": performanceJson[pNum-5].users
-	}, {
-	  "date": dateList[pNum-4],
-	  "market1": performanceJson[pNum-4].signup,
-	  "sales1": performanceJson[pNum-4].users
-	}, {
-	  "date": dateList[pNum-3],
-	  "market1": performanceJson[pNum-3].signup,
-	  "sales1": performanceJson[pNum-3].users
-	}, {
-	  "date": dateList[pNum-2],
-	  "market1": performanceJson[pNum-2].signup,
-	  "sales1": performanceJson[pNum-2].users
-	}, {
-	  "date": dateList[pNum-1],
-	  "market1": performanceJson[pNum-1].signup,
-	  "sales1": performanceJson[pNum-1].users
-	}];
+    
+    "date" : dateList[pNum - 1],
+            "market1" : performanceJson[pNum - 1].signup,
+            "sales1" : performanceJson[pNum - 1].users
+        }, {
+            "date" : dateList[pNum - 2],
+            "market1" : performanceJson[pNum - 2].signup,
+            "sales1" : performanceJson[pNum - 2].users
+        }, {
+            "date" : dateList[pNum - 3],
+            "market1" : performanceJson[pNum - 3].signup,
+            "sales1" : performanceJson[pNum - 3].users
+        }, {
+            "date" : dateList[pNum - 4],
+            "market1" : performanceJson[pNum - 4].signup,
+            "sales1" : performanceJson[pNum - 4].users
+        }, {
+            "date" : dateList[pNum - 5],
+            "market1" : performanceJson[pNum - 5].signup,
+            "sales1" : performanceJson[pNum - 5].users
+        }, {
+            "date" : dateList[pNum - 6],
+            "market1" : performanceJson[pNum - 6].signup,
+            "sales1" : performanceJson[pNum - 6].users
+        }, {
+            "date" : dateList[pNum - 7],
+            "market1" : performanceJson[pNum - 7].signup,
+            "sales1" : performanceJson[pNum - 7].users
+        }, {
+            "date" : dateList[pNum - 8],
+            "market1" : performanceJson[pNum - 8].signup,
+            "sales1" : performanceJson[pNum - 8].users
+        }, {
+            "date" : dateList[pNum - 9],
+            "market1" : performanceJson[pNum - 9].signup,
+            "sales1" : performanceJson[pNum - 9].users
+        }, {
+            "date" : dateList[pNum - 10],
+            "market1" : performanceJson[pNum - 10].signup,
+            "sales1" : performanceJson[pNum - 10].users
+        }, {
+            "date" : dateList[pNum - 11],
+            "market1" : performanceJson[pNum - 11].signup,
+            "sales1" : performanceJson[pNum - 11].users
+        }, {
+            "date" : dateList[pNum - 12],
+            "market1" : performanceJson[pNum - 12].signup,
+            "sales1" : performanceJson[pNum - 12].users
+        }, {
+            "date" : dateList[pNum - 13],
+            "market1" : performanceJson[pNum - 13].signup,
+            "sales1" : performanceJson[pNum - 13].users
+        }, {
+            "date" : dateList[pNum - 14],
+            "market1" : performanceJson[pNum - 14].signup,
+            "sales1" : performanceJson[pNum - 14].users
+        }];
 
 	// Create axes
 	var dateAxis = chart.xAxes.push(new am4charts.DateAxis());

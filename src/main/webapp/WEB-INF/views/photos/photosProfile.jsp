@@ -11,7 +11,6 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modify.css">
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-	
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	
@@ -47,12 +46,12 @@
 
                     <div class="profile-usermenu">
                         <ul class="nav">
-                            <li class="active">
+                            <li class="select-profile active">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-home"></i>
                                     	프로필 수정 </a>
                             </li>
-                            <li class="select-profile">
+                            <li class="select-profile-pwd">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-user"></i>
                                     	비밀번호 변경 </a>
@@ -62,6 +61,10 @@
 
                 </div>
             </div>
+            
+            
+            
+            
             <div class="col-md-9">
                 <div class="profile-content">
                     <div class="row">

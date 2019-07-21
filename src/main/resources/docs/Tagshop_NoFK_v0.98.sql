@@ -265,7 +265,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tagshop`.`ProductItem` ;
 
 CREATE TABLE IF NOT EXISTS `tagshop`.`ProductItem` (
-  `ProductItemId` BIGINT NOT NULL AUTO_INCREMENT,
+  `ProductItemId` BIGINT NOT NULL,
   `ProductName` VARCHAR(100) NULL,
   `UnitPrice` DOUBLE NULL,
   `ProductId` BIGINT NOT NULL,

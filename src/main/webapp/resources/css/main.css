@@ -1,0 +1,45 @@
+.catagoryM{
+	text-align:center;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.categoryF{
+	font-size:20px;
+}
+
+
+.footer-banner__list{
+	width: 100%;
+    height: auto;
+}
+
+.footer-banner__item {
+    float: left;
+    width: 33.3%;
+    height: auto;
+}
+.presentation{
+	
+}
+
+.tags-item {
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+    color: #000;
+    margin: 3px;
+    font-weight: 500;
+    border: 1px solid #666;
+    font-size: 15px;
+    padding: .4rem;
+}
+
+.my-slider-container {
+    overflow-x: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}

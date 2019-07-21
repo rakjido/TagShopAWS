@@ -148,3 +148,11 @@ table>tbody>tr:hover{
 #editphoto {
 	display: none;
 }
+
+.checksty {
+	position: absolute;
+	font-size: 14px;
+}
+.form-group {
+	margin-bottom: 1.4rem;
+}

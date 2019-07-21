@@ -1,0 +1,244 @@
+/* ########### Test Css */
+
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
+
+.form-control::placeholder {
+	opacity: 0.5;
+}
+
+
+chat {
+  position: absolute;
+  display: block;
+  width: 700px;
+  height: 500px;
+  background: #FFF;
+  left: calc(50% - 350px);
+  top: calc(50% - 250px);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#chats {
+  float: left;
+  margin: 0;
+  height: 100%;
+  width: 35%;
+  border-right: 1px solid #F6F6F9;
+  box-sizing: border-box;
+}
+ #chats header {
+  padding-top: 13px;
+  padding-left: 10px;
+  height: 55px;
+}
+ #chats header input {
+  height: 30px;
+  width: 150px;
+  font-size: 13px;
+  border: none;
+  outline: none;
+  color: #D5D5D5;
+  font-weight: 300;
+}
+ #chats header button {
+  position: relative;
+  float: left;
+  height: 30px;
+  width: 30px;
+  font-size: 18px;
+  border: none;
+  color: #D5D5D5;
+  background: none;
+  cursor: pointer;
+}
+ #chats header button:first-child {
+  color: #38BFF6;
+  margin-right: 10px;
+}
+ #chats header button:first-child:after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 9px;
+  width: 1px;
+  height: 13px;
+  background: #DFDFDF;
+}
+  #chats li {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 2px;
+  list-style: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding-top: 10px;
+}
+ #chats li img {
+  float: left;
+  height: 60px;
+  width: 60px;
+  background: #eee;
+  border-radius: 50%;
+  margin: 10px 20px;
+}
+ #chats li h1, h2 {
+  margin: 0;
+  font-weight: 300;
+  float: left;
+}
+ #chats li h1 {
+  font-size: 17px;
+  margin-top: 13px;
+  color: #50495B;
+}
+ #chats li h2 {
+  font-size: 14px;
+  margin-top: 5px;
+  color: #9B9B9B;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 125px;
+}
+
+ #chats li.actual {
+  background: #F6F6F9;
+}
+
+ #chats li.active h2 {
+  color: #4FB2F1;
+}
+ #chats li.active img {
+  box-shadow: 0px 0px 10px 3px #4FB2F1;
+}
+
+/**/
+ #messages {
+  position: relative;
+  display: block;
+  float: right;
+  background: #FFF;
+  width: 65%;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+ #messages header {
+  padding: 0px 15px;
+}
+   #messages header span{
+    float: left;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 55px;
+    color: #D8D2D7;
+  }
+ #messages header span strong {
+  color: #655A6E;
+  margin-left: 5px;
+  font-weight: 300;
+}
+ #messages header i {
+  background: #38BFF6;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  float: right;
+  margin-top: 23px;
+}
+ #messages main {
+  position: absolute;
+  top: 55px;;
+  left: 0;
+  bottom: 55px;
+  right: 0;
+  background: #FFF;
+  overflow: auto;
+  padding: 20px;
+}
+ #messages div#msg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 55px;
+  background: #ECECEF;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 8px;
+}
+
+ #messages div#msg input {
+  height: 30px;
+  width: 95%;
+  margin: auto;
+  margin-top: 5px;
+  color: #7D7C7D;
+  border: none;
+  padding-left: 10px;
+  padding-right: 50px;
+  font-size: 15px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-weight: 300;
+  outline: none;
+}
+
+.msg {
+  display: block;
+  padding: 15px 20px;
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 300;
+  word-wrap: break-word;
+  max-width: 60%;
+  margin: 10px 0px;
+}
+.msg-receive {
+  float: left;
+  border-radius: 20px 20px 20px 0px;
+  background: #F0F0F2;
+  color: #655A6E;
+}
+.msg-send {
+  float: right;
+  border-radius: 20px 20px 0px 20px;
+  background: #38BFF6;
+  color: #FFF;
+}
+
+msg {
+  display: block;
+  float: left;
+  width: 100%;
+}
+
+#status {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  color: #B6B6B6;
+  font-weight: 300;
+}
+#status:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  float: left;
+  margin-right: 10px;
+  margin-top: 3px;
+  background: #38BFF6;
+}
+
+#smile {
+  position: absolute;
+  right: 20px;
+  top: 18px;
+  opacity: .6;
+}

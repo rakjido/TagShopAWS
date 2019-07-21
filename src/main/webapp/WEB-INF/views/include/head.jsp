@@ -24,6 +24,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/core-style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/instagram.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="https://kit.fontawesome.com/3516ad21ac.js"></script>
 <!-- <script src="http://192.168.1.13:82/socket.io/socket.io.js"></script> -->

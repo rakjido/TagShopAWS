@@ -1,0 +1,61 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/ITCITCAvantGardeStdBk.css);
+
+
+@font-face { font-family: 'ITCITCAvantGardeStdBk'; 
+src: url('resources/fonts/ITCAvantGardeStdBk.otf'); 
+} 
+
+.text_wrap {
+	position: absolute;
+	top: 40%;
+	left: 60%;
+	z-index: 2;
+	width: 500px;
+	font-family: 'ITCITCAvantGardeStdBk', 'NanumBarunGothic', 'Nanum Gothic',
+		sans-serif;
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+}
+
+.txcolor02 {
+	font-family: 'ITCITCAvantGardeStdBk', 'NanumBarunGothic', 'Nanum Gothic',
+		sans-serif;
+    color: #444444;
+	font-size: 18px;
+}
+
+.strong {
+	font-family: 'ITCITCAvantGardeStdBk', 'NanumBarunGothic', 'Nanum Gothic',
+		sans-serif;	display: block;
+	font-size: 30px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code,
+	form, fieldset, legend, textarea, p, blockquote, th, td, input, select,
+	textarea, button {
+	padding: 0;
+	margin: 0;
+}
+
+.more_btn {
+	font-family: 'ITCITCAvantGardeStdBk', 'NanumBarunGothic', 'Nanum Gothic',
+		sans-serif;
+	vertical-align: middle;
+	text-decoration: none !important;
+	border: 1px solid #666666;
+    color: #444444;
+    display: block;
+    width: 157px;
+    height: 35px;
+    line-height: 2.44em;
+    font-size: 15px;
+    text-align: center;
+    overflow: hidden;
+    margin-top: 60px;
+}

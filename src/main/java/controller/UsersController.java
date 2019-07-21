@@ -19,6 +19,7 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ import vo.AuthoritiesVo;
 import vo.OptionListVo;
 import vo.OptionsVo;
 import vo.SelectedOptionVo;
+import vo.SnsUserVo;
 import vo.UsersVo;
 
 @Controller
@@ -84,6 +86,15 @@ public class UsersController {
 	private NaverLoginBO naverLoginBO;
 	
 	private String apiResult;
+	
+	@Value("${facebook.CLIENT_ID}")
+	private String FACEBOOK_ID;
+	
+	@Value("${facebook.CLIENT_SECRET}")
+	private String FACEBOOK_SECRET;
+	
+	@Value("${recaptcha.CLIENT_SECRET}")
+	private String RECAPTCHA_SECRET;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model, HttpSession session) {
@@ -132,32 +143,30 @@ public class UsersController {
 	}
 	
 	//@Transactional
-	@ResponseBody
-	@RequestMapping(value="/signup", method = RequestMethod.POST)
-	public int signupok(UsersVo vo, @RequestParam("g-recaptcha-response") String recaptcha, HttpServletRequest request) {
-		logger.info("[POST] signup()");
-		
-        VerifyRecaptcha.setSecretKey("6LeNoKgUAAAAAHE6-GzKInsXCj2P5Y7g3smNsOn-");
-        String gRecaptchaResponse = recaptcha;
-        System.out.println(gRecaptchaResponse);
+    @ResponseBody
+    @RequestMapping(value="/signup", method = RequestMethod.POST)
+    public int signupok(UsersVo vo, @RequestParam("g-recaptcha-response") String recaptcha, HttpServletRequest request) {
+        logger.info("[POST] signup()");
         
-        this.bCryptPasswordEncoder.encode("dakhweakhaw");
-        
-        try {
-            if(VerifyRecaptcha.verify(gRecaptchaResponse)){
-            	
-            	vo.setPassword(this.bCryptPasswordEncoder.encode(vo.getPassword()));
-            	service.addUsers(vo);
-            	
-            	mailsender.mailSendWithUserKey(vo.getEmail(), vo.getUserid(), request);
-            	
-            	return 0;
-            }
-            else return 1;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return -1;
-        }
+       VerifyRecaptcha.setSecretKey(RECAPTCHA_SECRET);
+       System.out.println(RECAPTCHA_SECRET);
+       String gRecaptchaResponse = recaptcha;
+       System.out.println(gRecaptchaResponse);
+       try {
+           if(VerifyRecaptcha.verify(gRecaptchaResponse)){
+               
+               vo.setPassword(this.bCryptPasswordEncoder.encode(vo.getPassword()));
+               service.addUsers(vo);
+               
+               mailsender.mailSendWithUserKey(vo.getEmail(), vo.getUserid(), request);
+               
+               return 0;
+           }
+           else return 1;
+       } catch (IOException e) {
+           e.printStackTrace();
+           return -1;
+       }
 		
 		
 
@@ -175,7 +184,7 @@ public class UsersController {
 	@Transactional
 	@RequestMapping(value="/{userid}/baskets/{productItemid}", method=RequestMethod.POST)
 	public String addBuyitems(@PathVariable("userid") String userid, @PathVariable("productItemid") BigInteger productItemid 
-			,double unitPrice, int quantity, @ModelAttribute OptionListVo optionListVo) {
+			,double unitPrice, int quantity, @ModelAttribute OptionListVo optionListVo, String addtocart) {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -222,8 +231,12 @@ public class UsersController {
 
 		}*/
 
+		if(addtocart.equals("basket")) {
+			return "redirect:/";
+		} else {
+			return "redirect:/" + userid + "/orders";
+		}
 		
-		return "redirect:/";
 	}
 	
 	// e-mail 인증 컨트롤러
@@ -256,7 +269,7 @@ public class UsersController {
             logger.debug("facebookSignin");
 
             String facebookUrl = "https://www.facebook.com/v3.3/dialog/oauth?"+
-                    "client_id="+"694347417654617"+
+                    "client_id="+FACEBOOK_ID+
                     "&redirect_uri=http://localhost:8090/tagshop/users/facebookAccessToken.do"+
                     "&scope=public_profile,email";
                     
@@ -278,10 +291,12 @@ public class UsersController {
         
         //Facebook 토큰으로 요청한 값 받아와서 리턴
         private String requestFaceBooktAccesToken(HttpSession session, String code) throws Exception {
+        	System.out.println("페북 api : " +FACEBOOK_ID);
+        	System.out.println("페북 api : " +FACEBOOK_SECRET);
             String facebookUrl = "https://graph.facebook.com/v3.3/oauth/access_token?"+
-                                 "client_id="+"694347417654617"+
+                                 "client_id="+FACEBOOK_ID+
                                  "&redirect_uri="+"http://localhost:8090/tagshop/users/facebookAccessToken.do"+
-                                 "&client_secret="+"e7c980c946ccaaf63948de8116d86e2e"+
+                                 "&client_secret="+FACEBOOK_SECRET+
                                  "&code="+code;
             
             HttpClient client = HttpClientBuilder.create().build();
@@ -318,47 +333,80 @@ public class UsersController {
             logger.debug("facebookUserDataLoadAndSave / raw json : "+jsonObject);
             System.out.println("@@@@@@@@@@@제이슨입니당@@@@@@@@@@@" + jsonObject);
             
-//            HashMap<String, Object> userData = new HashMap<String, Object>();
+            String id = (String)jsonObject.get("id");
+            String email = (String)jsonObject.get("email");
+            String name = (String)jsonObject.get("name");
+            
+            int result = service.emailCheck(email);
+            System.out.println("페북로그인 이메일 비교한다.");
+            if(result == 0) {
+            	System.out.println("DB에 이메일 XXX");
+            	SnsUserVo sns = new SnsUserVo();
+            	sns.setUserid(id);
+            	sns.setEmail(email);
+            	sns.setPassword(this.bCryptPasswordEncoder.encode(RandomValueUtil.getSmsKey()));
+            	sns.setEnabled(true);
+            	service.addSNS(sns);
+            }
+            else if(result!=0) {
+            	System.out.println("DB에 이메일 OOO");
+            }
+            session.setAttribute("userid", id); //세션 생성
+    		System.out.println("세션 : "+session);
+    		System.out.println("userid : "+session.getAttribute("userid"));
+    		
         }
         
     	//네이버 로그인 성공시 callback호출 메소드
     	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
     	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
-    		
     		System.out.println("여기는 callback");
     		OAuth2AccessToken oauthToken;
     		oauthToken = naverLoginBO.getAccessToken(session, code, state);
     		//1. 로그인 사용자 정보를 읽어온다.
     		apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
-    		/** apiResult json 구조
-    {"resultcode":"00",
-    "message":"success",
-    "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"shinn0608@naver.com","name":"\uc2e0\ubc94\ud638"}}
-    		 **/
+    		System.out.println("--아래는 네이버api 결과값--");
+    		System.out.println(apiResult);
     		//2. String형식인 apiResult를 json형태로 바꿈
     		JSONParser parser = new JSONParser();
     		Object obj = parser.parse(apiResult);
     		JSONObject jsonObj = (JSONObject) obj;
+    		
     		//3. 데이터 파싱
     		//Top레벨 단계 _response 파싱
     		JSONObject response_obj = (JSONObject)jsonObj.get("response");
     		//response의 nickname값 파싱
-    		String nickname = (String)response_obj.get("nickname");
     		String id = (String)response_obj.get("id");
+    		String nickname = (String)response_obj.get("nickname");
     		String email = (String)response_obj.get("email");
-    		System.out.println(nickname);
-    		System.out.println(id);
-    		System.out.println(email);
+    		System.out.println("id : "+id);
+    		System.out.println("nickname : "+nickname);
+    		System.out.println("email : "+email);
     		
-    		UsersVo usersvo = new UsersVo();
+    		int result = service.emailCheck(email);
+    		System.out.println("네이버로그인 이메일 비교한다.");
+    		if(result==0) {
+    			System.out.println("DB에 이메일 XXX");
+	    		SnsUserVo sns = new SnsUserVo();
+	    		sns.setUserid(id);
+	    		sns.setEmail(email);
+	    		sns.setPassword(this.bCryptPasswordEncoder.encode(RandomValueUtil.getSmsKey()));
+	    		sns.setEnabled(true);
+	    		service.addSNS(sns);
+	    		
+    		}
+    		else if(result!=0){
+    			System.out.println("DB에 이메일 OOO");
+    			
+    		}
     		
-    		usersvo.setUserid(id);
-    		usersvo.setPassword(this.bCryptPasswordEncoder.encode(RandomValueUtil.getSmsKey()));
-    		usersvo.setEnabled(true);
     		
     		//4.파싱 닉네임 세션으로 저장
-    		session.setAttribute("userid",id); //세션 생성
-    		//model.addAttribute("result", apiResult);
-    		return "redirect:/login_success";
+    		session.setAttribute("userid", id); //세션 생성
+    		model.addAttribute("result", apiResult);
+    		System.out.println("세션 : "+session);
+    		System.out.println("userid : "+session.getAttribute("userid"));
+    		
+    		return "redirect:/";
     	}
 }

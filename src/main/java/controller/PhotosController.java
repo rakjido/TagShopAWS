@@ -5,13 +5,16 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -38,9 +41,11 @@ import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
 import vo.PhotoRegisterVo;
+import vo.PhotoTagsJoinVo;
 import vo.PhotosVo;
 import vo.ProductsVo;
 import vo.ProfileVo;
+import vo.RecommendVo;
 import vo.RepostsVo;
 import vo.UsersVo;
 
@@ -91,6 +96,9 @@ public class PhotosController {
 	private ShopsService shopsService;
 	
 	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
 	private TagsLocaleService tagsLocaleService;
 	/*
      * @method name : feed
@@ -112,9 +120,15 @@ public class PhotosController {
 	@RequestMapping(value = "/{userid}/feeds", method = RequestMethod.GET)
 	public String feed(@PathVariable("userid") String userid,  Model model) {
 
+		Date today = new Date();
+		int hours=0;
+		int minute=0;
+		String datetext = "";
 		List<CommentsPhotoIdjoinVo> photos = photoservice.getAllFeedPhotos(userid);
 		List<PhotosVo> timelinephoto = photoservice.getAllPhotos(userid);
 		List<Integer> feedlikecount = new ArrayList<Integer>();
+		List<RecommendVo> recommend = usersservice.recommend(userid);
+		List<String> photodate = new ArrayList<String>();
 		
 		ProfileVo profile = new ProfileVo();
 		ProfileVo Myprofile = profileservice.getProfile(userid);
@@ -126,8 +140,10 @@ public class PhotosController {
 		List<String> photoList = new ArrayList<String>();
 		List<List<CommentsjoinVo>> commentList = new ArrayList<List<CommentsjoinVo>>();
 		List<RepostsVo> reposts = photoservice.getReposts(userid);
-		String temp = "";
 		List<String> repostsclass = new ArrayList<String>();
+		List<List<PhotoTagsJoinVo>> tags =  new ArrayList<List<PhotoTagsJoinVo>>();
+		
+		
 		
 		for(int i =0; i < photos.size(); i ++) {
 			profile.setPhotoName(profileservice.getProfile(photos.get(i).getUserId()).getPhotoName());
@@ -135,19 +151,43 @@ public class PhotosController {
 			commentList.add(photoservice.getAllCommentsJoin(photos.get(i).getPhotoId().intValue()));
 			likecheck.add(photoservice.getLikeCheck(userid, photos.get(i).getPhotoId().intValue()));
 			feedlikecount.add(photoservice.getLikeCount(photos.get(i).getPhotoId().intValue()));
-			System.out.println(reposts.size());
-			for(int j=0; j < reposts.size(); j ++) {
-				if(String.valueOf(photos.get(i).getPhotoId()).equals(String.valueOf(reposts.get(j).getPhotoId()))) {
-					temp = "Repost-black";
-					break;
-				} else {
-					temp = "Repost";
+			tags.add(photoservice.getPhotoTags(photos.get(i).getPhotoId().intValue()));
+			
+			hours = today.getHours() - photos.get(i).getCreateDate().getHours();
+			minute = today.getMinutes() - photos.get(i).getCreateDate().getMinutes();
+			
+			
+			if (photos.get(i).getDateDiff() != 0) {
+				datetext = photos.get(i).getDateDiff() + "일 전";
+				photodate.add(datetext);
+			}else if(hours > 0 && photos.get(i).getDateDiff() == 0){
+				datetext = hours + "시간 전";
+				photodate.add(datetext);
+			}else{
+				datetext = minute + "분 전";
+				photodate.add(datetext);
 			}
+			
+			if(reposts.size() == 0) {
+				repostsclass.add("Repost");
+			}else {
 				
+				for(int j=0; j < reposts.size(); j ++) {
+					System.out.println(String.valueOf(photos.get(i).getPhotoId()).equals(String.valueOf(reposts.get(j).getPhotoId())));
+					if(String.valueOf(photos.get(i).getPhotoId()).equals(String.valueOf(reposts.get(j).getPhotoId()))) {
+						repostsclass.add("Repost-black");
+						break;
+					} else {
+						repostsclass.add("Repost");
+					}
+					
+				}
 			}
-			repostsclass.add(temp);
+			
 		}
 		
+		
+		model.addAttribute("photodate", photodate);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("photos", photos);
 		model.addAttribute("anotherphotos", photoList);
@@ -158,7 +198,8 @@ public class PhotosController {
 		model.addAttribute("likecheck", likecheck);
 		model.addAttribute("repostsclass", repostsclass);
 		model.addAttribute("timelinephoto", timelinephoto);
-		
+		model.addAttribute("recommend", recommend);
+		model.addAttribute("phototags", tags);
 		
 		return "photos/photoFeed";
 	}
@@ -203,11 +244,11 @@ public class PhotosController {
 		    }   
 		}
 		
-		if(photoRegisterVo.getARefLink() == null) {
+		if(photoRegisterVo.getARefLink().equals("")) {
 			photoRegisterVo.setARefLink("http://192.168.1.22:8090/tagshop/shops/test/products/45");
 		}
-		
-		if(photoRegisterVo.getBRefLink() == null) {
+		System.out.println(photoRegisterVo.getBRefLink());
+		if(photoRegisterVo.getBRefLink().equals("noLink")) {
 			photoRegisterVo.setBRefLink("http://192.168.1.22:8090/tagshop/shops/test/products/45");
 		}
 		
@@ -251,8 +292,16 @@ public class PhotosController {
 	/* 사진보기(디테일) */
 	@RequestMapping(value = "/{userid}/photos/{photouserid}/{photoid}", method = RequestMethod.POST)
 	public String getPhoto(@PathVariable("photouserid") String photouserid, @PathVariable("userid") String userid, @PathVariable("photoid") int photoid, Model model) {
+		
 		JSONArray jsonArray = new JSONArray();
-
+		
+		Date today = new Date();
+		int time=0;
+		int minute=0;
+		
+		FollowingVo getfollowing = null;
+		
+		getfollowing = photoservice.getFollowing(photouserid, userid);
 		photosvo = photoservice.getPhoto(photoid);
 		List<PhotosVo> allphotos = photoservice.getAllPhotos(userid);
 		List<CommentsjoinVo> comments = photoservice.getAllCommentsJoin(photoid);
@@ -260,11 +309,47 @@ public class PhotosController {
 		ProfileVo profile = profileservice.getProfile(photouserid);
 		Map<String,Object> photodetail = new HashMap<String,Object>();
 		List<RepostsVo> reposts = photoservice.getReposts(userid);
+		List<PhotoTagsJoinVo> phototag = photoservice.getPhotoTags(photoid);
+		
+
+		if (photosvo.getDateDiff().equals("0")) {
+			time = today.getHours() - photosvo.getCreateDate().getHours();
+			if (time == 0) {
+				minute = today.getMinutes() - photosvo.getCreateDate().getMinutes();
+			}
+		}
 		
 		
 		HashMap<String,BigInteger> productMap = new HashMap<String, BigInteger>();
 		
 		PhotoRegisterVo coordinates = photoservice.getCoordinates(photoid);
+		String repostsclass = null;
+		System.out.println(reposts.size());
+		
+		if(reposts.size() == 0) {
+			repostsclass = "Repost";
+		}else
+		if(userid.equals(photouserid)){
+			for(int i= 0; i < reposts.size(); i++){
+				if(String.valueOf(photosvo.getRefPhotoid()).equals(String.valueOf(reposts.get(i).getPhotoId()))){
+					repostsclass = "Repost-black";
+					break;
+				} else {
+					repostsclass = "Repost";
+				}
+			}
+		} else {
+			for(int i = 0; i < reposts.size(); i++) {
+				if(String.valueOf(photoid).equals(String.valueOf(reposts.get(i).getPhotoId()))) {
+					repostsclass = "Repost-black";
+					break;
+				} else {
+					repostsclass = "Repost";
+				}
+			}
+		}
+
+		
 		if(!CheckUtil.isEmpty(coordinates)) {  // 20190714 추가 
 			productMap.put("productid1", coordinates.getARefProductId());
 			productMap.put("productid2", coordinates.getBRefProductId());
@@ -274,32 +359,6 @@ public class PhotosController {
 			coordinates.setYBvg(Integer.parseInt(coordinates.getBy1())+(Integer.parseInt(coordinates.getBy2())-Integer.parseInt(coordinates.getBy1()))/2);
 			coordinates.setXBvg(Integer.parseInt(coordinates.getBx1())+(Integer.parseInt(coordinates.getBx2())-Integer.parseInt(coordinates.getBx1()))/2);
 			List<ProductsVo> productList = shopsService.getPhotoProduct(productMap);
-			String repostsclass = null;
-			
-			if(userid.equals(photouserid)){
-				for(int i= 0; i < reposts.size(); i++){
-					if(String.valueOf(photosvo.getRefPhotoid()).equals(String.valueOf(reposts.get(i).getPhotoId()))){
-						repostsclass = "Repost-black";
-						break;
-					} else {
-						repostsclass = "Repost";
-					}
-				}
-			} else {
-				for(int i = 0; i < reposts.size(); i++) {
-					if(String.valueOf(photoid).equals(String.valueOf(reposts.get(i).getPhotoId()))) {
-						repostsclass = "Repost-black";
-						break;
-					} else {
-						repostsclass = "Repost";
-					}
-				}
-			}
-			
-			
-			
-			System.out.println(repostsclass);
-			photodetail.put("repostsclass", repostsclass);
 
 			model.addAttribute("productList", jsonArray.fromObject(productList));
 			model.addAttribute("coordinates", coordinates);
@@ -310,12 +369,18 @@ public class PhotosController {
 		
 		
 		
+		System.out.println(getfollowing);
 		
+		photodetail.put("time", time);
+		photodetail.put("minute", minute);
+		photodetail.put("repostsclass", repostsclass);
 		photodetail.put("photos", photosvo);
 		photodetail.put("comments", comments);
 		photodetail.put("likecheck", likecheck);
 		photodetail.put("profile", profile);
 		photodetail.put("reposts", reposts);
+		photodetail.put("phototag", phototag);
+		photodetail.put("followcheck", getfollowing);
 		
 		
 		model.addAttribute("photodetail", photodetail);
@@ -374,7 +439,9 @@ public class PhotosController {
 	
 	/* 타임라인 페이지 */
 	@RequestMapping(value = "/{userid}/", method = {RequestMethod.POST, RequestMethod.GET})
-	public String getTimelinePhotos(@PathVariable("userid") String userid,Model model) {
+	public String getTimelinePhotos(@PathVariable("userid") String userid, @RequestParam(value= "limit", defaultValue = "0") int limit, Model model) {
+		
+		System.out.println(limit);
 		
 /*		String value = redisTemplate.opsForValue().get(userid);
 		Set<String> keys = redisTemplate.keys("*");
@@ -393,7 +460,10 @@ public class PhotosController {
 			connectcheck = "nonconnect";
 		}*/
 		
-		List<PhotosVo> timelinephoto = photoservice.getAllPhotos(userid);
+		List<PhotosVo> timelinephoto = photoservice.getAllLimitPhotos(userid, limit);
+		
+		System.out.println(timelinephoto);
+		
 		ProfileVo profile = profileservice.getProfile(userid);
 		int follower = photoservice.getFollowerCount(userid);
 		int following = photoservice.getFollowingCount(userid);
@@ -411,9 +481,14 @@ public class PhotosController {
 	
 	/* 좋아요 페이지 */
 	@RequestMapping(value = "/{userid}/likes", method = {RequestMethod.POST, RequestMethod.GET})
-	public String like(@PathVariable("userid") String userid, Model model) {
+	public String like(@PathVariable("userid") String userid,  @RequestParam(value= "limit", defaultValue = "0") int limit, Model model) {
 		
-		List<PhotosVo> photoslike = photoservice.getPhotoLikes(userid);
+		limit = 0;
+		
+		List<PhotosVo> photoslike = photoservice.getLimitPhotoLikes(userid, limit);
+		
+		System.out.println("좋아요 photos : " + photoslike);
+		
 		List<PhotosVo> timelinephoto = photoservice.getAllPhotos(userid);
 		ProfileVo profile = profileservice.getProfile(userid);
 		int follower = photoservice.getFollowerCount(userid);
@@ -426,6 +501,25 @@ public class PhotosController {
 		model.addAttribute("timelinephoto", timelinephoto);
 
 		return "photos/photoLike";
+	}
+	
+	@RequestMapping(value = "/{userid}/tag/{tagname}", method = {RequestMethod.POST, RequestMethod.GET})
+	public String getTagPhoto(@PathVariable("userid") String userid, @PathVariable("tagname") String tagname, @RequestParam(value= "limit", defaultValue = "0") int limit, Model model) {
+		
+		List<PhotosVo> timelinephoto = photoservice.getAllLimitPhotos(userid, limit);
+		
+		System.out.println(timelinephoto);
+		
+		ProfileVo profile = profileservice.getProfile(userid);
+		int follower = photoservice.getFollowerCount(userid);
+		int following = photoservice.getFollowingCount(userid);
+		
+		model.addAttribute("timelinephoto", timelinephoto);
+		model.addAttribute("profile", profile);
+		model.addAttribute("follower", follower);
+		model.addAttribute("following", following);
+
+		return "photos/photoTag";
 	}
 	
 	/* comment 쓰기 ajax */
@@ -579,10 +673,6 @@ public class PhotosController {
 	@RequestMapping(value = "/{userid}/repostsOk/{photouserid}/{photoid}", method = RequestMethod.POST)
 	public String deleteReposts(@PathVariable("photouserid") String photouserid, @PathVariable("userid") String userid, @PathVariable("photoid") int photoid, String timeline) {
 		
-		System.out.println("컨트롤러 탐");
-		
-		System.out.println(timeline);
-		System.out.println(photoid);
 		PhotosVo photosvo = new PhotosVo();
 		
 		if(timeline.equals("timeline")){
@@ -614,6 +704,87 @@ public class PhotosController {
 		
 		
 		return "ajaxview/PhotoEditPassword";
+	}
+	
+	@RequestMapping(value = "/{userid}/photos/editpassword", method = RequestMethod.POST)
+	public String updateEditPassword(@PathVariable("userid")String userid, @RequestParam("repassword")String password ,Model model) {
+		
+		usersservice.updateUsersPassword(userid, bCryptPasswordEncoder.encode(password));
+		
+		return "redirect:/{userid}/photos/edit";
+	}
+	
+	@RequestMapping(value = "/{userid}/photos/editprofile", method = RequestMethod.GET)
+	public String getEditProfile(@PathVariable("userid")String userid, Model model) {
+		
+		usersvo = usersservice.getUsers(userid);
+		profilevo = profileservice.getProfile(userid);
+		
+		Map<String, Object> edit = new HashMap<String, Object>();
+		
+		edit.put("users", usersvo);
+		edit.put("profile", profilevo);
+		
+		System.out.println(edit);
+		
+		model.addAttribute("edit", edit);
+		
+		return "ajaxview/PhotoEditProfile";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/{userid}/photos/passwordcheck", method = RequestMethod.GET)
+	public int getPasswordCheck(@PathVariable("userid")String userid, @RequestParam("password")String password, Model model) {
+		
+		usersvo = usersservice.getUsers(userid);
+		
+		if(bCryptPasswordEncoder.matches(password, usersvo.getPassword())){
+			return 1;
+		}else {
+			return 0;
+		}
+		
+	}
+	
+	@RequestMapping(value = "/{userid}/photos/{photoid}/delete", method = RequestMethod.GET)
+	public String deletePhoto(
+			@PathVariable("userid")String userid,
+			@PathVariable("photoid")int photoid) {
+		
+		System.out.println("userid체크 : " + userid);
+		System.out.println("photoid 체크 : " + photoid);
+		
+		photoservice.deletePhoto(userid, photoid);
+		
+		return "redirect:/{userid}/";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/commentcount/{photoid}", method = RequestMethod.POST)
+	public int commentcount(@PathVariable("photoid")int photoid) {
+		return photoservice.commentCount(photoid);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{userid}/photos/loads", method = RequestMethod.POST)
+	public List<PhotosVo> getLimitPhotoLoads(@PathVariable("userid")String userid, @RequestParam(value= "limit", defaultValue = "0") int limit) {
+		
+		List<PhotosVo> photosvo = photoservice.getAllLimitPhotos(userid, limit);
+		
+		System.out.println(photosvo);
+		
+		return photosvo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{userid}/photos/likesloads", method = RequestMethod.POST)
+	public List<PhotosVo> getLimitLikesPhotoLoads(@PathVariable("userid")String userid, @RequestParam(value= "limit", defaultValue = "0") int limit) {
+		
+		List<PhotosVo> photosvo = photoservice.getLimitPhotoLikes(userid, limit);
+		
+		System.out.println(photosvo);
+		
+		return photosvo;
 	}
 	
 	

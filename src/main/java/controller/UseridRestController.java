@@ -169,6 +169,11 @@ public class UseridRestController {
 		return userService.checkUsersId(userid);
 	}
 	
+	@RequestMapping(value="/users/emailcheck", method=RequestMethod.POST)
+    public int emailcheck(String email) {
+        return userService.emailCheck(email);
+    }
+	
 	
 	// Google ReCapcha
     @RequestMapping(value = "/users/VerifyRecaptcha", method = RequestMethod.POST)

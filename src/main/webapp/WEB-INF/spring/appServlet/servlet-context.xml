@@ -11,7 +11,14 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	
+	<beans:bean id="viewResolver1" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+  		<beans:property name="order" value="1"/>
+  		<beans:property name="basename" value="views"/>
+	</beans:bean>
 
+
+    
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<!--  <resources mapping="/uploads/**" location="/uploads/" />  -->
@@ -45,8 +52,8 @@
 	<beans:bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com" />
 		<beans:property name="port" value="587" /><!-- 465 or 25 -->
-		<beans:property name="username" value="bitcampteam1@gmail.com" />
-		<beans:property name="password" value="bituser1004" />
+		<beans:property name="username" value="${google.EMAIL_ID}" />
+		<beans:property name="password" value="${google.EMAIL_SECRET}" />
 		<beans:property name="defaultEncoding" value="utf-8" />
 		<beans:property name="javaMailProperties">
 			<beans:props>
@@ -57,6 +64,12 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
+	
+		<!-- 프로퍼티 -->
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <beans:property name="location" value="WEB-INF/api.properties"/>
+        <beans:property name="fileEncoding" value="UTF-8" />
+    </beans:bean>
 	
 		<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 	<beans:bean id="naverLoginBO"

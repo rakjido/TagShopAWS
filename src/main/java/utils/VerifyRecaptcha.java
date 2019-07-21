@@ -12,11 +12,15 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class VerifyRecaptcha {
 
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
     private final static String USER_AGENT = "Mozilla/5.0";
-    private static String secret = "6LeNoKgUAAAAAHE6-GzKInsXCj2P5Y7g3smNsOn-"; //local
+    
+    @Value("${recaptcha.CLIENT_SECRET}")
+    private static String secret;
  
     public static void setSecretKey(String key){
     	secret = key;

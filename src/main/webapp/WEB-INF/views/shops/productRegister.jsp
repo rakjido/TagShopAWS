@@ -27,11 +27,13 @@
 <section class="single_product_details_area d-flex align-items-center">
 
 	<!-- Single Product Thumb -->
-	<div class="single_product_thumb clearfix" style="margin-top:85px";>
-
-		<img
+	<div class="single_product_thumb clearfix" style="margin-top:85px"; align="center";>
+		<div class="col-8">
+			<img
 			src="${pageContext.request.contextPath}/resources/img/core-img/productdefault.jpg"
 			alt="" id="previewImage" class="fullimg">
+		</div>
+		
 
 	</div>
 
@@ -44,17 +46,17 @@
 			method="post" onsubmit="postForm()" enctype="multipart/form-data" commandName="OptionListVo">
 			<div class="row">
 				<div class="col-12 mb-3">
-					<label for="company">제목</label> <input type="text"
-						class="form-control" id="company" name="title" value="">
+					<label for="title">제목</label> <input type="text"
+						class="form-control company" id="title" name="title" value="">
 				</div>
 				<div class="col-12 mb-3">
-					<label for="company">가격</label> <input type="text"
-						class="form-control" id="company" name="price" value="">
+					<label for="Lprice">가격</label> <input type="text"
+						class="form-control company" id="Lprice" name="price" value="">
 				</div>
 				
 				
 				<div class="row">
-					<div class="col-3 pr-0">
+					<div class="col-3 pr-0" style="margin-left:13px">
 						<div class="select-box d-flex mb-4"
 							style="margin-top: 1rem !important; margin-left: 17px;" id="largeCategoryRow">
 							<select id="largeCategory" class="mr-3" name="largeCategoryCode">
@@ -82,7 +84,7 @@
  						<div class="col-3 pr-0"  id="smallcategoryRow">
 							<div class="select-box d-flex mb-4"
 								style="margin-top: 1rem !important; margin-left: 17px;" id="smallcategoryRow">
-								<select id="smallCategory" class="mr-3" name="smallCategoryCode">
+								<select id="smallCategory" class="mr-3 company" name="smallCategoryCode">
 
 								</select>
 			
@@ -91,20 +93,21 @@
 					
 					<div class="filebox">
 						<label for="ex_file">이미지</label> <input type="file" name="file"
-							id="ex_file">
+							id="ex_file" class="company">
 					</div> 
 					
-				</div> <!-- row끝 -->
+				</div> 
+				<!-- row끝 -->
 				
 				
 				
 
 
 				<div class="col-12 mb-3" 
-					style="background-color: #e2e2e2; padding-top: 15px; padding-bottom: 15px">
-					<input type="text" class="form-control" id="company" value=""
+					style="background-color: white; padding-top: 15px; padding-bottom: 15px">
+					<input type="text" class="form-control company" id="productName" value=""
 						placeholder="제품 명" name="productName"> <input type="text"
-						class="form-control mb-3" id="company" value="" placeholder="제품 가격"
+						class="form-control mb-3 company" id="unitPrice" value="" placeholder="제품 가격"
 						name="unitPrice" style="margin-top: 15px;">
 						
 						 
@@ -116,11 +119,11 @@
 						<input type="text" class="form-control" id="insertOption2" value="" placeholder="옵션값">
 					</div>
 					<div class="col-3">
-						<input type="button" value="옵션 추가" class="btn essence-btn buttoncolor mybtn"
-	                            style="height:40px; background-color: #e2e2e2; padding:0 30px; line-height:0" id="addOption"/>
+						<input type="button" value="옵션 추가" class="btn essence-btn"
+	                            style="height:40px; padding:0 30px; line-height:0" id="addOption" disabled/>
 					</div>
 				</div>
-				
+				<!-- btn essence-btn buttoncolor  -->
 				<div id="optionDiv">
 				
 				</div>
@@ -130,11 +133,11 @@
 			</div>
 			<div class="row mb-3">
 				<div class="col-9">
-					<input type="text" class="form-control" id="insertTag" value="#태그">
+					<input type="text" class="form-control" id="insertTag" placeholder="#태그" value="">
 				</div>
 				<div class="col-3">
-					<input type="button" value="태그 추가" class="btn essence-btn buttoncolor mybtn"
-                            style="height:40px; background-color: #e2e2e2; padding:0 30px; line-height:0" id="addTag"/>
+					<input type="button" value="태그 추가" class="btn essence-btn"
+                            style="height:40px; padding:0 30px; line-height:0" id="addTag" disabled/>
 				</div>
 			</div>
 			<div class="row mb-3">
@@ -164,8 +167,8 @@
 			<!-- Cart -->
 			<div class="col-12 mt-30 pr-0" align="right">
 
-				<input type="submit" name="addtocart" value="등록하기"
-					class="btn essence-btn buttoncolor" />
+				<input type="submit" id="addtocart"name="addtocart" value="등록하기"
+					class="btn essence-btn" disabled/>
 
 			</div>
 		</div>
@@ -188,7 +191,7 @@
         	var opnum = 0;
         	var tagNum = 1;
           $('#summernote').summernote({
-              height:200,
+              height:600,
               minHeight:null,
               maxHeight:null,
               focus:true,
@@ -221,7 +224,7 @@
         	  var optionStr = document.getElementById("insertOption").value + ":{" + document.getElementById("insertOption2").value+"}";
         	  
         	  var options = '<input type="text"' + 
-						    'class="form-control mb-3" id="company" value="'+ optionStr +'" placeholder="'+ optionStr +'"' +
+						    'class="form-control mb-3" id="option1" value="'+ optionStr +'" placeholder="'+ optionStr +'"' +
 							'name="optionList[' + opnum +'].option" style="margin-top: 15px" readonly>';
             	  $('#optionDiv').append(options);
 
@@ -305,6 +308,46 @@
           			
           	});
  			
- 			
-        }); 
-</script>
+           	$("#insertOption, #insertOption2").change(function(){
+           		if(($('#insertOption').val() != "") && ($('#insertOption2').val() != "")){
+           			addOption
+           			$('#addOption').attr('disabled', false);
+           		} else {
+           			$('#addOption').attr('disabled', true);
+           		}
+            });
+           	
+           	$('#insertTag').change(function(){
+           		if($('#insertTag').val() != ""){
+           			$('#addTag').attr('disabled', false);
+           		} else {
+           			$('#addTag').attr('disabled', true);
+           		}
+           	});
+           	
+           	
+           	var inputValue = $('.company');
+           	var companyNum = 0;
+           	
+
+           	
+           	
+           	$('.company').change(function(){
+           		companyNum=0;
+           		$('#addtocart').attr('disabled', true);
+           		inputValue.each(function(index){
+               		if($(this).val() != ''){
+               			++companyNum;
+               		} 		
+               	});
+
+           		if((companyNum == 6) && (opnum != 0)){
+           			$('#addtocart').attr('disabled', false);
+           		}
+           	});
+           	
+           	
+           	
+           	
+         });
+ </script>

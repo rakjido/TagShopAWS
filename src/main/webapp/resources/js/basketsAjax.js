@@ -1,5 +1,9 @@
 var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 
+function numberFormat(number) {
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return number.toString().replace(regexp, ',');
+}
 
 function getBasketsList(userid){
 	var curl = ctx + "/" + userid + "/baskets";
@@ -65,7 +69,7 @@ function basketList(curl, userid){
 						'<h6>'+item.productName+'</h6></a>'+
 						'<p class="size">'+item.options[0].optionType+': '+ item.options[0].optionCode + '</p>' +
 						/*'<p class="color">'+item.options[1].optionType+': '+ item.options[1].optionCode + '</p>'+*/
-						'<p class="price">$'+ item.unitPrice + '</p></div><div></div>';
+						'<p class="price">'+ numberFormat(item.unitPrice) + '</p></div><div></div>';
 			});
 			
 /*			console.log(totalPrice);*/
@@ -73,10 +77,10 @@ function basketList(curl, userid){
 				
 				'<h2>Basket</h2>' +
 				'<ul class="summary-table">' +
-					'<li><span>subtotal:</span> <span>$'+totalPrice +'</span></li>' +
-					'<li><span>delivery:</span> <span>Free</span></li>'+
+					'<li><span>subtotal:</span> <span>' + numberFormat(totalPrice) +'원</span></li>' +
+					'<li><span>delivery:</span> <span>'+ numberFormat(2500)+'원</span></li>'+
 					'<li><span>discount:</span> <span>0%</span></li>'+
-					'<li><span>total:</span> <span>$'+totalPrice +'</span></li></ul>'+
+					'<li><span>total:</span> <span>'+ numberFormat(Number(totalPrice) + Number(2500)) +'원</span></li></ul>'+
 				'<div class="checkout-btn mt-100">' +
 					'<a href="'+ ctx + '/' + userid +'/'+ 'orders' + '" class="btn essence-btn">Go to buy</a></div>';
 			
@@ -91,4 +95,3 @@ function basketList(curl, userid){
 	});	
 	return "get list success";     
 };
-

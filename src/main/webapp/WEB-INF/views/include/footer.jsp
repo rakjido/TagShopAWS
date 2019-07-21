@@ -50,6 +50,10 @@
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+    
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js'></script>
+    
+	<script src="${pageContext.request.contextPath}/resources/js/autocomplet.js"></script>
     <!-- Popper js -->
     <script src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
     <!-- Bootstrap js -->

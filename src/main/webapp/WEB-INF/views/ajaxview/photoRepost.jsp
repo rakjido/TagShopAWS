@@ -142,6 +142,8 @@
 					</div>
 				</section>
 			</div>
-			<i class="fa fa-times"></i>
+			<i id="exit-button" class="fa fa-times"></i>
 		</article>
 	</div>
+	
+	        <script src="${pageContext.request.contextPath}/resources/js/instagram.js"></script>

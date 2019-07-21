@@ -593,7 +593,7 @@ a.edit {
     font-weight: bold;
   }
   .imgheight {
-    height: 300px;
+    height: 350px;
   }
   .imgbasket {
     height: 220px;
@@ -614,3 +614,13 @@ a.edit {
   .pl50{
   	padding-left:50px;
   }
+.liH100{
+	line-height:100px;
+}
+.addTag{
+	line-height:35px;
+	padding-left:0;
+}
+.w100{
+	width: 100%;
+}

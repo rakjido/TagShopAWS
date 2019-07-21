@@ -78,7 +78,7 @@
 		        IMP.request_pay({
 		            pg : 'inicis', // version 1.1.0부터 지원.
 		            pay_method : 'card',
-		            merchant_uid : 'merchant_' + new Date().getTime(),
+		            merchant_uid : 'tagshop_' + new Date().getTime(),
 		            name : '주문명:결제테스트',
 		            amount : payAmount,
 //		            buyer_email : 'iamport@siot.do',
@@ -150,12 +150,14 @@
 	                        <table>
 	                            <tr class="line-item">
 	                            	<c:set var="OptionList" value="${Itemlist[i].options}"></c:set>
-	                            	<c:forEach var="j" begin="0" end="${OptionList.size()-1}">
+	                            	<c:if test="${Itemlist.size()>0}">
+	                            		<c:forEach var="j" begin="0" end="${OptionList.size()-1}">
 		                                <td class="size editable form-inline">
 		                                    	${OptionList[j].optionType} :
 		                                    <label>${OptionList[j].optionCode}</label>
 		                                </td>
 		                            </c:forEach>
+		                          </c:if>
 		                                <td class="quantity">
 		                                	
 		                                    <label>${Itemlist[i].quantity} 개</label>
