@@ -226,8 +226,9 @@
 	              <span id='phone' style='font-size:14px'></span>
 	            </div>
 	            <!-- 자동가입 방지 시작-->
+	        <!--     
 	            <div class="g-recaptcha recaptcha-sub" data-sitekey="6LeNoKgUAAAAAN-RzLgagTZZYfcaVOcY_8ThYYD3"></div>
-	            
+	         -->    
 	            <p id="has-account">이미 아이디가 있으신가요?<a class="signup-signin-text" href="${pageContext.request.contextPath}/users/login">로그인</a></p>
 	            <div class="signup-btn">
 	                <button type="submit" class="btn signup-btn-detail" id="sign-up">
