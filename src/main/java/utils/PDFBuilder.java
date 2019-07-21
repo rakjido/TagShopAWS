@@ -33,7 +33,11 @@ public class PDFBuilder extends AbstractITextPdfView {
 		table.setSpacingBefore(10);
 		
 		//font 경로 설정
-		 String resPath = "C:/Windows/Fonts/malgunbd.ttf";
+		
+		//String resPath = "C:/Windows/Fonts/malgunbd.ttf";
+		
+		  String resPath = request.getRequestURL().toString().replace(request.getRequestURI(),"") + request.getContextPath() + "/resources/fonts/malgunbd.ttf";
+		  
 		 //font 설정
 		  BaseFont bf = BaseFont.createFont(resPath,BaseFont.IDENTITY_H,BaseFont.EMBEDDED);
 

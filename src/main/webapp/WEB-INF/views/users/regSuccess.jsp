@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title> Register Success!! </title>
 </head>
 <body>
 
 <div style="margin: 100px;">
-		<a><img src="${pageContext.request.contextPath}/images/ms-logo.png"	style="height: 80px; margin-left: 10px;" /></a> <br>
+		<a><img src="${pageContext.request.contextPath}/resources/img/core-img/tagshop8.png"	style="height: 80px; margin-left: 10px;" /></a> <br>
 		<br>
 		<h3>안녕하세요, ${param.user_id} 님</h3>
 		<br>

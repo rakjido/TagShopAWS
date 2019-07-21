@@ -67,10 +67,10 @@
 	
 		<!-- 프로퍼티 -->
 	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <beans:property name="location" value="WEB-INF/api.properties"/>
+        <beans:property name="location" value="classpath:/api.properties"/>
         <beans:property name="fileEncoding" value="UTF-8" />
     </beans:bean>
-	
+    
 		<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 	<beans:bean id="naverLoginBO"
 		class="utils.NaverLoginBO" />
