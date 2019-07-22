@@ -36,7 +36,7 @@ public class ShopsRestController {
 		return service.productOrderBy(sort);
 	}
 	
-	@RequestMapping(value="/categories/sub/{code}", method=RequestMethod.GET)
+    @RequestMapping(value="/categories/sub/{code}", method=RequestMethod.GET)
 	public List<ProductsVo> byCategories(@PathVariable("code") String code) throws Exception {
 		return service.smallCategories(code);
 	}

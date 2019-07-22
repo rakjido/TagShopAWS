@@ -69,6 +69,8 @@
 	
 	<script src="${pageContext.request.contextPath}/resources/js/nodejs_server.js"></script>
 	
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 	<script src="https://kit.fontawesome.com/3516ad21ac.js"></script>
 
 </body>

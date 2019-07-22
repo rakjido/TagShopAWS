@@ -120,7 +120,7 @@
 					</div>
 					<div class="col-3">
 						<input type="button" value="옵션 추가" class="btn essence-btn"
-	                            style="height:40px; padding:0 30px; line-height:0" id="addOption" disabled/>
+	                            style="height:40px; padding:0 30px; line-height:0" id="addOption"/>
 					</div>
 				</div>
 				<!-- btn essence-btn buttoncolor  -->
@@ -137,7 +137,7 @@
 				</div>
 				<div class="col-3">
 					<input type="button" value="태그 추가" class="btn essence-btn"
-                            style="height:40px; padding:0 30px; line-height:0" id="addTag" disabled/>
+                            style="height:40px; padding:0 30px; line-height:0" id="addTag"/>
 				</div>
 			</div>
 			<div class="row mb-3">
@@ -168,7 +168,7 @@
 			<div class="col-12 mt-30 pr-0" align="right">
 
 				<input type="submit" id="addtocart"name="addtocart" value="등록하기"
-					class="btn essence-btn" disabled/>
+					class="btn essence-btn"/>
 
 			</div>
 		</div>
@@ -308,7 +308,7 @@
           			
           	});
  			
-           	$("#insertOption, #insertOption2").change(function(){
+/*            	$("#insertOption, #insertOption2").change(function(){
            		if(($('#insertOption').val() != "") && ($('#insertOption2').val() != "")){
            			addOption
            			$('#addOption').attr('disabled', false);
@@ -338,13 +338,14 @@
            		inputValue.each(function(index){
                		if($(this).val() != ''){
                			++companyNum;
-               		} 		
+               		}
+               		console.log(companyNum);
                	});
 
            		if((companyNum == 6) && (opnum != 0)){
            			$('#addtocart').attr('disabled', false);
            		}
-           	});
+           	}); */
            	
            	
            	

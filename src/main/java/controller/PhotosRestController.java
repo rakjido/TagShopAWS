@@ -64,12 +64,14 @@ public class PhotosRestController {
     
     @RequestMapping(value="/searchUserid/{keyword}", method=RequestMethod.GET)
     public List<String> searchUserid(@PathVariable("keyword") String keyword){
-        System.out.println("리턴 값 : " + photoservice.searchUserid(keyword));
+    	System.out.println(keyword);
+    	System.out.println("리턴 값 : " + photoservice.searchUserid(keyword));
         return photoservice.searchUserid(keyword);
     }
     
     @RequestMapping(value="/searchTagName/{keyword}", method=RequestMethod.GET)
     public List<String> searchTagName(@PathVariable("keyword") String keyword){
+    	System.out.println(keyword);
         System.out.println("리턴 값 : " + photoservice.searchTagName(keyword));
         return photoservice.searchTagName(keyword);
     }

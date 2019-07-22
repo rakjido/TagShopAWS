@@ -457,7 +457,7 @@ public class PhotosController {
 	@RequestMapping(value = "/{userid}/", method = {RequestMethod.POST, RequestMethod.GET})
 	public String getTimelinePhotos(@PathVariable("userid") String userid, @RequestParam(value= "limit", defaultValue = "0") int limit, Model model, HttpServletRequest request) {
 		
-/*		String value = redisTemplate.opsForValue().get(userid);
+		String value = redisTemplate.opsForValue().get(userid);
 		Set<String> keys = redisTemplate.keys("*");
 		
 		for (String key : keys) {
@@ -472,7 +472,7 @@ public class PhotosController {
 		}else {
 			System.out.println("널 임" + value);
 			connectcheck = "nonconnect";
-		}*/
+		}
 		
 		List<PhotosVo> timelinephoto = photoservice.getAllLimitPhotos(userid, limit);
 		
@@ -491,7 +491,7 @@ public class PhotosController {
 		model.addAttribute("follower", follower);
 		model.addAttribute("following", following);
 		model.addAttribute("followcheck", getfollowing);
-		//model.addAttribute("connectcheck", connectcheck);
+		model.addAttribute("connectcheck", connectcheck);
 		
 
 		return "photos/photoTimeline";
@@ -548,7 +548,7 @@ public class PhotosController {
 		}
 		
 		model.addAttribute("photolist", photosvo);
-		
+		model.addAttribute("tagname", tagname);
 		return returndata;
 	}
 	

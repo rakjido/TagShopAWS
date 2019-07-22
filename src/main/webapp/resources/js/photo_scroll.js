@@ -14,7 +14,7 @@ $(function() {
         	var location = window.location.pathname.split('/');
         	var result = "";
         	
-        	if(location[3] == ""){
+        	if(location[2] == ""){
         		
         		
                 $.ajax({
@@ -43,7 +43,7 @@ $(function() {
         			}, 0);
 				});
         		
-        	}else if(location[3] == "likes"){
+        	}else if(location[2] == "likes"){
         		$.ajax({
                     url: 'photos/likesloads',
                     type: "POST",

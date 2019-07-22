@@ -132,6 +132,7 @@
 	    				 "orderStatusCode" : $('#orderStatusCode').val()};
 			    
 		    	 	$('#example').dataTable({
+		    	 		    destroy : true,
 		                pageLength: 3,
 		                bPaginate: true,
 		                bLengthChange: true,
@@ -140,7 +141,8 @@
 		                processing: true,
 		                ordering: true,
 		                serverSide: false,
-		                searching: true,
+		                paging: false,
+		                searching: false,
 		                ajax : {
 		                    "url":curl,
 		                    "type":"POST",

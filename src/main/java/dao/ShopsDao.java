@@ -69,7 +69,7 @@ public interface ShopsDao {
 	
 	public List<MyOrderVo> getOrderList(String userid);
 	
-	public List<ProductsVo> getSellerList() throws Exception;
+	public List<ProductsVo> getSellerList(String shopid) throws Exception;
 	
 	public List<ProductsVo> getPhotoProduct(HashMap<String, BigInteger> map);
 	
@@ -83,5 +83,5 @@ public interface ShopsDao {
 	
 	public void updateOrderStatusCode(HashMap<String, Object> map);
 	
-	public List<ProductsVo> productSmallCategories(String smallCategory);
+    public List<ProductsVo> productSmallCategories(String smallCategory);
 }

@@ -227,7 +227,7 @@
     </select>
     
     <select id="getSellerList" resultType="vo.ProductsVo">
-       SELECT * FROM PRODUCTS
+       SELECT * FROM PRODUCTS WHERE SHOPID=#{shopid}
    </select>
    
    <select id="getPhotoProduct" parameterType="HashMap" resultType="vo.ProductsVo">
@@ -258,7 +258,8 @@
    </update>
    
    <select id="productSmallCategories" resultType="vo.ProductsVo">
-		SELECT
-		shopid,title,price,productid,photoFile FROM Products WHERE SMALLCATEGORYCODE = #{smallCategory}
-	</select>
+        SELECT
+        shopid,title,price,productid,photoFile FROM Products WHERE SMALLCATEGORYCODE = #{smallCategory}
+   </select>
+   
  </mapper>

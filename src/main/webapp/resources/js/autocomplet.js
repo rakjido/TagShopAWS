@@ -3,7 +3,7 @@ $(function() {
 	var appendUl = '';
 	var keyword = '';
 	var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
-	const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+	var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	var isRun = false;
 	
 	/*$('#autocomplete').blur(function(){
@@ -11,7 +11,7 @@ $(function() {
 	});*/
 	
 	$('#autocomplete').keyup(function(){
-		
+		console.log("keyword : " + keyword);
 		$('#searchDiv .dropdown-content').remove();
 		
 		keyword = $('#autocomplete').val();
@@ -46,7 +46,7 @@ $(function() {
 			if(isTag){ // #이 있으면 실행 
 					
 					keyword = keyword.replace(regExp,"");
-					
+					console.log("keyword : " + keyword);
 					if(keyword == null || keyword == ''){
 						keyword = 'default';
 					}
@@ -60,7 +60,7 @@ $(function() {
 				            return;
 				        }
 						isRun = true;
-						
+						console.log("keyword : " + keyword);
 						$.ajax({
 							type : "GET",
 							url : ctx+'/searchTagName/' + keyword,
@@ -86,7 +86,7 @@ $(function() {
 					
 					
 			} else { // #이 없으면 실행 
-				
+				console.log("keyword : " + keyword);
 				if(isRun == true) {
 		            return;
 		        }

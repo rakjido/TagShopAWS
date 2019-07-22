@@ -1,13 +1,13 @@
 
 $(function() {
 	isRun = false;
+	var ctx = document.location.host +"/";
 	/* feed 댓글 비동기 */
 	$(document).on('click','.yWX7d', function(e) {
 		e.preventDefault();
 		var photoid = $(this).closest('.sH9wk1').closest('.post-interaction').closest('.post').find('.post-image img').attr('alt');
 		var location = $('#url-import').attr('href').split('/');
 		var photouserid = window.location.pathname.split('/');
-		const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 		var comment = $(this).closest('.sH9wk1').find('#comment').val();
 		var temp = $(this).closest('.sH9wk1').closest('.post-interaction');
 		var commentappend = "";
@@ -19,7 +19,7 @@ $(function() {
 		isRun = true;
 		
 		$.ajax({
-			url: ctx+"/"+ location[2] +"/comments/"+ photouserid[2] +"/"+ photoid,
+			url: ctx+"/"+ location[1] +"/comments/"+ photouserid[1] +"/"+ photoid,
 			type: "POST",
 			data: {comment: comment},
 			dataType: "JSON",
@@ -31,7 +31,7 @@ $(function() {
 				'<div class="P9YgZ">' +
 				'<div class="C7I1f ">' +
 				'<div class="C4VMK">' +
-				'<h3 class="_6lAjh"><a class="FPmhX" title="'+location[2]+'" href="'+ ctx +'/'+ location[2] +'/">'+location[2]+'</a></h3>' +
+				'<h3 class="_6lAjh"><a class="FPmhX" title="'+location[1]+'" href="'+ ctx +'/'+ location[1] +'/">'+location[1]+'</a></h3>' +
 				'<span> '+comment+'</span>' +
 				'</div>' +
 				'</div>' +
@@ -77,7 +77,6 @@ $(function() {
 		
 		var attr = $('a',this);
 		var followplus = 0;
-		const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 		var location = $('#url-import').attr('href').split('/');
 		var followid = $.trim($(this).closest('.user-account').find('.user-account-info h2').text());
 		console.log($('a',this).text());
@@ -85,13 +84,13 @@ $(function() {
 			
 			var following = {
 					followingId : followid,
-					usersuserId : location[2],
+					usersuserId : location[1],
 					follow : $(this).text()
 							};
 			var json = JSON.stringify(following);
 			
 			$.ajax({
-				url: ctx+"/"+location[2]+"/photos/"+followid+"/follow",
+				url: ctx+"/"+location[1]+"/photos/"+followid+"/follow",
 				type: "POST",
 				data: json,
 				dataType: "JSON",

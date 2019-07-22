@@ -144,10 +144,10 @@
 
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <span>${list[i].shopid}</span>
-                                        <a href="single-product-details.html">
+                                        <span><a href="${pageContext.request.contextPath}/shops/${list[i].shopid}/productList">${list[i].shopid}</a></span>
+                                        
                                             <h6>${list[i].title}</h6>
-                                        </a>
+                                        
                                         <fmt:formatNumber value="${list[i].price}" type="number" var="price"/>
                                         <p class="product-price">${price} 원</p>
 
@@ -182,14 +182,14 @@
     
      
     <script>
-    
+	    var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	 	function sameColor(color){
-	 		var curl = "categories/color/" + color;
+	 		var curl = ctx+"/shops/categories/color/" + color;
 	 		ajaxfn(curl);
 		}
 	 	
 	 	function betweenPrice(fromPrice, toPrice){
-	 		var curl = "categories/price/" + fromPrice + "/" + toPrice;
+	 		var curl = ctx+"/shops/categories/price/" + fromPrice + "/" + toPrice;
 	 		ajaxfn(curl);
 		}
 	 	

@@ -194,9 +194,9 @@ public class ShopsService {
 		return dao.getOrderList(userid);
 	}
 	
-	public List<ProductsVo> getSellerList() throws Exception {
+	public List<ProductsVo> getSellerList(String shopid) throws Exception {
        ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-       return dao.getSellerList();
+       return dao.getSellerList(shopid);
 	}
 	
 	public List<ProductsVo> getPhotoProduct(HashMap<String, BigInteger> map){
@@ -236,9 +236,9 @@ public class ShopsService {
 		dao.updateOrderStatusCode(map);
 	}
 	
-	public List<ProductsVo> productCategories(String smallCategory){
-		
-		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
-		return dao.productSmallCategories(smallCategory);
-	};
+    public List<ProductsVo> productCategories(String smallCategory){
+        
+        ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+        return dao.productSmallCategories(smallCategory);
+    }
 }

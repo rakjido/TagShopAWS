@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>
 	<!-- css 넣으세요 -->
@@ -52,7 +53,7 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/shoes.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Shoes</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100700010" class="categoryF">Shoes</a>
 					</div>
 				</div>
 				<!-- Single Catagory -->
@@ -62,7 +63,7 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/bag.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Bag</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100800020" class="categoryF">Bag</a>
 					</div>
 				</div>
 			</div>
@@ -75,7 +76,7 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/watch.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Watch</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100800130" class="categoryF">Watch</a>
 					</div>
 				</div>
 				<!-- Single Catagory -->
@@ -85,7 +86,7 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/accessory.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Accessory</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100900070" class="categoryF">Accessory</a>
 					</div>
 				</div>
 				<!-- Single Catagory -->
@@ -95,7 +96,7 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/perfume.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Perfume</a>
+						<a href="${pageContext.request.contextPath}/shops/index/200400020" class="categoryF">Perfume</a>
 					</div>
 				</div>
 			</div>
@@ -137,7 +138,7 @@
 				<div class="ks-item-filter" ks-filter-selector>
 					<ul class="ks-item-filter__categories clearfix"
 						ks-filter-categories>
-						<li data-category="languages" class="tags-item">#댄디룩</li>
+						<li data-category="languages" class="tags-item"><a href="#" onclick="smallcodeM(200400020); return false;">#향수</a></li>
 						<li data-category="cms" class="tags-item">#여름 패션</li>
 						<li data-category="libraries" class="tags-item">#깔끔</li>
 						<li data-category="frameworks" class="tags-item">#힙합</li>
@@ -148,7 +149,7 @@
 						<li data-category="libraries" class="tags-item">#럭셔리</li>
 						<li data-category="frameworks" class="tags-item">#빈티지</li>
 						<li data-category="frameworks" class="tags-item">#러블리</li>
-						<li data-category="frameworks" class="tags-item">#데님</li>
+						<li data-category="languages" class="tags-item"><a href="#" onclick="smallcodeM(200400020); return false;">#향수</a></li>
 					</ul>
 				</div>
 			</div>
@@ -157,12 +158,14 @@
 
 		<!-- ##### CTA Area Start ##### -->
 		<div class="container">
-			<div class="row">
+			<div class="row" id="mainTagsList">
+			<c:set var="list" value="${list}"></c:set>
+			<c:forEach var="i" begin="0" end="5">
 				<div class="col-12 col-sm-6 col-lg-4">
                                 <div class="single-product-wrapper w100">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img src="/tagshop/uploads/bagbag.jpg" alt="" class="imgheight">
+                                        <img src="${pageContext.request.contextPath}/uploads/${list[i].photoFile}" alt="" class="imgheight">
                                         <!-- Favourite -->
                                         <div class="product-favourite">
                                             <a href="#" class="favme fa fa-heart" aria-hidden="true"></a>
@@ -171,167 +174,24 @@
 
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <span>test</span>
-                                        <a href="single-product-details.html">
-                                            <h6>프릴 슬리브 크롭 탑</h6>
-                                        </a>
-                                        <p class="product-price">49,000원</p>
+                                        <span><a href="${pageContext.request.contextPath}/shops/${list[i].shopid}/productList">${list[i].shopid}</a></span>
 
+                                        <h6>${list[i].title}</h6>
+
+                                        <fmt:formatNumber value="${list[i].price}" type="number" var="price"/>
+                                        <p class="product-price">${price} 원</p>
                                         <!-- Hover Content -->
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
                                             <div class="add-to-cart-btn">
-                                                <a href="/tagshop/shops/test/products/47" class="btn essence-btn">상세 보기</a>
+                                                <a href="${pageContext.request.contextPath}/shops/${list[i].shopid}/products/${list[i].productid}" class="btn essence-btn">상세 보기</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                   <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="single-product-wrapper w100">
-                                    <!-- Product Image -->
-                                    <div class="product-img ">
-                                        <img src="/tagshop/uploads/ropper.jpg" alt="" class="imgheight">
-                                        <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart" aria-hidden="true"></a>
-                                        </div>
-                                    </div>
+                   </c:forEach>
 
-                                    <!-- Product Description -->
-                                    <div class="product-description">
-                                        <span>test</span>
-                                        <a href="single-product-details.html">
-                                            <h6>프릴 슬리브 크롭 탑</h6>
-                                        </a>
-                                        <p class="product-price">49,000원</p>
-
-                                        <!-- Hover Content -->
-                                        <div class="hover-content">
-                                            <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="/tagshop/shops/test/products/47" class="btn essence-btn">상세 보기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="single-product-wrapper w100">
-                                    <!-- Product Image -->
-                                    <div class="product-img">
-                                        <img src="/tagshop/uploads/suit.jpg" alt="" class="imgheight">
-                                        <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart" aria-hidden="true"></a>
-                                        </div>
-                                    </div>
-
-                                    <!-- Product Description -->
-                                    <div class="product-description">
-                                        <span>test</span>
-                                        <a href="single-product-details.html">
-                                            <h6>프릴 슬리브 크롭 탑</h6>
-                                        </a>
-                                        <p class="product-price">49,000원</p>
-
-                                        <!-- Hover Content -->
-                                        <div class="hover-content">
-                                            <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="/tagshop/shops/test/products/47" class="btn essence-btn">상세 보기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-<div class="col-12 col-sm-6 col-lg-4">
-                                <div class="single-product-wrapper w100">
-                                    <!-- Product Image -->
-                                    <div class="product-img">
-                                        <img src="/tagshop/uploads/bagbag.jpg" alt="" class="imgheight">
-                                        <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart" aria-hidden="true"></a>
-                                        </div>
-                                    </div>
-
-                                    <!-- Product Description -->
-                                    <div class="product-description">
-                                        <span>test</span>
-                                        <a href="single-product-details.html">
-                                            <h6>프릴 슬리브 크롭 탑</h6>
-                                        </a>
-                                        <p class="product-price">49,000원</p>
-
-                                        <!-- Hover Content -->
-                                        <div class="hover-content">
-                                            <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="/tagshop/shops/test/products/47" class="btn essence-btn">상세 보기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                   <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="single-product-wrapper w100">
-                                    <!-- Product Image -->
-                                    <div class="product-img ">
-                                        <img src="/tagshop/uploads/ropper.jpg" alt="" class="imgheight">
-                                        <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart" aria-hidden="true"></a>
-                                        </div>
-                                    </div>
-
-                                    <!-- Product Description -->
-                                    <div class="product-description">
-                                        <span>test</span>
-                                        <a href="single-product-details.html">
-                                            <h6>프릴 슬리브 크롭 탑</h6>
-                                        </a>
-                                        <p class="product-price">49,000원</p>
-
-                                        <!-- Hover Content -->
-                                        <div class="hover-content">
-                                            <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="/tagshop/shops/test/products/47" class="btn essence-btn">상세 보기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="single-product-wrapper w100">
-                                    <!-- Product Image -->
-                                    <div class="product-img">
-                                        <img src="/tagshop/uploads/suit.jpg" alt="" class="imgheight">
-                                        <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart" aria-hidden="true"></a>
-                                        </div>
-                                    </div>
-
-                                    <!-- Product Description -->
-                                    <div class="product-description">
-                                        <span>test</span>
-                                        <a href="single-product-details.html">
-                                            <h6>프릴 슬리브 크롭 탑</h6>
-                                        </a>
-                                        <p class="product-price">49,000원</p>
-
-                                        <!-- Hover Content -->
-                                        <div class="hover-content">
-                                            <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="/tagshop/shops/test/products/47" class="btn essence-btn">상세 보기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 			</div>
 		</div>
 	</section>

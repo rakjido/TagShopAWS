@@ -17,9 +17,10 @@
 		}
 	});
 }*/
-
+var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 function smallcode(code){
-	var curl = "categories/sub/" + code;
+	console.log(curl);
+	var curl = ctx + "/shops/categories/sub/" + code;
 
 	ajaxfn(curl);
 }
@@ -65,7 +66,7 @@ function ajaxfn(curl){
 
 $(function(){
 	$('#sortByselect').change(function() {
-		var ajaxurl = "categories/sort/" + $('#sortByselect').val();
+		var ajaxurl = ctx + "/shops/categories/sort/" + $('#sortByselect').val();
 		$.ajax({
 			type : "GET",
 			url : ajaxurl,
@@ -87,8 +88,8 @@ $(function(){
 			                        '<a href="single-product-details.html"><h6>' +
 			                        item.title +
 			                        '</h6></a><p class="product-price">$'+
-			                        item.price + 
-			                        '</p><div class="hover-content"><div class="add-to-cart-btn">'+
+			                        numberFormat(item.price) + 
+			                        '원</p><div class="hover-content"><div class="add-to-cart-btn">'+
 			                        '<a href="'+ctx+'/shops/'+item.shopid+'/products/'+ item.productid+'" class="btn essence-btn">상세 보기</a>' +
 			                            '</div></div></div></div></div>';
 				});

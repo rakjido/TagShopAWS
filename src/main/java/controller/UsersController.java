@@ -251,12 +251,12 @@ public class UsersController {
 		
 		@RequestMapping(value = "/login_success", method = RequestMethod.GET)
 		public String login_Success(HttpServletRequest request, HttpServletResponse response) {
-/*				HttpSession session = request.getSession();
+				HttpSession session = request.getSession();
 				System.out.println(">>>>> has : " + session.getAttribute("userid")); // key 존재
 				String userid = (String)session.getAttribute("userid");
 				redisTemplate.opsForValue().set(userid, userid); // 20초 만료
 				String value = redisTemplate.opsForValue().get(userid);
-				System.out.println(">>>>> redis value : " + value);*/
+				System.out.println(">>>>> redis value : " + value);
 				
 				
 				return "redirect:/";

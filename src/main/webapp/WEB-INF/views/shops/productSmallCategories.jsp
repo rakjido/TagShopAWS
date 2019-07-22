@@ -144,7 +144,7 @@
 
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <span>${list[i].shopid}</span>
+                                        <span><a href="${pageContext.request.contextPath}/shops/${list[i].shopid}/productList">${list[i].shopid}</a></span>
                                         <a href="single-product-details.html">
                                             <h6>${list[i].title}</h6>
                                         </a>
@@ -182,14 +182,14 @@
     
      
     <script>
-    
+    	var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	 	function sameColor(color){
-	 		var curl = "categories/color/" + color;
+	 		var curl = ctx+"/shops/categories/color/" + color;
 	 		ajaxfn(curl);
 		}
 	 	
 	 	function betweenPrice(fromPrice, toPrice){
-	 		var curl = "categories/price/" + fromPrice + "/" + toPrice;
+	 		var curl = ctx+"/shops/categories/price/" + fromPrice + "/" + toPrice;
 	 		ajaxfn(curl);
 		}
 	 	

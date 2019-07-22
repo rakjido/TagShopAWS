@@ -32,7 +32,6 @@
                             <li><a href="#">Shop</a>
                                 <ul class="dropdown">
                                     <li><a href="${pageContext.request.contextPath}/shops/categories">Shop</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/productList">Brand</a></li>
                                     <li><a href="${pageContext.request.contextPath}/${sessionScope.userid}/orders">Order</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/tags">Tag Trend</a></li>
                                 </ul>

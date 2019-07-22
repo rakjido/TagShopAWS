@@ -10,6 +10,7 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loadingbar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chat.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 	
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -20,12 +21,12 @@
 	
     <div class="top_catagory_area section-padding-80 clearfix insta-background">
     
-   	<div class="user-info">
-                <div class="container">
+ <%--  	<div class="user-info tagSearch bg-img">
+                 <div class="container">
                   <div class="row">
                     <div class="col-xs-12 col-sm-3 profile-photo">
                       <div class="img-wrapper">
-                        <img src="${pageContext.request.contextPath}/uploads/${profile.photoName}" alt="profileimg" />
+                        <img src="${pageContext.request.contextPath}/resources/img/bg-img/bg-8.jpg" alt="profileimg" />
                       </div>
                     </div>
                     <div class="col-xs-12 col-sm-9">
@@ -37,9 +38,21 @@
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </div> 
+              </div>--%>
+		<div class="breadcumb_area bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center tCenter">
 
+                    <div class="page-title tCenter">
+
+                        <h2>${tagname}</h2>
+
+                    </div>
+
+            </div>
+        </div>
+    </div>
 
    	  <div id="instafeed">
       <div class="photocontent">

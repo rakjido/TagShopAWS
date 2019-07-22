@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>
 	<!-- css 넣으세요 -->
 	
@@ -16,7 +17,7 @@
                 <div class="col-12">
                     <div class="page-title text-center">
                        <c:forEach var="pl" items="${productsList}" begin="0" end="0">
-                        <h2>${pl.title}</h2>
+                        <h2>${pl.shopid}</h2>
                   	  </c:forEach>
                     </div>
                 </div>
@@ -101,7 +102,9 @@
 							<a href="single-product-details.html">
 <%-- 								<h6>${productsList[i].description}</h6> --%>
 							</a>
-							<p class="product-price">${productsList[i].price}</p>
+							<fmt:formatNumber value="${productsList[i].price}" type="number" var="price"/>
+                                        <p class="product-price">${price} 원</p>
+
 						</div>
 					</div>
 				</div>

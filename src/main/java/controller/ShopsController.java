@@ -49,6 +49,7 @@ import service.ShopsService;
 import service.TagsLocaleService;
 import utils.DateUtil;
 import utils.RandomValueUtil;
+import utils.VisionUtil;
 import vo.AuthoritiesVo;
 import vo.CategoriesSortVo;
 import vo.CategoriesVo;
@@ -229,21 +230,28 @@ public class ShopsController {
 				
 				//파일
 				MultipartFile mf = request.getFile("file");
-				if(mf != null) {
-					String fileName = mf.getOriginalFilename(); //파일명 얻기
-					System.out.println("fileName : " + fileName);
-					
-					//업로드 파일명을 변경후 저장			
-					String uploadedFileName = System.currentTimeMillis() 
-							+ UUID.randomUUID().toString()+fileName.substring(fileName.lastIndexOf("."));
-				
-				    String uploadPath = request.getSession().getServletContext().getRealPath("uploads");
-				    System.out.println("uploads : "+ uploadPath);
-				    if(mf.getSize() != 0) {	    	
-				    	mf.transferTo(new File(uploadPath+"/"+fileName));	 
-				    	productsVo.setPhotoFile(fileName);
-				    }   
-				}
+		        if(mf != null) {
+		            String fileName = mf.getOriginalFilename(); //파일명 얻기
+		            System.out.println("fileName : " + fileName);
+		            
+		            //업로드 파일명을 변경후 저장            
+		            String uploadedFileName = System.currentTimeMillis()
+		                    + UUID.randomUUID().toString()+fileName.substring(fileName.lastIndexOf("."));
+		        
+		            String uploadPath = request.getSession().getServletContext().getRealPath("uploads");
+		            System.out.println("uploads : "+ uploadPath);
+		            if(mf.getSize() != 0) {            
+		                mf.transferTo(new File(uploadPath+"/"+fileName));    
+		                productsVo.setPhotoFile(fileName);
+		                try {
+		                    String color = VisionUtil.detectDominantColor(uploadPath+"/"+fileName);
+		                    System.out.println("color : " + color.toUpperCase());
+		                    productsVo.setMainColor(color.toUpperCase());
+		                } catch (Exception e) {
+		                    e.printStackTrace();
+		                }
+		            }
+		        }
 				
 				productsVo.setShopid(shopid);
 				service.productsRegister(productsVo, productItemVo, optionListVo);
@@ -317,45 +325,6 @@ public class ShopsController {
      * @example 
      */
 	
-	@RequestMapping(value = "/categories", method = RequestMethod.GET)
-	public String productsList(Model model) {
-		logger.info("[GET] productCategories()");
-		
-		List<ProductsVo> list = service.productCategories();
-		List<CategoriesSortVo> categories = service.getCategoriesSort();
-
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("column", "LARGECATEGORYCODE");
-		
-		List<CategoriesVo> largeCategories = service.getCategories(map);
-
-		model.addAttribute("list", list);
-		model.addAttribute("categories",categories);
-		model.addAttribute("largeCategoryCode",largeCategories);
-		
-		
-		JSONArray jsonArray = new JSONArray();
-		
-		model.addAttribute("categoryList", jsonArray.fromObject(categories));
-		return "shops/productCategories";
-	}
-	
-	/*
-     * @method name : productsList
-     *
-     * @date : 2019.06.25
-     *
-     * @author : 장지훈
-     *
-     * @description : 카테고리, 태그별 상품
-     *
-     * @parameters : model
-     *
-     * @return : String
-     *
-     * @example 
-     */
-	
 	@RequestMapping(value = "/index/{smallCategory}", method = RequestMethod.GET)
 	public String productsSmallList(Model model,@PathVariable("smallCategory") String smallCategory) {
 		logger.info("[GET] productCategories()");
@@ -378,6 +347,46 @@ public class ShopsController {
 		model.addAttribute("categoryList", jsonArray.fromObject(categories));
 		return "shops/productSmallCategories";
 	}
+	
+	/*
+     * @method name : productsList
+     *
+     * @date : 2019.06.25
+     *
+     * @author : 장지훈
+     *
+     * @description : 카테고리, 태그별 상품
+     *
+     * @parameters : model
+     *
+     * @return : String
+     *
+     * @example 
+     */
+	
+	@RequestMapping(value = "/categories", method = RequestMethod.GET)
+	public String productsSmallList(Model model) {
+		logger.info("[GET] productCategories()");
+		
+		List<ProductsVo> list = service.productCategories();
+		List<CategoriesSortVo> categories = service.getCategoriesSort();
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("column", "LARGECATEGORYCODE");
+		
+		List<CategoriesVo> largeCategories = service.getCategories(map);
+
+		model.addAttribute("list", list);
+		model.addAttribute("categories",categories);
+		model.addAttribute("largeCategoryCode",largeCategories);
+		
+		
+		JSONArray jsonArray = new JSONArray();
+		
+		model.addAttribute("categoryList", jsonArray.fromObject(categories));
+		return "shops/productSmallCategories";
+	}
+	
 	/*
      * @method name : addBuyitems
      *
@@ -532,12 +541,12 @@ public class ShopsController {
      */
 	
 	@RequestMapping(value="/{shopid}/productList", method=RequestMethod.GET)
-	public String sellerList(Model model, HttpSession session) {
+	public String sellerList(Model model, HttpSession session, @PathVariable("shopid")String shopid) {
 		logger.info("[GET] getSellerList()");
+		System.out.println(shopid);
 		try {
-			List<ProductsVo> ProductsList = service.getSellerList();
+			List<ProductsVo> ProductsList = service.getSellerList(shopid);
 			model.addAttribute("productsList", ProductsList);
-			session.setAttribute("shopid", "value");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
