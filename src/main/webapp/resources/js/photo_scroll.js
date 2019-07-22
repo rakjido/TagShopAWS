@@ -92,7 +92,6 @@ $(function() {
 			url: url,
 			type: "POST",
 			dataType: "json",
-			async : true,
 			success : function(data) {
 				isRun = false;
 				count += '<div class="overlay shows">' +

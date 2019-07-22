@@ -46,15 +46,11 @@
 	</bean>	
 	
 	<!-- Error 핸들링 -->
+<!-- 	
 	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="defaultErrorView" value="error/error"/>	
 	</bean>
-	
-	
-	
-	
-	
-	
+ -->	
 	
 	
 	    <!--*******************김동현******************** Facebook 소셜 로그인 연결 설정 *******************김동현********************-->
@@ -76,30 +72,9 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	<!-- @Transactional annotation 사용을 위한 설정 -->
 	<tx:annotation-driven/>
 	
-	<!-- Redis -->
-<!-- 	
-	 <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig"
-          p:maxIdle="300" p:maxWaitMillis="1000" p:testOnBorrow="true">
-    </bean>
-
-    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
-
-    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          p:hostName="localhost" p:port="6379"  p:poolConfig-ref="poolConfig"
-          p:usePool="true"
-          p:database="1"
-          p:timeout="3000"/>
- -->
 	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
         <property name="hostName" value="127.0.0.1" />
         <property name="port" value="6379"/>

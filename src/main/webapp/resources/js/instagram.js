@@ -56,15 +56,6 @@ $(function() {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	$('.header-search input').on('focus', function() {
 		  $(this).css('text-align', 'left')
 		});
@@ -172,16 +163,19 @@ $(function() {
 			
 			$('.sqdOPaB').click(function() {
 				
+				var follow = "";
 				var followplus = 0;
 				var location = $('#url-import').attr('href').split('/');
 				var photouserid = window.location.pathname.split('/');
-				if($(this).text() == '팔로잉' || $(this).text() == '팔로우'){
-					
-					
+				if($('i',this).attr('class') == 'fas fa-user-minus'){
+					follow = "팔로잉";
+				}else if($('i',this).attr('class') == 'fas fa-user-plus'){
+					follow = "팔로우";
+				}
 					var following = {
 							followingId : photouserid[2],
 							usersuserId : location[2],
-							follow : $(this).text()
+							follow : follow
 									};
 					var json = JSON.stringify(following);
 					
@@ -195,18 +189,19 @@ $(function() {
 							
 							
 							if(data == 1){
-								$('.sqdOPaB').text('팔로잉');
+								$('.sqdOPaB i').removeClass("fa-user-plus");
+								$('.sqdOPaB i').addClass("fa-user-minus");
 								followplus = parseInt($('.follower-num b').text()) + 1;
 								$('.follower-num b').text(followplus);
 							}else if(data == 0){
-								$('.sqdOPaB').text('팔로우');
+								$('.sqdOPaB i').removeClass("fa-user-minus");
+								$('.sqdOPaB i').addClass("fa-user-plus");
 								followplus = parseInt($('.follower-num b').text()) - 1;
 								$('.follower-num b').text(followplus);
 							}
 							
 						}
 					});
-				}
 				
 				
 			});
@@ -283,7 +278,7 @@ $(function() {
 									'<div class="Igw0E">' +
 										'<div class="PIoXz">' +
 											'<time class="FH9sR" datetime="'+ today +'"' +
-												'title="'+ today +'">0일</time>' +
+												'title="'+ today +'">0분 전</time>' +
 										'</div>' +
 									'</div>' +
 								'</div>' +

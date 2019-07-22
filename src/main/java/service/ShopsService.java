@@ -235,4 +235,10 @@ public class ShopsService {
 		map.put("buyItemsId", buyItemsId);
 		dao.updateOrderStatusCode(map);
 	}
+	
+	public List<ProductsVo> productCategories(String smallCategory){
+		
+		ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+		return dao.productSmallCategories(smallCategory);
+	};
 }

@@ -3,7 +3,7 @@ $(function() {
 	var appendUl = '';
 	var keyword = '';
 	var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
-
+	const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	var isRun = false;
 	
 	/*$('#autocomplete').blur(function(){
@@ -18,13 +18,12 @@ $(function() {
 		
 		keyword = keyword.replace(/ /gi, '');
 		
-		if(isRun == true) {
-            return;
-        }
+
 		console.log(keyword);
-        isRun = true;
 		
         console.log("before  " + keyword);
+        
+
         
 		if(keyword == null || keyword == ''){
 			keyword = 'default';
@@ -41,7 +40,6 @@ $(function() {
 			
 			appendUl = '<ul class="autocomplete-content dropdown-content"><li><span>값을 넣어주세요</span></li></ui>';
 			$('#searchDiv').append(appendUl);
-			isRun = false;
 			
 		} else { //값이 있으면 비동기 !
 			
@@ -56,13 +54,18 @@ $(function() {
 					if(keyword == 'default'){
 						appendUl = '<ul class="autocomplete-content dropdown-content"><li><span>값을 넣어주세요</span></li></ui>';
 						$('#searchDiv').append(appendUl);
-						isRun = false;
 					} else {
+						
+						if(isRun == true) {
+				            return;
+				        }
+						isRun = true;
+						
 						$.ajax({
 							type : "GET",
-							url : 'searchTagName/' + keyword,
+							url : ctx+'/searchTagName/' + keyword,
 							success : function(data) {
-								
+								isRun = false;
 								appendUl = '<ul class="autocomplete-content dropdown-content">';
 								if(data.length < 1 || data == undefined){
 									appendUl += '<li><span>일치하는 결과가 없습니다</span></li>';
@@ -78,14 +81,19 @@ $(function() {
 							}
 						
 						});
-						isRun = false;
+
 					}
 					
 					
 			} else { // #이 없으면 실행 
+				
+				if(isRun == true) {
+		            return;
+		        }
+				isRun = true;
 				$.ajax({
 					type : "GET",
-					url : 'searchUserid/' + keyword,
+					url : ctx+'/searchUserid/' + keyword,
 					success : function(data) {
 						
 						isRun = false;

@@ -82,4 +82,6 @@ public interface ShopsDao {
 	public List<ManagementVo> selectPOIManagementList();
 	
 	public void updateOrderStatusCode(HashMap<String, Object> map);
+	
+	public List<ProductsVo> productSmallCategories(String smallCategory);
 }

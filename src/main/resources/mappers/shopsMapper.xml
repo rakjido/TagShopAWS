@@ -257,4 +257,8 @@
 		WHERE BUYITEMSID = #{buyItemsId}
    </update>
    
+   <select id="productSmallCategories" resultType="vo.ProductsVo">
+		SELECT
+		shopid,title,price,productid,photoFile FROM Products WHERE SMALLCATEGORYCODE = #{smallCategory}
+	</select>
  </mapper>

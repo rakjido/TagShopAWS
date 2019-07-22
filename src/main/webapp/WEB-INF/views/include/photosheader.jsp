@@ -7,6 +7,7 @@
 	<c:set var="follower" value="${follower }" />
 	<c:set var="following" value="${following }" />
 	<c:set var="photo" value="${photos }" />
+	<c:set var="followcheck" value="${followcheck }" />
         <div class="user-info">
                 <div class="container">
                   <div class="row">
@@ -21,14 +22,18 @@
                         <c:if test="${profile.userid == sessionScope.userid }">
                         </c:if>
                         
-                        <c:if test="${profile.userid != sessionScope.userid }">
-                        <script src="${pageContext.request.contextPath}/resources/js/instagram_check.js"></script>
+                        <c:if test="${profile.userid != sessionScope.userid && followcheck eq null}">
+<%--                         <script src="${pageContext.request.contextPath}/resources/js/instagram_check.js"></script>
                         <script>
 							var followingid = "${profile.userid}";
 							var usersuserid = "${sessionScope.userid}";
 							followcheck(followingid, usersuserid);
-						</script>
-						<button class="sqdOPaB" type="button"></button>
+						</script> --%>
+						<button class="sqdOPaB" type="button"><i class="fas fa-user-plus"></i></button>
+                        </c:if>
+                        
+                        <c:if test="${profile.userid != sessionScope.userid && followcheck ne null}">
+                        <button class="sqdOPaB" type="button"><i class="fas fa-user-minus"></i></button>
                         </c:if>
                         
                         <c:choose>
@@ -36,7 +41,6 @@
                         	<button class="sqdOPaC" type="button"><i class="fas fa-comment"></i></button>
                         	</c:when>
                         	<c:otherwise>
-                        	<button class="sqdOPaC" type="button"><i class="fas fa-comment"></i></button>
                         	<button class="sqdOPaCO" type="button"><i class="fas fa-comment-slash"></i></button>
                         	</c:otherwise>
                         </c:choose>

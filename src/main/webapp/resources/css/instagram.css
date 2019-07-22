@@ -257,11 +257,33 @@
     border-radius: 4px;
     color: #fff;
     position: relative;
-	background-color: #D74B4B;
+    background-color: #f8f9fa;
     border: 1px solid #dbdbdb;
-    color: white;
+    color: #262626;
     outline: 0!important;
-    font-size: 14px;
+    font-size: 20px;
+    line-height: 18px;
+    }
+    
+    .sqdOPaBS {
+    display: inline-block;
+    background: 0 0;
+    border: 0;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 5px 9px;
+    text-align: center;
+    text-transform: inherit;
+    width: auto;
+    border: 1px solid #3897f0;
+    border-radius: 4px;
+    color: #fff;
+    position: relative;
+    background-color: #f8f9fa;
+    border: 1px solid #dbdbdb;
+    color: #262626;
+    outline: 0!important;
+    font-size: 20px;
     line-height: 18px;
     }
     
@@ -1220,6 +1242,11 @@
     text-align: center;
     cursor: pointer;
 }
+
+.follow a:hover {
+    color: #3897f0;
+}
+
 
 /* HomePage Content Sidebar-reference End */
 

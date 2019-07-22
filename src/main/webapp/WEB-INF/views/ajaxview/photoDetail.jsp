@@ -114,45 +114,28 @@
 										</div>
 									</div>
 								</li>
-	
-							<c:forEach var="comment" items="${detail.comments }">
+								
+						<c:if test="${detail.comments.size() > 0}">
+							<c:forEach var="i" begin="0" end="${detail.comments.size()-1 }">
 								<li class="gElp9">
 									<div class="P9YgZ">
 									<div class="pro-div">
 										<div class="right-profile-photo-sub">
 											<a class="profile-photo-link"> <img
-												src="${pageContext.request.contextPath}/uploads/${comment.photoName }"
-												alt="${comment.photoName }">
+												src="${pageContext.request.contextPath}/uploads/${detail.comments[i].photoName }"
+												alt="${detail.comments[i].photoName }">
 											</a>
 										</div>
 										</div>
 										<div class="C4VMK">
 											<div class="profile-name-sub">
 												<a class="profile-a" title=""
-													href="${pageContext.request.contextPath}/${comment.usersUserId}/">${comment.usersUserId}</a>
-												<span class="RPhNB">${comment.comments}</span>
+													href="${pageContext.request.contextPath}/${comment.usersUserId}/">${detail.comments[i].usersUserId}</a>
+												<span class="RPhNB">${detail.comments[i].comments}</span>
 												<div class="Igw0E">
 													<div class="PIoXz">
 															<time class="FH9sR" datetime="${detail.photos.createDate}"
-															title="${detail.photos.createDate}">
-																
-																
-																<c:choose>
-																	<c:when test="${detail.photos.dateDiff eq 0}">
-																		<c:choose>
-																			<c:when test="${detail.time eq 0}">
-																				${detail.minute }분 전
-																			</c:when>
-																			<c:otherwise>
-																				${detail.time }시간 전		
-																			</c:otherwise>
-																		</c:choose>
-																	</c:when>
-																	
-																	<c:otherwise>
-																		${detail.photos.dateDiff}일전
-																	</c:otherwise>
-																</c:choose>
+															title="${detail.photos.createDate}">${detail.photodate[i] }
 															</time>
 													</div>
 												</div>
@@ -161,7 +144,8 @@
 									</div>
 								</li>
 							</c:forEach>
-	
+						</c:if>
+						
 						</ul>
 					</div>
 				</div>

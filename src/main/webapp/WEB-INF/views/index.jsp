@@ -36,33 +36,33 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<!-- Single Catagory -->
-				<div class="col-12 col-sm-6 col-md-4">
+				<div class="col-12 col-sm-6 col-md-4 bg-50">
 					<div
 						class="single_catagory_area d-flex align-items-center justify-content-center bg-img"
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/shirt.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="#" class="categoryF">Shirt</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Shirt</a>
 					</div>
 				</div>
 				<!-- Single Catagory -->
-				<div class="col-12 col-sm-6 col-md-4">
+				<div class="col-12 col-sm-6 col-md-4 bg-50">
 					<div
 						class="single_catagory_area d-flex align-items-center justify-content-center bg-img"
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/shoes.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="#" class="categoryF">Shoes</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Shoes</a>
 					</div>
 				</div>
 				<!-- Single Catagory -->
-				<div class="col-12 col-sm-6 col-md-4">
+				<div class="col-12 col-sm-6 col-md-4 bg-50">
 					<div
 						class="single_catagory_area d-flex align-items-center justify-content-center bg-img"
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/bag.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="#" class="categoryF">Bag</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Bag</a>
 					</div>
 				</div>
 			</div>
@@ -75,7 +75,7 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/watch.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="#" class="categoryF">Watch</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Watch</a>
 					</div>
 				</div>
 				<!-- Single Catagory -->
@@ -85,7 +85,7 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/accessory.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="#" class="categoryF">Accessory</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Accessory</a>
 					</div>
 				</div>
 				<!-- Single Catagory -->
@@ -95,7 +95,7 @@
 						style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/perfume.jpg);">
 					</div>
 					<div class="catagory-content catagoryM">
-						<a href="#" class="categoryF">Perfume</a>
+						<a href="${pageContext.request.contextPath}/shops/index/100200030" class="categoryF">Perfume</a>
 					</div>
 				</div>
 			</div>

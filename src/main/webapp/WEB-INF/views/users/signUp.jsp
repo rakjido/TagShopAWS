@@ -44,15 +44,16 @@
 				    data: { email : $('#signup-input_text_email').val()},
 				    type: "POST",
 				    success : function(data){
-				    	if(data==0 && pattern.test($('#signup-input_text_email').val())){
+				    	if(pattern.test($('#signup-input_text_email').val())){
+				    	//if(data==0 && pattern.test($('#signup-input_text_email').val())){
 				    		$("#email").css("color", "#0064FF");
 				    		$('#email').text("사용가능 합니다.");
 				    	}
-				    	else if(data==1){
+/* 				    	else if(data==1){
 				    		$("#email").css("color", "#ff0000");
 				    		$('#email').text("중복된 email 입니다.");
 				    	}
-				    	else{
+ */				    	else{
 				    		$("#email").css("color", "#ff0000");
 				    		$('#email').text("이메일 형식에 맞게 입력해주세요");
 				    	}
@@ -227,6 +228,7 @@
 	            </div>
 	            <!-- 자동가입 방지 시작-->
 	            <div class="g-recaptcha recaptcha-sub" data-sitekey="6LeNoKgUAAAAAN-RzLgagTZZYfcaVOcY_8ThYYD3"></div>
+	            
 	            <p id="has-account">이미 아이디가 있으신가요?<a class="signup-signin-text" href="${pageContext.request.contextPath}/users/login">로그인</a></p>
 	            <div class="signup-btn">
 	                <button type="submit" class="btn signup-btn-detail" id="sign-up">

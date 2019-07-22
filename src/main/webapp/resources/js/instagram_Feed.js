@@ -68,4 +68,52 @@ $(function() {
 		
 	});
 	
+	
+/* Feed 친구추천 팔로우/팔로잉 버튼 이벤트 */
+	
+	$(document).on('click', '.sqdOPaB', function(e) {
+		e.preventDefault();
+		console.log("클릭 탐");
+		
+		var attr = $('a',this);
+		var followplus = 0;
+		const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+		var location = $('#url-import').attr('href').split('/');
+		var followid = $.trim($(this).closest('.user-account').find('.user-account-info h2').text());
+		console.log($('a',this).text());
+			
+			
+			var following = {
+					followingId : followid,
+					usersuserId : location[2],
+					follow : $(this).text()
+							};
+			var json = JSON.stringify(following);
+			
+			$.ajax({
+				url: ctx+"/"+location[2]+"/photos/"+followid+"/follow",
+				type: "POST",
+				data: json,
+				dataType: "JSON",
+				contentType : 'application/json; charset=UTF-8',
+				success : function(data) {
+					
+					
+					if(data == 1){
+						attr.text('팔로잉');
+						followplus = parseInt($('.follower-num b').text()) + 1;
+						$('.follower-num b').text(followplus);
+					}else if(data == 0){
+						attr.text('팔로우');
+						followplus = parseInt($('.follower-num b').text()) - 1;
+						$('.follower-num b').text(followplus);
+					}
+					
+				}
+			});
+		
+		
+	});
+	
+	
 });

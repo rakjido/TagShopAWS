@@ -63,9 +63,9 @@
                 <!-- Search Area -->
                 <div class="search-area">
                 <div class="input-field col s13 padding_r0" id="searchDiv">
-                    <form action="#" method="post" autocomplete="off">
+                    <form action="${pageContext.request.contextPath}/${sessionScope.userid}/tag" method="post" autocomplete="off">
                         <input type="search" name="search" id="autocomplete"
-                            placeholder="검색" class="autocomplete">
+                            placeholder="Tag Search" class="autocomplete">
                         <button type="submit">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>

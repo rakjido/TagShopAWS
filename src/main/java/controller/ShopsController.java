@@ -341,6 +341,44 @@ public class ShopsController {
 	}
 	
 	/*
+     * @method name : productsList
+     *
+     * @date : 2019.06.25
+     *
+     * @author : 장지훈
+     *
+     * @description : 카테고리, 태그별 상품
+     *
+     * @parameters : model
+     *
+     * @return : String
+     *
+     * @example 
+     */
+	
+	@RequestMapping(value = "/index/{smallCategory}", method = RequestMethod.GET)
+	public String productsSmallList(Model model,@PathVariable("smallCategory") String smallCategory) {
+		logger.info("[GET] productCategories()");
+		
+		List<ProductsVo> list = service.productCategories(smallCategory);
+		List<CategoriesSortVo> categories = service.getCategoriesSort();
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("column", "LARGECATEGORYCODE");
+		
+		List<CategoriesVo> largeCategories = service.getCategories(map);
+
+		model.addAttribute("list", list);
+		model.addAttribute("categories",categories);
+		model.addAttribute("largeCategoryCode",largeCategories);
+		
+		
+		JSONArray jsonArray = new JSONArray();
+		
+		model.addAttribute("categoryList", jsonArray.fromObject(categories));
+		return "shops/productSmallCategories";
+	}
+	/*
      * @method name : addBuyitems
      *
      * @date : 2019.06.27

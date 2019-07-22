@@ -20,7 +20,27 @@
 	
     <div class="top_catagory_area section-padding-80 clearfix insta-background">
     
-   	<%@ include file="/WEB-INF/views/include/photosheader.jsp" %>
+   	<div class="user-info">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-3 profile-photo">
+                      <div class="img-wrapper">
+                        <img src="${pageContext.request.contextPath}/uploads/${profile.photoName}" alt="profileimg" />
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                      <div class="user-website">
+                          <a href="${profile.website }" target="_blank">${profile.website }</a>
+                      </div>
+                      <div class="user-biography">
+                         <span>${profile.introduction }</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
    	  <div id="instafeed">
       <div class="photocontent">
             <div class="fx7hk">
@@ -49,7 +69,7 @@
       <div class="photo-grid">
         <div class="container">
           <div class="row">
-          <c:forEach var="photos" items="${timelinephoto }">
+          <c:forEach var="photos" items="${photolist }">
             <div id="photo" class="col-xs-12 col-sm-4 grid photocount">
               <img src="${pageContext.request.contextPath}/uploads/${photos.fileName}" alt="${photos.photoId }" />
             </div>
