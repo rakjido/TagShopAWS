@@ -1,7 +1,7 @@
 
 
 function smallcode(code){
-	var curl = "categories/" + code;
+	var curl = ctx + "/shops/categories/" + code;
 
 	ajaxfn(curl);
 }
@@ -41,7 +41,8 @@ function ajaxfn(curl){
 
 $(function(){
 	$('#sortByselect').change(function() {
-		var ajaxurl = "categories/sort/" + $('#sortByselect').val();
+		var ajaxurl = ctx+"/shops/categories/sort/" + $('#sortByselect').val();
+		console.log(ajaxurl);
 		$.ajax({
 			type : "GET",
 			url : ajaxurl,

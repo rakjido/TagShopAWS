@@ -230,17 +230,10 @@
 
               opnum++;
           });
-          
 
  			var codeList =  JSON.parse('${categoryList}');
 			console.log(codeList);
-           
-				
-/* 				<option value="${categoryList[i].largeCategoryCode}">${categoryList[i].largeCategoryName}</option>
- */
 
-          	
- 			
            	$('#largeCategory').change(function(){
            		var data_filter = codeList.filter( element => element.largeCategoryCode == $('#largeCategory').val());
 				var midCodeArray =  new Array();
@@ -308,47 +301,6 @@
           			
           	});
  			
-/*            	$("#insertOption, #insertOption2").change(function(){
-           		if(($('#insertOption').val() != "") && ($('#insertOption2').val() != "")){
-           			addOption
-           			$('#addOption').attr('disabled', false);
-           		} else {
-           			$('#addOption').attr('disabled', true);
-           		}
-            });
-           	
-           	$('#insertTag').change(function(){
-           		if($('#insertTag').val() != ""){
-           			$('#addTag').attr('disabled', false);
-           		} else {
-           			$('#addTag').attr('disabled', true);
-           		}
-           	});
-           	
-           	
-           	var inputValue = $('.company');
-           	var companyNum = 0;
-           	
-
-           	
-           	
-           	$('.company').change(function(){
-           		companyNum=0;
-           		$('#addtocart').attr('disabled', true);
-           		inputValue.each(function(index){
-               		if($(this).val() != ''){
-               			++companyNum;
-               		}
-               		console.log(companyNum);
-               	});
-
-           		if((companyNum == 6) && (opnum != 0)){
-           			$('#addtocart').attr('disabled', false);
-           		}
-           	}); */
-           	
-           	
-           	
            	
          });
  </script>

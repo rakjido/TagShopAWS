@@ -9,6 +9,7 @@
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
+
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 
@@ -342,3 +343,4 @@
 	<script src="${pageContext.request.contextPath}/resources/js/instagram.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/photo_scroll.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/instagram_Feed.js"></script>
+	

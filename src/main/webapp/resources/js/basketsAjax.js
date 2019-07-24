@@ -1,4 +1,4 @@
-var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+
 
 function numberFormat(number) {
 	var regexp = /\B(?=(\d{3})+(?!\d))/g;

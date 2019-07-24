@@ -3,7 +3,8 @@
     
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>
 	<!-- css 넣으세요 -->
-	
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/modify.css">
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	
 	<!-- ##### Breadcumb Area Start ##### -->
@@ -38,7 +39,7 @@
                                     <div class="col-4">
                                         <label for="sales_apply_compnay">회사 이름 </label>
                                     </div>
-                                    <input type="text" class="form-control" id="sales_apply_compnay" value="" required
+                                    <input type="text" class="form-control" id="sales_apply_compnay" value="${shopinfo.corporateName}" required
                                         placeholder="숫자,한글,영어,(,) 2-20글자" name="corporateName">
                                 </div>
                                 <div><span id=company_name> </span></div>
@@ -52,10 +53,10 @@
                                     <input type="text" class="form-control" id="sales_apply_license1" value="${shopinfo.corporateRegisterNumber.substring(0,3) }" required
                                         placeholder="123" name="regNum1">
                                     <span class="sales-form-divider">-</span>
-                                    <input type="text" class="form-control" id="sales_apply_license2" value="${shopinfo.corporateRegisterNumber.substring(3,5) }" required
+                                    <input type="text" class="form-control" id="sales_apply_license2" value="${shopinfo.corporateRegisterNumber.substring(4,6) }" required
                                         placeholder="45" name="regNum2">
                                     <span class="sales-form-divider">-</span>
-                                    <input type="text" class="form-control" id="sales_apply_license3" value="${shopinfo.corporateRegisterNumber.substring(5,10) }" required
+                                    <input type="text" class="form-control" id="sales_apply_license3" value="${shopinfo.corporateRegisterNumber.substring(7,11) }" required
                                         placeholder="67890" name="regNum3">
                                 </div>
                                 <div><span id=company_number> </span></div>

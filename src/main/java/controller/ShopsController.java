@@ -137,10 +137,6 @@ public class ShopsController {
      *
      * @example 
      */
-	/*public String sellerRegister(ShopsVo shopsVo, SelectedCategoriesVo scVo, HttpSession session,
-			@RequestParam("regNum1") int regNum1,
-			@RequestParam("regNum2") int regNum2,
-			@RequestParam("regNum3") int regNum3)*/
 	
 	@ResponseBody
 	@Transactional
@@ -216,67 +212,67 @@ public class ShopsController {
 	
 	
 	//@Transactional
-			@RequestMapping(value = "/{shopid}/products/new", method = RequestMethod.POST)
-			public String productsReg(@PathVariable("shopid") String shopid,MultipartHttpServletRequest request,
-					ProductsVo productsVo, ProductItemVo productItemVo, @ModelAttribute OptionListVo optionListVo,
-					@RequestParam(value="tagText1", defaultValue="") String tagText1,
-					@RequestParam(value="tagText2", defaultValue="") String tagText2,
-					@RequestParam(value="tagText3", defaultValue="") String tagText3) throws IllegalStateException, IOException {
-				logger.info("[POST] productsReg()");
-				
-				System.out.println("tagText1 : " +  tagText1);
-				System.out.println("tagText2 : " +  tagText2);
-				System.out.println("tagText3 : " +  tagText3);
-				
-				//파일
-				MultipartFile mf = request.getFile("file");
-		        if(mf != null) {
-		            String fileName = mf.getOriginalFilename(); //파일명 얻기
-		            System.out.println("fileName : " + fileName);
-		            
-		            //업로드 파일명을 변경후 저장            
-		            String uploadedFileName = System.currentTimeMillis()
-		                    + UUID.randomUUID().toString()+fileName.substring(fileName.lastIndexOf("."));
-		        
-		            String uploadPath = request.getSession().getServletContext().getRealPath("uploads");
-		            System.out.println("uploads : "+ uploadPath);
-		            if(mf.getSize() != 0) {            
-		                mf.transferTo(new File(uploadPath+"/"+fileName));    
-		                productsVo.setPhotoFile(fileName);
-		                try {
-		                    String color = VisionUtil.detectDominantColor(uploadPath+"/"+fileName);
-		                    System.out.println("color : " + color.toUpperCase());
-		                    productsVo.setMainColor(color.toUpperCase());
-		                } catch (Exception e) {
-		                    e.printStackTrace();
-		                }
-		            }
-		        }
-				
-				productsVo.setShopid(shopid);
-				service.productsRegister(productsVo, productItemVo, optionListVo);
-				
+	@RequestMapping(value = "/{shopid}/products/new", method = RequestMethod.POST)
+	public String productsReg(@PathVariable("shopid") String shopid,MultipartHttpServletRequest request,
+			ProductsVo productsVo, ProductItemVo productItemVo, @ModelAttribute OptionListVo optionListVo,
+			@RequestParam(value="tagText1", defaultValue="") String tagText1,
+			@RequestParam(value="tagText2", defaultValue="") String tagText2,
+			@RequestParam(value="tagText3", defaultValue="") String tagText3) throws IllegalStateException, IOException {
+		logger.info("[POST] productsReg()");
+		
+		System.out.println("tagText1 : " +  tagText1);
+		System.out.println("tagText2 : " +  tagText2);
+		System.out.println("tagText3 : " +  tagText3);
+		
+		//파일
+		MultipartFile mf = request.getFile("file");
+        if(mf != null) {
+            String fileName = mf.getOriginalFilename(); //파일명 얻기
+            System.out.println("fileName : " + fileName);
+            
+            //업로드 파일명을 변경후 저장            
+            String uploadedFileName = System.currentTimeMillis()
+                    + UUID.randomUUID().toString()+fileName.substring(fileName.lastIndexOf("."));
+        
+            String uploadPath = request.getSession().getServletContext().getRealPath("uploads");
+            System.out.println("uploads : "+ uploadPath);
+            if(mf.getSize() != 0) {            
+                mf.transferTo(new File(uploadPath+"/"+fileName));    
+                productsVo.setPhotoFile(fileName);
+                try {
+                    String color = VisionUtil.detectDominantColor(uploadPath+"/"+fileName);
+                    System.out.println("color : " + color.toUpperCase());
+                    productsVo.setMainColor(color.toUpperCase());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+		
+		productsVo.setShopid(shopid);
+		service.productsRegister(productsVo, productItemVo, optionListVo);
+		
 
-				
-				if(tagText1 != null && !(tagText1.equals(""))) {
-					System.out.println("text1 : " + tagText1);
-					HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText1);
-					tagsLocaleService.addProductTags(tagsLocaleService.getTagsId(map));
-				}
-				
-				if(tagText2  != null && !(tagText2.equals(""))) {
-					HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText2);
-					tagsLocaleService.addProductTags(tagsLocaleService.getTagsId(map));
-				}
-				
-				if(tagText3  != null && !(tagText3.equals(""))) {
-					HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText3);
-					tagsLocaleService.addProductTags(tagsLocaleService.getTagsId(map));
-				}
-				
-				
-				return "redirect:/";
-			}
+		
+		if(tagText1 != null && !(tagText1.equals(""))) {
+			System.out.println("text1 : " + tagText1);
+			HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText1);
+			tagsLocaleService.addProductTags(tagsLocaleService.getTagsId(map));
+		}
+		
+		if(tagText2  != null && !(tagText2.equals(""))) {
+			HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText2);
+			tagsLocaleService.addProductTags(tagsLocaleService.getTagsId(map));
+		}
+		
+		if(tagText3  != null && !(tagText3.equals(""))) {
+			HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText3);
+			tagsLocaleService.addProductTags(tagsLocaleService.getTagsId(map));
+		}
+		
+		
+		return "redirect:/";
+	}
 	
 	/*
      * @method name : getProductDetail
@@ -387,59 +383,6 @@ public class ShopsController {
 		return "shops/productSmallCategories";
 	}
 	
-	/*
-     * @method name : addBuyitems
-     *
-     * @date : 2019.06.27
-     *
-     * @author : 장지훈
-     *
-     * @description : 장바구니 리스트 추가
-     *
-     * @parameters : 
-     *
-     * @return : String
-     *
-     * @example 
-     */
-	
-//	@Transactional
-//	@RequestMapping(value="/{userid}/baskets/{productItemid}", method=RequestMethod.POST)
-//	public String addBuyitems(@PathVariable("userid") String userid, @PathVariable("productItemid") BigInteger productItemid 
-//			) {
-////		,double unitPrice, int quantity, @RequestBody OptionsVo optionVo
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//
-//		System.out.println("구매추가전 ");
-//		map.put("deliveryFee", 2500);
-//		map.put("usedPoint", 0);
-//		map.put("userid", userid);
-//		map.put("unitPrice", 3000);
-//		map.put("quantity", 2);
-//		map.put("productItemId", productItemid);
-//		
-//		buyService.addBuyitems(map);
-//		System.out.println("구매추가후");
-//		
-//		List<BigInteger> list = buyService.getBuyitemsId(userid);
-//		List<OptionsVo> optionList = service.getOption(productItemid);
-//		
-//		System.out.println(list.toString());
-//		System.out.println(optionList.toString());
-//		
-//		for (int i = 0; i < optionList.size()-1; i++) {
-//			selectedOptionVo.setBuyItemsId(list.get(list.size()-1));
-//			selectedOptionVo.setOptionCode(optionList.get(i).getOptionCode());
-//			selectedOptionVo.setOptionType(optionList.get(i).getOptionType());
-//			buyService.addSelectedOption(selectedOptionVo);
-//		}
-//
-//		return "redirect:/";
-//	}
-	
-	
-	
-	
 	
 	/*
      * @method name : addTagForm
@@ -486,23 +429,26 @@ public class ShopsController {
 	
 	@RequestMapping(value="/{shopid}/management", method=RequestMethod.GET)
     public String shopManagement(Model model) {
-//		String toDate = FormatUtil.dateFormat(DateUtil.today());
-//		String fromDate = FormatUtil.dateFormat(DateUtil.changeYear(DateUtil.today(),-1));
-//		System.out.println("fromDate " + fromDate);
-//		System.out.println("toDate " + toDate);
-//		
-//		String orderStatusCode = "TOTL";
-//		List<ManagementVo> managementVo = service.getManagementList(fromDate, toDate, "");
-//		System.out.println(managementVo);
-//		model.addAttribute("managementVo",managementVo);
 		
         return "shops/management";
     }
 	
 	/*
-	 * 나의 쇼핑 페이지 이동
-	 * 
-	 */
+     * @method name : mypage
+     *
+     * @date : 2019.07.03
+     *
+     * @author : 신지혁
+     *
+     * @description : 나의 구매정보 연람
+     *
+     * @parameters : String userid, Model model
+     *
+     * @return : String
+     *
+     * @example  
+     */
+	
 	@RequestMapping(value="/{userid}/myshop", method = RequestMethod.GET)
 	public String mypage(@PathVariable("userid") String userid, Model model) {
 		System.out.println("userid 체크 : " + userid);
@@ -516,11 +462,25 @@ public class ShopsController {
 		return "shops/myShoppingPage";
 	} 
 
+	/*
+     * @method name : tagRank
+     *
+     * @date : 2019.07.10
+     *
+     * @author : 정일찬, 장지훈
+     *
+     * @description : 태그 순위보기
+     *
+     * @parameters : 
+     *
+     * @return : 
+     *
+     * @example  
+     */
+	
 	@RequestMapping(value="/tags", method=RequestMethod.GET)
 	public String tagRank() {
-		
-		// test용 데이터 주입
-		// tagsLocaleService.randomInsertPhotoTag();
+
 		return "shops/tagRank";
 	}
 	
@@ -553,6 +513,21 @@ public class ShopsController {
 		return "shops/sellerHome";
 	}
 	
+	/*
+     * @method name : sendSms
+     *
+     * @date : 2019.07.11
+     *
+     * @author : 이노진
+     *
+     * @description : 판매자 등록 전화번호 인증
+     *
+     * @parameters : HttpServletRequest request, String phonenum
+     *
+     * @return : String
+     *
+     * @example 
+     */
 	@ResponseBody
 	@RequestMapping(value = "/sendsms", method=RequestMethod.POST)
 	  public String sendSms(HttpServletRequest request, @RequestParam("phonenum")String phonenum) throws Exception {
@@ -592,9 +567,9 @@ public class ShopsController {
      *
      * @author : 신지혁
      *
-     * @description : 판매수정 페이지 이동
+     * @description : 판매자 정보 수정 이동
      *
-     * @parameters : 
+     * @parameters : String userid, Model model
      *
      * @return : String
      *
@@ -616,7 +591,24 @@ public class ShopsController {
 		
 		return "shops/sellerModify";
 	}
-
+	
+	
+	/*
+     * @method name : sellerModify
+     *
+     * @date : 2019.06.24
+     *
+     * @author : 신지혁
+     *
+     * @description : 판매자 정보 수정
+     *
+     * @parameters : ShopsVo shopsVo, HttpSession session, String regNum1, 
+     * 			     String regNum2, String regNum3, String phone, String ccode
+     *
+     * @return : String
+     *
+     * @example 
+     */
 	@Transactional
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
 	public String sellerModify(ShopsVo shopsVo, HttpSession session,
@@ -625,7 +617,6 @@ public class ShopsController {
 			@RequestParam("regNum3") String regNum3,
 			@RequestParam("phone") String phone,
 			@RequestParam("midCategoryCode") String ccode){
-			//@RequestParam("midCategoryCode") String midCategoryCode) {
 		
 		logger.info("[POST] modify()");
 		
@@ -658,126 +649,153 @@ public class ShopsController {
 		return "redirect:/users/logout";
 	}
 	
-	// 판매관리 엑셀로 다운로드
-			@RequestMapping(value = "/{shopid}/management/excelDown", method=RequestMethod.GET)
-			public void excelDown(HttpServletResponse response) throws Exception{
-				// 게시판 목록조회
-				List<ManagementVo> managementList = service.selectPOIManagementList();
-				System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@" + managementList);
-				// 워크북 생성
-				Workbook wb = new HSSFWorkbook();
-				Sheet sheet = wb.createSheet("게시판");
-				Row row = null;
-				Cell cell = null;
-				int rowNo = 0;
+	/*
+     * @method name : excelDown
+     *
+     * @date : 2019.07.13
+     *
+     * @author : 판매정보 엑셀 
+     *
+     * @description : 판매자 정보 수정
+     *
+     * @parameters : HttpServletResponse response
+     *
+     * @return : void
+     *
+     * @example 
+     */
+	@RequestMapping(value = "/{shopid}/management/excelDown", method=RequestMethod.GET)
+	public void excelDown(HttpServletResponse response) throws Exception{
+		// 게시판 목록조회
+		List<ManagementVo> managementList = service.selectPOIManagementList();
+		// 워크북 생성
+		Workbook wb = new HSSFWorkbook();
+		Sheet sheet = wb.createSheet("게시판");
+		Row row = null;
+		Cell cell = null;
+		int rowNo = 0;
 
-				// 테이블 헤더용 스타일
-				CellStyle headStyle = wb.createCellStyle();
-				// 가는 경계선을 가집니다.
-				headStyle.setBorderTop(BorderStyle.THIN);
-				headStyle.setBorderBottom(BorderStyle.THIN);
-				headStyle.setBorderLeft(BorderStyle.THIN);
-				headStyle.setBorderRight(BorderStyle.THIN);
-				// 배경색은 핑크색입니다.
-				headStyle.setFillForegroundColor(HSSFColorPredefined.LIGHT_YELLOW.getIndex());
-				headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-				// 데이터는 가운데 정렬합니다.
-				headStyle.setAlignment(HorizontalAlignment.CENTER);
-				
-				// 데이터용 경계 스타일
-				CellStyle bodyStyle = wb.createCellStyle();
-				bodyStyle.setBorderTop(BorderStyle.THIN);
-				bodyStyle.setBorderBottom(BorderStyle.THIN);
-				bodyStyle.setBorderLeft(BorderStyle.THIN);
-				bodyStyle.setBorderRight(BorderStyle.THIN);
+		// 테이블 헤더용 스타일
+		CellStyle headStyle = wb.createCellStyle();
+		// 가는 경계선을 가집니다.
+		headStyle.setBorderTop(BorderStyle.THIN);
+		headStyle.setBorderBottom(BorderStyle.THIN);
+		headStyle.setBorderLeft(BorderStyle.THIN);
+		headStyle.setBorderRight(BorderStyle.THIN);
+		// 배경색은 핑크색입니다.
+		headStyle.setFillForegroundColor(HSSFColorPredefined.LIGHT_YELLOW.getIndex());
+		headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		// 데이터는 가운데 정렬합니다.
+		headStyle.setAlignment(HorizontalAlignment.CENTER);
+		
+		// 데이터용 경계 스타일
+		CellStyle bodyStyle = wb.createCellStyle();
+		bodyStyle.setBorderTop(BorderStyle.THIN);
+		bodyStyle.setBorderBottom(BorderStyle.THIN);
+		bodyStyle.setBorderLeft(BorderStyle.THIN);
+		bodyStyle.setBorderRight(BorderStyle.THIN);
 
-				// 헤더 생성
-				row = sheet.createRow(rowNo++);
-				
-				cell = row.createCell(0);
-				cell.setCellStyle(headStyle);
-				cell.setCellValue("DATETIMES");
-				
-				cell = row.createCell(1);
-				cell.setCellStyle(headStyle);
-				cell.setCellValue("USERID");
-				
-				cell = row.createCell(2);
-				cell.setCellStyle(headStyle);
-				cell.setCellValue("DELIVERYFEE");
-				
-				cell = row.createCell(3);
-				cell.setCellStyle(headStyle);
-				cell.setCellValue("PRODUCTNAME");
-				
-				cell = row.createCell(4);
-				cell.setCellStyle(headStyle);
-				cell.setCellValue("UNITPRICE");
-				
-				cell = row.createCell(5);
-				cell.setCellStyle(headStyle);
-				cell.setCellValue("QUANTITY");
-				
-				cell = row.createCell(6);
-				cell.setCellStyle(headStyle);
-				cell.setCellValue("ORDERSTATUSCODE");
-				
-				
-				// 데이터 부분 생성
-				for(ManagementVo vo : managementList) {
-					row = sheet.createRow(rowNo++);
-					
-					cell = row.createCell(0);
-					cell.setCellStyle(bodyStyle);
-					cell.setCellValue(vo.getDateTimes());
-					
-					cell = row.createCell(1);
-					cell.setCellStyle(bodyStyle);
-					cell.setCellValue(vo.getUserid());
-					
-					cell = row.createCell(2);
-					cell.setCellStyle(bodyStyle);
-					cell.setCellValue(vo.getDeliveryFee());
-					
-					cell = row.createCell(3);
-					cell.setCellStyle(bodyStyle);
-					cell.setCellValue(vo.getProductName());
-					
-					cell = row.createCell(4);
-					cell.setCellStyle(bodyStyle);
-					cell.setCellValue(vo.getUnitPrice());
-
-					cell = row.createCell(5);
-					cell.setCellStyle(bodyStyle);
-					cell.setCellValue(vo.getQuantity());
-
-					cell = row.createCell(6);
-					cell.setCellStyle(bodyStyle);
-					cell.setCellValue(vo.getOrderStatusCode());
-					
-					
-				}
-				
-				response.setContentType("application/vnd.ms-excel");
-				response.setHeader("Content-Disposition", "attachment;filename=test.xls");
-				
-				wb. write(response.getOutputStream());
-				wb.close();
-		}
-			// 판매관리 PDF로 출력 다운로드
-			@RequestMapping(value = "/{shopid}/management/pdfDown", method = RequestMethod.GET)
-			public ModelAndView downloadExcel(HttpServletResponse response) throws Exception {
-				List<ManagementVo> Managementlist = service.selectPOIManagementList();
-				return new ModelAndView("pdfView","Managementlist", Managementlist); 
-				//PDFView로 넘겨서 Src안에 Propertice 통해서 PDFbulider사용
-			}
+		// 헤더 생성
+		row = sheet.createRow(rowNo++);
+		
+		cell = row.createCell(0);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("DATETIMES");
+		
+		cell = row.createCell(1);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("USERID");
+		
+		cell = row.createCell(2);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("DELIVERYFEE");
+		
+		cell = row.createCell(3);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("PRODUCTNAME");
+		
+		cell = row.createCell(4);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("UNITPRICE");
+		
+		cell = row.createCell(5);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("QUANTITY");
+		
+		cell = row.createCell(6);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("ORDERSTATUSCODE");
+		
+		
+		// 데이터 부분 생성
+		for(ManagementVo vo : managementList) {
+			row = sheet.createRow(rowNo++);
 			
-			@RequestMapping(value = "/{userid}/myshop/changeorder/{orderStatusCode}/{buyItemsId}", method = RequestMethod.GET)
-			public String updateOrder(@PathVariable("orderStatusCode") String orderStatusCode,
-					@PathVariable("buyItemsId") BigInteger buyItemsId) {
+			cell = row.createCell(0);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(vo.getDateTimes());
+			
+			cell = row.createCell(1);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(vo.getUserid());
+			
+			cell = row.createCell(2);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(vo.getDeliveryFee());
+			
+			cell = row.createCell(3);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(vo.getProductName());
+			
+			cell = row.createCell(4);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(vo.getUnitPrice());
 
-				service.updateOrderStatusCode(orderStatusCode, buyItemsId);
-				return "redirect:/shops/{userid}/myshop/";
-			}
+			cell = row.createCell(5);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(vo.getQuantity());
+
+			cell = row.createCell(6);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(vo.getOrderStatusCode());
+			
+			
+		}
+		
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition", "attachment;filename=test.xls");
+		
+		wb. write(response.getOutputStream());
+		wb.close();
+		}
+	
+	/*
+     * @method name : downloadExcel
+     *
+     * @date : 2019.07.13
+     *
+     * @author : 판매정보 pdf 
+     *
+     * @description : 판매자 정보 수정
+     *
+     * @parameters : ModelAndView
+     *
+     * @return : String
+     *
+     * @example 
+     */
+		@RequestMapping(value = "/{shopid}/management/pdfDown", method = RequestMethod.GET)
+		public ModelAndView downloadExcel(HttpServletResponse response) throws Exception {
+			List<ManagementVo> Managementlist = service.selectPOIManagementList();
+			return new ModelAndView("pdfView","Managementlist", Managementlist); 
+		}
+		
+		@RequestMapping(value = "/{userid}/myshop/changeorder/{orderStatusCode}/{buyItemsId}", method = RequestMethod.GET)
+		public String updateOrder(@PathVariable("orderStatusCode") String orderStatusCode,
+				@PathVariable("buyItemsId") BigInteger buyItemsId) {
+
+			service.updateOrderStatusCode(orderStatusCode, buyItemsId);
+			return "redirect:/shops/{userid}/myshop/";
+		}
 	
 }

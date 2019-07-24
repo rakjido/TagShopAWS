@@ -131,7 +131,7 @@ $(function() {
 	
 	$(document).on('change','#editphoto', function() {
 		
-		const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+		
 		var file = $(this)[0].files[0];
 		
 		console.log(file);

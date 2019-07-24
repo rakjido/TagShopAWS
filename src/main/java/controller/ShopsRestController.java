@@ -52,7 +52,7 @@ public class ShopsRestController {
 	
 	@RequestMapping(value="/categories/list/{code}", method=RequestMethod.GET)
 	public List<ProductsVo> getCategories(@PathVariable("code") String code) throws Exception {
-		return null;
+		return service.smallCategories(code);
 	}
 	
 	@RequestMapping(value="/categories/price/{fromPrice}/{toPrice}", method=RequestMethod.GET)
@@ -65,37 +65,6 @@ public class ShopsRestController {
 		return service.productByColor(colors);
 	}
 	
-//	@Transactional
-//	@RequestMapping(value="/{userid}/baskets/{productItemid}", method=RequestMethod.POST)
-//	public String addBuyitems(@PathVariable("userid") String userid, @PathVariable("productItemid") BigInteger productItemid 
-//			,double unitPrice, int quantity) {
-//
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//
-//		System.out.println("구매추가전 ");
-//		map.put("deliveryFee", 2500);
-//		map.put("usedPoint", 0);
-//		map.put("userid", userid);
-//		map.put("unitPrice", unitPrice);
-//		map.put("quantity", quantity);
-//		map.put("productItemId", productItemid);
-//		
-//		buyService.addBuyitems(map);
-//		System.out.println("구매추가후");
-//		
-//		List<BigInteger> list = buyService.getBuyitemsId(userid);
-//		List<OptionsVo> optionList = service.getOption(productItemid);
-//		
-//		
-//		for (int i = 0; i < optionList.size(); i++) {
-//			selectedOptionVo.setBuyItemsId(list.get(list.size()-1));
-//			selectedOptionVo.setOptionCode(optionList.get(i).getOptionCode());
-//			selectedOptionVo.setOptionType(optionList.get(i).getOptionType());
-//			buyService.addSelectedOption(selectedOptionVo);
-//		}
-//
-//		return "redirect:/";
-//	}
 	
 	@RequestMapping(value="/check_name", method = RequestMethod.POST)
 	public int checkname(String name) {

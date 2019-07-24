@@ -78,7 +78,7 @@ $(function() {
 		/* Photo Popup Detail */
 		$(document).on('click', '.photo-grid .grid', function() {
 			
-			var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+			
 			
 //			var ctx = document.location.host;
 			
@@ -266,7 +266,6 @@ $(function() {
 				var photoid = $('.popup-all-sub img').attr('alt');
 				var location = $('#url-import').attr('href').split('/');
 				var photouserid = window.location.pathname.split('/');
-				const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 				var comment = $('#comment').val();
 				var commentappend = "";
 				var today = getRecentDate();
@@ -328,7 +327,6 @@ $(function() {
 				var photoid = $('.popup-all-sub img').attr('alt');
 				var location = $('#url-import').attr('href').split('/');
 				var photouserid = window.location.pathname.split('/');
-				const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 				var repost = $('#repost').val();
 				
 				
@@ -370,7 +368,6 @@ $(function() {
 				
 				/* 리포스트 */
 				if(likeclass == 'Repost'){
-					const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 					var src = $('.popup-all-sub img').attr('src');
 					var location = $('#url-import').attr('href').split('/');
 					var photouserid = window.location.pathname.split('/');
@@ -457,7 +454,6 @@ $(function() {
 					
 				}else if(likeclass == 'Repost-black'){
 					
-					const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 					var src = $('.popup-all-sub img').attr('src');
 					var location = $('#url-import').attr('href').split('/');
 					var photouserid = window.location.pathname.split('/');
@@ -600,7 +596,6 @@ $(function() {
 						
 									$('._9VEo1').removeClass('T-jvg');
 									$(this).addClass('T-jvg');
-									const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 									var location = window.location.pathname.split('/');
 
 									

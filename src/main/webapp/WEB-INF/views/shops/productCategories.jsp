@@ -175,14 +175,12 @@
 	<!-- 본문 끝 -->
 	
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-    
-    <!-- js파일 ! -->
-	<script src="${pageContext.request.contextPath}/resources/js/ajaxcategories.js"></script>
-    
+    <script src="${pageContext.request.contextPath}/resources/js/ajaxcategories.js"></script>
      
     <script>
-    		var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
-	    //var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+    	
+    console.log(ctx);
+    
 	 	function sameColor(color){
 	 		var curl = ctx+"/shops/categories/color/" + color;
 	 		ajaxfn(curl);
@@ -269,3 +267,5 @@
 
 
     </script>
+    
+	

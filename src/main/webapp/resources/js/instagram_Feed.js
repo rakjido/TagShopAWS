@@ -1,5 +1,6 @@
 
 $(function() {
+	
 	isRun = false;
 	/* feed 댓글 비동기 */
 	$(document).on('click','.yWX7d', function(e) {
@@ -7,7 +8,6 @@ $(function() {
 		var photoid = $(this).closest('.sH9wk1').closest('.post-interaction').closest('.post').find('.post-image img').attr('alt');
 		var location = $('#url-import').attr('href').split('/');
 		var photouserid = window.location.pathname.split('/');
-		const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 		var comment = $(this).closest('.sH9wk1').find('#comment').val();
 		var temp = $(this).closest('.sH9wk1').closest('.post-interaction');
 		var commentappend = "";
@@ -77,7 +77,6 @@ $(function() {
 		
 		var attr = $('a',this);
 		var followplus = 0;
-		const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 		var location = $('#url-import').attr('href').split('/');
 		var followid = $.trim($(this).closest('.user-account').find('.user-account-info h2').text());
 		console.log($('a',this).text());

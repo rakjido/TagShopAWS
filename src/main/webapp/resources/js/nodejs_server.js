@@ -12,7 +12,6 @@ $(document).ready(function(){
                 	
                 
                 $('.sqdOPaC').on('click',function() {
-                	const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
                 	var location = $('#url-import').attr('href').split('/');
                 	var photouserid = window.location.pathname.split('/');
                 	var url = ctx+"/" + location[2]+"/chats";

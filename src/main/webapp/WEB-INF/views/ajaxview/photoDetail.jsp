@@ -292,7 +292,7 @@ $(document).on("mouseenter","#plusImg2",function(e){ //마우스 오버시
     $('#deletebtn').click(function(){
         location.href="${pageContext.request.contextPath}/${detail.profile.userid}/photos/${detail.photos.photoId }/delete";
     });
-});
+}); 
 </script>
 	
 

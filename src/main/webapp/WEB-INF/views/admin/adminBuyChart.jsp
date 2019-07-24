@@ -178,7 +178,9 @@ Highcharts.chart('container', {
         text: 'Tag #'
     },
     xAxis: {
-        categories: [performanceJson[pNum-5].baseDate, performanceJson[pNum-4].baseDate, performanceJson[pNum-3].baseDate, performanceJson[pNum-2].baseDate, performanceJson[pNum-1].baseDate],
+        categories: [performanceJson[pNum-14].baseDate, performanceJson[pNum-13].baseDate, performanceJson[pNum-12].baseDate, performanceJson[pNum-11].baseDate, performanceJson[pNum-10].baseDate
+        	, performanceJson[pNum-9].baseDate, performanceJson[pNum-8].baseDate, performanceJson[pNum-7].baseDate, performanceJson[pNum-6].baseDate, performanceJson[pNum-5].baseDate, performanceJson[pNum-4].baseDate
+        	, performanceJson[pNum-3].baseDate, performanceJson[pNum-2].baseDate, performanceJson[pNum-1].baseDate],
         tickmarkPlacement: 'on',
         title: {
             enabled: false

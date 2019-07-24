@@ -83,7 +83,6 @@
 	<!-- Chart code -->
 	<script>
     am4core.ready(function() {
-    		var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
     		
     		var curl = ctx + "/shops" +"/tagrank";
     		

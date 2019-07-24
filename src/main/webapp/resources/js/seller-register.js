@@ -65,10 +65,6 @@ $(function() {
 		
 	});
 	
-	
-	
-	
-	var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	/* 판매자 닉네임 비동기 */
 	$("#sales_apply_myhomeurl").on("propertychange change keyup paste",function(){
 		var pattern = /^[0-9가-힣a-zA-Z]{2,15}$/;
@@ -101,20 +97,6 @@ $(function() {
 	})
 })
 
-
-
-
-/*	  회사 이름 정규식 (숫자,한글,영어,(,) 2-20글자)
-	$("#sales_apply_compnay").on("propertychange change keyup paste", function() {
-		var pattern = /^[()0-9가-힣a-zA-Z]{2,20}$/;
-		if(pattern.test($('#sales_apply_compnay').val())){
-			$("#company_name").css("color", "#0064FF");
-			$("#company_name").text("사용 가능합니다.");
-		}else{
-			$("#company_name").css("color", "#ff0000");
-			$("#company_name").text("숫자, 한글, 영어, 특수문자 ( , ) 2-20글자로 입력해주세요.");
-		}
-    });*/
 	 
 	/* 사업자번호 정규식 ex.123-12-12345 */
 	$("#sales_apply_license1").on("propertychange change keyup paste", function() {

@@ -1,4 +1,4 @@
-var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+
 function smallcodeM(code){
 	console.log(curl);
 	var curl = ctx + "/shops/categories/sub/" + code;

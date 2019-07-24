@@ -1,7 +1,7 @@
 
 $(function() {
 	var win = $(window);
-	const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+
 	var isRun = false;
 	
     // Each time the user scrolls

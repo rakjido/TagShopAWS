@@ -2270,3 +2270,17 @@ input:checked ~ .navigation-mypage-btn {
 /* ##### The End ##### */
 
 /*# sourceMappingURL=core-style.css.map */
+
+
+input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  opacity: 0.5;
+}
+input::-moz-placeholder { /* Firefox 19+ */
+  opacity: 0.5;
+}
+input:-ms-input-placeholder { /* IE 10+ */
+  opacity: 0.5;
+}
+input:-moz-placeholder { /* Firefox 18- */
+  opacity: 0.5;
+}

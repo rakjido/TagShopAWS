@@ -88,7 +88,8 @@
 }
 
 .card img.feature {
-  width: 100%;
+  width: 255px;
+  height: 360px;
 }
 
 .card .deets {

@@ -27,7 +27,6 @@
                 <div class="col-12 col-md-8">
 				<div>
 				<h2>Sales management</h2>
-<%-- 				<c:url value='/shops/${sessionScope.userid}/management/pdfDown'/> --%>
 				</div>
 				<div class="regular-page-content-wrapper section-padding-5">
 					<div class="regular-page-text">
@@ -114,8 +113,6 @@
 <script>
 		
 	    $( function() {
-	    	var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-/* 	    	$('#example').DataTable(); */
 		    $("#fromDatepicker").datepicker({dateFormat: 'yy-mm-dd'});
 		    $("#fromDatepicker").datepicker("setDate", -365);
 		    

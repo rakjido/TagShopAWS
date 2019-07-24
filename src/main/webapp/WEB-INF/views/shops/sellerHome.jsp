@@ -34,35 +34,17 @@
                         <div class="product-topbar-sub d-flex align-items-center justify-content-between">
                             <!-- Total Products -->
                             <div class="select-box d-flex mt-50">
-<!--                                     <form action="#" method="get"> -->
-<!--                                             <select name="select" id="sortByselect"> -->
-<!--                                                 <option value="value">카테고리</option> -->
-<!--                                                 <option value="value">인기순</option> -->
-<!--                                                 <option value="value">낮은가격순</option> -->
-<!--                                                 <option value="value">높은가격순</option> -->
-<!--                                             </select> -->
-<!--                                          <input type="submit" class="d-none" value=""> -->
-<!--                                     </form> -->
-<!--                                     <form action="#" method="get"> -->
-<!--                                             <select name="select" id="sortByselect"> -->
-<!--                                                 <option value="value">태그</option> -->
-<!--                                                 <option value="value">인기순</option> -->
-<!--                                                 <option value="value">낮은가격순</option> -->
-<!--                                                 <option value="value">높은가격순</option> -->
-<!--                                             </select> -->
-<!--                                          <input type="submit" class="d-none" value=""> -->
-<!--                                     </form> -->
+
                             </div>
                             <!-- Sorting -->
                             <div class="product-sorting d-flex mt-50">
-<!--                                 <form action="#" method="get"> -->
+
                                     <select name="select" id="sortByselect">
                                         <option value="productidDesc">최신순</option>
                                         <option value="priceDesc">높은가격순</option>
                                         <option value="priceAsc">낮은가격순</option>
                                     </select>
-<!--                                     <input type="submit" class="d-none" value=""> -->
-<!--                                 </form> -->
+
                             </div>
                             
                             
@@ -100,7 +82,7 @@
 						<div class="product-description-sub">
 							<a href="${pageContext.request.contextPath}/shops/${productsList[i].shopid}/products/${productsList[i].productid}"><span>${productsList[i].title}</span></a>
 							<a href="single-product-details.html">
-<%-- 								<h6>${productsList[i].description}</h6> --%>
+
 							</a>
 							<fmt:formatNumber value="${productsList[i].price}" type="number" var="price"/>
                                         <p class="product-price">${price} 원</p>
@@ -115,26 +97,7 @@
 		
 		<!-- Sample SourceCode End  -->
 
-<!-- 			<div class="col-12 col-md-4 col-lg-3"> -->
-<!-- 				<div class="single-product-wrapper-sub"> -->
-<!-- 					<figure class="snip1366"> -->
-<!-- 						<div class="image"> -->
-<!-- 							<img src="/tagshop/uploads/1.jpg" alt="sample36"> -->
-<!-- 						</div> -->
-<!-- 						<figcaption></figcaption> -->
-<!-- 						<a href="/tagshop/shops/SOS/products/1"></a> -->
-<!-- 					</figure> -->
-<!-- 					<div class="product-description-sub"> -->
 
-<!-- 						<a href="/tagshop/shops/SOS/products/1"><span>ZARA</span></a> <a -->
-<!-- 							href="single-product-details.html"> -->
-<!-- 							<h6>테스트</h6> -->
-<!-- 						</a> -->
-<!-- 						<p class="product-price">30000.0</p> -->
-
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
 
 			<!--  Sample SourceCode End -->
 

@@ -50,47 +50,54 @@
         FROM USERS WHERE ENABLED = 1
     </select>
     
-    <select id="recommend" resultType="vo.RecommendVo">
-	<![CDATA[
-		SELECT E.RNUM,E.USERID,prof.PHOTONAME
-		FROM(
-			SELECT @RNUM:=@RNUM+1 AS RNUM, USERID
-			FROM(
-				SELECT USERID
-				FROM(
-					SELECT DISTINCT USERID
-					FROM(
-						SELECT USERSUSERID AS USERID
-   						FROM LIKES
-   						WHERE PHOTOID IN (
-       						SELECT PHOTOID
-       						FROM LIKES
-       						WHERE USERSUSERID=#{userid}
-       						AND LIKEYN=TRUE
-   						)
-   						UNION ALL
-   						SELECT USERSUSERID AS USERID
-   						FROM COMMENTS
-   						WHERE PHOTOID IN (
-       						SELECT PHOTOID
-       						FROM COMMENTS
-       						WHERE USERSUSERID=#{userid}
-   						)
-   						UNION ALL
-   						SELECT FOLLOWERID AS USERID
-   						FROM FOLLOWER
-   						WHERE USERSUSERID = #{userid}
-					) AS A
-				) AS B ORDER BY RAND()
-			) AS C, (SELECT @RNUM:=0) AS D
-			WHERE USERID NOT IN(#{userid})
-		)AS E
-		JOIN PROFILE PROF
-        ON PROF.USERID=E.USERID
-        WHERE RNUM<=5 AND E.USERID NOT IN(#{userid})
-        ORDER BY RNUM
-		]]>
-	</select>
+	<select id="recommend" resultType="vo.RecommendVo">
+        <![CDATA[
+            SELECT TB.RNUM, TB.USERID, PROF.PHOTONAME 
+            FROM(
+                SELECT @RNUM:=@RNUM+1 AS RNUM, USERID
+                FROM(
+                    SELECT E.USERID
+                    FROM(
+                        SELECT USERID
+                        FROM(
+                            SELECT USERID
+                            FROM(
+                                SELECT DISTINCT USERID
+                                    FROM(
+                                        SELECT USERSUSERID AS USERID
+                                        FROM TAGSHOP.LIKES
+                                        WHERE PHOTOID IN (
+                                            SELECT PHOTOID
+                                            FROM TAGSHOP.LIKES
+                                            WHERE USERSUSERID = #{userid}
+                                            AND LIKEYN=TRUE
+                                        )
+                                        UNION ALL
+                                        SELECT USERSUSERID AS USERID
+                                        FROM TAGSHOP.COMMENTS
+                                        WHERE PHOTOID IN (
+                                            SELECT PHOTOID
+                                            FROM TAGSHOP.COMMENTS
+                                            WHERE USERSUSERID = #{userid}
+                                        )
+                                        UNION ALL
+                                        SELECT FOLLOWERID AS USERID
+                                        FROM TAGSHOP.FOLLOWER
+                                        WHERE USERSUSERID = #{userid}
+                                    ) AS A
+                                ) AS B ORDER BY RAND()
+                            ) AS C
+                        WHERE USERID NOT IN(#{userid})
+                    )AS E
+                    WHERE E.USERID NOT IN(#{userid})
+                ) AS TBA LEFT OUTER JOIN (SELECT * FROM TAGSHOP.FOLLOWING WHERE USERSUSERID=#{userid}) AS TBB
+                ON TBA.USERID=TBB.FOLLOWINGID, (SELECT @RNUM:=0) AS DD
+                WHERE TBB.FOLLOWINGID IS NULL
+            )AS TB JOIN TAGSHOP.PROFILE AS PROF
+            ON PROF.USERID=TB.USERID
+            WHERE TB.RNUM<=5;
+        ]]>
+    </select>
 
 	<insert id="insertSNS" parameterType="vo.SnsUserVo">
         INSERT INTO USERS (USERID, PASSWORD, ENABLED, EMAIL, CREATEDATE, UPDATEDATE)

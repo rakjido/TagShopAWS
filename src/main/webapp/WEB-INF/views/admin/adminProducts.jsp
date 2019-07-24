@@ -100,7 +100,6 @@ $('#buyShop').html(performanceJson[pNum-1].buyShop);
 $('#photoViews').html(performanceJson[pNum-1].photoViews);
 $('#sales').html(performanceJson[pNum-1].sales);
 $(function(){
-	var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	var curl = ctx + "/admin" +"/productsList";
 	$('#example').dataTable({
         pageLength: 5,

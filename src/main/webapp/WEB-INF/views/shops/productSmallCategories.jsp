@@ -86,20 +86,6 @@
                             </div>
                         </div>
 
-                        <!-- ##### Single Widget ##### -->
-                        <div class="widget brands mb-50">
-                            <!-- Widget Title 2 -->
-                            <p class="widget-title2 mb-30">Brands</p>
-                            <div class="widget-desc">
-                                <ul>
-                                    <li><a href="#">Asos</a></li>
-                                    <li><a href="#">Mango</a></li>
-                                    <li><a href="#">River Island</a></li>
-                                    <li><a href="#">Topshop</a></li>
-                                    <li><a href="#">Zara</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -110,7 +96,7 @@
                                 <div class="product-topbar d-flex align-items-center justify-content-between">
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span>186</span> products found</p>
+                                        <p><span></span> products found</p>
                                     </div>
                                     <!-- Sorting -->
                                     <div class="product-sorting d-flex">
@@ -182,8 +168,6 @@
     
      
     <script>
-    var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
-    	//var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	 	function sameColor(color){
 	 		var curl = ctx+"/shops/categories/color/" + color;
 	 		ajaxfn(curl);
@@ -197,9 +181,7 @@
 	 	
 	 	
 	 	$( ".slider-range" ).on( "slidechange", function() {
-	        //console.log("변경중");
 	        var priceArray = $('#priceRange').text().split('-');
-	        //alert($('#priceRange').text());
 	        var fromPrice = Number(priceArray[0].split('₩')[1]);
 	        var toPrice = Number(priceArray[1].replace('₩',''));
 	        betweenPrice(fromPrice, toPrice)
