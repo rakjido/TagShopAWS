@@ -262,4 +262,11 @@
         shopid,title,price,productid,photoFile FROM Products WHERE SMALLCATEGORYCODE = #{smallCategory}
    </select>
    
+   <select id="getTagsId" resultType="BigInteger">
+   		select productid from producttags where  tagsid = #{tagsid}
+   </select>
+   
+   <select id="getTagProducts" parameterType="BigInteger" resultType="vo.ProductsVo">
+   		select * from products where productid = #{productid}
+   </select>
  </mapper>

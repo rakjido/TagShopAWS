@@ -42,7 +42,6 @@
                                     <li><a href="${pageContext.request.contextPath}/shops/new">Register</a></li>
                                     <li><a href="#">Modify</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/products/new">Product Register</a></li>
-                                    <li><a href="#">Product Modify</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/management/">Sales Management</a></li>
                                 </ul></li>
                             

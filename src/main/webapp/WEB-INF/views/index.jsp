@@ -138,8 +138,8 @@
 				<div class="ks-item-filter" ks-filter-selector>
 					<ul class="ks-item-filter__categories clearfix"
 						ks-filter-categories>
-						<li data-category="languages" class="tags-item"><a href="#" onclick="smallcodeM(200400020); return false;">#향수</a></li>
-						<li data-category="cms" class="tags-item">#여름 패션</li>
+						<li data-category="languages" class="tags-item"><a href="#" onclick="smallcodeM(70); return false;">#향수</a></li>
+						<li data-category="cms" class="tags-item"><a href="#" onclick="smallcodeM(1); return false;">#댄디</li>
 						<li data-category="libraries" class="tags-item">#깔끔</li>
 						<li data-category="frameworks" class="tags-item">#힙합</li>
 						<li data-category="software" class="tags-item">#아메리칸</li>
@@ -215,37 +215,23 @@
 				<div class="col-12">
 					<div class="popular-products-slides owl-carousel">
 
-						<!-- Single Product -->
-						<div class="single-product-wrapper">
-							<!-- Product Image -->
-							<div class="product-img">
-								<img src="${pageContext.request.contextPath}/uploads/misterstreet1.jpg" alt="">
-							</div>
-						</div>
+						<c:forEach var="likephoto" items="${likephotos }">
+                       <!-- Single Product -->
 
-						<!-- Single Product -->
-						<div class="single-product-wrapper">
-							<!-- Product Image -->
-							<div class="product-img">
-								<img src="${pageContext.request.contextPath}/uploads/misterstreet1.jpg" alt="">
-							</div>
-						</div>
-
-						<!-- Single Product -->
-						<div class="single-product-wrapper">
-							<!-- Product Image -->
-							<div class="product-img">
-								<img src="${pageContext.request.contextPath}/uploads/misterstreet1.jpg" alt="">
-							</div>
-						</div>
-
-						<!-- Single Product -->
-						<div class="single-product-wrapper">
-							<!-- Product Image -->
-							<div class="product-img">
-								<img src="${pageContext.request.contextPath}/uploads/misterstreet1.jpg" alt="">
-							</div>
-						</div>
+                        <div class="card active">
+                            <img class="feature"
+                                src="${pageContext.request.contextPath}/uploads/${likephoto.fileName}"
+                                alt="${likephoto.photoId }">
+                            <div class="deets">
+                                <p><a href="${pageContext.request.contextPath}/${likephoto.userId}/">${likephoto.userId}</a></p>
+                                <div class="like-sec">
+                                    <div class="line"></div>
+                                    <img src="${pageContext.request.contextPath}/resources/img/core-img/heart.png" />
+                                    <div class="likes">${likephoto.cnt_Like }</div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
 						
 						
 					</div>

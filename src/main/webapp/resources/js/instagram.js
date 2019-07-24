@@ -3,7 +3,17 @@
 	
 $(function() {
 	
-	var ctx = document.location.host +"/";
+   /* 태그 클릭 시 이동 */
+    
+    $(document).on('click', '.profile-t',function(e){
+        
+        e.preventDefault();
+        var search = $(this).text();
+        var encode = encodeURIComponent(search);
+        
+        location.href="tag?search="+encode;
+        
+    });
 	
 	
 	/* 디테일 팔로우/팔로잉 버튼 이벤트 */
@@ -19,14 +29,14 @@ $(function() {
 			
 			
 			var following = {
-					followingId : photouserid[1],
-					usersuserId : location[1],
+					followingId : photouserid[2],
+					usersuserId : location[2],
 					follow : $(this).text()
 							};
 			var json = JSON.stringify(following);
 			
 			$.ajax({
-				url: "photos/"+location[1]+"/follow",
+				url: "photos/"+location[2]+"/follow",
 				type: "POST",
 				data: json,
 				dataType: "JSON",
@@ -68,19 +78,17 @@ $(function() {
 		/* Photo Popup Detail */
 		$(document).on('click', '.photo-grid .grid', function() {
 			
-			//const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+			var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+			
+//			var ctx = document.location.host;
 			
 			console.log(ctx);
 			var src = $('img', this).attr('src');
 			var photoid = $('img', this).attr('alt');
 			var location = $('#url-import').attr('href').split('/');
 			var photouserid = window.location.pathname.split('/');
-			var url = ctx + location[1]+"/photos/"+photouserid[1]+"/"+photoid;
+			var url = ctx+"/" + location[2]+"/photos/"+photouserid[2]+"/"+photoid;
 			var profileimg = $('.profile-photo-link img').attr('src');
-			
-			console.log(location);
-			console.log(photouserid);
-			console.log(url);
 			
 			$.ajax({
 				url: url,
@@ -179,14 +187,14 @@ $(function() {
 					follow = "팔로우";
 				}
 					var following = {
-							followingId : photouserid[1],
-							usersuserId : location[1],
+							followingId : photouserid[2],
+							usersuserId : location[2],
 							follow : follow
 									};
 					var json = JSON.stringify(following);
 					
 					$.ajax({
-						url: "photos/"+location[1]+"/follow",
+						url: "photos/"+location[2]+"/follow",
 						type: "POST",
 						data: json,
 						dataType: "JSON",
@@ -258,13 +266,14 @@ $(function() {
 				var photoid = $('.popup-all-sub img').attr('alt');
 				var location = $('#url-import').attr('href').split('/');
 				var photouserid = window.location.pathname.split('/');
+				const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 				var comment = $('#comment').val();
 				var commentappend = "";
 				var today = getRecentDate();
 				
 				
 				$.ajax({
-					url: ctx+"/"+ location[1] +"/comments/"+ photouserid +"/"+ photoid,
+					url: ctx+"/"+ location[2] +"/comments/"+ photouserid +"/"+ photoid,
 					type: "POST",
 					data: {comment: comment},
 					dataType: "JSON",
@@ -278,7 +287,7 @@ $(function() {
 							'</div>' +
 							'<div class="C4VMK">' +
 								'<div class="profile-name-sub">' +
-									'<a class="profile-a" title="" href="'+ ctx +'/'+ location[1] +'/">'+ location[1] +'</a>' +
+									'<a class="profile-a" title="" href="'+ ctx +'/'+ location[2] +'/">'+ location[2] +'</a>' +
 									'<span class="RPhNB">'+ comment +'</span>' +
 									'<div class="Igw0E">' +
 										'<div class="PIoXz">' +
@@ -319,11 +328,12 @@ $(function() {
 				var photoid = $('.popup-all-sub img').attr('alt');
 				var location = $('#url-import').attr('href').split('/');
 				var photouserid = window.location.pathname.split('/');
+				const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 				var repost = $('#repost').val();
 				
 				
 				$.ajax({
-					url: ctx+"/"+ location[1] +"/reposts/"+ photouserid +"/"+ photoid,
+					url: ctx+"/"+ location[2] +"/reposts/"+ photouserid +"/"+ photoid,
 					type: "POST",
 					data: {repost: repost},
 					success : function(data) {
@@ -360,6 +370,7 @@ $(function() {
 				
 				/* 리포스트 */
 				if(likeclass == 'Repost'){
+					const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 					var src = $('.popup-all-sub img').attr('src');
 					var location = $('#url-import').attr('href').split('/');
 					var photouserid = window.location.pathname.split('/');
@@ -368,10 +379,10 @@ $(function() {
 					var photoid = $('.popup-all-sub img').attr('alt');
 					
 					
-					if(useridyou[3] == 'feeds' && location[1] == useridyou[2]){
+					if(useridyou[3] == 'feeds' && location[2] == useridyou[2]){
 						
 						
-						url = ctx+"/" + location[1]+"/reposts/"+photouserid[1]+"/"+feedphotoid;
+						url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+feedphotoid;
 						
 						$.ajax({
 							url: url,
@@ -404,9 +415,9 @@ $(function() {
 							}
 						});
 						
-					}else if(location[1] != useridyou[2]){
+					}else if(location[2] != useridyou[2]){
 						
-						url = ctx+"/" + location[1]+"/reposts/"+photouserid[1]+"/"+photoid;
+						url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+photoid;
 						
 						$.ajax({
 							url: url,
@@ -446,6 +457,7 @@ $(function() {
 					
 				}else if(likeclass == 'Repost-black'){
 					
+					const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 					var src = $('.popup-all-sub img').attr('src');
 					var location = $('#url-import').attr('href').split('/');
 					var photouserid = window.location.pathname.split('/');
@@ -453,9 +465,9 @@ $(function() {
 					var url = "";
 					var photoid = $('.popup-all-sub img').attr('alt');
 					
-					if(location[1] == photouserid[1] && useridyou[3] != 'feeds'){
+					if(location[2] == photouserid[2] && useridyou[3] != 'feeds'){
 					
-						url = ctx+"/" + location[1]+"/repostsOk/"+photouserid[1]+"/"+photoid;
+						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+photoid;
 						
 						
 						$.ajax({
@@ -471,7 +483,7 @@ $(function() {
 					}else if(useridyou[3] == 'feeds'){
 						
 						
-						url = ctx+"/" + location[1]+"/repostsOk/"+photouserid[1]+"/"+feedphotoid;
+						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+feedphotoid;
 						
 						$.ajax({
 							url: url,
@@ -485,7 +497,7 @@ $(function() {
 						
 					}else{
 						
-						url = ctx+"/" + location[1]+"/repostsOk/"+photouserid[1]+"/"+photoid;
+						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+photoid;
 						
 						$.ajax({
 							url: url,
@@ -507,7 +519,7 @@ $(function() {
 					$( ".Ypffh" ).focus();
 					$(this).closest('.post-interaction').closest('.post').find('.Ypffh1').focus();
 					
-				}else if(likeclass == 'Heart' && useridyou[3] == 'likes' || likeclass == 'Heart' && location[1] != useridyou[2] || likeclass == 'Heart' && useridyou[3] == 'feeds'){
+				}else if(likeclass == 'Heart' && useridyou[3] == 'likes' || likeclass == 'Heart' && location[2] != useridyou[2] || likeclass == 'Heart' && useridyou[3] == 'feeds'){
 						if(likeclass == 'Heart' && useridyou[3] == 'feeds'){
 							
 							$('span', this).addClass('Heart-black');
@@ -515,32 +527,32 @@ $(function() {
 							
 							$(this).closest('.post-interaction').find('.likes-display span').text(likecount+1);
 							
-							likecheckok(location[1], feedphotoid, true);
+							likecheckok(location[2], feedphotoid, true);
 							
 						}else{
 							
 							$('span', this).addClass('Heart-black');
 							$('span', this).removeClass('Heart');
 							
-							likecheckok(location[1], photoid, true);
+							likecheckok(location[2], photoid, true);
 						}
 						
 					
 				
-				}else if (likeclass == 'Heart-black' && useridyou[3] == 'likes' || likeclass == 'Heart-black' && location[1] != useridyou[2] || likeclass == 'Heart-black' && useridyou[3] == 'feeds') {
+				}else if (likeclass == 'Heart-black' && useridyou[3] == 'likes' || likeclass == 'Heart-black' && location[2] != useridyou[2] || likeclass == 'Heart-black' && useridyou[3] == 'feeds') {
 						if(likeclass == 'Heart-black' && useridyou[3] == 'feeds'){
 							$('span', this).addClass('Heart');
 							$('span', this).removeClass('Heart-black');
 							
 							$(this).closest('.post-interaction').find('.likes-display span').text(likecount-1);
 							
-							likecheckok(location[1], feedphotoid, false);
+							likecheckok(location[2], feedphotoid, false);
 						}else{
 							
 							$('span', this).addClass('Heart');
 							$('span', this).removeClass('Heart-black');
 							
-							likecheckok(location[1], photoid, false);
+							likecheckok(location[2], photoid, false);
 						}
 				}
 
@@ -588,11 +600,12 @@ $(function() {
 						
 									$('._9VEo1').removeClass('T-jvg');
 									$(this).addClass('T-jvg');
+									const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 									var location = window.location.pathname.split('/');
 
 									
 						$.ajax({
-							url: "/tagshop/"+location[1]+"/",
+							url: "/tagshop/"+location[2]+"/",
 							type: "POST",
 							dataType: "html",
 							success : function(data) {
@@ -616,7 +629,7 @@ $(function() {
 						$.ajax({
 							url: "likes",
 							type: "POST",
-							data: {userid: location[1]},
+							data: {userid: location[2]},
 							dataType: "html",
 							success : function(data) {
 								

@@ -82,17 +82,17 @@ chat {
   border-radius: 50%;
   margin: 10px 20px;
 }
- #chats li h1, h2 {
+ #chats li .h1-chat, .h2-chat {
   margin: 0;
   font-weight: 300;
   float: left;
 }
- #chats li h1 {
+ #chats li .h1-chat {
   font-size: 17px;
   margin-top: 13px;
   color: #50495B;
 }
- #chats li h2 {
+ #chats li .h2-chat {
   font-size: 14px;
   margin-top: 5px;
   color: #9B9B9B;

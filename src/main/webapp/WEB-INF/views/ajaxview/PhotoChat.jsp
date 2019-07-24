@@ -16,8 +16,8 @@
     </header>
     <li class='actual'>
       <img src="${pageContext.request.contextPath}/uploads/${profilevo.photoName}" />
-      <h1>${profilevo.userid }</h1>
-      <h2>● ● ●</h2>
+      <h1 class="h1-chat">${profilevo.userid }</h1>
+      <h2 class="h2-chat">● ● ●</h2>
     </li>
     <span id='status'>Available</span>
   </aside>

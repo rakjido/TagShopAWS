@@ -9,8 +9,6 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	
 	<script type="text/javascript">
 	
@@ -66,41 +64,6 @@
 		        }).open();
 		    }
 
-		    $('#payment').click(function() {
-	
-		        var payAmount = $('#amount').val();
-		        alert(payAmount);
-
-
-		        var IMP = window.IMP;
-		        IMP.init('iamport'); //  가맹점 식별코드 
-
-		        IMP.request_pay({
-		            pg : 'inicis', // version 1.1.0부터 지원.
-		            pay_method : 'card',
-		            merchant_uid : 'tagshop_' + new Date().getTime(),
-		            name : '주문명:결제테스트',
-		            amount : payAmount,
-//		            buyer_email : 'iamport@siot.do',
-		            buyer_name : '구매자이름',
-		            buyer_tel : '010-1234-5678',
-//		            buyer_addr : '서울특별시 강남구 삼성동',
-//		            buyer_postcode : '123-456',
-		            m_redirect_url : 'https://localhost:8080/instashop/test/complete'
-		        }, function(rsp) {
-		            if ( rsp.success ) {
-		                var msg = '결제가 완료되었습니다.';
-		                msg += '고유ID : ' + rsp.imp_uid;
-		                msg += '상점 거래ID : ' + rsp.merchant_uid;
-		                msg += '결제 금액 : ' + rsp.paid_amount;
-		                msg += '카드 승인번호 : ' + rsp.apply_num;
-		            } else {
-		                var msg = '결제에 실패하였습니다.';
-		                msg += '에러내용 : ' + rsp.error_msg;
-		            }
-		            alert(msg);
-		        });
-		    });
 
 	</script>
 	
@@ -289,6 +252,8 @@
                             <li><span>배송비</span> <span>${deliveryFee} 원</span></li>
                             <li><span>포인트 사용</span> <span id="span_point">0원</span></li>
                             <c:set var="FinalSettle" value="${TotalSum + Itemlist[0].deliveryFee}"></c:set>
+                            
+                            <input type="hidden" name="finalPrice" value="${FinalSettle}">
                             <fmt:formatNumber value="${FinalSettle}" type="number" var="finalSettle"/>
                             <li><span>총 결제 금액</span> <span id="final_price">${finalSettle} 원</span></li>
                             

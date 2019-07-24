@@ -44,15 +44,15 @@
                                     <div class="row">
                                         <div class="col-6 pzero">
                                             <input type="text" class="form-control" name="quantity"
-                                                value="1">
+                                                value="1" id="quantity">
                                         </div>
                                         <div class="pzero w40p">
                                             <input type="button" class="form-control plusbtnback"
-                                                id="company">
+                                                id="plusbtnback">
                                         </div>
                                         <div class="pzero w40p" style="color: white">
                                             <input type="button" class="form-control minusbtnback"
-                                                id="company">
+                                                id="minusbtnback">
                                         </div>
                                     </div>
                                 </div>
@@ -112,8 +112,23 @@
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <!-- js파일 ! -->
 <script>
-    
+	
     $(document).ready(function() {
+    	var btnNum = 0;
+
+        
+        $('#plusbtnback').click(function(){
+        	++btnNum;
+        	$('#quantity').val(btnNum);
+        });
+        
+        $('#minusbtnback').click(function(){
+        	if(btnNum != 1){
+        		--btnNum;
+            	$('#quantity').val(btnNum);
+        	}
+        });
+        
         function priceFormat(num){
             var len, point, str; 
             num = num + "";

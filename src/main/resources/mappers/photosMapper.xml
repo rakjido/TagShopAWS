@@ -264,5 +264,15 @@
      ORDER BY RANKING DESC
 </select>
 
+<select id="getAllLikePhotos" resultType="vo.PhotoLikePhotosVo">
+    
+    SELECT P.PHOTOID, P.FILENAME,USERID, SUM(L.LIKEYN) AS CNT_LIKE
+    FROM PHOTO P JOIN LIKES L
+    ON P.PHOTOID = L.PHOTOID
+    AND L.LIKEYN=1
+    GROUP BY P.PHOTOID
+    ORDER BY CNT_LIKE DESC LIMIT 0, 6
+
+</select>
 
 </mapper>

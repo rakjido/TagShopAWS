@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import service.BuyService;
+import service.PhotosService;
 import service.ProfileService;
 import service.ShopsService;
 import vo.CodeVo;
 import vo.OrderedItemsOptionsVo;
 import vo.OrderedItemsVo;
+import vo.PhotoLikePhotosVo;
 import vo.ProductsVo;
 import vo.ProfileVo;
 import vo.SelectedOptionVo;
@@ -57,6 +59,9 @@ public class HomeController {
 	
 	@Autowired
 	private ShopsService shopsService;
+	
+	@Autowired
+    private PhotosService photoservice;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -68,6 +73,10 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		List<ProductsVo> list = shopsService.productCategories("200400020");
 		String formattedDate = dateFormat.format(date);
+		
+		
+		List<PhotoLikePhotosVo> likephotos = photoservice.getAllLikePhotos();
+		model.addAttribute("likephotos", likephotos);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("serverTime", formattedDate );
@@ -107,6 +116,7 @@ public class HomeController {
 	public String orderProcess(@PathVariable("userid") String userid
 			                 , @RequestParam("usedPoint") double usedPoint
 			                 , @RequestParam("deliveryFee") double deliveryFee
+			                 , @RequestParam("finalPrice") double finalPrice
 			                 , @RequestParam("basketId") BigInteger basketId
 			                 , @RequestParam("recipientName") String recipientName
 			                 , @RequestParam("address1") String address1
@@ -119,8 +129,9 @@ public class HomeController {
 		
 		System.out.println(usedPoint);
 		System.out.println(deliveryFee);
-		System.out.println(basketId);
+		System.out.println(finalPrice);
 		
+		System.out.println(basketId);
 		profileVo.setUserid(userid);
 		profileVo.setRecipientName(recipientName);
 		profileVo.setAddress1(address1);
@@ -133,8 +144,14 @@ public class HomeController {
 		buyService.updateBakset(basketId, deliveryFee, usedPoint);
 		buyService.changeOrderStatus(basketId, "OR03");
 		profileService.updateShoppingInfo(profileVo);
+
+		// return "redirect:/";
+
+		// 이하 임시 조치 
+		session.setAttribute("finalPrice", finalPrice);
+		session.setAttribute("basketId", basketId);
 		
-		return "redirect:/";
+		return "shops/settle";
 	}
 
 	

@@ -241,4 +241,16 @@ public class ShopsService {
         ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
         return dao.productSmallCategories(smallCategory);
     }
+    
+    public List<BigInteger> getTagsId(BigInteger tagsid){
+    	ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+        return dao.getTagsId(tagsid);
+    }
+    
+    public ProductsVo getTagProducts(BigInteger productid) {
+    	ShopsDao dao = sqlSession.getMapper(ShopsDao.class);
+    	return dao.getTagProducts(productid);
+    }
+    
+
 }

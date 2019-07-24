@@ -19,7 +19,6 @@
             <div class="row">
                 <div class="col-12 col-md-4 col-lg-3">
                     <div class="shop_sidebar_area">
-
                         <!-- ##### Single Widget ##### -->
 						<div class="widget catagory mb-50">
 							<!-- Widget Title -->
@@ -110,7 +109,7 @@
                                 <div class="product-topbar d-flex align-items-center justify-content-between">
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span>186</span> products found</p>
+                                        <p>products found</p>
                                     </div>
                                     <!-- Sorting -->
                                     <div class="product-sorting d-flex">
@@ -182,7 +181,8 @@
     
      
     <script>
-	    var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+    		var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
+	    //var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	 	function sameColor(color){
 	 		var curl = ctx+"/shops/categories/color/" + color;
 	 		ajaxfn(curl);

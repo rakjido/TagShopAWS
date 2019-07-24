@@ -17,6 +17,7 @@ import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
+import vo.PhotoLikePhotosVo;
 import vo.PhotoRegisterVo;
 import vo.PhotoTagsJoinVo;
 import vo.PhotosVo;
@@ -350,5 +351,12 @@ public class PhotosService {
         map.put("language", language);
         map.put("keyword", keyword);
         return dao.searchPhotoTagsbyRanking(map);       
+    }
+    
+    public List<PhotoLikePhotosVo> getAllLikePhotos() {
+        
+        PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+        
+        return dao.getAllLikePhotos();
     }
 }

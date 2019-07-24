@@ -229,21 +229,21 @@ $(function(){
 	
 	if('${productList}' != ""){
 	var tagStr = '';
-	var productList =  JSON.parse('${productList}');
+/* 	var productList =  JSON.parse('${productList}'); */
 	var xOffset = 10;
     var yOffset = 30;
 
-    $(document).on("mouseover","#plusImg",function(e){ //마우스 오버시
+    $(document).on("mouseenter","#plusImg",function(e){ //마우스 오버시
     	
-    	console.log(productList);
+
     	
-    	productList =  JSON.parse('${productList}');
+    	 var productList =  JSON.parse('${productList}');
     	
     	tagStr = '<div id="preview">' + 
 				    '<div style="flex:0 0 100%; width:300px; height:300px">'+
-				    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[0].photoFile +'"class="fullimg"/></div>' +				
-				    '<h6  style="text-align:center">'+ productList[0].title +'</h6></div>';
-		console.log(tagStr);
+				    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[1].photoFile +'"class="fullimg"/></div>' +				
+				    '<h6  style="text-align:center">'+ productList[1].title +'</h6></div>';
+		console.log(productList);
 		
     	$("body").append(tagStr);                    
         $("#preview")
@@ -252,23 +252,23 @@ $(function(){
             .fadeIn("fast"); //미리보기 화면 설정 셋팅
     });
     
-    $(document).on("mousemove","#plusImg",function(e){ //마우스 이동시
+/*     $(document).on("mousemove","#plusImg",function(e){ //마우스 이동시
         $("#preview")
             .css("top",(e.pageY - xOffset - 50) + "px")
             .css("left",(e.pageX + yOffset) + "px");
-    });
+    }); */
      
-    $(document).on("mouseout","#plusImg",function(){ //마우스 아웃시
+    $(document).on("mouseleave","#plusImg",function(){ //마우스 아웃시
         $("#preview").remove();
     });
     
-$(document).on("mouseover","#plusImg2",function(e){ //마우스 오버시
-	productList =  JSON.parse('${productList}');
-	
+$(document).on("mouseenter","#plusImg2",function(e){ //마우스 오버시
+	var productList =  JSON.parse('${productList}');
+	console.log(productList);
 	tagStr = '<div id="preview2">' + 
     '<div style="flex:0 0 100%; width:300px; height:300px">'+
-    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[1].PhotoFile +'"class="fullimg"/></div>' +				
-    '<h6  style="text-align:center">'+ productList[1].title +'</h6></div>';
+    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[0].PhotoFile +'"class="fullimg"/></div>' +				
+    '<h6  style="text-align:center">'+ productList[0].title +'</h6></div>';
         
         $("body").append(tagStr); //보여줄 이미지를 선언                       
         $("#preview2")
@@ -277,13 +277,13 @@ $(document).on("mouseover","#plusImg2",function(e){ //마우스 오버시
             .fadeIn("fast"); //미리보기 화면 설정 셋팅
     });
     
-    $(document).on("mousemove","#plusImg2",function(e){ //마우스 이동시
+/*     $(document).on("mousemove","#plusImg2",function(e){ //마우스 이동시
         $("#preview2")
             .css("top",(e.pageY - xOffset - 50) + "px")
             .css("left",(e.pageX + yOffset) + "px");
-    });
+    }); */
      
-    $(document).on("mouseout","#plusImg2",function(){ //마우스 아웃시
+    $(document).on("mouseleave","#plusImg2",function(){ //마우스 아웃시
         $("#preview2").remove();
     });
     

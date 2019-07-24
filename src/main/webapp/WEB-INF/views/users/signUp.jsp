@@ -138,24 +138,6 @@
             <div class="signup-title">
               <span>회원 가입</span>
             </div>
-            <div class="signup-icon">
-              <div class="icon-btn">
-                <button type="button" class="signup-icon-btn-facebook">
-                  <i class="mdi mdi-facebook-box signup-icon-text icon-color-facebook"></i>
-                </button>
-              </div>
-              <div class="icon-btn">
-                <button type="button" class="signup-icon-btn-google">
-                    <i class="mdi mdi-google signup-icon-text icon-color-google"></i>
-                </button>
-              </div>
-              <div class="icon-btn">
-                <button type="button" class="signup-icon-btn-instagram">
-                    <i class="mdi mdi-instagram signup-icon-text icon-color-instagram"></i>
-                </button>
-              </div>
-            </div>
-            
           </div>
     
           <div class="signup_details-sub clearfix">

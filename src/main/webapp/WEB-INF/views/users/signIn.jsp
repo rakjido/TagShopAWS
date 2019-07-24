@@ -20,31 +20,30 @@
             </div>
             <div class="signin-icon">
             <!-- Facebook Login -->
-            <div class="icon-btn">
-             <a href="facebookSignin.do">
-               <button type="button" class="signup-icon-btn-facebook">
-                 <i class="mdi mdi-facebook-box signup-icon-text icon-color-facebook"></i>
+            <div class="ml-10" style='margin-left: 10px;'>
+           <div class="icon-btn">
+            <a href="facebookSignin.do">
+              <button type="button" class="signup-icon-btn-facebook">
+                <i class="mdi mdi-facebook-box signup-icon-text icon-color-facebook"></i>
+              </button>
+              </a>
+            </div>
+            <!-- Facebook Login End-->
+<!--               <div class="icon-btn">
+               <button type="button" class="signin-icon-btn-facebook">
+                 <i class="mdi mdi-facebook-box signin-icon-text icon-color-facebook"></i>
+               </button>
+             </div> -->
+             <div class="icon-btn">
+             <a href="${url }">
+               <button type="button" class="signin-icon-btn-naver">
+                   <i class="mdi mdi-alpha-n-box signin-icon-text icon-color-naver"></i>
                </button>
                </a>
-             </div>                             
-             <!-- Facebook Login End-->
-<!--               <div class="icon-btn">
-                <button type="button" class="signin-icon-btn-facebook">
-                  <i class="mdi mdi-facebook-box signin-icon-text icon-color-facebook"></i>
-                </button>
-              </div> -->
-              <div class="icon-btn">
-              <a href="${url }">
-                <button type="button" class="signin-icon-btn-naver">
-                    <i class="mdi mdi-alpha-n-box signin-icon-text icon-color-naver"></i>
-                </button>
-                </a>
-              </div>
-              <div class="icon-btn">
-                <button type="button" class="signin-icon-btn-instagram">
-                    <i class="mdi mdi-instagram signin-icon-text icon-color-instagram"></i>
-                </button>
-              </div>
+             </div>
+             </div>
+              
+              
             </div>
             <div class="signin_mid"><span class="grey--text text--lighten-1">SNS계정으로 간편 로그인/회원가입</span>
             </div>

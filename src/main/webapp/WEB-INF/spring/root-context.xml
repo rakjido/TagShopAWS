@@ -26,6 +26,10 @@
 		<property name="url" value="${db.url}" />
 		<property name="username" value="${db.username}" />
 		<property name="password" value="${db.password}" />
+		<!-- Mysql은 기본적으로 8시간 접속이 없으면 DB connection이 끊어짐. 이하는 특정시간마다 커넥션을 확인하는 세팅 -->
+       <property name="validationQuery" value="select 1"/>
+       <property name="testWhileIdle" value="true"/>
+       <property name="timeBetweenEvictionRunsMillis" value="7200000"/>
 	</bean>
 
  	<!-- SqlSessionFactory 객체 주입 -->
@@ -85,6 +89,6 @@
         <property name="connectionFactory" ref="connectionFactory"/>
     </bean>
     
-
+	
 
 </beans>

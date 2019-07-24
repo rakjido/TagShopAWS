@@ -21,25 +21,6 @@
 	
     <div class="top_catagory_area section-padding-80 clearfix insta-background">
     
- <%--  	<div class="user-info tagSearch bg-img">
-                 <div class="container">
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-3 profile-photo">
-                      <div class="img-wrapper">
-                        <img src="${pageContext.request.contextPath}/resources/img/bg-img/bg-8.jpg" alt="profileimg" />
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                      <div class="user-website">
-                          <a href="${profile.website }" target="_blank">${profile.website }</a>
-                      </div>
-                      <div class="user-biography">
-                         <span>${profile.introduction }</span>
-                      </div>
-                    </div>
-                  </div>
-                </div> 
-              </div>--%>
 		<div class="breadcumb_area bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center tCenter">
@@ -56,13 +37,6 @@
 
    	  <div id="instafeed">
       <div class="photocontent">
-            <div class="fx7hk">
-          	<a class="_9VEo1 T-jvg" href="${pageContext.request.contextPath}/${profile.userid}/">
-          	<span class="smsjF">
-            <div class="coreSpriteDesktopProfileTag"></div>
-            <span class="PJXu4">Tag</span>
-          </span></a>
-        </div>
         
         <!-- ##### Ajax Loading Bar Start ##### -->
 

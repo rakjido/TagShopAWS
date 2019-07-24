@@ -84,4 +84,8 @@ public interface ShopsDao {
 	public void updateOrderStatusCode(HashMap<String, Object> map);
 	
     public List<ProductsVo> productSmallCategories(String smallCategory);
+    
+    public List<BigInteger> getTagsId(BigInteger tagsid);
+    
+    public ProductsVo getTagProducts(BigInteger productid);
 }

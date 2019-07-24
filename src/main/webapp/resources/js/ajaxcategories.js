@@ -31,6 +31,7 @@ function numberFormat(number) {
 }
 
 function ajaxfn(curl){
+	var categoryNum = 0;
 	$.ajax({
 		type : "GET",
 		url : curl,
@@ -56,6 +57,7 @@ function ajaxfn(curl){
 		                        '원</p><div class="hover-content"><div class="add-to-cart-btn">'+
 		                        '<a href="'+ctx+'/shops/'+item.shopid+'/products/'+ item.productid+'" class="btn essence-btn">상세 보기</a>' +
 		                            '</div></div></div></div></div>';
+				categoryNum++;
 			});
 			
 			$('#categoriesRow').append(jsontable);
@@ -66,6 +68,7 @@ function ajaxfn(curl){
 
 $(function(){
 	$('#sortByselect').change(function() {
+		var categoryNum = 0;
 		var ajaxurl = ctx + "/shops/categories/sort/" + $('#sortByselect').val();
 		$.ajax({
 			type : "GET",
@@ -92,6 +95,7 @@ $(function(){
 			                        '원</p><div class="hover-content"><div class="add-to-cart-btn">'+
 			                        '<a href="'+ctx+'/shops/'+item.shopid+'/products/'+ item.productid+'" class="btn essence-btn">상세 보기</a>' +
 			                            '</div></div></div></div></div>';
+					categoryNum++;
 				});
 				
 				$('#categoriesRow').append(jsontable);

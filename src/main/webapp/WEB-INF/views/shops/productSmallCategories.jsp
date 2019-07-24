@@ -182,7 +182,8 @@
     
      
     <script>
-    	var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+    var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
+    	//var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	 	function sameColor(color){
 	 		var curl = ctx+"/shops/categories/color/" + color;
 	 		ajaxfn(curl);
@@ -190,6 +191,7 @@
 	 	
 	 	function betweenPrice(fromPrice, toPrice){
 	 		var curl = ctx+"/shops/categories/price/" + fromPrice + "/" + toPrice;
+	 
 	 		ajaxfn(curl);
 		}
 	 	

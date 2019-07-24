@@ -55,7 +55,7 @@ public class TagsLocaleService {
 		// 해당언어(한국어, 영어등)로 해당 단어가 이미 존재하는지 검사
 		
 		HashMap<String, String> map = new HashMap<String, String>();
-		String origin = TranslationUtil.detectLanguage(tags);
+		String origin = TranslationUtil.detectLanguage(tags.trim());
 		String tagName = "TagsName" + origin;
 		
 		map.put("column", tagName);
@@ -83,11 +83,11 @@ public class TagsLocaleService {
 					case "ko" : tagsLocaleVo.setTagsNameKo(out); break;
 				}
 			}
-
+			System.out.println(tagsLocaleVo);
+			dao.insertTagsLocale(tagsLocaleVo);
 		}
 
-		System.out.println(tagsLocaleVo);
-		dao.insertTagsLocale(tagsLocaleVo);
+		
 		
 		return map;
 

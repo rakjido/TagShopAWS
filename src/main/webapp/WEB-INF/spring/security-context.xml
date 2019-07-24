@@ -13,7 +13,9 @@
     	<security:intercept-url pattern="/include/**" access="permitAll" />	
         <security:intercept-url pattern="/users/**" access="permitAll" />
         <security:intercept-url pattern="/" access="permitAll" />
+        <security:intercept-url pattern="/uploads/**" access="permitAll" />
          <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+         
         <security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER, ROLE_SELLER, ROLE_ADMIN')" />
         
         <security:form-login login-page="/users/login"

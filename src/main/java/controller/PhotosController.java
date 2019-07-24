@@ -242,10 +242,8 @@ public class PhotosController {
 		    	photosvo.setUserId(userid);
 		    }   
 		}
-		
-		if(photoRegisterVo.getARefLink().equals("")) {
-			photoRegisterVo.setARefLink("http://192.168.1.22:8090/tagshop/shops/test/products/45");
-		}
+		System.out.println("링크가 무엇이냐 : " + photoRegisterVo.getARefLink());
+
 		if(photoRegisterVo.getBRefLink().equals("noLink")) {
 			photoRegisterVo.setBRefLink("http://192.168.1.22:8090/tagshop/shops/test/products/45");
 		}

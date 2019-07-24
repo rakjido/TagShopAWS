@@ -1,5 +1,7 @@
 package controller;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import service.ShopsService;
 import service.TagsLocaleService;
 import utils.DateUtil;
-import vo.ManagementVo;
-import vo.PhotoTagsVo;
 import vo.ProductsVo;
 import vo.TagRankVo;
 import vo.TagsTableVo;
@@ -37,8 +37,17 @@ public class ShopsRestController {
 	}
 	
     @RequestMapping(value="/categories/sub/{code}", method=RequestMethod.GET)
-	public List<ProductsVo> byCategories(@PathVariable("code") String code) throws Exception {
-		return service.smallCategories(code);
+	public List<ProductsVo> byCategories(@PathVariable("code") BigInteger code) throws Exception {
+    	
+    	List<BigInteger> tagsIds = service.getTagsId(code);
+    	
+    	List<ProductsVo> tagsProducts = new ArrayList<ProductsVo>();
+    	
+    	for(int i = 0; i < 6 ; i++) {
+    		tagsProducts.add(service.getTagProducts(tagsIds.get(i)));
+    	}
+    	
+		return tagsProducts;
 	}
 	
 	@RequestMapping(value="/categories/list/{code}", method=RequestMethod.GET)

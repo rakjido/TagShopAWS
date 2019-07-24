@@ -56,13 +56,12 @@
         .w40p{
         	 width:40px;
         }
-        
         .plusbtnback{
-            background : url('/tagshop/uploads/plus.png'); 
+            background : url('/tagshop/resources/img/sample-img/plus.png'); 
             background-size:cover;
         }
         .minusbtnback{
-            background : url('/tagshop/uploads/minus.png'); 
+            background : url('/tagshop/resources/img/sample-img/minus.png'); 
             background-size:cover;
         }
         .textcenter{

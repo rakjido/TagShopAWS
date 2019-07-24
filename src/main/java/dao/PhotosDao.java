@@ -4,17 +4,18 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 
-import vo.PhotosVo;
-import vo.RankingVo;
-import vo.RepostsVo;
 import vo.CommentsPhotoIdjoinVo;
 import vo.CommentsVo;
 import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
+import vo.PhotoLikePhotosVo;
 import vo.PhotoRegisterVo;
 import vo.PhotoTagsJoinVo;
+import vo.PhotosVo;
+import vo.RankingVo;
+import vo.RepostsVo;
 
 public interface PhotosDao {
 	
@@ -93,4 +94,6 @@ public interface PhotosDao {
     public List<BigInteger> searchPhotoTags(HashMap<String, String> map);
     
     public List<RankingVo> searchPhotoTagsbyRanking(HashMap<String, String> map);
+    
+    public List<PhotoLikePhotosVo> getAllLikePhotos();
 }
