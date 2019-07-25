@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="offset-4 col-8">
-                                <button name="submit" type="submit" class="btn btn-primary">수정</button>
+                                <button name="submit" type="submit" class="btn btn-primary pwdedit">수정</button>
                             </div>
                         </div>
                     </form>

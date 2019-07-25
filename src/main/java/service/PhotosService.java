@@ -207,7 +207,7 @@ public class PhotosService {
 	}
 	
 	@Transactional
-	public void insertTransaction(String userid, int photoid, String reposts) {
+	public int insertTransaction(String userid, int photoid, String reposts) {
 		
 		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
 		
@@ -219,8 +219,9 @@ public class PhotosService {
 		repostphotos.put("buyyn", false);
 		
 		dao.insertReposts(repostphotos);
-		dao.insertRepostsPhotos(repostphotos);
+		int result = dao.insertRepostsPhotos(repostphotos);
 		
+		return result;
 	}
 	
 	public List<RepostsVo> getReposts(String userid) {
@@ -313,7 +314,7 @@ public class PhotosService {
     
     public List<String> searchTagName(String keyword) {
         PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
-        HashMap<String, String> map = new HashMap<String, String>();
+/*        HashMap<String, String> map = new HashMap<String, String>();
         String language = "";
         language = TranslationUtil.detectLanguage(keyword);
         System.out.println(language);
@@ -321,8 +322,8 @@ public class PhotosService {
             language = "KO";  
         }
         map.put("language", language);
-        map.put("keyword", keyword);
-        return dao.searchTagName(map);
+        map.put("keyword", keyword);*/
+        return dao.searchTagName(keyword);
     }
     
     public List<BigInteger> searchPhotoTags(String keyword) {
@@ -358,5 +359,13 @@ public class PhotosService {
         PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
         
         return dao.getAllLikePhotos();
+    }
+    
+    public PhotosVo getRefphotos(int photoid) {
+    	
+    	PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+    	
+    	return dao.getRefphotos(photoid);
+    	
     }
 }

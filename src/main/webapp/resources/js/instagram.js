@@ -80,8 +80,6 @@ $(function() {
 			
 			
 			
-//			var ctx = document.location.host;
-			
 			console.log(ctx);
 			var src = $('img', this).attr('src');
 			var photoid = $('img', this).attr('alt');
@@ -353,7 +351,7 @@ $(function() {
 			});
 			
 			
-			$('html').on('click','.dCJp8', function() {
+			$(document).on('click','.dCJp8', function() {
 				
 				var photoid = $('.popup-all-sub img').attr('alt');
 				var likeclass = $('span', this).attr('class');
@@ -446,6 +444,41 @@ $(function() {
 								
 							}
 						});
+					}else if(useridyou[3] == 'likes' && location[2] == useridyou[2]){
+						
+						url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+photoid;
+						
+						$.ajax({
+							url: url,
+							type: "GET",
+							dataType: "html",
+							success : function(data) {
+								
+								
+								$('#instafeed').append(data);
+								
+								$('.lightbox').remove();
+								
+								
+								$('.lightbox-sub i').on('click', function() {
+									$('.lightbox-sub').remove();
+									$('.Repost-black').addClass('Repost');
+									$('.Repost-black').removeClass('Repost-black');
+								});
+								
+								$(".Ypffh").on("propertychange change keyup paste", function() {
+									
+									if($.trim($(this).val()) == ""){
+										$('.sqdOP').attr('disabled', true);
+									}else {
+										$('.sqdOP').attr('disabled', false);
+									}
+									
+								});
+								
+							}
+						});
+						
 					}
 						
 						

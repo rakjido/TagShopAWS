@@ -30,6 +30,7 @@ import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
 import vo.FollowingVo;
 import vo.LikesVo;
+import vo.PhotoRegisterVo;
 import vo.PhotosVo;
 import vo.ProfileVo;
 import vo.RankingVo;
@@ -204,7 +205,17 @@ public class PhotosRestController {
 	@RequestMapping(value = "/{userid}/reposts/{photouserid}/{photoid}", method = RequestMethod.POST)
 	public String insertReposts(@PathVariable("photouserid") String photouserid, @PathVariable("userid") String userid, @PathVariable("photoid") int photoid, String repost) {
 		
-		photoservice.insertTransaction(userid, photoid, repost);
+		PhotoRegisterVo coordinates = photoservice.getCoordinates(photoid);
+		
+		int result = photoservice.insertTransaction(userid, photoid, repost);
+		
+		if(result == 1){
+			System.out.println(result);
+			PhotosVo photo = photoservice.getRefphotos(photoid);
+			coordinates.setPhotoId(photo.getPhotoId());
+			photoservice.insertCoordinates(coordinates);
+			
+		}
 		
 		return "success";
 	}

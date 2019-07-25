@@ -26,7 +26,6 @@
     <div class="sales_apply section-padding-80">
         <div class="container">
                     <form action="${pageContext.request.contextPath}/shops/modify" id="seller-register" method="post">
-            <div class="row">
                 <div class="sales_apply_details mt-50 clearfix">
     
                     <div class="cart-page-heading mb-30">
@@ -182,7 +181,7 @@
                         </div>
                     
                 </div>
-            </div>
+
                     </form>
         </div>
     </div>

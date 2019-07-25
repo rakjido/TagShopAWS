@@ -155,7 +155,6 @@ public class ShopsController {
 		shopsVo.setUserid((String)session.getAttribute("userid"));	
 		scVo.setShopid(shopsVo.getShopid());
 		scVo.setMidCategoryCode(midCategoryCode);
-		System.out.println(scVo);
 		
 		authService.addAuthorities(authVo);
 		service.sellerRegister(shopsVo);
@@ -184,8 +183,6 @@ public class ShopsController {
 		logger.debug("[GET] productsReg()");
 		
 		List<CategoriesSortVo> categoryList = service.getCategoriesSort();
-		System.out.println(categoryList);
-		
 		JSONArray jsonArray = new JSONArray();
 		
 		model.addAttribute("categoryList", jsonArray.fromObject(categoryList));
@@ -220,28 +217,21 @@ public class ShopsController {
 			@RequestParam(value="tagText3", defaultValue="") String tagText3) throws IllegalStateException, IOException {
 		logger.info("[POST] productsReg()");
 		
-		System.out.println("tagText1 : " +  tagText1);
-		System.out.println("tagText2 : " +  tagText2);
-		System.out.println("tagText3 : " +  tagText3);
-		
 		//파일
 		MultipartFile mf = request.getFile("file");
         if(mf != null) {
             String fileName = mf.getOriginalFilename(); //파일명 얻기
-            System.out.println("fileName : " + fileName);
             
             //업로드 파일명을 변경후 저장            
             String uploadedFileName = System.currentTimeMillis()
                     + UUID.randomUUID().toString()+fileName.substring(fileName.lastIndexOf("."));
         
             String uploadPath = request.getSession().getServletContext().getRealPath("uploads");
-            System.out.println("uploads : "+ uploadPath);
             if(mf.getSize() != 0) {            
                 mf.transferTo(new File(uploadPath+"/"+fileName));    
                 productsVo.setPhotoFile(fileName);
                 try {
                     String color = VisionUtil.detectDominantColor(uploadPath+"/"+fileName);
-                    System.out.println("color : " + color.toUpperCase());
                     productsVo.setMainColor(color.toUpperCase());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -255,7 +245,6 @@ public class ShopsController {
 
 		
 		if(tagText1 != null && !(tagText1.equals(""))) {
-			System.out.println("text1 : " + tagText1);
 			HashMap<String, String> map = tagsLocaleService.addMultiTags(tagText1);
 			tagsLocaleService.addProductTags(tagsLocaleService.getTagsId(map));
 		}
@@ -451,7 +440,6 @@ public class ShopsController {
 	
 	@RequestMapping(value="/{userid}/myshop", method = RequestMethod.GET)
 	public String mypage(@PathVariable("userid") String userid, Model model) {
-		System.out.println("userid 체크 : " + userid);
 		logger.debug("[GET] myshop()");
 		List<OrdercodeVo> vo = service.getOrder(userid);
 		List<MyOrderVo> li = service.getOrderList(userid);
@@ -503,7 +491,6 @@ public class ShopsController {
 	@RequestMapping(value="/{shopid}/productList", method=RequestMethod.GET)
 	public String sellerList(Model model, HttpSession session, @PathVariable("shopid")String shopid) {
 		logger.info("[GET] getSellerList()");
-		System.out.println(shopid);
 		try {
 			List<ProductsVo> ProductsList = service.getSellerList(shopid);
 			model.addAttribute("productsList", ProductsList);
@@ -578,13 +565,11 @@ public class ShopsController {
 	@RequestMapping(value = "/{userid}/modify", method = RequestMethod.GET)
 	public String sellerModify(@PathVariable("userid") String userid, Model model) {
 		logger.debug("[GET] sellerModify()");
-		System.out.println("userid 확인 : " + userid);
 		
 		List<CodeVo> bankList = service.getBankCode();
 		List<CategoriesVo> categoryCodeList = service.getCategoryCode();
 		ShopsVo sv = service.getShopinfo(userid);
-		
-		System.out.println("ffffffffffffffffff" + sv);
+
 		model.addAttribute("bankList", bankList);
 		model.addAttribute("categoryCodeList", categoryCodeList);
 		model.addAttribute("shopinfo", sv);

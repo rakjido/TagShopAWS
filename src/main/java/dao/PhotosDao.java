@@ -67,7 +67,9 @@ public interface PhotosDao {
 	
 	public int insertReposts(HashMap<String, Object> map);
 	
-	public void insertRepostsPhotos(HashMap<String, Object> map);
+	public int insertRepostsPhotos(HashMap<String, Object> map);
+	
+	public PhotosVo getRefphotos(int photoid);
 	
 	public List<RepostsVo> getReposts(String userid);
 	
@@ -89,7 +91,7 @@ public interface PhotosDao {
 	
 	public List<String> searchUserid(String keyword);
     
-    public List<String> searchTagName(HashMap<String, String> map);
+    public List<String> searchTagName(String keyword);
     
     public List<BigInteger> searchPhotoTags(HashMap<String, String> map);
     

@@ -35,8 +35,6 @@ public class AdminRestController {
 	
 	@RequestMapping(value="/productsList", method=RequestMethod.POST)
 	public Object getProductList(){
-		System.out.println("들어옴");
-		System.out.println(shopService.productCategories());
 		Map<String, Object> mp = new HashMap<String, Object>();
 		mp.put("data", shopService.productCategories());
 		

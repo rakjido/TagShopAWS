@@ -68,26 +68,18 @@ public class ShopsRestController {
 	
 	@RequestMapping(value="/check_name", method = RequestMethod.POST)
 	public int checkname(String name) {
-		System.out.println("들어감");
-		System.out.println(name);
 		return service.shopidCheck(name);
 	}
 	
 	@RequestMapping(value="/management", method=RequestMethod.POST)
 	public Object getMangementList(String fromDate, String toDate, String shopid, String orderStatusCode){
 		
-		System.out.println(fromDate + " / " + toDate + " / " + shopid + " / " +orderStatusCode);
-		
 		Date frDate = DateUtil.date(fromDate.replace("-", ""));
 		Date tDate = DateUtil.date(toDate.replace("-", ""));
-		
 		Map<String, Object> mp = new HashMap<String, Object>();
-		
 		mp.put("data", service.getManagementList(frDate, tDate, shopid, orderStatusCode));
-		System.out.println(mp);
 		return mp;
 	}
-	
 	
 	@RequestMapping(value="/tagrank", method=RequestMethod.GET)
 	public List<TagRankVo> getTagRank(String country){

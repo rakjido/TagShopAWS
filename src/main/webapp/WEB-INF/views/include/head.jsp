@@ -32,5 +32,5 @@
 <script src="https://kit.fontawesome.com/3516ad21ac.js"></script>
 <script src="http://15.164.0.222:82/socket.io/socket.io.js"></script>
 
-<!-- <script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"</script> -->
-<script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"</script>
+<script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"</script>
+<!-- <script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"</script> -->

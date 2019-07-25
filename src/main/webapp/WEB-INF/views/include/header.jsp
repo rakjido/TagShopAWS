@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="shopid" value="${sessionScope.shopid}" />
+<c:set var="userid" value="${sessionScope.userid}" />
 <body>
     <!-- ##### Header Area Start ##### -->
     <header class="header_area">
@@ -36,20 +39,27 @@
                                     <li><a href="${pageContext.request.contextPath}/shops/tags">Tag Trend</a></li>
                                 </ul>
                             </li>
- 
+                            
                             <li><a href="#">Seller</a>
                                 <ul class="dropdown">
+                                	<c:if test="${empty shopid}">                      	
                                     <li><a href="${pageContext.request.contextPath}/shops/new">Register</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/modify">Modify</a></li>
+                                    </c:if>
+                                    <c:if test="${not empty shopid}">
+                                    <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/modify">Seller Modify</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/products/new">Product Register</a></li>
                                     <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/management/">Sales Management</a></li>
-                                </ul></li>
+                                	</c:if>
+                                </ul>
+                            </li>
                             
+                            <c:if test="${userid == 'admin'}">  
                             <li><a href="#">Admin</a>
                                 <ul class="dropdown">
                                     <li><a href="${pageContext.request.contextPath}/admin/index">Dashboard</a></li>
                                 </ul>
                             </li>
+                            </c:if>
                             
                         </ul>
                     </div>
@@ -81,8 +91,12 @@
                     <!-- ##### Mypage Button Start ##### -->
                     <div class="navigation-mypage-btn">
                         <ul class="navigation-user-menu">
-                            <li><a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/myshop">나의 쇼핑</a></li>
+                        	<li><a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/myshop">나의 쇼핑</a></li>
+                            
+                            <c:if test="${empty shopid}"> 
                             <li><a href="${pageContext.request.contextPath}/shops/new">판매자 신청</a></li>
+                            </c:if>
+                            
                             <sec:authorize access="isAnonymous()">
                                 <li><a href="${pageContext.request.contextPath}/users/login">로그인</a></li>
                             </sec:authorize>

@@ -250,7 +250,7 @@
                     <h2>${profile.userid}</h2>
                   </a>
                   <a href="#">
-                    <p>pierceshih</p>
+                    <p>${profile.introduction}</p>
                   </a>
                 </div>
               </div>
@@ -281,7 +281,7 @@
                 </a>
               </div>
             </div>
-            <div class="follow"><a href="#">팔로우</a></div>
+            <div class="feed-follow"><a href="#">팔로우</a></div>
           </div>
           
 	</c:forEach>

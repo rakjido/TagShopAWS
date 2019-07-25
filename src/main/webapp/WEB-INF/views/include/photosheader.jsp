@@ -56,7 +56,7 @@
                       </div>
                       <div class="user-stats">
                         <div>
-                          게시글 <b>${fn:length(timelinephoto) }</b>
+                          게시글 <b>${timecount }</b>
                         </div>
                         <div class="follower-num">
                           팔로워 <b>${follower }</b>

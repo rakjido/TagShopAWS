@@ -49,7 +49,7 @@ $(function() {
 	
 	
 	/* 기존 비밀번호 확인 */
-	$('#prepassword').on("propertychange change keyup paste", function() {
+	$(document).on("propertychange change keyup paste","#prepassword", function() {
         console.log($('#prepassword').val());
         
 		$.ajax({
@@ -75,7 +75,7 @@ $(function() {
     });
 	
 	/* 변경 비밀번호 */
-	$('#repassword').on("propertychange change keyup paste", function() {
+	$(document).on("propertychange change keyup paste", '#repassword' , function() {
         
 	 	var pattern = /^[A-Za-z0-9]{4,20}$/;
 	 	if(pattern.test($("#repassword").val())){
@@ -88,7 +88,7 @@ $(function() {
     });
 	
 	/* 변경 비밀번호 확인 */
-	$('#repasswordOk').on("propertychange change keyup paste", function() {
+	$(document).on("propertychange change keyup paste", '#repasswordOk', function() {
         
 	 	if($('#repassword').val() == $('#repasswordOk').val()){
 	 		$("#reepwd").css("color", "#0064FF");
@@ -101,7 +101,7 @@ $(function() {
     });
 	
 	
-	$('form').on('submit', function() {
+	$(document).on('click','.pwdedit' ,function(e) {
 		
 		console.log(passwordcheck);
 		
@@ -109,16 +109,15 @@ $(function() {
 			$("#reepwd span").css("color", "#ff0000");
 			$('#reepwd span').text("두 비밀번호가 일치하지 않습니다.");
 			$('#repassword').focus();
-			return false;
+			e.preventDefault();
 		}else if(passwordcheck != "1"){
 			$("#prepwd span").css("color", "#ff0000");
 			$('#prepwd span').text("기존 비밀번호가 일치하지 않습니다.");
 			$('#prepassword').focus();
-			return false;
+			e.preventDefault();
 			
 		}else
 			console.log("마지막");
-			return true;
 	});
 		
 

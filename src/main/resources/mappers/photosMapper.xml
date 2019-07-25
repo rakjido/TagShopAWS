@@ -205,6 +205,13 @@
 	WHERE PHOTOID = #{photoId}
 </select>
 
+<select id="getRefphotos" resultType="vo.PhotosVo">
+
+	SELECT * FROM PHOTO 
+	WHERE REFPHOTOID = #{photoid}
+	
+</select>
+
 <delete id="deletePhoto" parameterType="HashMap">
 	DELETE FROM PHOTO
 	WHERE USERID = #{userid} AND PHOTOID = #{photoid}
@@ -220,12 +227,12 @@
     WHERE USERID LIKE CONCAT('%', #{keyword}, '%')
 </select>
 
-<select id="searchTagName" parameterType="hashMap" resultType="String">
+<!-- <select id="searchTagName" parameterType="hashMap" resultType="String">
     SELECT DISTINCT T.TAGSNAME${language}
    FROM TAGSLOCALE T JOIN PHOTOTAGS P
    ON T.TAGSID = P.TAGSID
    WHERE TAGSNAME${language} LIKE CONCAT('%', #{keyword}, '%')
-</select>
+</select> -->
 
 <select id="searchPhotoTags" parameterType="hashMap" resultType="BigInteger">
     SELECT PHOTOID
@@ -273,6 +280,36 @@
     GROUP BY P.PHOTOID
     ORDER BY CNT_LIKE DESC LIMIT 0, 6
 
+</select>
+
+<select id="searchTagName" resultType="String">
+   SELECT DISTINCT TAGSNAME
+	FROM (
+	    SELECT TAGSNAMEEN AS TAGSNAME
+	    FROM TAGSLOCALE
+	    UNION ALL
+	    SELECT TAGSNAMEES
+	    FROM TAGSLOCALE
+	    UNION ALL
+	    SELECT TAGSNAMEZH
+	    FROM TAGSLOCALE
+	    UNION ALL
+	    SELECT TAGSNAMEHI
+	    FROM TAGSLOCALE
+	    UNION ALL
+	    SELECT TAGSNAMEJA
+	    FROM TAGSLOCALE
+	    UNION ALL
+	    SELECT TAGSNAMERU
+	    FROM TAGSLOCALE
+	    UNION ALL
+	    SELECT TAGSNAMEPT
+	    FROM TAGSLOCALE
+	    UNION ALL
+	    SELECT TAGSNAMEKO
+	    FROM TAGSLOCALE
+	) H
+   WHERE TAGSNAME LIKE CONCAT('%', #{keyword}, '%')
 </select>
 
 </mapper>

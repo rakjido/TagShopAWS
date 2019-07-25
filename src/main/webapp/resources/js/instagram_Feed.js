@@ -71,7 +71,7 @@ $(function() {
 	
 /* Feed 친구추천 팔로우/팔로잉 버튼 이벤트 */
 	
-	$(document).on('click', '.sqdOPaB', function(e) {
+	$(document).on('click', '.feed-follow', function(e) {
 		e.preventDefault();
 		console.log("클릭 탐");
 		

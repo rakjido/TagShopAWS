@@ -1,6 +1,7 @@
 
 function smallcodeM(code){
 	console.log(curl);
+	console.log(ctx);
 	var curl = ctx + "/shops/categories/sub/" + code;
 
 	ajaxMainFn(curl);

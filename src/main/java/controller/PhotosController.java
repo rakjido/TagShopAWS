@@ -204,6 +204,7 @@ public class PhotosController {
 		model.addAttribute("timelinephoto", timelinephoto);
 		model.addAttribute("recommend", recommend);
 		model.addAttribute("phototags", tags);
+		model.addAttribute("timecount", timelinephoto.size());
 		
 		return "photos/photoFeed";
 	}
@@ -427,6 +428,7 @@ public class PhotosController {
 		}
 		
 		List<PhotosVo> timelinephoto = photoservice.getAllLimitPhotos(userid, limit);
+		List<PhotosVo> timelinecount = photoservice.getAllPhotos(userid);
 		
 		FollowingVo getfollowing = null;
 		
@@ -444,6 +446,7 @@ public class PhotosController {
 		model.addAttribute("following", following);
 		model.addAttribute("followcheck", getfollowing);
 		model.addAttribute("connectcheck", connectcheck);
+		model.addAttribute("timecount", timelinecount.size());
 		
 
 		return "photos/photoTimeline";
@@ -467,7 +470,7 @@ public class PhotosController {
 		model.addAttribute("profile", profile);
 		model.addAttribute("follower", follower);
 		model.addAttribute("following", following);
-		model.addAttribute("timelinephoto", timelinephoto);
+		model.addAttribute("timecount", timelinephoto.size());
 
 		return "photos/photoLike";
 	}

@@ -34,7 +34,6 @@ public class AdminController {
 		List<PerformanceVo> pList = pService.getPerformance();
 		List<String> dateList = new ArrayList<String>();
 		int pNum = pService.getPerformanceCount();
-		System.out.println(pList);
 		DateUtil du = new DateUtil();
 		FormatUtil fu = new FormatUtil();
 		
@@ -86,7 +85,6 @@ public class AdminController {
 	public String buyViewChart(Model model) {
 		List<PerformanceVo> pList = pService.getPerformance();
 		int pNum = pService.getPerformanceCount();
-		System.out.println(pList);
 		
 		JSONArray jsonArray = new JSONArray();
 		
