@@ -5,6 +5,7 @@
 
 <c:set var="shopid" value="${sessionScope.shopid}" />
 <c:set var="userid" value="${sessionScope.userid}" />
+<script src="${pageContext.request.contextPath}/resources/js/basketsAjax.js"></script>
 <body>
     <!-- ##### Header Area Start ##### -->
     <header class="header_area">
@@ -30,12 +31,27 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a id="url-import" href="${pageContext.request.contextPath}/${sessionScope.userid}/feeds">Community</a></li>
-                            
+                        	<c:choose>
+                            	<c:when test="${not empty userid}">
+                            		<li><a id="url-import" href="${pageContext.request.contextPath}/${sessionScope.userid}/feeds">Community</a></li>
+                           		</c:when>
+                           		<c:when test="${empty userid}">
+                            		<li><a id="url-import" href="${pageContext.request.contextPath}/test1/feeds">Community</a></li>
+                           		</c:when> 
+                            </c:choose>
                             <li><a href="#">Shop</a>
                                 <ul class="dropdown">
                                     <li><a href="${pageContext.request.contextPath}/shops/categories">Shop</a></li>
+                                    
+                                    <c:choose>
+                                    <c:when test="${empty userid}">
+                                    <li><a href="${pageContext.request.contextPath}/test1/orders">Order</a></li>
+                                    </c:when>
+                                    <c:when test="${not empty userid}">
                                     <li><a href="${pageContext.request.contextPath}/${sessionScope.userid}/orders">Order</a></li>
+                                    </c:when>
+                                    
+                                    </c:choose>
                                     <li><a href="${pageContext.request.contextPath}/shops/tags">Tag Trend</a></li>
                                 </ul>
                             </li>

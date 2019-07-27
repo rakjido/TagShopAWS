@@ -122,7 +122,7 @@
     					    });
 
     					    
-    					    series.labels.template.url = "https://stackoverflow.com/questions/tagged/{word}";
+    					    series.labels.template.url = "${pageContext.request.contextPath}/${sessionScope.userid}/tag?search=%23{word}";
     					    series.labels.template.urlTarget = "_blank";
     					    series.labels.template.tooltipText = "{word}: {value}";
     					    

@@ -266,7 +266,7 @@ $(document).on("mouseenter","#plusImg2",function(e){ //마우스 오버시
 	var productList =  JSON.parse('${productList}');
 	console.log(productList);
 	tagStr = '<div id="preview2">' + 
-    '<div style="flex:0 0 100%; width:300px; height:300px">'+
+    '<div style="flex:0 0 100%; width:400px; height:400px">'+
     '<img src="${pageContext.request.contextPath}/uploads/'+ productList[0].PhotoFile +'"class="fullimg"/></div>' +				
     '<h6  style="text-align:center">'+ productList[0].title +'</h6></div>';
         

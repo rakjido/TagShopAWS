@@ -83,10 +83,11 @@ public class HomeController {
 		
 		return "index";
 	}
-
+	
 	@RequestMapping(value= "/{userid}/orders", method=RequestMethod.GET)
 	//public String order(@PathVariable("userid") String userid, Model model) {
 	public String order(@PathVariable("userid") String userid, HttpSession session) {	
+		List<OrderedItemsVo> itemList;
 		itemList = buyService.getBuyitems(userid);
 		
 		for (int i = 0; i < itemList.size(); i++) {
@@ -110,7 +111,7 @@ public class HomeController {
 		
 		return "shops/order";
 	}
-
+	
 	@Transactional
 	@RequestMapping(value= "/{userid}/orders", method=RequestMethod.POST)
 	public String orderProcess(@PathVariable("userid") String userid

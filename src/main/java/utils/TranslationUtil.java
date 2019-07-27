@@ -32,6 +32,9 @@ public class TranslationUtil {
 		String sourceLanguage = null;
 		for (Detection detection : detections) {
 			sourceLanguage = detection.getLanguage();
+			if("zh-CN".contentEquals(sourceLanguage)) {
+				sourceLanguage = "ZH";
+			}
 		}
 
 		return sourceLanguage;

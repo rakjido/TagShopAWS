@@ -31,6 +31,46 @@
 			</div>
 		</div>
 	</section>
+	<section class="new_arrivals_area section-padding-80 clearfix">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-heading text-center">
+						<h2>Popular POST</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="popular-products-slides owl-carousel">
+
+						<c:forEach var="likephoto" items="${likephotos }">
+                       <!-- Single Product -->
+
+                        <div class="card active">
+                            <img class="feature"
+                                src="${pageContext.request.contextPath}/uploads/${likephoto.fileName}"
+                                alt="${likephoto.photoId }">
+                            <div class="deets">
+                                <p><a href="${pageContext.request.contextPath}/${likephoto.userId}/">${likephoto.userId}</a></p>
+                                <div class="like-sec">
+                                    <div class="line"></div>
+                                    <img src="${pageContext.request.contextPath}/resources/img/core-img/heart.png" />
+                                    <div class="likes">${likephoto.cnt_Like }</div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 	<!-- ##### Welcome Area End ##### -->
 	<!-- ##### Top Catagory Area Start ##### -->
 	<div class="top_catagory_area section-padding-80 clearfix">

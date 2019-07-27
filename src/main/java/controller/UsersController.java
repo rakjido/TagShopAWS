@@ -36,6 +36,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import service.AuthoritiesService;
 import service.BuyService;
+import service.ProfileService;
 import service.ShopsService;
 import service.UserMailSendService;
 import service.UsersService;
@@ -43,8 +44,11 @@ import utils.NaverLoginBO;
 import utils.RandomValueUtil;
 import utils.VerifyRecaptcha;
 import vo.AuthoritiesVo;
+import vo.CodeVo;
 import vo.OptionListVo;
 import vo.OptionsVo;
+import vo.OrderedItemsVo;
+import vo.ProfileVo;
 import vo.SelectedOptionVo;
 import vo.SnsUserVo;
 import vo.UsersVo;
@@ -84,6 +88,9 @@ public class UsersController {
 	
 	@Autowired
 	private NaverLoginBO naverLoginBO;
+	
+	@Autowired
+	private ProfileService profileService;
 	
 	private String apiResult;
 	
@@ -409,4 +416,6 @@ public class UsersController {
     		
     		return "redirect:/";
     	}
+    	
+
 }
