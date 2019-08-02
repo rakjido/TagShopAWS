@@ -9,24 +9,28 @@ TagshopAWS는 비공개로 모든 파일을 저장하는 용도임
 
 
 ---
-## Tech Stack
+### Tech Stack
 
 FRONT
 
 ```
-HTML5, CSS3, Javascript, JQuery, Bootstrap, Ajax, Summernote, amCharts, HighCharts, Datatables, recaptcha
+HTML5, CSS3, Javascript, JQuery, Bootstrap, Ajax, Summernote,
+amCharts, HighCharts, Datatables, recaptcha
 ```
+
 
 BACK
 ```
-Spring4.x.x, Maven, Mybatis, Lombok, Node.js(Express)
-Google Vision API, Translation API, Iamport, CoolSMS, Excel(POI), PDF(ITEXT) Facebook login, Naver login
+Spring4.2.5, Maven 4, Mybatis 1.4, Lombok 1.16.20, Node.js 10.16.0 (Express 4.15.2)
+Google Vision API 1.14.0, Translation API 1.14.0, Iamport, CoolSMS, Excel(POI) 3.1.7 , PDF(ITEXT) 5.5.9
 ```
+
 
 DB
 ```
-Mysql, Redis
+Mysql 5.7.22, Redis 5.0.5
 ```
+
 
 OS
 ```
@@ -40,10 +44,10 @@ AWS, Godo
 
 SERVER
 ```
-Nginx, Tomcat
+Nginx 1.12.2, Tomcat 9.0.5
 ```
 
 TOOL
 ```
-Gitlab, SourceTree, Slack, Trello
+Github, Gitlab, SourceTree 3.0.17, Slack, Trello
 ```
