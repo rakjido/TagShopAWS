@@ -1,30 +1,30 @@
 
 $(document).ready(function(){
 	
-                //var socket = io("http://192.168.1.13:82");
+                var socket = io("http://103.218.156.9:82");
             	var location = $('#url-import').attr('href').split('/');
             	var photouserid = window.location.pathname.split('/');
     			var receptionid = "";
     			
     			
-    			//reconntectd();
+    			reconntectd();
                     
                 	
                 
                 $('.sqdOPaC').on('click',function() {
                 	var location = $('#url-import').attr('href').split('/');
                 	var photouserid = window.location.pathname.split('/');
-                	var url = ctx+"/" + location[2]+"/chats";
+                	var url = ctx+"/" + location[1]+"/chats";
                 	
                 	var message = {
-                			myid: location[2],
-                			recepient: photouserid[2],
+                			myid: location[1],
+                			recepient: photouserid[1],
                 			command:'connect'
                 	};
                 	
-/*                	//소켓에 send_msg라는 이벤트로 input에 #msg의 벨류를 담고 보내준다.
+                	//소켓에 send_msg라는 이벤트로 input에 #msg의 벨류를 담고 보내준다.
                 	console.log('클릭');
-                	socket.emit('message', message);*/
+                	socket.emit('message', message);
                 	
                 	
 						$.ajax({
@@ -32,7 +32,7 @@ $(document).ready(function(){
 							type: "GET",
 							dataType: "html",
 							data: {
-								photouserid: photouserid[2]
+								photouserid: photouserid[1]
 								   },
 							
 							success : function(data) {
@@ -41,7 +41,7 @@ $(document).ready(function(){
 								
 
 								
-				/*                socket.on('response', function(input) {
+				                socket.on('response', function(input) {
 				                	
 				                	console.log("응답 -> : " + JSON.stringify(input));
 				                	
@@ -57,11 +57,11 @@ $(document).ready(function(){
 				                	
 				                	$('main').append(text);
 			                    	
-			                    	$('main').scrollTop($('main').height());
-				                });*/
+                                    $('main').scrollTop($('main')[0].scrollHeight);
+				                });
 								
 								
-								/*socket.on('message', function(message) {
+								socket.on('message', function(message) {
 									console.log('수신 -> ' + JSON.stringify(message));
 
 									receptionid = message.myid;
@@ -79,17 +79,17 @@ $(document).ready(function(){
 				                	
 				                	$('main').append(text);
 			                    	
-			                    	$('main').scrollTop($('main').height());
-								});*/
+                                    $('main').scrollTop($('main')[0].scrollHeight);
+								});
 				                //msg_process를 클릭할 때
 				                //msg에서 키를 누를떄
-/*				                $("#msg").keydown(function(key){
+				                $("#msg").keydown(function(key){
 				                    //해당하는 키가 엔터키(13) 일떄
 				                    if(key.keyCode == 13){
 				                    	var message = {
-				                    			myid: location[2],
+				                    			myid: location[1],
 				                    			sender: $("#msg-input").val(),
-				                    			recepient: photouserid[2],
+				                    			recepient: photouserid[1],
 				                    			command:'chat',
 				                    			type:'text'
 				                    	};
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 				                    }
 				                	
-				                });*/
+				                });
 								
 							}
 								   
@@ -113,16 +113,16 @@ $(document).ready(function(){
                 });
                 
                 
-/*                function reconntectd() {
+                function reconntectd() {
 				
-        			if(location[2] != ""){
+        			if(location[1] != ""){
         				
         				socket.on('connect', function() {
         					
         					
         					
         					var userids = {
-        							myid: location[2]
+        							myid: location[1]
         					};
         					
         					socket.emit('userids',userids);
@@ -135,7 +135,7 @@ $(document).ready(function(){
         				});
         			}
                 	
-				}*/
+				}
                 
 
             });

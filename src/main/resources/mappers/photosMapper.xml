@@ -15,6 +15,20 @@
 
 </select>
 
+<select id="getFollowerList" resultType="vo.FollowerVo">
+
+	select * from follower 
+	where UsersUserid = #{userid};
+
+</select>
+
+<select id="getFollowingList" resultType="vo.FollowingVo">
+
+	select * from following 
+	where usersuserid = #{userid};
+
+</select>
+
 <select id="getPhotoTags" resultType="vo.PhotoTagsJoinVo">
 
 	SELECT P.PHOTOID, T.TAGSID, T.TAGSNAMEKO FROM PHOTOTAGS P JOIN TAGSLOCALE T
@@ -66,7 +80,7 @@
 </select>
 
 <select id="getPhoto" resultType="vo.PhotosVo">
-    SELECT PHOTOID, FILENAME, DESCRIPTION, REFPHOTOID, REFPRODUCTID, CONVERT_TZ(CREATEDATE, "+0:00", "-9:00") AS CREATEDATE, 
+    SELECT PHOTOID, FILENAME, DESCRIPTION, REFPHOTOID, REFPRODUCTID, CONVERT_TZ(CREATEDATE, "+0:00", "+9:00") AS CREATEDATE, 
             DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, UPDATEDATE, USERID 
     FROM PHOTO 
     WHERE PHOTOID = #{photoid}
@@ -80,14 +94,14 @@
 </select>
 
 <select id="getAllCommentsJoin" resultType="vo.CommentsjoinVo">
-	SELECT C.COMMENTSID, C.COMMENTS, C.BUYYN, CONVERT_TZ(CREATEDATE, "+0:00", "-9:00") AS CREATEDATE, DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, 
+	SELECT C.COMMENTSID, C.COMMENTS, C.BUYYN, CONVERT_TZ(CREATEDATE, "+0:00", "+9:00") AS CREATEDATE, DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, 
 			C.UPDATEDATE, C.PHOTOID, C.USERSUSERID, P.PHOTONAME 
 	FROM COMMENTS C JOIN PROFILE P ON C.USERSUSERID = P.USERID 
 	WHERE C.PHOTOID = #{photoid}
 </select>
 
 <select id="getCommentsJoin" parameterType="HashMap" resultType="vo.CommentsjoinVo">
-	SELECT C.COMMENTSID, C.COMMENTS, C.BUYYN, CONVERT_TZ(CREATEDATE, "+0:00", "-9:00") AS CREATEDATE, DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, 
+	SELECT C.COMMENTSID, C.COMMENTS, C.BUYYN, CONVERT_TZ(CREATEDATE, "+0:00", "+9:00") AS CREATEDATE, DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, 
 			C.UPDATEDATE, C.PHOTOID, C.USERSUSERID, P.PHOTONAME 
 	FROM COMMENTS C JOIN PROFILE P ON C.USERID = P.USERID 
 	WHERE C.PHOTOID = #{photoid} AND C.USERSUSERID = #{userid}
@@ -98,6 +112,11 @@
 	WHERE FOLLOWINGID = #{followingid} AND USERSUSERID = #{usersuserid}
 </select>
 
+<select id="getFollower" parameterType="HashMap" resultType="vo.FollowerVo">
+	select * from follower 
+	where followerid = #{followerid} and usersuserid = #{usersuserid};
+</select>
+
 <select id="getReposts" resultType="vo.RepostsVo">
 	SELECT PHOTOID, USERSUSERID, BUYYN 
 	FROM REPOSTS 
@@ -106,7 +125,7 @@
 
 <select id="getAllFeedPhotos" resultType="vo.CommentsPhotoIdjoinVo">
     SELECT PHOTOID, FILENAME, DESCRIPTION, REFPHOTOID, REFPRODUCTID, REFSHOPID, REFLINK, 
-    DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, CONVERT_TZ(CREATEDATE, "+0:00", "-9:00") AS CREATEDATE, UPDATEDATE, USERID
+    DATEDIFF(NOW(),CREATEDATE) AS DATEDIFF, CONVERT_TZ(CREATEDATE, "+0:00", "+9:00") AS CREATEDATE, UPDATEDATE, USERID
     FROM PHOTO
     WHERE USERID IN (
        SELECT FOLLOWINGID

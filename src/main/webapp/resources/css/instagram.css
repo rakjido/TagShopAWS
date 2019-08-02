@@ -580,7 +580,7 @@
       padding: 0;
       border: 0;
       font: inherit;
-      background-image: url(/tagshop/resources/img/product-img/heart-outline.png);
+      background-image: url(/resources/img/product-img/heart-outline.png);
     }
     
       .Heart-black {
@@ -591,7 +591,7 @@
       padding: 0;
       border: 0;
       font: inherit;
-      background-image: url(/tagshop/resources/img/product-img/heart-black.png);
+      background-image: url(/resources/img/product-img/heart-black.png);
     }
     .Comment {
       transform: rotateY(180deg);
@@ -602,7 +602,7 @@
       padding: 0;
       border: 0;
       font: inherit;
-      background-image: url(/tagshop/resources/img/product-img/comment-outline.png);
+      background-image: url(/resources/img/product-img/comment-outline.png);
     }
     .Share {
       height: 24px;
@@ -612,7 +612,7 @@
       padding: 0;
       border: 0;
       font: inherit;
-      background-image: url(/tagshop/resources/img/product-img/shape.png);
+      background-image: url(/resources/img/product-img/shape.png);
     }
     .Repost {
       height: 24px;
@@ -622,7 +622,7 @@
       padding: 0;
       border: 0;
       font: inherit;
-      background-image: url(/tagshop/resources/img/product-img/repost.png);
+      background-image: url(/resources/img/product-img/repost.png);
     }
      .Repost-black {
       height: 24px;
@@ -632,7 +632,7 @@
       padding: 0;
       border: 0;
       font: inherit;
-      background-image: url(/tagshop/resources/img/product-img/repost-black.png);
+      background-image: url(/resources/img/product-img/repost-black.png);
     }
     .fr66nn {
       display: inline-block;
@@ -821,23 +821,23 @@
       
     height: 12px;
     width: 12px;
-    background-image: url(/tagshop/resources/img/product-img/newspaper.png);
+    background-image: url(/resources/img/product-img/newspaper.png);
 
     }
     .coreSpriteDesktopProfileIGTV {
       height: 12px;
       width: 12px;
-      background-image: url(/tagshop/resources/img/product-img/grid.png);
+      background-image: url(/resources/img/product-img/grid.png);
     }
     .coreSpriteDesktopProfileTag {
       height: 12px;
       width: 12px;
-      background-image: url(/tagshop/resources/img/product-img/tag.png);
+      background-image: url(/resources/img/product-img/tag.png);
     }
     .coreSpriteDesktopProfileSave {
       height: 12px;
       width: 12px;
-      background-image: url(/tagshop/resources/img/product-img/bookmark-minus-outline.png);
+      background-image: url(/resources/img/product-img/bookmark-minus-outline.png);
     }
     .PJXu4 {
       
@@ -1205,6 +1205,7 @@
 .sidebar-stories .user-account .user-account-info {
 	line-height: 20px;
 	float: left;
+	margin-top: 5px;
 }
 
 /* HomePage Content Sidebar-stories End */
@@ -1225,12 +1226,13 @@
 .sidebar-reference .user-account .user-account-info {
 	line-height: 20px;
 	float: left;
+	margin-top: 5px;
 }
 
 .sidebar-reference .feed-follow {
 	float: right;
 	margin-right: 10px;
-	margin-top: 8px;
+	margin-top: 5px;
 }
 
 .feed-follow a {
@@ -1410,5 +1412,18 @@ input:-ms-input-placeholder { /* IE 10+ */
 }
 input:-moz-placeholder { /* Firefox 18- */
   opacity: 0.5;
+}
+
+
+.follower-num {
+	cursor: pointer;
+}
+
+.following-num {
+	cursor: pointer;
+}
+
+#va-auto {
+	vertical-align: middle;
 }
 

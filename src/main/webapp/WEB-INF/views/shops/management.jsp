@@ -27,6 +27,7 @@
                 <div class="col-12 col-md-8">
 				<div>
 				<h2>Sales management</h2>
+<%-- 				<c:url value='/shops/${sessionScope.userid}/management/pdfDown'/> --%>
 				</div>
 				<div class="regular-page-content-wrapper section-padding-5">
 					<div class="regular-page-text">
@@ -65,15 +66,11 @@
                                 </div>
                                 
                                 <div class="leftmargin2">
-                                    <a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/management/pdfDown">
-                                    <img class="pdfdownload" src="${pageContext.request.contextPath}/resources/img/sample-img/pdf.png" alt="">
-                                    </a>
+                                    <img id="pdfbtn" class="pdfdownload" src="${pageContext.request.contextPath}/resources/img/sample-img/pdf.png" alt="">
                                 </div>
                                 
                                 <div class="leftmargin">
-                                <a href="${pageContext.request.contextPath}/shops/${sessionScope.userid}/management/excelDown">
-                                    <img class="exceldownload" src="${pageContext.request.contextPath}/resources/img/sample-img/excel.png" alt="">
-                                </a>
+                                    <img id="excelbtn" class="exceldownload" src="${pageContext.request.contextPath}/resources/img/sample-img/excel.png" alt="">
                                 </div>
                            
 							
@@ -110,11 +107,53 @@
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-<script>
+	
+	<script>
 		
 	    $( function() {
+	    	function from(){
+				var date = $('#fromDatepicker').datepicker('getDate');
+	    		
+	    		var day = date.getDate();
+	    	    var month = date.getMonth() + 1;
+	    	    var year = date.getFullYear().toString();
+	    	    
+	    	    var from = year+'-'+month+'-'+day;
+	    	    console.log(from);
+	    	    return from;
+	    	}
+	    	
+	    	function to(){
+	    	    var date2 = $('#toDatepicker').datepicker('getDate');
+	    	    var day2 = date2.getDate();
+	    	    var month2 = date2.getMonth() + 1;
+	    	    var year2 = date2.getFullYear().toString();
+	    	    
+	    	    var to = year2+'-'+month2+'-'+day2;
+	    	    console.log(to);
+	    	    return to;
+	    	}
+	    	function orderStatusCode(){
+	    		var order = $('#orderStatusCode').val();
+	    		console.log('orrrr : ' + order);
+	    		return order;
+	    	}
+	    	
+	    	$('#pdfbtn').click(function(){
+	    	    location.href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/management/pdfDown/"+orderStatusCode()+"/"+from()+"/"+to();
+	    	});
+	    	
+	    	$('#excelbtn').click(function(){
+	    		location.href="${pageContext.request.contextPath}/shops/${sessionScope.shopid}/management/excelDown/"+orderStatusCode()+"/"+from()+"/"+to();
+	    	});
+	    	
+	    	console.log('ctx 확인 : ' + ctx);
+/* 	    	$('#example').DataTable(); */
 		    $("#fromDatepicker").datepicker({dateFormat: 'yy-mm-dd'});
 		    $("#fromDatepicker").datepicker("setDate", -365);
+		    
+		    console.log('bgbdsdvsvdfsdfs');
+		    console.log($('#fromDatepicker').text()+' ?ok?');
 		    
 		    $("#toDatepicker").datepicker({dateFormat: 'yy-mm-dd'});
 		    $("#toDatepicker").datepicker("setDate", "-0d");

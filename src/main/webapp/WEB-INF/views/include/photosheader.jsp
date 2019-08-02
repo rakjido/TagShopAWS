@@ -61,7 +61,7 @@
                         <div class="follower-num">
                           팔로워 <b>${follower }</b>
                         </div>
-                        <div>
+                        <div class="following-num">
                           팔로우 <b>${following }</b>
                         </div>
                       </div>

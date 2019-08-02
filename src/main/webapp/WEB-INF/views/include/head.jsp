@@ -24,13 +24,15 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/core-style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/instagram.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/followlist.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modify.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="https://kit.fontawesome.com/3516ad21ac.js"></script>
-<script src="http://15.164.0.222:82/socket.io/socket.io.js"></script>
+<script src="http://103.218.156.9:82/socket.io/socket.io.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"</script>
-<!-- <script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"</script> -->
+<!-- <script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"</script> -->
+<script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"</script>

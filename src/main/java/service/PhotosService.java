@@ -15,6 +15,7 @@ import vo.CommentsPhotoIdjoinVo;
 import vo.CommentsVo;
 import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
+import vo.FollowerVo;
 import vo.FollowingVo;
 import vo.LikesVo;
 import vo.PhotoLikePhotosVo;
@@ -195,6 +196,18 @@ public class PhotosService {
 		
 	}
 	
+	public FollowerVo getFollower(String followerid, String usersuserid) {
+		
+		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+		
+		HashMap<String, Object> follower = new HashMap<String, Object>();
+		follower.put("followerid", followerid);
+		follower.put("usersuserid", usersuserid);
+		
+		return dao.getFollower(follower);
+		
+	}
+	
 	public int udatePhotoProfile(String userid, String fileName) {
 		
 		PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
@@ -366,6 +379,22 @@ public class PhotosService {
     	PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
     	
     	return dao.getRefphotos(photoid);
+    	
+    }
+    
+    public List<FollowerVo> getFollowerList(String userid) {
+    	
+    	PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+    	
+    	return dao.getFollowerList(userid);
+    	
+    }
+    
+    public List<FollowingVo> getFollowingList(String userid) {
+    	
+    	PhotosDao dao = sqlsession.getMapper(PhotosDao.class);
+    	
+    	return dao.getFollowingList(userid);
     	
     }
 }

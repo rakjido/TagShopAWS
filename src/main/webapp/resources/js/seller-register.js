@@ -3,7 +3,7 @@ $(function() {
 	var checknum = "";
 	
 	var location = window.location.href.split('/');
-	var url = "http://"+location[2]+"/"+location[3]+"/users/logout";
+	var url = ctx+"/users/logout";
 	console.log(location);
 	
 	$('form').submit(function(e) {
@@ -48,9 +48,18 @@ $(function() {
 			success:function(data){
 				
 				checknum = data;
+				swal({
+					  title: "인증번호가 전송되었습니다.",
+					  text: $('#sales_apply_phone').val(),
+					  icon: "success",
+					  button: "확인",
+					}).then((value) => {
+						$('#sales_apply_phonecheck').removeAttr("disabled");
+						$('#sales_apply_phonecheck').focus();
+					});
 				
-				$('#sales_apply_phonecheck').removeAttr("disabled");
-				$('#sales_apply_phonecheck').focus();
+				
+				
 				
 			}
 		})

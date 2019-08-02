@@ -67,7 +67,7 @@
                           </span>
                         </div>
                         <div class="col-md-4 tile">
-                          <span>Total Purchase Via Photo</span>
+                          <span>Total Rebuy</span>
                           <h2 id="totalBuyShop"></h2>
                           <span class="sparkline11 graph" style="height: 160px;">
                                  <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>

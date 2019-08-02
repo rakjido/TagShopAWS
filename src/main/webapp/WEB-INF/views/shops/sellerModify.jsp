@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>
@@ -14,7 +14,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        <h2>판매자 신청</h2>
+                        <h2>판매자 수정</h2>
                     </div>
                 </div>
             </div>
@@ -52,10 +52,10 @@
                                     <input type="text" class="form-control" id="sales_apply_license1" value="${shopinfo.corporateRegisterNumber.substring(0,3) }" required
                                         placeholder="123" name="regNum1">
                                     <span class="sales-form-divider">-</span>
-                                    <input type="text" class="form-control" id="sales_apply_license2" value="${shopinfo.corporateRegisterNumber.substring(4,6) }" required
+                                    <input type="text" class="form-control" id="sales_apply_license2" value="${shopinfo.corporateRegisterNumber.substring(3,5) }" required
                                         placeholder="45" name="regNum2">
                                     <span class="sales-form-divider">-</span>
-                                    <input type="text" class="form-control" id="sales_apply_license3" value="${shopinfo.corporateRegisterNumber.substring(7,11) }" required
+                                    <input type="text" class="form-control" id="sales_apply_license3" value="${shopinfo.corporateRegisterNumber.substring(5,10) }" required
                                         placeholder="67890" name="regNum3">
                                 </div>
                                 <div><span id=company_number> </span></div>

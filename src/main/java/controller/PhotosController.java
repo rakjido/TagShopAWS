@@ -41,6 +41,7 @@ import vo.CommentsPhotoIdjoinVo;
 import vo.CommentsVo;
 import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
+import vo.FollowerVo;
 import vo.FollowingVo;
 import vo.LikesVo;
 import vo.PhotoRegisterVo;
@@ -246,17 +247,17 @@ public class PhotosController {
 		System.out.println("링크가 무엇이냐 : " + photoRegisterVo.getARefLink());
 
 		if(photoRegisterVo.getBRefLink().equals("noLink")) {
-			photoRegisterVo.setBRefLink("http://192.168.1.22:8090/tagshop/shops/test/products/45");
+			photoRegisterVo.setBRefLink("http://103.218.156.9/shops/barrel/products/54");
 		}
 		
 		if(!("Ax1").equals(photoRegisterVo.getAx1())) { // 20190714 수정  https://m.blog.naver.com/tmondev/220791552394
 			String[] arrayA = photoRegisterVo.getARefLink().split("/");
-			photoRegisterVo.setARefProductId(BigInteger.valueOf(Integer.parseInt(arrayA[7])));
-			photoRegisterVo.setARefShopid(arrayA[5]);
+			photoRegisterVo.setARefProductId(BigInteger.valueOf(Integer.parseInt(arrayA[6])));
+			photoRegisterVo.setARefShopid(arrayA[4]);
 			
 			String[] arrayB = photoRegisterVo.getBRefLink().split("/");
-			photoRegisterVo.setBRefProductId(BigInteger.valueOf(Integer.parseInt(arrayB[7])));
-			photoRegisterVo.setBRefShopid(arrayB[5]);
+			photoRegisterVo.setBRefProductId(BigInteger.valueOf(Integer.parseInt(arrayB[6])));
+			photoRegisterVo.setBRefShopid(arrayB[4]);
 			
 			int result = photoservice.insertPhotos(photosvo);
 			photoservice.insertCoordinates(photoRegisterVo);
@@ -306,7 +307,7 @@ public class PhotosController {
 		List<PhotosVo> allphotos = photoservice.getAllPhotos(userid);
 		List<CommentsjoinVo> comments = photoservice.getAllCommentsJoin(photoid);
 		LikesVo likecheck = photoservice.getLikeCheck(userid, photoid);
-		ProfileVo profile = profileservice.getProfile(photouserid);
+		ProfileVo profile = profileservice.getProfile(photosvo.getUserId());
 		Map<String,Object> photodetail = new HashMap<String,Object>();
 		List<RepostsVo> reposts = photoservice.getReposts(userid);
 		List<PhotoTagsJoinVo> phototag = photoservice.getPhotoTags(photoid);
@@ -633,6 +634,79 @@ public class PhotosController {
 		photoservice.deletePhoto(userid, photoid);
 		
 		return "redirect:/{userid}/";
+	}
+	
+	/* 팔로우 리스트 */
+	@RequestMapping(value = "/{userid}/followlist", method = RequestMethod.GET)
+	public String getFollowlist(@PathVariable("userid")String userid, @RequestParam("myuserid")String myuserid, Model model) {
+		
+		List<FollowerVo> followvo = photoservice.getFollowerList(userid);
+		List<ProfileVo> followprofile = new ArrayList<ProfileVo>();
+		List<String> followcheck = new ArrayList<String>();
+		System.out.println(userid);
+		System.out.println(followvo);
+		
+		if(followvo != null) {
+			
+			for (int i = 0; i < followvo.size(); i++) {
+				followprofile.add(profileservice.getProfile(followvo.get(i).getFollowerId()));
+				photoservice.getFollowing(followvo.get(i).getFollowerId(), myuserid);
+				if(photoservice.getFollowing(followvo.get(i).getFollowerId(), myuserid) != null && !photoservice.getFollowing(followvo.get(i).getFollowerId(), myuserid).equals("")) {
+					followcheck.add("팔로잉");
+				}else {
+					followcheck.add("팔로우");
+				}
+			}
+			System.out.println(followcheck);
+			System.out.println(followprofile);
+			HashMap<String, Object> followlist = new HashMap<String, Object>();
+			
+			followlist.put("followcheck", followcheck);
+			followlist.put("followvo", followvo);
+			followlist.put("followprofile", followprofile);
+			
+			model.addAttribute("followlist", followlist);
+		}
+		
+		
+		
+		return "ajaxview/PhotoFollowList";
+	}
+	
+	/* 팔로워 리스트 */
+	@RequestMapping(value = "/{userid}/followinglist", method = RequestMethod.GET)
+	public String getFollowinglist(@PathVariable("userid")String userid, @RequestParam("myuserid")String myuserid, Model model) {
+		
+		List<FollowingVo> followvo = photoservice.getFollowingList(userid);
+		List<ProfileVo> followprofile = new ArrayList<ProfileVo>();
+		List<String> followcheck = new ArrayList<String>();
+		System.out.println(userid);
+		System.out.println(followvo);
+		
+		if(followvo != null) {
+			
+			for (int i = 0; i < followvo.size(); i++) {
+				followprofile.add(profileservice.getProfile(followvo.get(i).getFollowingId()));
+				System.out.println(photoservice.getFollowing(followvo.get(i).getUsersUserid(), myuserid));
+				if(photoservice.getFollower(followvo.get(i).getUsersUserid(), myuserid) != null && !photoservice.getFollower(followvo.get(i).getUsersUserid(), myuserid).equals("")) {
+					followcheck.add("팔로우");
+				}else {
+					followcheck.add("팔로잉");
+				}
+			}
+			System.out.println(followcheck);
+			System.out.println(followprofile);
+			HashMap<String, Object> followlist = new HashMap<String, Object>();
+			
+			followlist.put("followcheck", followcheck);
+			followlist.put("followvo", followvo);
+			followlist.put("followprofile", followprofile);
+			
+			model.addAttribute("followlist", followlist);
+		}
+		
+		return "ajaxview/PhotoFollowList";
+
 	}
 	
 }

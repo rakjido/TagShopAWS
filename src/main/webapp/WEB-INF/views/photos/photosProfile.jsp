@@ -107,12 +107,12 @@
                                     type="text" value="${edits.profile.website }">
                             </div>
                         </div>
+                    </form>
                         <div class="form-group row">
                             <div class="offset-4 col-8">
                                 <button name="submit" type="submit" class="btn btn-primary proedit">수정</button>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
             

@@ -277,7 +277,6 @@
               <div>
                 <a href="${pageContext.request.contextPath}/${i.userid}/">
                   <h2>${i.userid }</h2>
-                  <p> test</p>
                 </a>
               </div>
             </div>

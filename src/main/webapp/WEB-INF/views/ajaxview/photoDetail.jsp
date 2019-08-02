@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -241,8 +241,8 @@ $(function(){
     	
     	tagStr = '<div id="preview">' + 
 				    '<div style="flex:0 0 100%; width:300px; height:300px">'+
-				    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[1].photoFile +'"class="fullimg"/></div>' +				
-				    '<h6  style="text-align:center">'+ productList[1].title +'</h6></div>';
+				    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[0].photoFile +'"class="fullimg"/></div>' +				
+				    '<h6  style="text-align:center">'+ productList[0].title +'</h6></div>';
 		console.log(productList);
 		
     	$("body").append(tagStr);                    
@@ -266,9 +266,9 @@ $(document).on("mouseenter","#plusImg2",function(e){ //마우스 오버시
 	var productList =  JSON.parse('${productList}');
 	console.log(productList);
 	tagStr = '<div id="preview2">' + 
-    '<div style="flex:0 0 100%; width:400px; height:400px">'+
-    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[0].PhotoFile +'"class="fullimg"/></div>' +				
-    '<h6  style="text-align:center">'+ productList[0].title +'</h6></div>';
+    '<div style="flex:0 0 100%; width:300px; height:300px">'+
+    '<img src="${pageContext.request.contextPath}/uploads/'+ productList[1].PhotoFile +'"class="fullimg"/></div>' +				
+    '<h6  style="text-align:center">'+ productList[1].title +'</h6></div>';
         
         $("body").append(tagStr); //보여줄 이미지를 선언                       
         $("#preview2")
@@ -289,8 +289,21 @@ $(document).on("mouseenter","#plusImg2",function(e){ //마우스 오버시
     
     
 	}
-    $('#deletebtn').click(function(){
-        location.href="${pageContext.request.contextPath}/${detail.profile.userid}/photos/${detail.photos.photoId }/delete";
+	
+    $('#deletebtn').click(function(e){
+    	
+    	swal({
+    		  title: "사진을 정말 삭제하시겠습니까?",
+    		  buttons: true,
+    		  dangerMode: true,
+    		})
+    		.then((willDelete) => {
+    		  if (willDelete) {
+  				location.href="${pageContext.request.contextPath}/${detail.profile.userid}/photos/${detail.photos.photoId }/delete";
+    		  }
+    		  
+    		});
+    	
     });
 }); 
 </script>

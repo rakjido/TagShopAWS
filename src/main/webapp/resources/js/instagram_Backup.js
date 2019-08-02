@@ -6,17 +6,17 @@
 					
 					var test = $('.Heart').css('background-image');
 					
-					if(test == 'url("http://localhost:8090/tagshop/resources/img/product-img/heart-outline.png")'){
+					if(test == 'url('+ctx+'/resources/img/product-img/heart-outline.png")'){
 						
-						likecheckok(location[2], photoid, true);
+						likecheckok(location[1], photoid, true);
 						
-						$('.Heart').css('background-image','url(/tagshop/resources/img/product-img/heart-black.png)');
+						$('.Heart').css('background-image','url('+ctx+'/resources/img/product-img/heart-black.png)');
 					
-					}else if (test == 'url("http://localhost:8090/tagshop/resources/img/product-img/heart-black.png")') {
+					}else if (test == 'url('+ctx+'/resources/img/product-img/heart-black.png")') {
 						
-						likecheckok(location[2], photoid, false);
+						likecheckok(location[1], photoid, false);
 						
-						$('.Heart').css('background-image','url(/tagshop/resources/img/product-img/heart-outline.png)');
+						$('.Heart').css('background-image','url('+ctx+'/resources/img/product-img/heart-outline.png)');
 					}
 
 					
@@ -101,11 +101,11 @@
 					success : function(data) {
 						
 						if(data.likecheck === null){
-							likecheck(location[2], photoid);
+							likecheck(location[1], photoid);
 						}else if(data.likecheck.likeYn == true){
-							$('.Heart').css('background-image','url(/tagshop/resources/img/product-img/heart-black.png)');
+							$('.Heart').css('background-image','url('+ctx+'/resources/img/product-img/heart-black.png)');
 						}else if(data.likecheck.likeYn == false){
-							$('.Heart').css('background-image','url(/tagshop/resources/img/product-img/heart-outline.png)');
+							$('.Heart').css('background-image','url('+ctx+'/resources/img/product-img/heart-outline.png)');
 						}
 						
 						var photos = "";
@@ -427,7 +427,7 @@
 									var location = window.location.pathname.split('/');
 			
 						$.ajax({
-							url: "/tagshop/"+location[2]+"/",
+							url: "/tagshop/"+location[1]+"/",
 							type: "POST",
 							dataType: "html",
 							success : function(data) {
@@ -451,13 +451,13 @@
 								
 								if(test == 'url("http://localhost:8090/tagshop/resources/img/product-img/heart-outline.png")'){
 									
-									likecheckok(location[2], photoid, true);
+									likecheckok(location[1], photoid, true);
 									
 									$('.Heart').css('background-image','url(/tagshop/resources/img/product-img/heart-black.png)');
 								
 								}else if (test == 'url("http://localhost:8090/tagshop/resources/img/product-img/heart-black.png")') {
 									
-									likecheckok(location[2], photoid, false);
+									likecheckok(location[1], photoid, false);
 									
 									$('.Heart').css('background-image','url(/tagshop/resources/img/product-img/heart-outline.png)');
 								}

@@ -12,4 +12,4 @@
     <!-- Custom Theme Style -->
     <link href="${pageContext.request.contextPath}/resources/build/css/custom.min.css" rel="stylesheet">
     
-    <script>var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"</script>
+    

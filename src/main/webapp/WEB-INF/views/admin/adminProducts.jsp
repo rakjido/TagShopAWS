@@ -91,6 +91,7 @@
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
   	
 <script>
+var ctx = "${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}";
 var performanceJson = JSON.parse('${pList}');
 var pNum = ${pNum};
 $('#totalUsers').html(performanceJson[pNum-1].users);

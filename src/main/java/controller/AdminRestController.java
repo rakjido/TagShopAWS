@@ -37,7 +37,7 @@ public class AdminRestController {
 	public Object getProductList(){
 		Map<String, Object> mp = new HashMap<String, Object>();
 		mp.put("data", shopService.productCategories());
-		System.out.println(mp);
+		
 		return mp;
 	}
 	

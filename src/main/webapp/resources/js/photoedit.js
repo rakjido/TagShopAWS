@@ -101,24 +101,52 @@ $(function() {
     });
 	
 	
-	$(document).on('click','.pwdedit' ,function(e) {
+	$(document).on('click','.proedit' ,function(e) {
 		
-		console.log(passwordcheck);
+		e.preventDefault();
+		swal({
+			  title: "프로필이 변경되었습니다.",
+			  icon: "success",
+			  button: "확인",
+			}).then((value) => {
+				$('.editform').submit();
+			});
 		
-		if($('#repassword').val() != $('#repasswordOk').val()){
-			$("#reepwd span").css("color", "#ff0000");
-			$('#reepwd span').text("두 비밀번호가 일치하지 않습니다.");
-			$('#repassword').focus();
-			e.preventDefault();
-		}else if(passwordcheck != "1"){
-			$("#prepwd span").css("color", "#ff0000");
-			$('#prepwd span').text("기존 비밀번호가 일치하지 않습니다.");
-			$('#prepassword').focus();
-			e.preventDefault();
-			
-		}else
-			console.log("마지막");
-	});
+		setTimeout(function() {
+			$('.editform').submit();
+		}, 1500);
+});
+
+
+$(document).on('click','.pwdedit' ,function(e) {
+	
+	console.log(passwordcheck);
+	
+	if($('#repassword').val() != $('#repasswordOk').val()){
+		$("#reepwd span").css("color", "#ff0000");
+		$('#reepwd span').text("두 비밀번호가 일치하지 않습니다.");
+		$('#repassword').focus();
+		e.preventDefault();
+	}else if(passwordcheck != "1"){
+		$("#prepwd span").css("color", "#ff0000");
+		$('#prepwd span').text("기존 비밀번호가 일치하지 않습니다.");
+		$('#prepassword').focus();
+		e.preventDefault();
+		
+	}else
+		e.preventDefault();
+		swal({
+			  title: "비밀번호가 변경되었습니다.",
+			  icon: "success",
+			  button: "확인",
+			}).then((value) => {
+				$('.editpassword').submit();
+			});
+		
+		setTimeout(function() {
+			$('.editpassword').submit();
+		}, 1500);
+});
 		
 
 
@@ -135,7 +163,7 @@ $(function() {
 		
 		console.log(file);
 		var location = $('#url-import').attr('href').split('/');
-		var url = ctx+"/"+location[2]+"/profile/photo";
+		var url = ctx+"/"+location[1]+"/profile/photo";
 		console.log(url);
 		var data = new FormData();
 		data.append("photofile", file);

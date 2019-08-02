@@ -114,7 +114,7 @@
 <script>
 	
     $(document).ready(function() {
-    	var btnNum = 0;
+    	var btnNum = 1;
 
         
         $('#plusbtnback').click(function(){
@@ -123,7 +123,7 @@
         });
         
         $('#minusbtnback').click(function(){
-        	if(btnNum != 1){
+        	if(btnNum > 1){
         		--btnNum;
             	$('#quantity').val(btnNum);
         	}

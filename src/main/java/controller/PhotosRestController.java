@@ -209,12 +209,10 @@ public class PhotosRestController {
 		
 		int result = photoservice.insertTransaction(userid, photoid, repost);
 		
-		if(result == 1){
-			System.out.println(result);
+		if(result == 1 && coordinates != null){
 			PhotosVo photo = photoservice.getRefphotos(photoid);
 			coordinates.setPhotoId(photo.getPhotoId());
 			photoservice.insertCoordinates(coordinates);
-			
 		}
 		
 		return "success";

@@ -92,7 +92,6 @@ public class ShopsController {
 	@Autowired
 	private ManagementVo managementvo;
 	
-
 	
 	/*
      * @method name : sellerRegister
@@ -649,131 +648,146 @@ public class ShopsController {
      *
      * @example 
      */
-	@RequestMapping(value = "/{shopid}/management/excelDown", method=RequestMethod.GET)
-	public void excelDown(HttpServletResponse response) throws Exception{
-		// 게시판 목록조회
-		List<ManagementVo> managementList = service.selectPOIManagementList();
-		// 워크북 생성
-		Workbook wb = new HSSFWorkbook();
-		Sheet sheet = wb.createSheet("게시판");
-		Row row = null;
-		Cell cell = null;
-		int rowNo = 0;
+	// 판매관리 엑셀로 다운로드
+				@RequestMapping(value = "/{shopid}/management/excelDown/{orderStatusCode}/{from}/{to}", method=RequestMethod.GET)
+				public void excelDown(HttpServletResponse response,
+						@PathVariable("from") String from,
+						@PathVariable("to") String to,
+						@PathVariable("shopid") String shopid,
+						@PathVariable("orderStatusCode") String orderStatusCode
+						) throws Exception{
+					SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-		// 테이블 헤더용 스타일
-		CellStyle headStyle = wb.createCellStyle();
-		// 가는 경계선을 가집니다.
-		headStyle.setBorderTop(BorderStyle.THIN);
-		headStyle.setBorderBottom(BorderStyle.THIN);
-		headStyle.setBorderLeft(BorderStyle.THIN);
-		headStyle.setBorderRight(BorderStyle.THIN);
-		// 배경색은 핑크색입니다.
-		headStyle.setFillForegroundColor(HSSFColorPredefined.LIGHT_YELLOW.getIndex());
-		headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		// 데이터는 가운데 정렬합니다.
-		headStyle.setAlignment(HorizontalAlignment.CENTER);
-		
-		// 데이터용 경계 스타일
-		CellStyle bodyStyle = wb.createCellStyle();
-		bodyStyle.setBorderTop(BorderStyle.THIN);
-		bodyStyle.setBorderBottom(BorderStyle.THIN);
-		bodyStyle.setBorderLeft(BorderStyle.THIN);
-		bodyStyle.setBorderRight(BorderStyle.THIN);
+					Date from2 = transFormat.parse(from);
+					Date to2 = transFormat.parse(to);
+					
+					// 게시판 목록조회
+					//List<ManagementVo> managementList = service.selectPOIManagementList(from,to);
+					List<ManagementVo> managementList = service.getManagementList(from2, to2, shopid, orderStatusCode);
+					System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@" + managementList);
+					// 워크북 생성
+					Workbook wb = new HSSFWorkbook();
+					Sheet sheet = wb.createSheet("게시판");
+					Row row = null;
+					Cell cell = null;
+					int rowNo = 0;
 
-		// 헤더 생성
-		row = sheet.createRow(rowNo++);
-		
-		cell = row.createCell(0);
-		cell.setCellStyle(headStyle);
-		cell.setCellValue("DATETIMES");
-		
-		cell = row.createCell(1);
-		cell.setCellStyle(headStyle);
-		cell.setCellValue("USERID");
-		
-		cell = row.createCell(2);
-		cell.setCellStyle(headStyle);
-		cell.setCellValue("DELIVERYFEE");
-		
-		cell = row.createCell(3);
-		cell.setCellStyle(headStyle);
-		cell.setCellValue("PRODUCTNAME");
-		
-		cell = row.createCell(4);
-		cell.setCellStyle(headStyle);
-		cell.setCellValue("UNITPRICE");
-		
-		cell = row.createCell(5);
-		cell.setCellStyle(headStyle);
-		cell.setCellValue("QUANTITY");
-		
-		cell = row.createCell(6);
-		cell.setCellStyle(headStyle);
-		cell.setCellValue("ORDERSTATUSCODE");
-		
-		
-		// 데이터 부분 생성
-		for(ManagementVo vo : managementList) {
-			row = sheet.createRow(rowNo++);
-			
-			cell = row.createCell(0);
-			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(vo.getDateTimes());
-			
-			cell = row.createCell(1);
-			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(vo.getUserid());
-			
-			cell = row.createCell(2);
-			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(vo.getDeliveryFee());
-			
-			cell = row.createCell(3);
-			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(vo.getProductName());
-			
-			cell = row.createCell(4);
-			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(vo.getUnitPrice());
+					// 테이블 헤더용 스타일
+					CellStyle headStyle = wb.createCellStyle();
+					// 가는 경계선을 가집니다.
+					headStyle.setBorderTop(BorderStyle.THIN);
+					headStyle.setBorderBottom(BorderStyle.THIN);
+					headStyle.setBorderLeft(BorderStyle.THIN);
+					headStyle.setBorderRight(BorderStyle.THIN);
+					// 배경색은 핑크색입니다.
+					headStyle.setFillForegroundColor(HSSFColorPredefined.LIGHT_YELLOW.getIndex());
+					headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+					// 데이터는 가운데 정렬합니다.
+					headStyle.setAlignment(HorizontalAlignment.CENTER);
+					
+					// 데이터용 경계 스타일
+					CellStyle bodyStyle = wb.createCellStyle();
+					bodyStyle.setBorderTop(BorderStyle.THIN);
+					bodyStyle.setBorderBottom(BorderStyle.THIN);
+					bodyStyle.setBorderLeft(BorderStyle.THIN);
+					bodyStyle.setBorderRight(BorderStyle.THIN);
 
-			cell = row.createCell(5);
-			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(vo.getQuantity());
+					// 헤더 생성
+					row = sheet.createRow(rowNo++);
+					
+					cell = row.createCell(0);
+					cell.setCellStyle(headStyle);
+					cell.setCellValue("DATETIMES");
+					
+					cell = row.createCell(1);
+					cell.setCellStyle(headStyle);
+					cell.setCellValue("USERID");
+					
+					cell = row.createCell(2);
+					cell.setCellStyle(headStyle);
+					cell.setCellValue("DELIVERYFEE");
+					
+					cell = row.createCell(3);
+					cell.setCellStyle(headStyle);
+					cell.setCellValue("PRODUCTNAME");
+					
+					cell = row.createCell(4);
+					cell.setCellStyle(headStyle);
+					cell.setCellValue("UNITPRICE");
+					
+					cell = row.createCell(5);
+					cell.setCellStyle(headStyle);
+					cell.setCellValue("QUANTITY");
+					
+					cell = row.createCell(6);
+					cell.setCellStyle(headStyle);
+					cell.setCellValue("ORDERSTATUSCODE");
+					
+					
+					// 데이터 부분 생성
+					for(ManagementVo vo : managementList) {
+						row = sheet.createRow(rowNo++);
+						
+						cell = row.createCell(0);
+						cell.setCellStyle(bodyStyle);
+						cell.setCellValue(vo.getDateTimes());
+						
+						cell = row.createCell(1);
+						cell.setCellStyle(bodyStyle);
+						cell.setCellValue(vo.getUserid());
+						
+						cell = row.createCell(2);
+						cell.setCellStyle(bodyStyle);
+						cell.setCellValue(vo.getDeliveryFee());
+						
+						cell = row.createCell(3);
+						cell.setCellStyle(bodyStyle);
+						cell.setCellValue(vo.getProductName());
+						
+						cell = row.createCell(4);
+						cell.setCellStyle(bodyStyle);
+						cell.setCellValue(vo.getUnitPrice());
 
-			cell = row.createCell(6);
-			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(vo.getOrderStatusCode());
-			
-			
-		}
-		
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=test.xls");
-		
-		wb. write(response.getOutputStream());
-		wb.close();
-		}
-	
-	/*
-     * @method name : downloadExcel
-     *
-     * @date : 2019.07.13
-     *
-     * @author : 판매정보 pdf 
-     *
-     * @description : 판매자 정보 수정
-     *
-     * @parameters : ModelAndView
-     *
-     * @return : String
-     *
-     * @example 
-     */
-		@RequestMapping(value = "/{shopid}/management/pdfDown", method = RequestMethod.GET)
-		public ModelAndView downloadExcel(HttpServletResponse response) throws Exception {
-			List<ManagementVo> Managementlist = service.selectPOIManagementList();
-			return new ModelAndView("pdfView","Managementlist", Managementlist); 
-		}
+						cell = row.createCell(5);
+						cell.setCellStyle(bodyStyle);
+						cell.setCellValue(vo.getQuantity());
+
+						cell = row.createCell(6);
+						cell.setCellStyle(bodyStyle);
+						cell.setCellValue(vo.getOrderStatusCode());
+						
+						
+					}
+					
+					response.setContentType("application/vnd.ms-excel");
+					response.setHeader("Content-Disposition", "attachment;filename=test.xls");
+					
+					wb. write(response.getOutputStream());
+					wb.close();
+			}
+				// 판매관리 PDF로 출력 다운로드
+				@RequestMapping(value = "/{shopid}/management/pdfDown/{orderStatusCode}/{from}/{to}", method = RequestMethod.GET)
+				public ModelAndView downloadExcel(HttpServletResponse response, 
+						@PathVariable("from") String from,
+						@PathVariable("to") String to,
+						@PathVariable("shopid") String shopid,
+						@PathVariable("orderStatusCode") String orderStatusCode
+						) throws Exception {
+					System.out.println("from : " + from);
+					System.out.println("to : " + to);
+					System.out.println("order : " + orderStatusCode);
+					
+					SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+					Date from2 = transFormat.parse(from);
+					Date to2 = transFormat.parse(to);
+					
+					List<ManagementVo> Managementlist = service.getManagementList(from2, to2, shopid, orderStatusCode);
+					//List<ManagementVo> Managementlist = service.selectPOIManagementList(from,to);
+					return new ModelAndView("pdfView","Managementlist", Managementlist); 
+					//PDFView로 넘겨서 Src안에 Propertice 통해서 PDFbulider사용
+				}
+				
 		
 		@RequestMapping(value = "/{userid}/myshop/changeorder/{orderStatusCode}/{buyItemsId}", method = RequestMethod.GET)
 		public String updateOrder(@PathVariable("orderStatusCode") String orderStatusCode,

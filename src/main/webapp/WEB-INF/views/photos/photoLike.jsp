@@ -89,3 +89,4 @@
 	<!-- js파일 ! -->
 	<script src="${pageContext.request.contextPath}/resources/js/instagram.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/photo_scroll.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/instagram_Feed.js"></script>

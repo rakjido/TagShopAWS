@@ -6,7 +6,7 @@ $(function() {
 		e.preventDefault();
 		
 		var location = window.location.href.split('/');
-		var url = "http://"+location[2]+"/"+location[3];
+		var url = "http://"+location[1]+"/"+location[2];
 		
 		
 		var formData = $('#signup').serialize();
@@ -23,8 +23,19 @@ $(function() {
 				console.log(data);
 				switch (data) {
 				case 0:
-					alert("TAG#");
-					window.location.href = url;
+					swal("인증메일이 발송되었습니다.", $('#signup-input_text_email').val(),"success");
+					
+					swal({
+						  title: "인증메일이 발송되었습니다.",
+						  text: $('#signup-input_text_email').val(),
+						  icon: "success",
+						  button: "확인",
+						}).then((value) => {
+							window.location.href = ctx;
+						});
+					setTimeout(function() {
+						window.location.href = ctx;
+					}, 8000);
 					break;
 					
 				case 1:

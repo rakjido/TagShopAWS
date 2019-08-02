@@ -19,7 +19,7 @@ $(function() {
 		isRun = true;
 		
 		$.ajax({
-			url: ctx+"/"+ location[2] +"/comments/"+ photouserid[2] +"/"+ photoid,
+			url: ctx+"/"+ location[1] +"/comments/"+ photouserid[1] +"/"+ photoid,
 			type: "POST",
 			data: {comment: comment},
 			dataType: "JSON",
@@ -31,7 +31,7 @@ $(function() {
 				'<div class="P9YgZ">' +
 				'<div class="C7I1f ">' +
 				'<div class="C4VMK">' +
-				'<h3 class="_6lAjh"><a class="FPmhX" title="'+location[2]+'" href="'+ ctx +'/'+ location[2] +'/">'+location[2]+'</a></h3>' +
+				'<h3 class="_6lAjh"><a class="FPmhX" title="'+location[1]+'" href="'+ ctx +'/'+ location[1] +'/">'+location[1]+'</a></h3>' +
 				'<span> '+comment+'</span>' +
 				'</div>' +
 				'</div>' +
@@ -84,13 +84,13 @@ $(function() {
 			
 			var following = {
 					followingId : followid,
-					usersuserId : location[2],
+					usersuserId : location[1],
 					follow : $(this).text()
 							};
 			var json = JSON.stringify(following);
 			
 			$.ajax({
-				url: ctx+"/"+location[2]+"/photos/"+followid+"/follow",
+				url: ctx+"/"+location[1]+"/photos/"+followid+"/follow",
 				type: "POST",
 				data: json,
 				dataType: "JSON",
@@ -100,12 +100,12 @@ $(function() {
 					
 					if(data == 1){
 						attr.text('팔로잉');
-						followplus = parseInt($('.follower-num b').text()) + 1;
-						$('.follower-num b').text(followplus);
+						followplus = parseInt($('.following-num b').text()) + 1;
+						$('.following-num b').text(followplus);
 					}else if(data == 0){
 						attr.text('팔로우');
-						followplus = parseInt($('.follower-num b').text()) - 1;
-						$('.follower-num b').text(followplus);
+						followplus = parseInt($('.following-num b').text()) - 1;
+						$('.following-num b').text(followplus);
 					}
 					
 				}

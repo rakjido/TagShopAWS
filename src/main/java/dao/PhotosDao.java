@@ -8,6 +8,7 @@ import vo.CommentsPhotoIdjoinVo;
 import vo.CommentsVo;
 import vo.CommentsjoinVo;
 import vo.FeedLikesVo;
+import vo.FollowerVo;
 import vo.FollowingVo;
 import vo.LikesVo;
 import vo.PhotoLikePhotosVo;
@@ -63,6 +64,8 @@ public interface PhotosDao {
 	
 	public FollowingVo getFollowing(HashMap<String, Object> map);
 	
+	public FollowerVo getFollower(HashMap<String, Object> map);
+	
 	public int udatePhotoProfile(HashMap<String, Object> map);
 	
 	public int insertReposts(HashMap<String, Object> map);
@@ -98,4 +101,8 @@ public interface PhotosDao {
     public List<RankingVo> searchPhotoTagsbyRanking(HashMap<String, String> map);
     
     public List<PhotoLikePhotosVo> getAllLikePhotos();
+    
+    public List<FollowerVo> getFollowerList(String userid);
+    
+    public List<FollowingVo> getFollowingList(String userid);
 }

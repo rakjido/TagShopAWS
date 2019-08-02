@@ -5,7 +5,6 @@
 
 <c:set var="shopid" value="${sessionScope.shopid}" />
 <c:set var="userid" value="${sessionScope.userid}" />
-<script src="${pageContext.request.contextPath}/resources/js/basketsAjax.js"></script>
 <body>
     <!-- ##### Header Area Start ##### -->
     <header class="header_area">

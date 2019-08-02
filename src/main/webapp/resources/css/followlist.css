@@ -1,0 +1,98 @@
+
+.table-condensed img {
+  border-radius: 20%;
+  height: 60px;
+  width: 60px;
+}
+
+.fa-twitch {
+  font-size: 60px;
+  color: #5C0EDA;
+}
+
+.main {
+  padding-top: 2px;
+  text-align: left;
+  width: 20em;
+  margin-left: 15px;
+}
+
+input {
+  border-radius: 0px !important;
+  -webkit-border-radius:0px; 
+  -moz-border-radius:0px;
+}
+#streamerSearch {
+  width: 20em;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #ED1690;
+  box-shadow: none;
+}
+
+.btn-search {
+  background-color: transparent;
+  border: none;
+  color: #5C0EDA;
+}
+
+.btn-search:visited, .btn-search:hover, .btn-search:focus, .btn-search:active {
+  outline: none !important;
+  background: transparent;
+  color: #5C0EDA;
+}
+.search-box {
+  text-align: center;
+  padding-bottom:15px;
+}
+
+.messages {
+  position: absolute;
+  bottom: 4px;
+  color: #A3A3A2;
+}
+
+#error {
+  text-align: center;
+  bottom: 4px;
+  font-size: 1.5em;
+}
+
+.btn-filter {
+  border-radius: 5px;
+  border-style: none;
+}
+
+.btn-filter:visited, .btn-filter:hover, .btn-filter:focus, .btn-filter:active{
+  outline: none !important;
+}
+
+#btn-all {
+  background-color: #ED1690;
+}
+
+#btn-online {
+  background-color: #A77FEB;
+}
+
+#btn-offline {
+  background-color: #EC9BD5;
+}
+
+.isOnline {
+  cursor:pointer;
+  color: #3897f0;
+  font-weight: bold;
+}
+
+.isOffline {
+  color: #ec9bd5;
+}
+
+.viewers {
+  color: #A3A3A2;
+}
+
+.title a {
+  color: #5C0EDA;
+}

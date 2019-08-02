@@ -3,6 +3,97 @@
 	
 $(function() {
 	
+/* 팔로워 리스트 */
+	
+	$(document).on('click', '.follower-num', function() {
+		
+		var userid = $('.follow p').text();
+		var location = $('#url-import').attr('href').split('/');
+		$.ajax({
+			url: "followlist",
+			type: "GET",
+			data: {myuserid: location[1]},
+			dataType: "html",
+			success : function(data) {
+				
+				$('#instafeed').append(data);
+				
+				
+			}
+		});
+		
+	});
+	
+	/* 팔로우 리스트 */
+	
+	$(document).on('click', '.following-num', function() {
+		
+		var userid = $('.follow p').text();
+		var location = $('#url-import').attr('href').split('/');
+		$.ajax({
+			url: "followinglist",
+			type: "GET",
+			data: {myuserid: location[1]},
+			dataType: "html",
+			success : function(data) {
+				
+				$('#instafeed').append(data);
+				
+				
+			}
+		});
+		
+	});
+	
+	$(document).on('click', '#online', function() {
+		
+		console.log("클릭");
+		console.log($(this).text());
+		var thistag = $(this);
+		var followplus = 0;
+		var location = $('#url-import').attr('href').split('/');
+		var photouserid = $(this).closest('.online').find('.title a').text()
+		if($(this).text() == '팔로잉' || $(this).text() == '팔로우'){
+			
+			
+			var following = {
+					followingId : photouserid,
+					usersuserId : location[1],
+					follow : $(this).text()
+							};
+			var json = JSON.stringify(following);
+			
+			$.ajax({
+				url: "photos/"+location[1]+"/follow",
+				type: "POST",
+				data: json,
+				dataType: "JSON",
+				contentType : 'application/json; charset=UTF-8',
+				success : function(data) {
+					console.log(data);
+					if(data == 1){
+						thistag.text('팔로잉');
+						followplus = parseInt($('.following-num b').text()) + 1;
+						$('.following-num b').text(followplus);
+					}else if(data == 0){
+						thistag.text('팔로우');
+						followplus = parseInt($('.following-num b').text()) - 1;
+						$('.following-num b').text(followplus);
+					}
+					
+				}
+			});
+		}
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
    /* 태그 클릭 시 이동 */
     
     $(document).on('click', '.profile-t',function(e){
@@ -29,14 +120,14 @@ $(function() {
 			
 			
 			var following = {
-					followingId : photouserid[2],
-					usersuserId : location[2],
+					followingId : photouserid[1],
+					usersuserId : location[1],
 					follow : $(this).text()
 							};
 			var json = JSON.stringify(following);
 			
 			$.ajax({
-				url: "photos/"+location[2]+"/follow",
+				url: "photos/"+location[1]+"/follow",
 				type: "POST",
 				data: json,
 				dataType: "JSON",
@@ -85,7 +176,7 @@ $(function() {
 			var photoid = $('img', this).attr('alt');
 			var location = $('#url-import').attr('href').split('/');
 			var photouserid = window.location.pathname.split('/');
-			var url = ctx+"/" + location[2]+"/photos/"+photouserid[2]+"/"+photoid;
+			var url = ctx+"/" + location[1]+"/photos/"+photouserid[1]+"/"+photoid;
 			var profileimg = $('.profile-photo-link img').attr('src');
 			
 			$.ajax({
@@ -185,14 +276,14 @@ $(function() {
 					follow = "팔로우";
 				}
 					var following = {
-							followingId : photouserid[2],
-							usersuserId : location[2],
+							followingId : photouserid[1],
+							usersuserId : location[1],
 							follow : follow
 									};
 					var json = JSON.stringify(following);
 					
 					$.ajax({
-						url: "photos/"+location[2]+"/follow",
+						url: "photos/"+location[1]+"/follow",
 						type: "POST",
 						data: json,
 						dataType: "JSON",
@@ -270,7 +361,7 @@ $(function() {
 				
 				
 				$.ajax({
-					url: ctx+"/"+ location[2] +"/comments/"+ photouserid +"/"+ photoid,
+					url: ctx+"/"+ location[1] +"/comments/"+ photouserid +"/"+ photoid,
 					type: "POST",
 					data: {comment: comment},
 					dataType: "JSON",
@@ -284,7 +375,7 @@ $(function() {
 							'</div>' +
 							'<div class="C4VMK">' +
 								'<div class="profile-name-sub">' +
-									'<a class="profile-a" title="" href="'+ ctx +'/'+ location[2] +'/">'+ location[2] +'</a>' +
+									'<a class="profile-a" title="" href="'+ ctx +'/'+ location[1] +'/">'+ location[1] +'</a>' +
 									'<span class="RPhNB">'+ comment +'</span>' +
 									'<div class="Igw0E">' +
 										'<div class="PIoXz">' +
@@ -329,7 +420,7 @@ $(function() {
 				
 				
 				$.ajax({
-					url: ctx+"/"+ location[2] +"/reposts/"+ photouserid +"/"+ photoid,
+					url: ctx+"/"+ location[1] +"/reposts/"+ photouserid +"/"+ photoid,
 					type: "POST",
 					data: {repost: repost},
 					success : function(data) {
@@ -373,11 +464,13 @@ $(function() {
 					var url = "";
 					var photoid = $('.popup-all-sub img').attr('alt');
 					
-					
-					if(useridyou[3] == 'feeds' && location[2] == useridyou[2]){
+					console.log(useridyou[2]);
+					console.log(location[1]);
+					console.log(useridyou[1]);
+					if(useridyou[2] == 'feeds' && location[1] == useridyou[1]){
 						
 						
-						url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+feedphotoid;
+						url = ctx+"/" + location[1]+"/reposts/"+photouserid[1]+"/"+feedphotoid;
 						
 						$.ajax({
 							url: url,
@@ -410,9 +503,9 @@ $(function() {
 							}
 						});
 						
-					}else if(location[2] != useridyou[2]){
+					}else if(location[1] != useridyou[1]){
 						
-						url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+photoid;
+						url = ctx+"/" + location[1]+"/reposts/"+photouserid[1]+"/"+photoid;
 						
 						$.ajax({
 							url: url,
@@ -444,9 +537,9 @@ $(function() {
 								
 							}
 						});
-					}else if(useridyou[3] == 'likes' && location[2] == useridyou[2]){
+					}else if(useridyou[2] == 'likes' && location[1] == useridyou[1]){
 						
-						url = ctx+"/" + location[2]+"/reposts/"+photouserid[2]+"/"+photoid;
+						url = ctx+"/" + location[1]+"/reposts/"+photouserid[1]+"/"+photoid;
 						
 						$.ajax({
 							url: url,
@@ -494,9 +587,9 @@ $(function() {
 					var url = "";
 					var photoid = $('.popup-all-sub img').attr('alt');
 					
-					if(location[2] == photouserid[2] && useridyou[3] != 'feeds'){
+					if(location[1] == photouserid[1] && useridyou[2] != 'feeds'){
 					
-						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+photoid;
+						url = ctx+"/" + location[1]+"/repostsOk/"+photouserid[1]+"/"+photoid;
 						
 						
 						$.ajax({
@@ -509,10 +602,10 @@ $(function() {
 							}
 						});
 						
-					}else if(useridyou[3] == 'feeds'){
+					}else if(useridyou[2] == 'feeds'){
 						
 						
-						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+feedphotoid;
+						url = ctx+"/" + location[1]+"/repostsOk/"+photouserid[1]+"/"+feedphotoid;
 						
 						$.ajax({
 							url: url,
@@ -526,7 +619,7 @@ $(function() {
 						
 					}else{
 						
-						url = ctx+"/" + location[2]+"/repostsOk/"+photouserid[2]+"/"+photoid;
+						url = ctx+"/" + location[1]+"/repostsOk/"+photouserid[1]+"/"+photoid;
 						
 						$.ajax({
 							url: url,
@@ -548,40 +641,40 @@ $(function() {
 					$( ".Ypffh" ).focus();
 					$(this).closest('.post-interaction').closest('.post').find('.Ypffh1').focus();
 					
-				}else if(likeclass == 'Heart' && useridyou[3] == 'likes' || likeclass == 'Heart' && location[2] != useridyou[2] || likeclass == 'Heart' && useridyou[3] == 'feeds'){
-						if(likeclass == 'Heart' && useridyou[3] == 'feeds'){
+				}else if(likeclass == 'Heart' && useridyou[2] == 'likes' || likeclass == 'Heart' && location[1] != useridyou[1] || likeclass == 'Heart' && useridyou[2] == 'feeds'){
+						if(likeclass == 'Heart' && useridyou[2] == 'feeds'){
 							
 							$('span', this).addClass('Heart-black');
 							$('span', this).removeClass('Heart');
 							
 							$(this).closest('.post-interaction').find('.likes-display span').text(likecount+1);
 							
-							likecheckok(location[2], feedphotoid, true);
+							likecheckok(location[1], feedphotoid, true);
 							
 						}else{
 							
 							$('span', this).addClass('Heart-black');
 							$('span', this).removeClass('Heart');
 							
-							likecheckok(location[2], photoid, true);
+							likecheckok(location[1], photoid, true);
 						}
 						
 					
 				
-				}else if (likeclass == 'Heart-black' && useridyou[3] == 'likes' || likeclass == 'Heart-black' && location[2] != useridyou[2] || likeclass == 'Heart-black' && useridyou[3] == 'feeds') {
-						if(likeclass == 'Heart-black' && useridyou[3] == 'feeds'){
+				}else if (likeclass == 'Heart-black' && useridyou[2] == 'likes' || likeclass == 'Heart-black' && location[1] != useridyou[1] || likeclass == 'Heart-black' && useridyou[2] == 'feeds') {
+						if(likeclass == 'Heart-black' && useridyou[2] == 'feeds'){
 							$('span', this).addClass('Heart');
 							$('span', this).removeClass('Heart-black');
 							
 							$(this).closest('.post-interaction').find('.likes-display span').text(likecount-1);
 							
-							likecheckok(location[2], feedphotoid, false);
+							likecheckok(location[1], feedphotoid, false);
 						}else{
 							
 							$('span', this).addClass('Heart');
 							$('span', this).removeClass('Heart-black');
 							
-							likecheckok(location[2], photoid, false);
+							likecheckok(location[1], photoid, false);
 						}
 				}
 
@@ -633,7 +726,7 @@ $(function() {
 
 									
 						$.ajax({
-							url: "/tagshop/"+location[2]+"/",
+							url: ctx+"/"+location[1]+"/",
 							type: "POST",
 							dataType: "html",
 							success : function(data) {
@@ -657,7 +750,7 @@ $(function() {
 						$.ajax({
 							url: "likes",
 							type: "POST",
-							data: {userid: location[2]},
+							data: {userid: location[1]},
 							dataType: "html",
 							success : function(data) {
 								

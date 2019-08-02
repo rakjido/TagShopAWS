@@ -52,7 +52,7 @@
     
 	<select id="recommend" resultType="vo.RecommendVo">
         <![CDATA[
-            SELECT TB.RNUM, TB.USERID, PROF.PHOTONAME 
+            SELECT TB.RNUM, TB.USERID, PROF.PHOTONAME, PROF.INTRODUCTION
             FROM(
                 SELECT @RNUM:=@RNUM+1 AS RNUM, USERID
                 FROM(

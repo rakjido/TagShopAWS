@@ -31,46 +31,6 @@
 			</div>
 		</div>
 	</section>
-	<section class="new_arrivals_area section-padding-80 clearfix">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="section-heading text-center">
-						<h2>Popular POST</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="popular-products-slides owl-carousel">
-
-						<c:forEach var="likephoto" items="${likephotos }">
-                       <!-- Single Product -->
-
-                        <div class="card active">
-                            <img class="feature"
-                                src="${pageContext.request.contextPath}/uploads/${likephoto.fileName}"
-                                alt="${likephoto.photoId }">
-                            <div class="deets">
-                                <p><a href="${pageContext.request.contextPath}/${likephoto.userId}/">${likephoto.userId}</a></p>
-                                <div class="like-sec">
-                                    <div class="line"></div>
-                                    <img src="${pageContext.request.contextPath}/resources/img/core-img/heart.png" />
-                                    <div class="likes">${likephoto.cnt_Like }</div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-						
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 	<!-- ##### Welcome Area End ##### -->
 	<!-- ##### Top Catagory Area Start ##### -->
 	<div class="top_catagory_area section-padding-80 clearfix">
@@ -178,18 +138,18 @@
 				<div class="ks-item-filter" ks-filter-selector>
 					<ul class="ks-item-filter__categories clearfix"
 						ks-filter-categories>
-						<li data-category="languages" class="tags-item"><a href="#" onclick="smallcodeM(70); return false;">#향수</a></li>
-						<li data-category="cms" class="tags-item"><a href="#" onclick="smallcodeM(1); return false;">#댄디</li>
-						<li data-category="libraries" class="tags-item">#깔끔</li>
-						<li data-category="frameworks" class="tags-item">#힙합</li>
-						<li data-category="software" class="tags-item">#아메리칸</li>
-						<li data-category="workflow" class="tags-item">#캐주얼</li>
-						<li data-category="languages" class="tags-item">#오늘의 패션</li>
-						<li data-category="cms" class="tags-item">#HOT아이템</li>
-						<li data-category="libraries" class="tags-item">#럭셔리</li>
-						<li data-category="frameworks" class="tags-item">#빈티지</li>
-						<li data-category="frameworks" class="tags-item">#러블리</li>
-						<li data-category="languages" class="tags-item"><a href="#" onclick="smallcodeM(200400020); return false;">#향수</a></li>
+						<li data-category="libraries" class="tags-item"><a href="#" onclick="smallcodeM(70); return false;">#향수</li>
+                        <li data-category="cms" class="tags-item"><a href="#" onclick="smallcodeM(1); return false;">#댄디</li>
+                        <li data-category="languages" class="tags-item"><a href="#" onclick="smallcodeM(226); return false;">#악세사리</a></li>
+                        <li data-category="frameworks" class="tags-item"><a href="#" onclick="smallcodeM(3); return false;">#간지</li>
+                        <li data-category="software" class="tags-item">#아메리칸</li>
+                        <li data-category="workflow" class="tags-item">#캐주얼</li>
+                        <li data-category="languages" class="tags-item">#오늘의 패션</li>
+                        <li data-category="cms" class="tags-item">#HOT아이템</li>
+                        <li data-category="libraries" class="tags-item">#럭셔리</li>
+                        <li data-category="frameworks" class="tags-item">#빈티지</li>
+                        <li data-category="frameworks" class="tags-item">#러블리</li>
+                        <li data-category="languages" class="tags-item"><a href="#" onclick="smallcodeM(70); return false;">#셔츠</a></li>
 					</ul>
 				</div>
 			</div>

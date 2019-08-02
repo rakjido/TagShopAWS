@@ -120,8 +120,13 @@ $(function() {
 		});
 	
 	$(document).on('click','.dropdown-content li',function(){
-		$('#autocomplete').val($('span',this).text());
-		$('#searchDiv .dropdown-content').remove();
+		
+		var location = $('#url-import').attr('href').split('/');
+		var keyword = $('span',this).text();
+		console.log(keyword);
+        var encode = encodeURIComponent(keyword);
+        
+        window.location.href=ctx+"/"+location[1]+"/tag?search="+encode;
 	});
 	
 	$(document).on('click', function(e){
